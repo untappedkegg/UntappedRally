@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="180dp"
+    android:minHeight="40dp"
+    android:updatePeriodMillis="3600000"
+    android:initialLayout="@layout/widget_next_event"
+    android:previewImage="@drawable/widget_next_event_preview"
+    android:resizeMode="horizontal"
+    android:widgetCategory="home_screen|keyguard"
+    android:initialKeyguardLayout="@layout/widget_next_event">
+</appwidget-provider>
+    <!-- android:updatePeriodMillis="86400000" one day -->
+    <!-- android:configure="com.ra.widget.NextEventWidgetConfigureActivity" -->

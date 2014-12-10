@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">[Un]Official Rally-America</string>
+    <!-- WIDGETS -->
+    <string name="widget_next_event">Next Event</string>
+    <string name="title_section1">Home</string>
+    <string name="title_section2">News</string>
+    <string name="title_section3">Schedule &amp; Events</string>
+    <string name="title_section4">Standings</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="action_bar_modules">
+        <item>Home</item>
+        <item>Events</item>
+        <item>News</item>
+        <item>Results</item>
+        <item>Videos</item>
+        <item>Spectating</item>
+        <item>Worker Info</item>
+        <item>Feedback</item>
+        <item>Settings</item>
+        <item>About</item>
+        <item>Exit</item>
+    </string-array>
+
+    <string name="oops">Oops!</string>
+    <string name="no_network_connection_msg">You don\'t seem to have an Internet connection at the moment. We\'ll go ahead and load old data, if it exists</string>
+    <string name="generic_empty_list_text">No Data Found \nPlease try again later.</string>
+    <string name="invalid_url">That doesn\'t seem to be a valid link</string>
+
+    <!-- FeedBack -->
+    <string name="feedback">Feedback</string>
+    <string name="fb_hint">I love the app, but…</string>
+    <string name="fb_button">Send Feedback</string>
+    <string name="fb_preamble">App Version: %1$s Android SDK: %2$s Android Version: %3$s Device: %4$s: %5$s  Please leave the above lines for debugging purposes. Thank you!\n\n</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="menu">Menu</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_share">Share</string>
+    <string name="latest_news">Latest News</string>
+    <string name="upcoming_events">Upcoming Events</string>
+    <string name="next_event">Next Rally</string>
+    <string name="no_calendar">No calendar found.</string>
+    <string name="calendar_error">This event cannot be added to the calendar</string>
+    <string name="add_to_cal">Add To Calendar</string>
+    <string name="website">Website</string>
+    <string name="event_website">Event Website</string>
+    <string name="icon">icon</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+    <!-- Selector Strings -->
+    <string name="selector_next">Next</string>
+    <string name="selector_prev">Previous</string>
+    <string name="go">Go</string>
+    <string name="just_a_moment">Just a Moment…</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="event_live_notification_title_template">Live: %1$s</string>
+    <string name="event_live_notification_send_text">%1$s is now live!</string>
+    <string name="event_live_notification_share_chooser_text">Share this event</string>
+    <string name="action_share">Share</string>
+    <string name="action_website">Website</string>
+
+    <!-- Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
+
+    <!-- ABOUT -->
+    <string name="about_main">This app is developed and published by @insert_dev_name.
+        \nTo view the changelog or upcoming features, visit: @insert_website
+        \n\nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America in any way either expressed or implied.
+        \n\nSome content may be subject to copyright
+        \n\n<u><b>Disclaimer</b></u>:\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    </string>
+    <string name="about_learn_more"> To learn more about the series, go to http://www.rally-america.com</string>
+    <string name="about_version">App Version: %1$s</string>
+
+</resources>

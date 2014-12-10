@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout android:id="@+id/spinner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+	        <Spinner android:id="@+id/standings_championship_spinner"
+	            android:layout_height="wrap_content"
+	            android:layout_width="wrap_content"	  
+	            android:layout_alignParentLeft="true"         
+	            android:entries="@array/championships_array"
+	            style="@style/spinner"/>
+
+	        
+	        <Spinner android:id="@+id/standings_year_spinner"
+	            android:layout_height="wrap_content"
+	            android:layout_width="wrap_content"
+	            android:layout_alignParentRight="true"
+	            style="@style/spinner"/>  
+        
+    </RelativeLayout>
+    
+    <include layout="@layout/generic_webview"/>
+    
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".feedback.Feedback" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03" >
+
+         <TextView
+             android:id="@+id/limit_string"
+             android:layout_width="110dp"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+              
+             android:ems="10"
+             android:text="Character Count: " />
+         
+        <TextView
+            android:id="@+id/TextCounter"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+           android:layout_toRightOf="@+id/limit_string"
+            android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+            
+            android:ems="10"
+            android:text="0" >
+
+            <requestFocus />
+        </TextView>
+
+        <TextView
+            android:id="@+id/FeedbackLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop = "15dip"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/fb_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="30dip"
+        android:layout_marginBottom="50dp"
+        android:layout_weight="0.20"
+        android:inputType="textCapSentences|textMultiLine"
+        android:gravity="left"
+        android:hint="@string/fb_hint"
+        android:singleLine="false" />
+
+    <Button
+        android:id="@+id/fb_send"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" 
+	    android:text="@string/fb_button" />
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="events_round">Round: </string>
+    <string name="events_series">Series: </string>
+    <string name="events_flag">Flag</string>
+    <string name="events_start">Start Date:</string>
+    <string name="events_end">End Date:</string>
+    <string name="events_location">Location:</string>
+    <string name="events_stages">Stages</string>
+    <string name="events_photos">Photos</string>
+    <string name="events_results">Results</string>
+    
+    <!-- stages_row -->
+    <string name="event_stages_atc">First Car:</string>
+    
+    <!-- Schedule -->
+    <string name="upcoming">Upcoming</string>
+    <string name="live">LIVE!</string>
+    <string name="now_live">NOW LIVE!</string>
+    <string name="complete">Complete</string>
+    <string name="cancelled">CANCELLED</string>
+    
+    <string name="stages_unavailable">This event does not currently have any stage information.\n\nPlease check back closer to the event.</string>
+    <string name="stages_contacting">Retrieving Stage Information\nJust a Moment&#8230;</string>
+    
+    <string name="stage_results_format">&lt;!DOCTYPE html&gt;\n&lt;html lang="en"&gt;\n&lt;head&gt;\n&lt;meta name="viewport" content="initial-scale=1.0"&gt;\n&lt;meta charset="utf-8"&gt;\n&lt;/head&gt;\n&lt;body text="#ffffff" style="background:"#222222"; text-align:center;"&gt;&lt;h3&gt;%s&lt;/h3&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string name="stage_results_loading">Fetching Results.&lt;/h3&gt;&lt;h3&gt;Just a Moment...</string>
+    <string name="stage_results_error">No Stage Results Found</string>
+</resources>

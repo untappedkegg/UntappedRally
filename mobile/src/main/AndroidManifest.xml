@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.keggemeyer.rallyamerica" >
+
+    <!-- To get data -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To check for network connections, adn determine the type -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- To save images on external memory -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- <uses-permission android:name="android.permission.WAKE_LOCK" /> -->
+    <!-- Vibrate when a notification is received -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Restart event notifications on reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".AppState"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity android:name=".home.ActivityMain2" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        <activity
+            android:name=".home.Home"
+			android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+
+        <activity
+            android:name=".feedback.Feedback"
+            android:label="@string/feedback"
+            android:parentActivityName=".home.ActivityMain2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.ActivityMain2" />
+        </activity>
+        <activity
+            android:name=".event.EventActivity"
+            android:label="Event Details"
+            android:parentActivityName=".home.ActivityMain2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.ActivityMain" />
+        </activity>
+        <activity android:name=".HelperActivity" >
+        </activity>
+        <activity android:name=".widget.NextEventWidgetConfigureActivity" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".widget.NextEventWidget"
+            android:label="@string/widget_next_event" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/next_event_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".receivers.EventNotificationReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.ra.notification.NEXT_EVENT_RECEIVER" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receivers.GlobalReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".preference.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".home.ActivityMain2" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".home.ActivityMain2" />
+        </activity>
+    </application>
+
+</manifest>
