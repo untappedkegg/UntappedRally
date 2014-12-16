@@ -15,8 +15,6 @@ import com.keggemeyer.rallyamerica.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AboutFragment#newInstance} factory method to
- * create an instance of this fragment.
  *
  */
 public class AboutFragment extends Fragment {
@@ -35,12 +33,10 @@ public class AboutFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment AboutFragment.
      */
     // TODO: Rename and change types and number of parameters
-//    public static AboutFragment newInstance(String param1, String param2) {
+//    public static AboutFragment newInstance() {
 //        AboutFragment fragment = new AboutFragment();
 //        Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
