@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.keggemeyer.rallyamerica" >
+    package="com.untappedkegg.rally" >
 
     <!-- To get data -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -80,7 +80,7 @@
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
-                <action android:name="com.keggemeyer.rallyamerica.notification.NEXT_EVENT_RECEIVER" />
+                <action android:name="com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER" />
             </intent-filter>
         </receiver>
         <receiver

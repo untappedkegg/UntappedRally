@@ -15,7 +15,7 @@
             style="?android:attr/progressBarStyleLarge"
 	        android:layout_gravity="center" />
 
-	    <com.keggemeyer.rallyamerica.ui.view.CarouselViewPager
+	    <com.untappedkegg.rally.ui.view.CarouselViewPager
             android:id="@+id/generic_carousel_pager"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" />
