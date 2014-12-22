@@ -2,10 +2,10 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference android:key="settings_show_notifications"
+ <!--   <SwitchPreference android:key="settings_show_notifications"
         android:title="@string/settings_show_notifications"
         android:defaultValue="true"
-        />
+        />-->
     <CheckBoxPreference android:key="@string/settings_show_regional_events"
         android:title="@string/settings_show_regional_events"
         android:defaultValue="true"

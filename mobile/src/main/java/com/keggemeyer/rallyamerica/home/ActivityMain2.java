@@ -384,7 +384,7 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         settingsChanged = true;
 
-        if (key.equals(getString(R.string.settings_show_notifications))) {
+        if (key.equals("setting_notifications")) {
             AppState.setNextNotification();
         }
     }

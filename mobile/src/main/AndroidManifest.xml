@@ -80,7 +80,7 @@
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
-                <action android:name="com.ra.notification.NEXT_EVENT_RECEIVER" />
+                <action android:name="com.keggemeyer.rallyamerica.notification.NEXT_EVENT_RECEIVER" />
             </intent-filter>
         </receiver>
         <receiver

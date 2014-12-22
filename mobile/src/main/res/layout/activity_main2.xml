@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ra.home.MainActivity2" >
+    tools:context="com.keggemeyer.rallyamerica.home.MainActivity2" >
 
     <!--
          As the main content view, the view below consumes the entire
@@ -31,11 +31,11 @@
 
     <fragment
         android:id="@+id/left_drawer"
-        android:name="com.ra.home.NavDrawerFragment"
+        android:name="com.keggemeyer.rallyamerica.home.NavDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        tools:context="com.ra.home.NavDrawerFragment"
+        tools:context="com.keggemeyer.rallyamerica.home.NavDrawerFragment"
         tools:layout="@layout/navigation_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

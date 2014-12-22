@@ -44,31 +44,15 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
 
     }
 
-    //	@Override
-    //	public void onActivityCreated(Bundle savedInstanceState) {
-    //		super.onActivityCreated(savedInstanceState);
-    //		dataFetched = false;
-    //OnClickListeners must be set in onActivityCreated
-    //	}
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //		activity.getActionBar().setDisplayShowTitleEnabled(true);
-        //		getActivity().getActionBar().setTitle(R.string.app_name);
 
         try {
-            //	    	Bundle bundle = getArguments();
             isHomeFragment = getArguments().getBoolean("isHomeFragment");
         } catch (NullPointerException e) {
             isHomeFragment = false;
         }
-        //		try {
-        //			callbacks = (Callbacks) activity;
-        //		} catch (ClassCastException e) {
-        //			throw new ClassCastException(activity.toString()
-        //					+ " must implement HomeFragment.Callbacks.");
-        //		}
     }
 
     /* ----- INHERITED METHODS ----- */
@@ -170,7 +154,12 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
         }
     }
 
-	/*----- NESTED CLASSES -----*/
+    @Override
+    protected String getCustomEmptyText() {
+        return this.getString(R.string.news_no_new);
+    }
+
+    /*----- NESTED CLASSES -----*/
     //	private class NewsUpdateTimerTask extends TimerTask {
 
 		/* ----- INHERITED METHODS ----- */
@@ -189,30 +178,5 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
     //		}
     //	}
 
-/*	public static class NewsCursorAdapter extends SimpleCursorAdapter {
 
-		public NewsCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
-			super(context, layout, c, from, to, flags);
-
-		}
-
-		@Override
-		public void bindView(View v, Context ctx, Cursor c) {
-			super.bindView(v, ctx, c);
-
-			ViewHolder holder = (ViewHolder) v.getTag();
-			if(holder == null) {
-				holder= new ViewHolder();
-				holder.icon = (ImageView) v.findViewById(R.id.list_icon);
-				holder.description = (TextView) v.findViewById(R.id.list_descr);
-			}
-		}
-
-		static class ViewHolder {
-			ImageView icon;
-			TextView title, description;
-			int titleCol, descrCol, iconCol;
-		}
-	}
-*/
 }

@@ -73,25 +73,9 @@ public class AppState extends Application {
 
     public static final int PAGE_COUNT = 5;
 
-    //Radio Streams
-    //	public static final String IR_WRC_RADIO = "http://icy-e-01.sharp-stream.com/worldrallyradio.mp3";
-    //	public static final String IR_ERC_RADIO = "http://icy-e-01.sharp-stream.com/rallyradio.mp3";
-    //	public static final String WR_WRC_RADIO = "http://wrcuniversal-lh.akamaihd.net/i/wrc_radio_eng_1@137002/master.m3u8";
-
     // News Links
     public static final String RSS_IRALLY = "http://www.irallylive.com/rss/irally_news.xml";
-    //	public static final String ALT_IRALLY_RSS = "http://www.irallylive.com/rss/wrr_news.xml";
-    //TimeZone is UTC (+1 during Daylight Savings, BST) Edinburgh, Scotland
-    //	public static final String RSS_OFFICIAL_WRC = "http://www.wrc.com/services/newsrss.jsp";
-    //TimeZone is UTC (+1 during Daylight Savings, BST) London, UK
-    //	public static final String RSS_CITROEN = "http://feeds.feedburner.com/citroenracing_en";
-    //TimeZone is UTC +1 (+2 during Daylight Savings, CEST) France
-    //	public static final String RSS_MINI = "http://www.minimotorsport.com/en/rss/feed/mini_news";
-    //TimeZone is UTC (+1 during Daylight Savings, BST) London, UK
-    //	public static final String RSS_BEST_OF = "http://en.best-of-rallylive.com/rss_news";
-    //TimeZone is UTC +1 (+2 during Daylight Savings, CEST) France
     public static final String RSS_RALLY_MERICA = "http://rally-america.com/news/rss";
-    //Dates are formatted strange
 
     //Calendars
     //	public static final String EGG_CAL_XML= "https://bowtieegg.com/kyle/rally/schedule/events";
@@ -103,20 +87,11 @@ public class AppState extends Application {
     //Alternatively the xml and script are hosted at bowtieegg.com
     //	public static final String EGG_CAL_XML = http://bowtieegg.com/kyle/wrc/schedule/events
 
-    //IRally Urls
-    //	public static final String IRALLY_BASE_URL = "http://www.ralsys.com/irally_xml/";
-    //	public static final String IRALLY_EVENTS = "events.php";
-
-    //	public static final String WRC_STANDINGS = "http://www.wrc.com/en/wrc/results/championship/drivers/page/193-290---.html";
     public static final String RA_STANDINGS = "http://rally-america.com/champ_standings2?Endo=%s&Class=%s&Champ=0&yr=%s";
     public static final String RA_BASE_URL = "http://rally-america.com";
 
     //	public static final String YOUTUBE_RA = "http://gdata.youtube.com/feeds/base/users/RallyAmericaSeries/uploads?max-results=20&alt=rss&orderby=published";
     public static final String YOUTUBE_RA = "http://gdata.youtube.com/feeds/mobile/users/RallyAmericaSeries/uploads?max-results=20&orderby=published&format=1";
-
-    //Live Text
-    //	public static final String WRC_LIVE_TEXT = "http://www.wrc.com/live-ticker/live_popup_text.html";
-    //grab starting after this tag: <div class="popuptext scrollcontent">
 
 
     // Sources
@@ -140,18 +115,9 @@ public class AppState extends Application {
     public static final String MOD_STAGES = "com.keggemeyer.rallyamerica.Stages";
     public static final String MOD_PICS = "com.keggemeyer.rallyamerica.Photos";
 
-    //	public static final String FUNC_WRC_STAND = "wrc-standing";
     public static final String FUNC_RA_STAND = "ra-standing";
     public static final String FUNC_STAGE_TIMES = "/stages/stage/%d";
     public static final String FUNC_STAGE_RESULTS = "/results/standings/%d";
-
-
-    //Teams
-    //	public static final String TEAM_CITROEN = "Citroen";
-    //	public static final String TEAM_VDUB = "VW";
-    //	public static final String TEAM_MINI = "Mini";
-    //	public static final String TEAM_FORD = "Ford";
-    //	public static final String TEAM_NONE = "None";
 
     //SharedPreferences Fields
     public static final String PREFERENCES_NAME = "SharedPreferences";
@@ -380,7 +346,6 @@ public class AppState extends Application {
     }
 
     public static void setNextNotification() {
-//        if (getSettings().getBoolean(instance.getString(R.string.settings_show_notifications), true)) {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
@@ -390,14 +355,10 @@ public class AppState extends Application {
                 //The intent is declared in the manifest, if changed here it must also be changed there
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.keggemeyer.rallyamerica.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
                 alarm.set(AlarmManager.RTC, diff, pendingIntent);
-//                Log.w("Set Next Notification", "Successful");
             } catch (ParseException e) {
                 e.printStackTrace();
             } finally {
                 BaseDbAccessor.close();
             }
-//        }
     }
 }
-
-

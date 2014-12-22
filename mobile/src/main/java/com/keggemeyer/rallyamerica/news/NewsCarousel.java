@@ -29,23 +29,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks, Refreshable {
 
-    //    private Callbacks callbacks;
-
     public NewsCarousel() {
         // Required empty public constructor
-
     }
 
-    //    @Override
-    //    public void onAttach(Activity activity) {
-    //        super.onAttach(activity);
-    //        try {
-    //            callbacks = (Callbacks) activity;
-    //        } catch (ClassCastException e) {
-    //            throw new ClassCastException(activity.toString()
-    //                    + " must implement OnFragmentInteractionListener");
-    //        }
-    //    }
 
     @Override
     public void fetchData() {
@@ -101,11 +88,6 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
         return new NewsCarouselViewBinder();
     }
 
-    //    @Override
-    //    public void onDetach() {
-    //        super.onDetach();
-    //        callbacks = null;
-    //    }
 
     /**
      * Called when a view has been clicked.
@@ -153,6 +135,11 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
     public void refreshData() {
         DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
         progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected String getCustomEmptyText() {
+        return this.getString(R.string.news_no_new);
     }
 
     /**

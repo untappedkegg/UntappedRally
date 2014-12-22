@@ -8,17 +8,18 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="1" >
-	
-	    <ProgressBar android:id="@+id/generic_carousel_progress" 
+
+	    <ProgressBar android:id="@+id/generic_carousel_progress"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
             style="?android:attr/progressBarStyleLarge"
 	        android:layout_gravity="center" />
-	
-	    <com.ra.ui.view.CarouselViewPager android:id="@+id/generic_carousel_pager"
+
+	    <com.keggemeyer.rallyamerica.ui.view.CarouselViewPager
+            android:id="@+id/generic_carousel_pager"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" />
-	    
+
 	</FrameLayout>
 
     <!-- <com.ra.ui.view.ViewPagerDots

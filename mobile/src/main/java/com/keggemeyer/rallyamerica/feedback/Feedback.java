@@ -24,11 +24,9 @@ public class Feedback extends Activity implements OnClickListener {
 
     /* ----- VARIABLES ----- */
     private String mFbMsg;
-    boolean isSuccessful = true;
     private TextView mTextView;
     private EditText mEditText;
     //	private TextView mNotifyLimits;
-    boolean successful = false;
     private String SUBJECT;
 
     /* ----- LIFECYCLE METHODS -----*/
@@ -92,33 +90,6 @@ public class Feedback extends Activity implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //		switch(v.getId()){
-        //		case R.id.fb_send_twitter:
-        //			if (mFbMsg.length() > TWITTER_LIMIT) {
-        //				mMsg = "Twitter posts must be " + TWITTER_LIMIT + " characters or less.";
-        //				Toast.makeText(this, mMsg, Toast.LENGTH_LONG).show();
-        //			}
-        //			else{
-        //				getSupportFragmentManager().popBackStack();
-        //
-        //				Intent twitter = new Intent(android.content.Intent.ACTION_SEND);
-        //				twitter.setType("text/plain");
-        //				twitter.putExtra(android.content.Intent.EXTRA_TEXT, "@MUdoit " + mFbMsg);
-        //				PackageManager pm = getPackageManager();
-        //				List<ResolveInfo> activityList = pm.queryIntentActivities(twitter, 0);
-        //				for (final ResolveInfo app : activityList) {
-        //				    if ("com.twitter.android.PostActivity".equals(app.activityInfo.name)) {
-        //				        final ActivityInfo activity = app.activityInfo;
-        //				        final ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
-        //				        twitter.addCategory(Intent.CATEGORY_LAUNCHER);
-        //				        twitter.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        //				        twitter.setComponent(name);
-        //				        startActivity(twitter);
-        //				        break;
-        //				     }
-        //				  }
-        //			}
-        //			break;
         String version;
         try {
             version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -126,18 +97,14 @@ public class Feedback extends Activity implements OnClickListener {
             Log.e(((Object) this).getClass().getSimpleName(), "Could not find our package. Initiate FUBAR sequence.");
             version = "";
         }
-//        mFbMsg = getString(R.string.about_version, version + "\n", Build.VERSION.SDK_INT + "\n", Build.VERSION.RELEASE + '\n', Build.PRODUCT, Build.MODEL);
+
         mFbMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s \nPlease leave the above lines for debugging purposes. Thank you!\n\n", version, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL);
         mFbMsg += mEditText.getText().toString();
 
         if (mFbMsg.length() < 1) {
             Toast.makeText(this, "Please include some text for feedback.", Toast.LENGTH_SHORT).show();
         } else {
-            CommonIntents.sendEmail(this, "TeamKyleRacing@gmail.com", SUBJECT, mFbMsg);
-            //		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","TeamKyleRacing@gmail.com", null));
-            //		emailIntent.putExtra(Intent.EXTRA_SUBJECT, SUBJECT);
-            //		emailIntent.putExtra(Intent.EXTRA_TEXT, mFbMsg);
-            //		startActivityForResult(Intent.createChooser(emailIntent, "Send email..."), 0);
+            CommonIntents.sendEmail(this, "UntappedKegg@gmail.com", SUBJECT, mFbMsg);
         }
     }
 

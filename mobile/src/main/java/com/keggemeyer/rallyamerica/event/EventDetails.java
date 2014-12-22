@@ -343,7 +343,11 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
 
     @Override
     public void onDataFetchComplete(Throwable away, String function) {
-        loadData();
+        try {
+            loadData();
+        } catch (Exception e) {
+            //Not attached
+        }
     }
 
 

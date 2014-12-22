@@ -20,7 +20,6 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     private String eventCode;
     private short year;
     private boolean isFinished;
-    //	private final String contacting = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" style=\"background:#222222; text-align:center;\"><h3>%s</h3>";
 
     /**
      * (non-Javadoc)
