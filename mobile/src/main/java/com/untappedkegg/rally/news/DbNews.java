@@ -83,7 +83,7 @@ public class DbNews extends BaseDbAccessor {
     public static final void deleteOldItems() {
         Calendar cal = GregorianCalendar.getInstance();
         cal.setTime(new Date());
-        cal.add(Calendar.DAY_OF_YEAR, -AppState.NEWS_OLD_ITEM_CUTOFF);
+        cal.add(Calendar.DAY_OF_YEAR, -Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "60"))/*AppState.NEWS_OLD_ITEM_CUTOFF*/);
         Date daysBeforeDate = cal.getTime();
         String oldDate = DateManager.ISO8601_DATEONLY.format(daysBeforeDate);//(DateManager.now(), DateManager.ISO8601_DATEONLY, -20, Calendar.DATE);
         String where = String.format("%s < '%s'", PUBDATE, oldDate);

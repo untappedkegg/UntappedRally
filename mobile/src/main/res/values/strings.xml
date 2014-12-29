@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">[Un]Official Rally-America</string>
+    <string name="app_name">Untapped Rally</string>
     <!-- WIDGETS -->
     <string name="widget_next_event">Next Event</string>
     <string name="title_section1">Home</string>

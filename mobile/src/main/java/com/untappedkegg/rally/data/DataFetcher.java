@@ -228,7 +228,7 @@ public class DataFetcher {
                 try {
                     HttpURLConnection conn = NewDataFetcher.get(task.link, null);
                     if (conn.getResponseCode() == 200) {
-                        DbNews.deleteOldItems();
+//                        DbNews.deleteOldItems();
 
                         SAXParserFactory.newInstance().newSAXParser().parse(conn.getInputStream(), task.sax);
                     }

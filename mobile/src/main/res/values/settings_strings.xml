@@ -6,5 +6,23 @@
     <string name="settings_use_experimental_sched">Use Experimental Schedule</string>
     <string name="settings_use_experimental_sched_summary">Takes effect immediately, but is not retroactive</string>
 
+    <string name="pref_news_title">Number of Days to Keep News Items</string>
+    <string name="pref_news_dialog_title">Keep For</string>
+    <string-array name="pref_news_entries">
+        <item>15 days</item>
+        <item>30 days</item>
+        <item>45 days</item>
+        <item>60 days</item>
+    </string-array>
+
+    <string-array name="pref_news_values">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+    </string-array>
+
+    <string name="pref_news_default">30</string>
+
 
 </resources>
