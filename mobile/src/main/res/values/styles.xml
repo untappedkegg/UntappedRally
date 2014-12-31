@@ -21,7 +21,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
     <style name="MyListViewStyle" parent="@android:style/Widget.ListView">
-        
+
 <item name="android:divider">@color/list_divider_color</item>
 <item name="android:dividerHeight">1px</item>
 <item name="android:listSelector">?android:attr/selectableItemBackground</item>
@@ -33,39 +33,40 @@
         <item name="android:background">@color/ActionBar_actual</item>
     </style>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        
+
        <!--  <item name="android:textColor">@color/text_color</item>
     </style> -->
-    
+
     <style name="AlertDialogCustom" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:textColor">#000000</item>
         <item name="android:paddingRight">11dip</item>
     </style>
-    
+
     <style name="spinner" parent="@android:style/Widget.Holo.Spinner">
         <item name="android:popupBackground">@color/translucent_dim_gray</item>
     </style>
-    
+
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
     <item name="android:popupBackground">@color/translucent_dim_gray</item>
 </style>
-    
-    
+
+
     <!-- App Colors -->
     <color name="title_bar_background">#33B5E5</color>
     <color name="title_bar_text">#FFFFFF</color>
-    
+
     <color name="light_green">#FF008500</color>
 	<color name="light_red">#FF850000</color>
-	
+
 	<color name="section_header">#FF4500</color>
 	<color name="section_text">#FFFFFF</color>
-	
+
 	<color name="text_color">#FFFFFF</color>
 	<color name="title_color">#FFFFFF</color>
-	
+    <color name="ra_link_color">#FDBC11</color>
 
- <color name="ActionBar_actual">#141414</color>	 
+
+ <color name="ActionBar_actual">#141414</color>
  <color name="ActionBar">#222222</color>
  <color name="ActionBar_transparent">#CC222222</color>
  <!--<color name="list_divider_color">#33B5E5</color>-->
@@ -74,9 +75,9 @@
  <color name="translucent_dim_gray">#EE696969</color>
  <color name="translucent_dim_gray_more">#BB696969</color>
  <color name="side_menu">#DD333333</color>
-	
+
 	<!-- Generic Colors -->
-	
+
  <color name="white">#FFFFFF</color>
  <color name="yellow">#FFFF00</color>
  <color name="fuchsia">#FF00FF</color>
@@ -94,7 +95,7 @@
  <color name="navy">#000080</color>
  <color name="black">#000000</color>
 
- 
+
  <color name="White">#FFFFFF</color>
  <color name="Ivory">#FFFFF0</color>
  <color name="LightYellow">#FFFFE0</color>
@@ -235,7 +236,7 @@
  <color name="DarkBlue">#00008B</color>
  <color name="Navy">#000080</color>
  <color name="Black">#000000</color>
- 
-	
+
+
 
 </resources>

@@ -24,9 +24,9 @@ import java.util.Locale;
  */
 public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
     private Fragment parentFragment;
-    private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ra_large) // resource or drawable
-            .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
-            .showImageOnFail(R.drawable.ra_large) // resource or drawable
+    private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
+            .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
+            .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
             .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
 
 

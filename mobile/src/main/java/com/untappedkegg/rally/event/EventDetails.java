@@ -6,6 +6,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.LayoutInflater;
@@ -40,10 +41,15 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
     private static String eventName;
     private Callbacks callback;
     private boolean isFinished = false;
-    private final DisplayImageOptions eventOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ra_large) // resource or drawable
-            .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
-            .showImageOnFail(R.drawable.ra_large) // resource or drawable
-            .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.ARGB_8888).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
+    private final DisplayImageOptions eventOptions = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
+            .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
+            .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
+            .cacheInMemory(true).cacheOnDisk(true)
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .bitmapConfig(Bitmap.Config.ARGB_8888)
+            .displayer(new FadeInBitmapDisplayer(750, true, true, false))
+            .build();
 
     //	private Button addToCalBtn, webSiteBtn, raWebsiteBtn;
     /*----- LIFECYCLE METHODS -----*/
@@ -90,6 +96,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if(!isFinished)
         inflater.inflate(R.menu.detail, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -141,7 +148,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
 
     @Override
     public void fetchData() {
-        EventFetcher.getInstance().startDetails(this, DbSchedule.fetchEventRA_link(this.eventId));
+        EventFetcher.getInstance().startDetails(this, DbSchedule.fetchEventRA_link(eventId));
     }
 
     @Override
@@ -170,7 +177,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
                     final ImageView imageView = (ImageView) v.findViewById(R.id.events_image);
                     //				ImageLoader.getInstance().displayImage(uri, imageView);
                     if (!AppState.isNullOrEmpty(uri)) {
-                        Context context = imageView.getContext();
+//                        Context context = imageView.getContext();
                         imageView.setAdjustViewBounds(true);
 
                         if (uri.contains("100AW")) {
@@ -194,6 +201,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
                             CommonIntents.getDirections(getActivity(), ((TextView) v).getText().toString());
                         }
                     });
+                    ((TextView) v).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                     return false;
                 case R.id.events_round:
                     if (c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_SERIES)).equalsIgnoreCase("regional")) {

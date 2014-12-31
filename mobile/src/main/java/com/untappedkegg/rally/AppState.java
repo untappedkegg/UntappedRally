@@ -250,12 +250,13 @@ public class AppState extends Application {
         super.onCreate();
         // Initialize the default preferences. The third parameter indicates whether this should be done more than once
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
 
         // Create global configuration and initialize ImageLoader with this configuration
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.image_placeholder) // resource or drawable
                 .showImageForEmptyUri(R.drawable.image_placeholder) // resource or drawable
-                .showImageOnFail(R.drawable.ra_large) // resource or drawable
+                .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
                 .cacheInMemory(true).cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
@@ -265,7 +266,6 @@ public class AppState extends Application {
                 .defaultDisplayImageOptions(defaultOptions)
                 .threadPoolSize(4)
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .writeDebugLogs()
                 .build();
 
         ImageLoader.getInstance().init(config);
