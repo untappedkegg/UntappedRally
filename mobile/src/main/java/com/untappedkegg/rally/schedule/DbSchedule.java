@@ -107,7 +107,7 @@ public class DbSchedule extends BaseDbAccessor {
 
     public static final Cursor getChildren(String yearActual) {
         SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
-        Log.w(DbSchedule.LOG_TAG, "SHOW_ALL = " + SHOW_ALL );
+//        Log.w(DbSchedule.LOG_TAG, "SHOW_ALL = " + SHOW_ALL );
         if (SHOW_ALL) {
             return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s ORDER BY %s ASC", SCHED_TABLE, SCHED_YEAR_ACTUAL, yearActual,SCHED_START_DATE );
         } else {
@@ -150,7 +150,7 @@ public class DbSchedule extends BaseDbAccessor {
 
     public static final String fetchNextEventStart() {
         final String today = DateManager.now(DateManager.ISO8601_DATEONLY);
-        Log.e("DbSchedule", "today = " + today);
+//        Log.e("DbSchedule", "today = " + today);
         SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
         Cursor cursor;
         if ( SHOW_ALL ) {

@@ -6,6 +6,6 @@
 
     <string name="pub_date">Published: </string>
 
-    <string name="news_no_new">Nothing to see here.\nThere doesn\'t appear to be any recent news items</string>
+    <string name="news_no_new">Nothing to see here.\nThere doesn\'t appear to be any recent news items\n\nPerhaps try adjusting the number of days to keep news items under Settings</string>
 
 </resources>

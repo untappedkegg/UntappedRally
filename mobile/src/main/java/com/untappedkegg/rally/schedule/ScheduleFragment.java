@@ -27,7 +27,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.text.ParseException;
 import java.util.Calendar;
 
-public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, OnClickListener,/*OnItemLongClickListener,*/ Refreshable, OnMenuItemClickListener {
+public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, OnClickListener, Refreshable, OnMenuItemClickListener, View.OnLongClickListener {
 
     private Callbacks callback;
     private boolean isHomeFragment;
@@ -62,12 +62,12 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
         }
     }
 
-    //    @Override
-    //	public void onActivityCreated(Bundle savedState) {
-    //	    super.onActivityCreated(savedState);
-
-    //	    getListView().setOnItemLongClickListener(this);
-    //	}
+//        @Override
+//    	public void onActivityCreated(Bundle savedState) {
+//    	    super.onActivityCreated(savedState);
+//
+//    	    getListView().setOnItemLongClickListener(this);
+//    	}
 
 
     /* ----- INHERITED METHODS ----- */
@@ -205,22 +205,29 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
         return true;
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        menuView = v; //((View) view.getParent().getParent());
+        final boolean isFinished = DbSchedule.isEventFinished(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
+        final String date = ((TextView) menuView.findViewById(R.id.sched_date)).getText().toString();
+        PopupMenu popup = new PopupMenu(getActivity(), v);
+        popup.inflate(R.menu.schedule);
+        if (AppState.isNullOrEmpty(((TextView) menuView.findViewById(R.id.sched_website)).getText().toString())) {
+            popup.getMenu().removeItem(R.id.menu_schedule_website);
+        }
+        if (!isFinished) {
+            popup.getMenu().removeItem(R.id.menu_schedule_photos);
+        }
+        if ("TBD".equalsIgnoreCase(date) || "CANCELLED".equalsIgnoreCase(date) || isFinished) {
+            popup.getMenu().removeItem(R.id.menu_schedule_add_to_cal);
+        }
+        popup.setOnMenuItemClickListener(this);
+        popup.show();
 
-    //	@Override
-    //	public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-    //		String startDate = ((TextView) v.findViewById(R.id.start_date)).getText().toString();
-    //		String endDate = ((TextView) v.findViewById(R.id.end_date)).getText().toString();
-    //
-    //		try {
-    //			CommonIntents.addRallyToCalendar(getActivity(), ((TextView) v.findViewById(R.id.sched_title)).getText().toString(), DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1) );
-    //			return true;
-    //		} catch (ParseException e) {
-    //			//
-    ////			e.printStackTrace();
-    //			return false;
-    //		}
-    //
-    //	}
+        return true;
+    }
+
+
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {

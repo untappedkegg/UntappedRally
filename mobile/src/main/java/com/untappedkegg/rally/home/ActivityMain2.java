@@ -41,6 +41,7 @@ import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsActivity;
 import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
 import com.untappedkegg.rally.schedule.ScheduleFragment;
+import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DialogManager;
@@ -276,17 +277,10 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
                 fragment = new HomeFragment();
                 break;
             case 1:
-                if (AppState.getSettings().getBoolean(getString(R.string.settings_use_experimental_sched), false)) {
-//                    uri = ExpandableScheduleFragment.class.getName();
-                    fragment = new ExpandableScheduleFragment();
-                } else {
-//                    uri = ScheduleFragment.class.getName();
-                    fragment = new ScheduleFragment();
-                }
+                fragment = new ScheduleStub();
                 break;
             case 2:
                 fragment = new NewsFragment();
-                //			break;
 //                uri = NewsFragment.class.getName();
                 break;
             case 3:
@@ -320,6 +314,18 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
             case 10: // Exit
                 this.finish();
                 return;
+//            final AlarmManager alarm = (AlarmManager) AppState.getApplication().getSystemService(Context.ALARM_SERVICE);
+//            BaseDbAccessor.open();
+//            try {
+//                // For testing, set the timer to go off in 1 minute
+//                final long diff = System.currentTimeMillis() + (10 * 1000);
+////                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime();
+//                //The intent is declared in the manifest, if changed here it must also be changed there
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(AppState.getApplication(), 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
+//                alarm.set(AlarmManager.RTC, diff, pendingIntent);
+//            } finally {
+//                BaseDbAccessor.close();
+//            }
             default:
 
                 break;
@@ -386,6 +392,8 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
 
         if (key.equals("setting_notifications")) {
             AppState.setNextNotification();
+        } else if (key.equals("pref_news_cutoff")) {
+            AppState.NEWS_REFRESH = true;
         }
     }
 }

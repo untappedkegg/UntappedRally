@@ -57,7 +57,8 @@ public class AppState extends Application {
     public static final String KEY_POSITION = "com.untappedkegg.rally.POSITION";
 
     // Concurrency
-    public static final short NEWS_OLD_ITEM_CUTOFF = 30;
+//    public static int NEWS_OLD_ITEM_CUTOFF = Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"));
+    public static boolean NEWS_REFRESH = false;
     //	public static final short REQUERY_DELAY = 1000;
     public static final short REQUERY_WAIT = 500;
     //	public static final String SERIES_WRC = "0013";

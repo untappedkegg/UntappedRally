@@ -83,9 +83,9 @@
         \nTo view the changelog or upcoming features, visit: rally.untappedkegg.com
         \n\nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America in any way either expressed or implied.
         \n\nSome content may be subject to copyright
-        \n\n<u><b>Disclaimer</b></u>:\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    </string>
+        \n\n<u><b>Disclaimer</b></u>:\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</string>
     <string name="about_learn_more"> To learn more about the series, go to http://www.rally-america.com</string>
     <string name="about_version">App Version: %1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -33,6 +33,14 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
         // Required empty public constructor
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (AppState.NEWS_REFRESH) {
+            this.refreshData();
+            AppState.NEWS_REFRESH = false;
+        }
+    }
 
     @Override
     public void fetchData() {

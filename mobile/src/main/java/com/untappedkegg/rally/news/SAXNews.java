@@ -72,7 +72,7 @@ public class SAXNews extends BaseSAX {
             }
 
             try {
-                if (DateManager.timeBetweenInDays(DateManager.DATABASE.parse(pubDate).getTime()) < AppState.NEWS_OLD_ITEM_CUTOFF) {
+                if (DateManager.timeBetweenInDays(DateManager.DATABASE.parse(pubDate).getTime()) < Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"))) {
                     if ((!uri.equals(AppState.SOURCE_RALLY_AMERICA) && title.startsWith("RA")) || uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
                         DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
                     }

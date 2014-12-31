@@ -4,7 +4,7 @@
     <string name="settings_show_notifications">Event Notifications</string>
     <string name="settings_show_regional_events">Show Regional Events</string>
     <string name="settings_use_experimental_sched">Use Experimental Schedule</string>
-    <string name="settings_use_experimental_sched_summary">Takes effect immediately, but is not retroactive</string>
+    <string name="settings_use_experimental_sched_summary">Here be dragons</string>
 
     <string name="pref_news_title">Number of Days to Keep News Items</string>
     <string name="pref_news_dialog_title">Keep For</string>
@@ -13,6 +13,7 @@
         <item>30 days</item>
         <item>45 days</item>
         <item>60 days</item>
+        <item>90 days</item>
     </string-array>
 
     <string-array name="pref_news_values">
@@ -20,9 +21,11 @@
         <item>30</item>
         <item>45</item>
         <item>60</item>
+        <item>90</item>
     </string-array>
 
     <string name="pref_news_default">30</string>
+    <string name="settings_notify_button">Test Notification</string>
 
 
 </resources>

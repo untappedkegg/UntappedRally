@@ -1,6 +1,9 @@
 package com.untappedkegg.rally.preference;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -17,7 +20,10 @@ import android.preference.RingtonePreference;
 import android.support.v4.app.NavUtils;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 
 import java.util.List;
@@ -33,7 +39,8 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements View.OnClickListener {
+    private Button notifyButton;
     /**
      * Determines whether to always show the simplified settings UI, where
      * settings are presented in a single list. When false, settings are shown
@@ -46,6 +53,10 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        notifyButton = new Button(this);
+        notifyButton.setText(R.string.settings_notify_button);
+        notifyButton.setOnClickListener(this);
+        getListView().addFooterView(notifyButton);
     }
 
     @Override
@@ -218,6 +229,17 @@ public class SettingsActivity extends PreferenceActivity {
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+    }
+
+    @Override
+    public void onClick(View v) {
+        final AlarmManager alarm = (AlarmManager) AppState.getApplication().getSystemService(Context.ALARM_SERVICE);
+
+               //The intent is declared in the manifest, if changed here it must also be changed there
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(AppState.getApplication(), 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
+                alarm.set(AlarmManager.RTC, 0, pendingIntent);
+        AppState.setNextNotification();
+
     }
 
     /**

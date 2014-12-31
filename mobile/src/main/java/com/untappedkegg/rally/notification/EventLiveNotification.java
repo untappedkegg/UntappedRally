@@ -97,13 +97,13 @@ public class EventLiveNotification {
         ////            diff = 0;
         //            e.printStackTrace();
         //        }
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+//
+                .setSound(Uri.parse(AppState.getSettings().getString("setting_notifications_ringtone", "content://settings/system/notification_sound")))
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
-                .setDefaults(Notification.DEFAULT_ALL)
-
+                .setDefaults(Notification.DEFAULT_LIGHTS)
                         // Set required fields, including the small icon, the
                         // notification title, and text.
                 .setSmallIcon(R.drawable.ic_launcher).setContentTitle(title)
@@ -154,6 +154,8 @@ public class EventLiveNotification {
 
                         // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
+        if (AppState.getSettings().getBoolean("setting_notifications_vibrate", true))
+        builder = builder.setDefaults(Notification.DEFAULT_VIBRATE);
 
         notify(context, builder.build());
     }

@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    <ScrollView 
+
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        
-        <RelativeLayout 
+
+        <RelativeLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="0dp"
 		    android:layout_marginBottom="50dp" >
@@ -22,8 +22,8 @@
 		        android:layout_marginTop="20dp"
 		        android:layout_marginLeft="20dp"
 		        android:text="Use 24 Hour Time" />
-		
-		
+
+
 		    <Spinner
 		        android:id="@+id/settings_team_list"
 		        android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
 		        android:layout_marginTop="10dp"
 		        android:layout_toRightOf="@+id/settings_time_text"
 		        android:text="Favorite Team" />
-		
+
 		    <TextView
 		        android:id="@+id/settings_team_text"
 		        android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
 		        android:layout_marginLeft="20dp"
 		        android:text="Favorite Team"
 		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		
+
 		    <CheckBox
 		        android:id="@+id/settings_24hr"
 		        android:layout_width="wrap_content"
@@ -53,10 +53,10 @@
 		        android:layout_alignTop="@+id/settings_time_text"
 		        android:layout_marginRight="40dp" />
 		    </RelativeLayout>
-    
+
     </ScrollView>
-    
-   		<LinearLayout 
+
+   		<LinearLayout
    		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"

@@ -55,6 +55,15 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (AppState.NEWS_REFRESH) {
+            this.refreshData();
+            AppState.NEWS_REFRESH = false;
+        }
+    }
+
     /* ----- INHERITED METHODS ----- */
     //	Fragment
     @Override

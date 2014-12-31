@@ -54,7 +54,7 @@
             android:parentActivityName=".home.ActivityMain2" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain" />
+                android:value=".home.ActivityMain2" />
         </activity>
         <activity android:name=".HelperActivity" >
         </activity>

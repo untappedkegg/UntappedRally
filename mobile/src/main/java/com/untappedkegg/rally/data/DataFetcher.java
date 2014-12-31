@@ -240,6 +240,7 @@ public class DataFetcher {
                 }
 
             }
+            DbNews.deleteOldItems();
             DbNews.close();
 
             return null;
