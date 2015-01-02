@@ -98,7 +98,7 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ImageLoader.getInstance().displayImage(imgLink, imageView);
-        imageView.setOnClickListener(this);
+//        imageView.setOnClickListener(this);
         mTitle.setText(title);
         mTitle.setOnClickListener(this);
 
