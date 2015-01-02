@@ -34,7 +34,7 @@ import android.widget.ListView;
 
 import com.untappedkegg.rally.R;
 
-
+@Deprecated
 public abstract class PreferenceFragment extends Fragment implements PreferenceManagerCompat.OnPreferenceTreeClickListener {
 
     private static final String PREFERENCES_TAG = "android:preferences";

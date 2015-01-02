@@ -42,7 +42,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder = new ScheduleViewHolder();
             holder.icon = (ImageView) v.findViewById(R.id.sched_icon);
             holder.title = (TextView) v.findViewById(R.id.sched_title);
-            holder.id = (TextView) v.findViewById(R.id.sched_title);
+//            holder.id = (TextView) v.findViewById(R.id.sched_title);
             holder.menu = (ImageView) v.findViewById(R.id.sched_menu_btn);
 
             holder.date = (TextView) v.findViewById(R.id.sched_date);
@@ -57,7 +57,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder.locColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_LOC);
             holder.iconColumn = c.getColumnIndex(DbSchedule.SCHED_SHORT_CODE);
             holder.titleColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_TITLE);
-            holder.idColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_ID);
+//            holder.idColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_ID);
             holder.fromToColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_FROM_TO);
             holder.eventWebsiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_EVT_SITE);
             holder.websiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_SITE);
@@ -75,19 +75,12 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder.icon.setMaxHeight(125);
             holder.icon.setAdjustViewBounds(true);
 
-            //			Context context = imageView.getContext();
-
             if (uri.contains("100aw")) {
                 uri = "ra" + uri;
             }
 
             ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri + "_large", holder.icon, scheduleOptions);
-            //			int id = ctx.getResources().getIdentifier(uri, "drawable", ctx.getPackageName());
-            //			if (id != 0) {
-            //				holder.icon.setImageResource(id);
-            //			} else {
-            //				holder.icon.setImageResource(R.drawable.ra_large);
-            //			}
+
         }
 
 
@@ -136,7 +129,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
 
     static class ScheduleViewHolder {
         ImageView icon, menu;
-        TextView title, id, date, status, eventWebsite, website, startDate, endDate, location;
+        TextView title, /*id,*/ date, status, eventWebsite, website, startDate, endDate, location;
         int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn/*, yearColumn*/, locColumn;
     }
 

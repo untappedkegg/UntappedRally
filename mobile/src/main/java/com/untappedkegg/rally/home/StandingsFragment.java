@@ -35,15 +35,12 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     private int cClass;
     private int endo;
     private String fileName;
-    Spinner champSpinner;
-    Spinner yearSpinner;
     private String selection = "";
     //ActionBar
     private int position;
     private String[] modArray;
 
     public StandingsFragment() {
-        //		 dataFetch = DataFetcher.getInstance();
         year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
         cClass = 0;
         endo = 1;
@@ -52,7 +49,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
 
     @Override
     public void onAttach(Activity activity) {
-        // TODO Auto-generated method stub
         super.onAttach(activity);
         position = getArguments().getInt(AppState.KEY_POSITION);
         modArray = getResources().getStringArray(R.array.action_bar_modules);
@@ -62,22 +58,19 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        //
+
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.standings, null);
 
 
         mWebView = (WebView) view.findViewById(R.id.web_view);
         WebSettings websettings = mWebView.getSettings();
-        //	            websettings.setLoadWithOverviewMode(true);
         websettings.setUseWideViewPort(true);
-        //	    		mWebView.setInitialScale(100);
 
         mWebView.setWebChromeClient(new WebChromeClient());
 
 
         if (position != 0) {
             getActivity().getActionBar().setTitle(modArray[position]);
-//            ((ListView) getActivity().findViewById(R.id.left_drawer)).setItemChecked(position, true);
             NavDrawerFragment.getListView().setItemChecked(position, true);
             ActivityMain2.setCurPosition((short) position);
         }
@@ -123,7 +116,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
                 DbUpdated.updated_insert(AppState.MOD_STAND + fileName);
                 DbUpdated.close();
             }
-
         }
 
     }
@@ -142,7 +134,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
             //			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
             progressBar.setVisibility(View.GONE);
             mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
-            //			mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
             mWebView.reload();
         } else {
             //			Log.e(this.getClass().getName(), "File Not Found");
@@ -225,7 +216,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        // TODO Auto-generated method stub
 
     }
 }

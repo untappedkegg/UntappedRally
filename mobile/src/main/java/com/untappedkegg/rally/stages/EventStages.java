@@ -36,7 +36,6 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
         if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAGES + linkPts[5] + linkPts[4])) <= AppState.STAND_UPDATE_DELAY) {
             loadList();
         } else {
-            //			if (isHomeFragment)
             loadList();
 
             StagesFetcher.getInstance().startAll(this, link, linkPts[4]);

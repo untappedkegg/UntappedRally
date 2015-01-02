@@ -57,35 +57,26 @@ public class AppState extends Application {
     public static final String KEY_POSITION = "com.untappedkegg.rally.POSITION";
 
     // Concurrency
-//    public static int NEWS_OLD_ITEM_CUTOFF = Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"));
     public static boolean NEWS_REFRESH = false;
-    //	public static final short REQUERY_DELAY = 1000;
     public static final short REQUERY_WAIT = 500;
-    //	public static final String SERIES_WRC = "0013";
-    //	public static final String SERIES_RA = "0023";
     public static final short STAGE_RESULT_DELAY = 60;
     public static final short STAND_UPDATE_DELAY = 1;
     public static final short YT_UPDATE_DELAY = 1;
     public static final short RSS_UPDATE_DELAY = 30; //Do not update on youTubeStart if this amt of time (in minutes) has not elapsed
     public static final short CAL_UPDATE_DELAY = 7; //7 days
-    //	public static final int RSS_UPDATE_DELAY = 0; //Do not update on youTubeStart if this amt of time (in minutes) has not elapsed
-    //	public static final int CAL_UPDATE_DELAY = 5; //30 days
-    //	public static final int CAL_UPDATE_DELAY = 0;
 
-    public static final int PAGE_COUNT = 5;
 
     // News Links
     public static final String RSS_IRALLY = "http://www.irallylive.com/rss/irally_news.xml";
     public static final String RSS_RALLY_MERICA = "http://rally-america.com/news/rss";
 
     //Calendars
-    //	public static final String EGG_CAL_XML= "https://bowtieegg.com/kyle/rally/schedule/events";
+//	public static final String EGG_CAL_XML= "https://bowtieegg.com/kyle/rally/schedule/events";
 //    public static final String EGG_CAL_XML = "https://bowtieegg.com/kyle/rally/db/xml/";
     public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
 //    public static final String EGG_DRAWABLE = "https://bowtieegg.com/kyle/rally/drawable/";
-    //	public static final String EGG_CAL_XML = "https://web.missouri.edu/~kpetg6/wrc/events";
     public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
-    //	public static final String EGG_CAL_XML = "https://web.missouri.edu/~kpetg6/rally/events";
+//    public static final String EGG_DRAWABLE = "http://untappedkegg.com/rally/drawable/";
     //Alternatively the xml and script are hosted at bowtieegg.com
     //	public static final String EGG_CAL_XML = http://bowtieegg.com/kyle/wrc/schedule/events
 
@@ -98,15 +89,9 @@ public class AppState extends Application {
 
     // Sources
     public static final String SOURCE_IRALLY = "iRally";
-    //	public static final String SOURCE_WRC_COM = "Official WRC";
     public static final String SOURCE_CITROEN = "Citroen";
-    //	public static final String SOURCE_MINI_COOPER = "Mini";
     public static final String SOURCE_BEST_OF_RALLY = "Michelin";
     public static final String SOURCE_RALLY_AMERICA = "RA";
-
-
-    //	public static final String WRC = "WRC";
-    public static final String RA = "Rally America";
 
 
     // Modules
@@ -123,9 +108,6 @@ public class AppState extends Application {
 
     //SharedPreferences Fields
     public static final String PREFERENCES_NAME = "SharedPreferences";
-    public static final String PREFERENCES_LOCALE = "locale";
-    public static final String PREFERENCES_TEAM = "FavoriteTeam";
-
     //Carry over from GoMizzou
     public static final float CAROUSEL_SCROLL_DURATION_SECS = (float) .75;
     public static final short CAROUSEL_DELAY_SECS = 5;
@@ -157,12 +139,10 @@ public class AppState extends Application {
 
     /* ----- VARIABLES ----- */
     private static Application instance;
-//    private static SharedPreferences settings;
 
     /* ----- CONSTRUCTORS ----- */
     public AppState() {
         instance = this;
-
     }
 
     /**
@@ -219,32 +199,7 @@ public class AppState extends Application {
             return false;
         }
         return str.regionMatches(true, 0, prefix, 0, prefix.length());
-        //        return str.toLowerCase().startsWith(prefix.toLowerCase());
     }
-
-    //	@SuppressLint({ "InlinedApi" })
-    //	public static void hideSystemUI(Activity activity){
-/*		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//	    	View decorView = getWindow().getDecorView();
-	    	activity.getWindow().getDecorView().setSystemUiVisibility(
-//	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-	                | View.SYSTEM_UI_FLAG_FULLSCREEN
-	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-	                );
-	} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH.JELLY_BEAN) {
-	    	activity.getWindow().getDecorView().setSystemUiVisibility(
-//	                View.SYSTEM_UI_FLAG_LAYOUT_STABLE //This seems to cause the ActionBar to not be shown on some devices
-//	    			| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//	                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//	                 View.SYSTEM_UI_FLAG_FULLSCREEN
-	                 View.SYSTEM_UI_FLAG_LOW_PROFILE
-//		            | View.SYSTEM_UI_FLAG_IMMERSIVE
-//	                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-	                );}*/
-    //	}
-
 
     @Override
     public void onCreate() {
@@ -271,10 +226,6 @@ public class AppState extends Application {
 
         ImageLoader.getInstance().init(config);
 
-
-//        if (settings.getBoolean(NavDrawerFragment.PREF_USER_LEARNED_DRAWER, false)) {
-//            setNextNotification(getApplication());
-//        }
     }
 
     /* (non-Javadoc)

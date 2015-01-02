@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
@@ -64,8 +65,8 @@ public class EventLiveNotification {
         }
         final String eventName = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));
         final int eventId = c.getInt(c.getColumnIndex(DbSchedule.SCHED_ID));
-        final String startDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE));
-        final String endDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_END_DATE));
+//        final String startDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE));
+//        final String endDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_END_DATE));
         final String fromTo = c.getString(c.getColumnIndex(DbSchedule.SCHED_FROM_TO));
         final String website = c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE));
         String uri = c.getString(c.getColumnIndex(DbSchedule.SCHED_SHORT_CODE)).toLowerCase(Locale.US);
@@ -80,8 +81,7 @@ public class EventLiveNotification {
         //            return;
         //        }
         // This image is used as the notification's large icon (thumbnail).
-        // TODO: Remove this if your notification has no relevant thumbnail.
-        final Bitmap picture = ImageLoader.getInstance().loadImageSync(imgUrl, new ImageSize(128, 128));//BitmapFactory.decodeResource(res, R.drawable.example_picture);
+        final Bitmap picture = ImageLoader.getInstance().loadImageSync(imgUrl, new ImageSize(128, 128));
         final Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
         intent.putExtra(AppState.KEY_URI, EventDetails.class.getName());
         intent.putExtra(AppState.KEY_ARGS, String.valueOf(eventId));
@@ -117,7 +117,7 @@ public class EventLiveNotification {
 
                         // Provide a large icon, shown with the notification in the
                         // notification drawer on devices running Android 3.0 or later.
-                .setLargeIcon(picture)
+                .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(),R.drawable.ic_launcher_large) : picture)
 
                         // Set ticker text (preview) information for this notification.
                         //                .setTicker(ticker)

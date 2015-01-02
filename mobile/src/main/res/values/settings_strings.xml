@@ -3,7 +3,7 @@
 
     <string name="settings_show_notifications">Event Notifications</string>
     <string name="settings_show_regional_events">Show Regional Events</string>
-    <string name="settings_use_experimental_sched">Use Experimental Schedule</string>
+    <string name="settings_use_experimental_sched">Use Expandable Schedule</string>
     <string name="settings_use_experimental_sched_summary">Here be dragons</string>
 
     <string name="pref_news_title">Number of Days to Keep News Items</string>

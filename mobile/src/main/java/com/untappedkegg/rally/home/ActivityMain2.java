@@ -19,23 +19,27 @@ package com.untappedkegg.rally.home;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ListView;
 
+import com.google.android.gms.plus.PlusShare;
+import com.google.android.gms.plus.model.people.Person;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
-import com.untappedkegg.rally.feedback.Feedback;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsActivity;
@@ -45,6 +49,9 @@ import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DialogManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -75,16 +82,11 @@ import com.untappedkegg.rally.util.DialogManager;
  */
 public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener {
     private DrawerLayout mDrawerLayout;
-    private ListView mLeftDrawerList;
-    //    private ActionBarDrawerToggle mDrawerToggle;
     private static short curPosition = 0;
 
-    //    private CharSequence mDrawerTitle;
     private static CharSequence mTitle;
     private String[] mActionBarDrawer;
 
-//    private ActionBar actionBar;
-    private boolean settingsChanged = false;
     /**
      * Fragment managing the behaviors, interactions and presentation of the
      * navigation drawer.
@@ -98,14 +100,9 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
         mActionBarDrawer = getResources().getStringArray(R.array.action_bar_modules);
         setContentView(R.layout.activity_main2);
 
-        //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-        //            this.setImmersive(true);
-
-
         mNavDrawerFragment = (NavDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mNavDrawerFragment.setUp(R.id.left_drawer, mDrawerLayout);
-//        mLeftDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 
         if (savedInstanceState == null) {
@@ -116,9 +113,6 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, home).commit();
         } else {
             curPosition = savedInstanceState.getShort("pos");
-            //        	this.setTitle(mTitle);
-
-            //        	actionBar.setTitle(mTitle);
         }
 
     AppState.getSettings().registerOnSharedPreferenceChangeListener(this);
@@ -175,9 +169,7 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            //            getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
-            //            return true;
         }
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_frame);
         if (fragment instanceof Refreshable) {
@@ -193,7 +185,6 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
             if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                //        		mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             } else {
                 mDrawerLayout.closeDrawers();
@@ -242,10 +233,6 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
         } else {
             super.onBackPressed();
         }
-//        if (settingsChanged) {
-//            this.recreate();
-//            settingsChanged = false;
-//        }
     }
 
     void restoreActionBar() {
@@ -254,7 +241,6 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
         if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayShowTitleEnabled(true);
-//            actionBar.setTitle(mActionBarDrawer[mNavDrawerFragment.mCurrentSelectedPosition]);
             actionBar.setTitle(mActionBarDrawer[curPosition]);
         }
     }
@@ -266,14 +252,12 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
      */
     public void onNavDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-//        String uri = null;
         Intent intent = null;
         Fragment fragment = null;
         Bundle icicle = new Bundle();
         icicle.putInt(AppState.KEY_POSITION, position);
         switch (position) {
             case 0:
-//                uri = HomeFragment.class.getName();
                 fragment = new HomeFragment();
                 break;
             case 1:
@@ -281,32 +265,28 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
                 break;
             case 2:
                 fragment = new NewsFragment();
-//                uri = NewsFragment.class.getName();
                 break;
             case 3:
                 fragment = new StandingsFragment();
-//                uri = StandingsFragment.class.getName();
                 break;
             case 4:
-                //			uri = Videos.class.getName();
                 fragment = new YouTubeFragment();
-//                uri = YouTubeFragment.class.getName();
                 break;
             case 5: // Spectating
                 CommonIntents.openUrl(this, "http://www.rally-america.com/safety");
-                break;
+                return;
             case 6: // Worker Info
                 CommonIntents.openUrl(this, "http://www.rally-america.com/volunteer");
-                break;
+                return;
             case 7:
-                intent = new Intent(this, Feedback.class);
+//                intent = new Intent(this, Feedback.class);
+                this.sendFeedback();
+                return;
 //                startActivity(intent);
-                break;
-            case 8: // Standings
-//                fragment = new SettingsFragment();
+//                break;
+            case 8: // Settings
                 intent = new Intent(this, SettingsActivity.class);
 //                startActivity(intent);
-//                uri = SettingsFragment.class.getName();
                 break;
             case 9: // About
                 fragment = new AboutFragment();
@@ -319,20 +299,7 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
                 break;
         }
 
-
-//        try {
-//            Class<Fragment> fragmentClass = (Class<Fragment>) Class.forName(uri);
-//            fragment = fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            if (position != 7 && position != 10) {
-//                DialogManager.raiseUIError(this, "Error", "This feature has not been implemented yet", false);
-//            }
-//        }
-
-
         if (fragment != null) {
-//            if (fragment instanceof FeedbackFragment) {
-//                fragment.setHasOptionsMenu(false);
             if (curPosition != position) {
                 fragment.setArguments(icicle);
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -344,11 +311,42 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
         } else if (intent != null) {
                 startActivity(intent);
         } else if (position != 5 && position != 6) {
-//            Log.w(this.getClass().getSimpleName(), intent.toString() + " " + fragment.toString());
            DialogManager.raiseUIError(this, "Error", "This feature has not been implemented yet", false);
         }
 
+    }
 
+    private void sendFeedback() {
+        List<Intent> targetedShareIntents = new ArrayList<Intent>();
+
+            String version;
+            try {
+                version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.e(((Object) this).getClass().getSimpleName(), "Could not find our package. Initiate FUBAR sequence.");
+                version = "unknown";
+            }
+
+            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s \nPlease leave the above lines for debugging purposes. Thank you!\n\n", version, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL);
+
+        // Google+
+        ArrayList<Person> recipients = new ArrayList<Person>();
+        recipients.add(PlusShare.createPerson("109961307643513437237", "UntappedKegg"));
+        targetedShareIntents.add(new PlusShare.Builder(this).setType("text/plain").setRecipients(recipients).getIntent());
+
+        // Email
+        try {
+            targetedShareIntents.add(CommonIntents.getShareIntent("mail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
+        } catch (Exception e) { }
+
+        // Twitter
+        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
+        if(twitterIntent != null)
+            targetedShareIntents.add(twitterIntent);
+
+        Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
+        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+        startActivity(chooserIntent);
 
     }
 
@@ -376,7 +374,6 @@ public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        settingsChanged = true;
 
         if (key.equals("setting_notifications")) {
             AppState.setNextNotification();

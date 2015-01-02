@@ -157,7 +157,6 @@ public class NavDrawerFragment extends Fragment {
                     // prevent auto-showing
                     // the navigation drawer automatically in the future.
                     mUserLearnedDrawer = true;
-                    // SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     AppState.getSettings().edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
                 }
 
@@ -233,7 +232,6 @@ public class NavDrawerFragment extends Fragment {
         // showGlobalContextActionBar, which controls the top-left area of the
         // action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
-            //            inflater.inflate(R.menu.global, menu);
             showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);

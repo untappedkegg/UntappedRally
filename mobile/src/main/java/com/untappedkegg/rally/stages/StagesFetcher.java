@@ -59,25 +59,16 @@ public class StagesFetcher implements Fetcher {
 
     private static class StagesParser extends AsyncTask<Void, Integer, Throwable> {
         private final String function;
-        //		private FetchTask[] tasks;
         private final Callbacks callback;
         private final String link;
         private final String year;
 
         public StagesParser(Callbacks callback, String link, String year) {
             this.callback = callback;
-            //			this.tasks = tasks;
             this.function = "FUNC_STAGES";
             this.link = link;
             this.year = year;
-
-
         }
-
-        //		@Override
-        //		protected void onPreExecute() {
-        //			callback.onDataFetchComplete(null, uri);
-        //		}
 
         @Override
         protected Throwable doInBackground(Void... arg0) {
@@ -142,6 +133,7 @@ public class StagesFetcher implements Fetcher {
             } catch (Exception e) {
                 Log.d(LOG_TAG, e.toString());
                 e.printStackTrace();
+                return e;
             } finally {
                 DbEvent.close();
             }
@@ -159,7 +151,6 @@ public class StagesFetcher implements Fetcher {
 
     private static class StageResultsParser extends AsyncTask<Void, Integer, Throwable> {
         private final String function;
-        //		private FetchTask[] tasks;
         private final Callbacks callback;
         private String link;
         private final short year;
@@ -168,7 +159,6 @@ public class StagesFetcher implements Fetcher {
 
         public StageResultsParser(Callbacks callback, String link, String eventCode, short curStage, short year) {
             this.callback = callback;
-            //			this.tasks = tasks;
             this.function = "FUNC_STAGE_RESULTS";
             this.link = link;
             this.year = year;
@@ -177,12 +167,6 @@ public class StagesFetcher implements Fetcher {
 
 
         }
-
-        //		@Override
-        //		protected void onPreExecute() {
-        //			callback.onDataFetchComplete(null, uri);
-        //		}
-
         @Override
         protected Throwable doInBackground(Void... arg0) {
 
@@ -213,11 +197,11 @@ public class StagesFetcher implements Fetcher {
             } catch (Exception e) {
                 Log.d(LOG_TAG, e.toString());
                 e.printStackTrace();
+                return e;
             } finally {
                 DbEvent.close();
             }
 
-            //			}
             return null;
         }
 

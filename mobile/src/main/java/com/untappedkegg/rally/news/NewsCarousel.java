@@ -45,10 +45,7 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
     @Override
     public void fetchData() {
         DbUpdated.open();
-        if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) <= AppState.RSS_UPDATE_DELAY) {
-            //           this.loadPages();
-        } else {
-            //            this.loadPages();
+        if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) > AppState.RSS_UPDATE_DELAY) {
 
             if (!DataFetcher.getInstance().news_isRunning()) {
                 DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
@@ -106,14 +103,14 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
     public void onClick(View v) {
         final String source = ((TextView) v.findViewById(R.id.carousel_page_img_link)).getText().toString();
         final String link = ((TextView) v.findViewById(R.id.carousel_page_uri)).getText().toString();
-        //			String myId = ((TextView) v.findViewById(R.id.list_id)).getText().toString();
-        //			String status = ((TextView) v.findViewById(R.id.read_status)).getText().toString();
         final String title = ((TextView) v.findViewById(R.id.carousel_page_title)).getText().toString();
+
         if (!AppState.isNullOrEmpty(source) && !AppState.startsWithIgnoreCase(title, "Video")) {
 
             final String pubdate = ((TextView) v.findViewById(R.id.carousel_page_date)).getText().toString();
             final String descr = ((TextView) v.findViewById(R.id.carousel_page_params)).getText().toString();
             final Fragment dialog = BaseDialogFragment.newInstance(title, descr, pubdate, link, source, true);
+
             getActivity().getSupportFragmentManager().beginTransaction().add(dialog, dialog.toString()).commit();
 
         } else {
@@ -157,8 +154,6 @@ public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks,
      * activity.
      * <p/>
      */
-    //    public interface Callbacks {
-    //    }
 
     private class NewsCarouselViewBinder implements ViewBinder {
 

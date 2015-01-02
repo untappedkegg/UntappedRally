@@ -36,7 +36,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventDetails extends BaseDetails implements NewDataFetcher.Callbacks /*implements OnClickListener */ {
+public class EventDetails extends BaseDetails implements NewDataFetcher.Callbacks {
     private static String eventId = "";
     private static String eventName;
     private Callbacks callback;
@@ -51,7 +51,6 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
             .displayer(new FadeInBitmapDisplayer(750, true, true, false))
             .build();
 
-    //	private Button addToCalBtn, webSiteBtn, raWebsiteBtn;
     /*----- LIFECYCLE METHODS -----*/
     @Override
     public void onAttach(Activity activity) {
@@ -84,10 +83,6 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         this.callback = (Callbacks) getActivity();
-        //		addToCal = (Button) getActivity().findViewById(R.id.events_cal_button);
-        //		webSite = (Button) getActivity().findViewById(R.id.events_web_button);
-        //		addToCal.setOnClickListener(this);
-        //		webSite.setOnClickListener(this);
     }
 
 
@@ -136,11 +131,6 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
         return new DetailsAdapter(getActivity(), null, from, to, getDetailsContainerId(), R.layout.event_details);
     }
 
-    //	@Override
-    //	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-    //		super.onLoadFinished(loader, cursor);
-    //	}
-
     @Override
     protected ViewBinder getViewBinder() {
         return new NewEventViewBinder();
@@ -167,29 +157,21 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
             String uri = "";
             try {
                 uri = c.getString(columnIndex);
-            } catch (Exception e) {
-                //				e.printStackTrace();
+            } catch (Exception e) { }
 
-            }
             switch (v.getId()) {
 
                 case R.id.events_image:
                     final ImageView imageView = (ImageView) v.findViewById(R.id.events_image);
-                    //				ImageLoader.getInstance().displayImage(uri, imageView);
+
                     if (!AppState.isNullOrEmpty(uri)) {
-//                        Context context = imageView.getContext();
                         imageView.setAdjustViewBounds(true);
 
                         if (uri.contains("100AW")) {
                             uri = "ra" + uri;
                         }
+
                         uri = uri + "_large";
-                        //					int id = context.getResources().getIdentifier(uri.toLowerCase(Locale.US), "drawable", context.getPackageName());
-                        //					if (id != 0) {
-                        //						imageView.setImageResource(id);
-                        //					} else {
-                        //						imageView.setImageResource(R.drawable.ra_large);
-                        //					}
                         ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri.toLowerCase(Locale.US), imageView, eventOptions);
                         imageView.setVisibility(View.VISIBLE);
                     }
@@ -209,13 +191,6 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
                         return true;
                     }
                     return false;
-                //                case R.id.events_series:
-                //				if (uri.equalsIgnoreCase("regional")) {
-                //					getActivity().findViewById(R.id.events_round).setVisibility(View.GONE);
-                //                    getActivity().findViewById(R.id.events_round_text).setVisibility(View.GONE);
-                //				}
-                //                return false;
-
                 case R.id.events_start_human:
                 case R.id.events_end_human:
                     TextView tv = (TextView) v;
@@ -296,47 +271,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
 
                         ((ViewGroup) v).addView(newRow);
                     }
-                    //Calendar
-                    //				((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.add_to_cal);
-                    //				((TextView) newRow.findViewById(R.id.event_details_list_uri)).setText(c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE)));
-                    //				newRow.setOnClickListener(new View.OnClickListener() {
-                    //					@Override
-                    //					public void onClick(View v) {
-                    //						final String startDate = ((TextView) getActivity().findViewById(R.id.events_start)).getText().toString();
-                    //						final String endDate = ((TextView) getActivity().findViewById(R.id.events_end)).getText().toString();
-                    //
-                    //						try {
-                    //							CommonIntents.addRallyToCalendar(getActivity(), eventName, DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1) );
-                    //
-                    //						} catch (ParseException e) {
-                    //
-                    //							Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.calendar_error), Toast.LENGTH_LONG).show();
-                    //						}
-                    //					}
-                    //				});
-                    //				((ViewGroup) v).addView(newRow);
                     return true;
-                //			case R.id.sched_status:
-                //				TextView tv = (TextView) v;
-                //				int status = DateManager.todayIsBetween(c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE)), c.getString(c.getColumnIndex(DbSchedule.SCHED_END_DATE)));
-                //				if (status == 0) {
-                //					tv.setText("Upcoming");
-                //					tv.setTextColor(AppState.getApplication().getResources().getColor(R.color.LightBlue));
-                //					return true;
-                //				} else if (status == 1) {
-                //					//currently running
-                //					tv.setText("Live!");
-                //					tv.setTextColor(AppState.getApplication().getResources().getColor(R.color.light_green));
-                //					return true;
-                //				} else {
-                //					//completed
-                //					tv.setText("Complete");
-                //					tv.setTextColor(AppState.getApplication().getResources().getColor(R.color.light_red));
-                //				}
-                //				return true;
-                //			case R.id.sched_date:
-                //				((TextView) v).setText(uri + " " + c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE)).substring(0, 4));
-                //				return true;
                 default:
                     return false;
             }

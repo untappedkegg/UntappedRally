@@ -43,7 +43,6 @@ public class DbSocial extends BaseDbAccessor {
         values.put(YOUTUBE_DIR_LINK, dirLink);
         values.put(YOUTUBE_ICON, thumbnail);
 
-        //		final String where = String.format("%s = %s", YOUTUBE_TITLE, title);
 
         dbAdapter.insert(YOUTUBE_TABLE, values);
     }

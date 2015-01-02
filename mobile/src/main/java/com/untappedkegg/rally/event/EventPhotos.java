@@ -39,11 +39,8 @@ public class EventPhotos extends BaseGridView implements NewDataFetcher.Callback
 
     @Override
     protected void fetchData() {
-        //		if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_PICS + linkPts[5] + linkPts[4])) > AppState.STAND_UPDATE_DELAY) {
         EventFetcher.getInstance().start(this, link, linkPts[4]);
         progressBar.setVisibility(View.VISIBLE);
-
-        //		}
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
@@ -22,6 +23,7 @@ import com.untappedkegg.rally.ui.BaseWebView;
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class CommonIntents {
     /* ----- CUSTOM METHODS ----- */
@@ -288,5 +290,33 @@ public class CommonIntents {
         }
         return fileContents;
 
+    }
+
+    /*----- Share Intents -----*/
+    public static Intent getShareIntent(String type, String subject, String text)
+    {
+        boolean found = false;
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = AppState.getApplication().getPackageManager().queryIntentActivities(share, 0);
+        System.out.println("resinfo: " + resInfo);
+        if (!resInfo.isEmpty()){
+            for (ResolveInfo info : resInfo) {
+                if (info.activityInfo.packageName.toLowerCase().contains(type) ||
+                        info.activityInfo.name.toLowerCase().contains(type) ) {
+                    share.putExtra(Intent.EXTRA_SUBJECT,  subject);
+                    share.putExtra(Intent.EXTRA_TEXT,     text);
+                    share.setPackage(info.activityInfo.packageName);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                return null;
+            return share;
+        }
+        return null;
     }
 }

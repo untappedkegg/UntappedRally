@@ -41,24 +41,11 @@ public final class NewsViewBinder implements ViewBinder {
                     imageView.setImageResource(R.drawable.irally_logo);
                     view.setVisibility(View.VISIBLE);
                     return true;
-                    //			} else if (uri.equals(AppState.SOURCE_CITROEN)) {
-                    //				imageView.setImageResource(R.drawable.citroen_racing_logo);
-                    //				view.setVisibility(View.VISIBLE);
-                    //				return true;
-                    //			} else if (uri.equals(AppState.SOURCE_MINI_COOPER)) {
-                    //				imageView.setImageResource(R.drawable.mini_logo);
-                    //				view.setVisibility(View.VISIBLE);
-                    //				return true;
-                    //			} else if (uri.equals(AppState.SOURCE_BEST_OF_RALLY)) {
-                    //				imageView.setImageResource(R.drawable.michelin_logo);
-                    //				view.setVisibility(View.VISIBLE);
-                    //				return true;
                 } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
                     imageView.setImageResource(R.drawable.src_ra);
                     view.setVisibility(View.VISIBLE);
                     return true;
                 } else {
-                    //				view.setVisibility(View.GONE);
                     return false;
                 }
 
@@ -68,20 +55,11 @@ public final class NewsViewBinder implements ViewBinder {
                     //				String date;
                     try {
                         tv.setText(DateUtils.getRelativeDateTimeString(ctx, DateManager.DATABASE.parse(uri).getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.YEAR_IN_MILLIS, DateUtils.FORMAT_NO_YEAR));//getRelativeTimeSpanString(DateManager.DATABASE.parse(uri).getTime()));
-                        //					tv.setText(DateUtils.getRelativeTimeSpanString(DateManager.DATABASE.parse(uri).getTime()));
-                        //					view.setVisibility(View.VISIBLE);
+
                         return true;
                     } catch (ParseException e) {
                         view.setVisibility(View.GONE);
                     }
-                    //				try {
-                    //					date = DateManager.formatAsRelativeTime(DateManager.DATABASE.parse(uri));
-                    //					tv.setText(date);
-                    //					view.setVisibility(View.VISIBLE);
-                    //					return true;
-                    //				} catch (ParseException e) {
-                    //					view.setVisibility(View.GONE);
-                    //				}
 
                 } else {
                     view.setVisibility(View.GONE);

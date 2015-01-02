@@ -20,7 +20,7 @@ public class DbNews extends BaseDbAccessor {
 
     public static final String NEWS_TABLE = "news";
 
-    // public static final String NAME = "name";
+
     public static final String TITLE = "title";
     public static final String LINK = "link";
     public static final String DESCR = "descr";
@@ -48,19 +48,6 @@ public class DbNews extends BaseDbAccessor {
 
     // CREATE METHODS
     public static final void news_insert(String title, String link, String descr, String date, String shortDate, String source, String imgLink) {
-        //		String source = "";
-        //		//Switch to Author
-        //		if (AppState.isNullOrEmpty(link)) {
-        //			 source = "";
-        //		} else if (link.startsWith("http://www.irally")) {
-        //			source = AppState.IRALLY;
-        //		} else if (link.startsWith("http://www.wrc.com")) {
-        //			source = AppState.WRC_COM;
-        //		} else if (link.startsWith("http://www.minimotorsport")) {
-        //			source = AppState.WRC_COM;
-        //		} else {
-        //			source = AppState.CITROEN;
-        //		}
 
         ContentValues initialValues = new ContentValues();
         initialValues.put(TITLE, title);

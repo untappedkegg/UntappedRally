@@ -84,7 +84,7 @@ public class YouTubeFragment extends BaseGridView implements NewDataFetcher.Call
                 default:
                     return false;
             }
-            //			return false;
+
         }
 
     }

@@ -25,13 +25,6 @@ public class GlobalReceiver extends BroadcastReceiver {
             AppState.setNextNotification();
         }
         BaseDbAccessor.close();
-        // if
-        // (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY))
-        // {
-        // Intent stopIntent = new Intent(context, AudioPlayer.class);
-        // stopIntent.putExtra(AppState.KEY_ACTION, AppState.VAL_PAUSE);
-        // context.startService(stopIntent);
-        // }
     }
 
     /**

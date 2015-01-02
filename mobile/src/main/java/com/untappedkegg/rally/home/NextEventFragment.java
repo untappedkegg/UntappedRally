@@ -51,16 +51,11 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
     private final DisplayImageOptions nextEventOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ra_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
             .showImageOnFail(R.drawable.ra_large) // resource or drawable
-            .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NextEventFragment.
-     */
+            .cacheInMemory(true).cacheOnDisk(true)
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .displayer(new FadeInBitmapDisplayer(750, true, true, false))
+            .build();
 
     public NextEventFragment() {
         // Required empty public constructor
@@ -103,33 +98,18 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
 
         if (dataFetched) {
             finishRequery();
-            //            progressBar.setVisibility(View.GONE);
         } else if (fetchOnCreate) {
             fetchData();
             dataFetched = true;
             super.startRequery();
         } else {
-            //            progressBar.setVisibility(View.GONE);
             finishRequery();
         }
 
-        //        if (savedInstanceState == null) {
-        //            super.startRequery();
-        //        } else {
-        //            finishRequery();
-        //        }
     }
 
     private void fetchData() {
-//        DbUpdated.open();
-//        if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY) {
-
-//            if (!DataFetcher.getInstance().sched_isRunning()) {
-                DataFetcher.getInstance().sched_start(this, false);
-                //progressBar.setVisibility(View.VISIBLE);
-//            }
-//        }
-//        DbUpdated.close();
+        DataFetcher.getInstance().sched_start(this, false);
     }
 
     /*----- INHERITED METHODS -----*/
@@ -189,43 +169,25 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
 
                     }
                 });
-                //            final int id = getResources().getIdentifier(uri.toLowerCase(Locale.US), "drawable", getActivity().getPackageName());
-                //
-                //            if (id != 0) {
-                //                picture.setImageResource(id);
-                //            } else {
-                //                name.setText(eventName);
-                //                name.setVisibility(View.VISIBLE);
-                //                final String imgUrl = c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_IMG));
-                //                if (!imgUrl.toLowerCase().contains("images/logo.png")) {
-                //                    ImageLoader.getInstance().displayImage(imgUrl, picture, nextEventOptions);
-                //                } else {
-                //                    picture.setVisibility(View.GONE);
-                //
-                //                }
-                //            }
-
 
                 if (evtStatus == 0) {
 
-
-                    final long evntTime = DateManager.parse(nextEventStart, DateManager.ISO8601_DATEONLY).getTime();
+                    final long eventTime = DateManager.parse(nextEventStart, DateManager.ISO8601_DATEONLY).getTime();
                     if (timer != null) {
                         timer.cancel();
                         timer = null;
                     }
                     counter.setVisibility(View.VISIBLE);
-                    timer = new CountDownTimer(evntTime - System.currentTimeMillis(), 1000) {
+                    timer = new CountDownTimer(eventTime - System.currentTimeMillis(), 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             String time = "";
                             String[] relative = DateManager.formatAsRelativeTime(millisUntilFinished);
 
                             for (short i = 0; i < 3; i++) {
-                                /*if (!relative[i].startsWith("0"))*/
                                 time += relative[i] + " ";
                             }
-                            counter.setText(time /*+ "\n" + millisUntilFinished / 1000*/);
+                            counter.setText(time);
                         }
 
                         @Override
@@ -270,9 +232,6 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
         if (parser.equals(AppState.MOD_SCHED)) {
-            //            if (!this.isDetached() && this.isVisible()) {
-            //                loadData();
-            //            }
             progressBar.setVisibility(View.GONE);
         }
     }

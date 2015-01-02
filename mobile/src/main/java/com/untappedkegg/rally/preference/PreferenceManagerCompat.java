@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+@Deprecated
 public class PreferenceManagerCompat {
 
     private static final String TAG = PreferenceManagerCompat.class.getSimpleName();

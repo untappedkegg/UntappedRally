@@ -19,12 +19,6 @@ import java.util.Map.Entry;
 
 public class DbAdapter {
     /* ----- CONSTANTS ----- */
-    //	public static final String DEFAULTS_TBL = "defaults";
-    //	public static final String DEFAULTS_ID = "_id";
-    //	public static final String DEFAULTS_CODE = "code";
-    //	public static final String DEFAULTS_VALUE = "value";
-    //	public static final String DEFAULTS_UPDATE = "lastupdate";
-
     /**
      * Update this value anytime there is a change made in this page or to any of the constants that this page references
      */
@@ -200,16 +194,7 @@ public class DbAdapter {
             return insert(table, insertValues);
         } else {
             return affected;
-            //			Cursor cursor = selectf("SELECT _id FROM %s WHERE %s", table, where);
-            //			try {
-            //				if(cursor.moveToFirst()) {
-            //					return cursor.getLong(0);
-            //				}
-            //			} finally {
-            //				cursor.close();
-            //			}
         }
-        //		return -1;
     }
 
     /**
@@ -387,7 +372,6 @@ public class DbAdapter {
 
             execSQL(db, drop + DbUpdated.UPDATED_TABLE);
 
-            //			execSQL(db, drop + DbSchedule.SCHED_TABLE);
             DbSchedule.drop(db);
 
             DbEvent.drop(db);

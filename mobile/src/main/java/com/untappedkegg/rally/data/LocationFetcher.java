@@ -11,7 +11,6 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.untappedkegg.rally.AppState;
-//import adn.GoMizzou.util.Logger;
 
 /**
  * <p>{@link LocationListener} implementation that lets the GooglePlayServices handle the location providers, and sends any updates to the calling activity.</p>

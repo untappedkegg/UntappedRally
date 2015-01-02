@@ -106,12 +106,9 @@ public class DbEvent extends BaseDbAccessor {
         dbAdapter.update(STAGES_TABLE, vals, String.format("%s = '%s' AND %s = %s AND %s = %s", STAGES_EVENT, eventCode, STAGES_NUMBER, stage, STAGES_YEAR, year));
     }
 
-    //	public static Cursor stagesSelect(String eventCode, String year) {
-    //		return dbAdapter.selectf("SELECT * FROM %s WHERE %s = '%s' AND %s = %s", STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year);
-    //	}
-
     public static final Cursor stagesSelect(String eventCode, String year) {
-        return dbAdapter.selectf("SELECT %s, %s || '. ' || %s AS %s, %s, %s || ' mi.' AS %s, %s, %s FROM %s WHERE %s = '%s' AND %s = %s ORDER BY %s", STAGES_ID, STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_ATC, STAGES_LENGTH, STAGES_LENGTH, STAGES_NUMBER, STAGES_HEADER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
+        return dbAdapter.selectf("SELECT %s, %s || '. ' || %s AS %s, %s, %s || ' mi.' AS %s, %s, %s FROM %s WHERE %s = '%s' AND %s = %s ORDER BY %s",
+                STAGES_ID, STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_ATC, STAGES_LENGTH, STAGES_LENGTH, STAGES_NUMBER, STAGES_HEADER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
     }
 
     public static final void delete_stages(String eventCode, String year) {

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -24,20 +23,15 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
 
 
     private Callbacks callbacks;
-    private TextView events;
-    private TextView news;
     private int position;
     private String[] modArray;
-        private static final Fragment nextEventFrag = new NextEventFragment();
-    private static final Fragment newsFrag = new NewsCarousel();
-//    private static final boolean isJB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
+    private static final Fragment nextEventFrag = new NextEventFragment();
 
     /* ----- LIFECYCLE METHODS ----- */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //		activity.getActionBar().setDisplayShowTitleEnabled(true);
-        //		getActivity().getActionBar().setTitle(R.string.app_name);
+
         try {
             callbacks = (Callbacks) activity;
         } catch (ClassCastException e) {
@@ -51,19 +45,13 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
     public void onResume() {
         super.onResume();
         getActivity().getActionBar().setTitle(modArray[position]);
-        //        ((ListView) getActivity().findViewById(R.id.left_drawer)).setItemChecked(position, true);
         NavDrawerFragment.getListView().setItemChecked(position, true);
-
 
         ActivityMain2.setCurPosition((short) position);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-
-
-
         return inflater.inflate(R.layout.home_fragment, container, false);
     }
 
@@ -73,35 +61,10 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
         super.onActivityCreated(savedInstanceState);
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction() ;
-//        if (savedInstanceState == null) {
-//            Bundle bundle = new Bundle();
-//            bundle.putBoolean("isHomeFragment", true);
-
-            //            Fragment schedFrag = new ScheduleFragment();
-            //            schedFrag.setArguments(bundle);
-            //		Fragment newsFrag = new NewsFragment();
-//            Fragment newsFrag = new NewsCarousel();
-//            newsFrag.setArguments(bundle);
-
-            //            transaction.add(R.id.home_top, schedFrag, ScheduleFragment.class.getCanonicalName());
             transaction.replace(R.id.home_middle, nextEventFrag, NextEventFragment.class.getCanonicalName());
             transaction.replace(R.id.home_bottom, new NewsCarousel(), NewsCarousel.class.getCanonicalName());
-//            transaction.add(R.id.home_bottom, newsFrag, NewsCarousel.class.getCanonicalName());
-//            transaction.addToBackStack(null);
             transaction.commit();
-//        } else if (!isJB) {
-//            transaction.replace(R.id.home_middle, new NextEventFragment(), NextEventFragment.class.getCanonicalName());
-//            transaction.replace(R.id.home_bottom, new NewsCarousel(), NewsCarousel.class.getCanonicalName());
-//            transaction.commit();
-//        }
 
-
-
-        //get textviews
-        //        events = (TextView) getActivity().findViewById(R.id.home_upcoming_text);
-        //        		news = ((TextView) getActivity().findViewById(R.id.home_news_text));
-        //        events.setOnClickListener(this);
-        //        		news.setOnClickListener(this);
         getActivity().findViewById(R.id.home_news_text).setOnClickListener(this);
         getActivity().findViewById(R.id.home_next_event_text).setOnClickListener(this);
     }
@@ -112,7 +75,6 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
             case R.id.home_news_text:
                 callbacks.onNavDrawerItemSelected(2);
                 break;
-            //            case R.id.home_upcoming_text:
             case R.id.home_next_event_text:
                 callbacks.onNavDrawerItemSelected(1);
         }
@@ -121,7 +83,6 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
 
 
     public void refreshData() {
-        //        ((Refreshable) getActivity().getSupportFragmentManager().findFragmentByTag(ScheduleFragment.class.getCanonicalName())).refreshData();
         ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NextEventFragment.class.getCanonicalName())).refreshData();
         ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NewsCarousel.class.getCanonicalName())).refreshData();
     }

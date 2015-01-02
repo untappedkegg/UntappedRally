@@ -284,9 +284,6 @@ public class NewDataFetcher {
      * @return running task
      */
     public static AsyncTask<Void, Integer, Throwable> execute(AsyncTask<Void, Integer, Throwable> task) {
-        //		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-        //			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

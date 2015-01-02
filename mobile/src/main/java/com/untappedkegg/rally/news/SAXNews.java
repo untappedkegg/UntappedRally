@@ -33,14 +33,10 @@ public class SAXNews extends BaseSAX {
                 if (uri.equals(AppState.SOURCE_BEST_OF_RALLY)) {
                     pubDate = DateManager.formatForDatabase(DateManager.bestOfRally.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.bestOfRally.parse(buffer));
-                    //				} else if (uri.equals(AppState.SOURCE_WRC_COM)) {
-                    //					pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_TIMEZONE.parse(buffer));
-                    //					shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_TIMEZONE.parse(buffer));
                 } else if (uri.equals(AppState.SOURCE_IRALLY) || uri.equals(AppState.SOURCE_CITROEN)) {
                     pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
                 } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
-                    //					Log.w(this.getClass().getCanonicalName(), buffer);
                     pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_RA.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_RA.parse(buffer));
                 } else {
@@ -49,7 +45,6 @@ public class SAXNews extends BaseSAX {
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE.parse(buffer));
                 }
             } catch (ParseException e) {
-                //				e.printStackTrace();
                 pubDate = buffer;
                 shortDate = buffer;
             }
@@ -64,7 +59,6 @@ public class SAXNews extends BaseSAX {
             if (matcher.find()) {
                 imgLink = "http://www.rally-america.com" + matcher.group(1);
             }
-            //				description = android.text.Html.fromHtml(buffer.substring(buffer.indexOf("/>", 0)+2)).toString();
 
         } else if (localName.equalsIgnoreCase("item")) {
             if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
@@ -78,12 +72,9 @@ public class SAXNews extends BaseSAX {
                     }
                 }
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                //					e.printStackTrace();
-                //					DbNews.news_insert(title, link, description, pubDate, shortDate, uri, imgLink);
+
             }
 
-            //			DbNews.news_insert(title, link, description, pubDate, shortDate, uri, imgLink);
             imgLink = null;
         }
 

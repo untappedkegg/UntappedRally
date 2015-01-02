@@ -40,7 +40,6 @@ public class DataFetcher {
     private static Context ctx;
 
     private AsyncTask<Void, Void, Throwable> newsThread;
-    private AsyncTask<Void, Void, Throwable> eventsThread;
     private AsyncTask<Void, Void, Throwable> scheduleThread;
     private AsyncTask<Void, Void, Throwable> standingsThread;
 
@@ -105,34 +104,21 @@ public class DataFetcher {
     // global
     public void global_interrupt() {
         if (newsThread != null) newsThread.cancel(true);
-
-        //Don't cancel the schedule thread because it is run so infrequently
-        //if (scheduleThread != null)	scheduleThread.cancel(true);
-
     }
 
     // AsyncTask Methods
     private static <P, R> AsyncTask<Void, P, R> executeParallel(AsyncTask<Void, P, R> task) {
-        //		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-        //			task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     /* ----- NESTED CLASSES ----- */
     public static class FetchTask {
         public final String link;
-        //			public String function;
-        //			public String query;
         public final BaseSAX sax;
-        //			public int id;
 
-        public FetchTask(String link, /*String function, String query,*/ BaseSAX sax/*, int id*/) {
+        public FetchTask(String link,BaseSAX sax) {
             this.link = link;
-            //				this.function = function;
-            //				this.query = query;
             this.sax = sax;
-            //				this.id = id;
         }
     }
 
@@ -145,9 +131,6 @@ public class DataFetcher {
     public void news_start(String uri, Callbacks callback) {
         if (!news_isRunning()) {
             FetchTask[] tasks = new FetchTask[]{
-                    //					new FetchTask(AppState.RSS_OFFICIAL_WRC, null, null, new SAXNews(AppState.SOURCE_WRC_COM), -1),
-                    //					new FetchTask(AppState.RSS_BEST_OF, null, null, new SAXNews(AppState.SOURCE_BEST_OF_RALLY), -1),
-                    //					new FetchTask(AppState.RSS_CITROEN, null, null, new SAXNews(AppState.SOURCE_CITROEN), -1),
                     new FetchTask(AppState.RSS_RALLY_MERICA, new SAXNews(AppState.SOURCE_RALLY_AMERICA)),
                     //Irally should go last because they have errors fairly regularly
                     new FetchTask(AppState.RSS_IRALLY, new SAXNews(AppState.SOURCE_IRALLY))};
@@ -170,7 +153,6 @@ public class DataFetcher {
             link = String.format(AppState.RA_STANDINGS, 1, 0, Calendar.getInstance().get(Calendar.YEAR));
         }
         standingsThread = executeParallel(new StandingsParser(callback, link, AppState.FUNC_RA_STAND, fileName));
-        //		}
     }
 
 
@@ -185,19 +167,14 @@ public class DataFetcher {
 
     public void sched_start(Callbacks callback, boolean isOverride) {
         if (!sched_isRunning()) {
-//            FetchTask[] tasks = new FetchTask[]{new FetchTask(AppState.EGG_CAL_XML, new SAXSchedule()),};
             scheduleThread = executeParallel(new ScheduleParser(callback, isOverride));
         }
     }
-
 
     public void sched_interrupt() {
         if (scheduleThread != null) scheduleThread.cancel(true);
     }
 
-/*	public void events_start(String uri, Callbacks callback) {
-		eventsThread = executeParallel(new EventsParser(uri, callback));
-	}*/
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {
@@ -206,7 +183,6 @@ public class DataFetcher {
 
 	/* ----- NESTED CLASSES ----- */
     // Parsers
-
 
     private static class NewsParser extends AsyncTask<Void, Void, Throwable> {
         private final String uri;
@@ -223,20 +199,16 @@ public class DataFetcher {
         protected Throwable doInBackground(Void... arg0) {
             DbNews.open();
 
-
             for (FetchTask task : tasks) {
                 try {
                     HttpURLConnection conn = NewDataFetcher.get(task.link, null);
                     if (conn.getResponseCode() == 200) {
-//                        DbNews.deleteOldItems();
-
                         SAXParserFactory.newInstance().newSAXParser().parse(conn.getInputStream(), task.sax);
                     }
-                    //				} catch (SAXException e) {
-                    //					e.printStackTrace();
                     conn.disconnect();
                 } catch (Exception e) {
                     Log.d(LOG_TAG, e.toString());
+                    return e;
                 }
 
             }
@@ -263,15 +235,10 @@ public class DataFetcher {
             this.isOverride = isOverride;
         }
 
-        //		@Override
-        //		protected void onPreExecute() {
-        //			callback.onDataFetchComplete(null, uri);
-        //		}
-
         @Override
         protected Throwable doInBackground(Void... arg0) {
             DbUpdated.open();
-            if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY || isOverride) {
+            if (isOverride || DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY) {
 
                 try {
                     HttpURLConnection conn = NewDataFetcher.get(AppState.EGG_CAL_XML, null);
@@ -305,32 +272,20 @@ public class DataFetcher {
 
     private static class StandingsParser extends AsyncTask<Void, Void, Throwable> {
         private final String function;
-        //		private FetchTask[] tasks;
         private final Callbacks callback;
         private final String link;
         private final String fileName;
 
         public StandingsParser(Callbacks callback, String link, String function, String fileName) {
             this.callback = callback;
-            //			this.tasks = tasks;
             this.function = function;
             this.link = link;
             this.fileName = fileName;
-
-
         }
-
-        //		@Override
-        //		protected void onPreExecute() {
-        //			callback.onDataFetchComplete(null, uri);
-        //		}
 
         @Override
         protected Throwable doInBackground(Void... arg0) {
-            FileOutputStream outputStream;
 
-            //			for(FetchTask task : tasks) {
-            //				this.uri = task.function;
             String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">%s\n</head>\n<body text=\"#ffffff\" style=\"background:%s; text-align:center;\">", AppState.RALLY_AMERICA_CSS, ctx.getResources().getString(R.color.ActionBar).replaceFirst("ff", ""));
             try {
                 Pattern pattern = Pattern.compile("<table(.*?)</table>", Pattern.CASE_INSENSITIVE);
@@ -349,24 +304,22 @@ public class DataFetcher {
                 }
                 table += "</body>" + "</html>";
                 //						SAXParserFactory.newInstance().newSAXParser().parse(doGet(task.link), task.sax);
-                File file = ctx.getFileStreamPath(fileName);
+                final File file = ctx.getFileStreamPath(fileName);
                 if (file.exists()) {
                     ctx.deleteFile(fileName);
                 }
-                // Otherwise, creates a file to store the feedback
+                // Otherwise, creates a file to store the standings
                 Log.i(LOG_TAG, "Writing to file: " + fileName);
-                outputStream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
+                final FileOutputStream outputStream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
                 outputStream.write(table.getBytes());
 
 
             } catch (Exception e) {
                 Log.d(LOG_TAG, e.toString());
                 e.printStackTrace();
-                //				}  finally {
-                //					DbNews.close();
+                return e;
             }
 
-            //			}
             return null;
         }
 
@@ -376,70 +329,5 @@ public class DataFetcher {
             callback.onDataFetchComplete(result, function);
         }
     }
-
-/*	private static class EventsParser extends AsyncTask<Void, Void, Throwable> {
-		private String uri = "generic_parser";
-		private FetchTask[] tasks;
-		private Callbacks callback;
-
-		public EventsParser(String uri, Callbacks callback) {
-			this.callback = callback;
-			this.tasks = tasks;
-			this.uri = uri;
-		}
-		@Override
-		protected Throwable doInBackground(Void... arg0) {
-			try {
-				DbSchedule.open();
-//				DbSchedule.deleteAllByUri(uri);
-//					for(FetchTask task : tasks) {
-						String foo = readStream(doGet("http://www.ralsys.com/irally_xml/events.php"));
-						String ret = new String(foo.getBytes("ascii"), "utf-8");
-
-						String[] entry = ret.split("<");
-						int i = 0;
-						int entlen = entry.length;
-						while (i<entlen) {
-							String[] records = entry[i].split("~");
-								if (AppState.SERIES_WRC.equals(records[5]) || AppState.SERIES_RA.equals(records[5])){
-									//records[0]=event_id, records[1]=event_name, records[2]=events_country
-									//records[4]=Date_range(22 - 23 February), records[5]=series_id
-									//records[6]=seq_num
-									String series = "";
-									if (AppState.SERIES_WRC.equals(records[5])) {
-										series = AppState.WRC;
-									} else {
-										series = AppState.RA;
-									}
-									String[] date = records[4].split(" ");
-
-									DbSchedule.create(records[0], records[1].replace('?', 'ñ'), records[8], records[7], records[4], records[2], series);
-								Log.e(LOG_TAG, String.format("event_id=%s event_name=%s event_country=%s " +
-															"date_range=%s series_id=%s seq_num=%s",
-															records[0], records[1].replace('?', 'ñ'), records[2], records[4], records[5], records[6]));
-
-							}
-
-							i++;
-						}
-
-//					}
-
-			} catch (Exception e) {
-//				 Log.d(LOG_TAG, e.toString());
-				e.printStackTrace();
-			}  finally {
-				DbSchedule.close();
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Throwable result) {
-			 Log.d(LOG_TAG, "News Parsing finished");
-			callback.onDataFetchComplete(result, uri);
-		}
-	}*/
 
 }

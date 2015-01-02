@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+@Deprecated
 public class FeedbackFragment extends Fragment implements View.OnClickListener {
     /* ----- CONSTANTS ----- */
     //	private static final int ANONYMOUS_LIMIT = AppState.ANONYMOUS_LIMIT;
@@ -156,8 +157,4 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener {
         }
     };
 
-	/* ----- NESTED INTERFACES ----- */
-    //	public interface Callbacks{
-    //		public void onSendPressed(String fbMsg);
-    //	}
 }

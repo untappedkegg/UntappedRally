@@ -43,7 +43,6 @@ public class DbUpdated extends BaseDbAccessor {
         //check that something is returned to avoid 'Cursor Out of Bounds Exception
         //if no results are returned, make sure that an update is performed
         if (c.getCount() > 0 && c.moveToFirst()) {
-            //		c.moveToFirst();
             final long time = c.getLong(c.getColumnIndex(TIME));
             c.close();
             return time;

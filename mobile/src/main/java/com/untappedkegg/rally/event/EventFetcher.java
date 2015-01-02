@@ -71,11 +71,6 @@ public class EventFetcher implements Fetcher {
             this.year = year;
         }
 
-        //		@Override
-        //		protected void onPreExecute() {
-        //
-        //		}
-
         @Override
         protected Throwable doInBackground(Void... arg0) {
             Log.e(LOG_TAG, "Photo Parsing Started");
@@ -106,7 +101,7 @@ public class EventFetcher implements Fetcher {
                             DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), event, year);
                         }
                     }
-                    //
+
                     conn.disconnect();
                 } catch (Exception e) {
                     Log.d(LOG_TAG, e.toString());
@@ -115,7 +110,6 @@ public class EventFetcher implements Fetcher {
                 } finally {
                     DbUpdated.close();
                 }
-
             }
             return null;
         }
@@ -139,20 +133,12 @@ public class EventFetcher implements Fetcher {
             this.link = link;
         }
 
-        //		@Override
-        //		protected void onPreExecute() {
-        //
-        //		}
-
         @Override
         protected Throwable doInBackground(Void... arg0) {
 
             DbUpdated.open();
             if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(link)) > AppState.CAL_UPDATE_DELAY) {
                 try {
-
-
-
 
                     Pattern pattern = Pattern.compile("<div class=\"event-details\">(.*?)</p>", Pattern.CASE_INSENSITIVE);
 
@@ -163,7 +149,6 @@ public class EventFetcher implements Fetcher {
                     }
                     Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
 
-
                     while (matcher.find()) {
 
                         final String finds = matcher.group(0);
@@ -171,11 +156,12 @@ public class EventFetcher implements Fetcher {
 
                         DbSchedule.insert_schedule_description(link, eventDetails);
                     }
-                    //
+
                     conn.disconnect();
                 } catch (Exception e) {
                     Log.d(LOG_TAG, e.toString());
                     e.printStackTrace();
+                    return e;
                 } finally {
                     DbUpdated.close();
                 }

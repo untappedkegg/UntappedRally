@@ -40,10 +40,7 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //		activity.getActionBar().setDisplayShowTitleEnabled(true);
-        //		getActivity().getActionBar().setTitle(R.string.app_name);
         try {
-            //	    	Bundle bundle = getArguments();
             isHomeFragment = getArguments().getBoolean("isHomeFragment");
         } catch (NullPointerException e) {
             isHomeFragment = false;
@@ -81,15 +78,7 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
 
     @Override
     public void fetchData() {
-//        DbUpdated.open();
-//        if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY) {
-//        } else {
-            //			if (!DataFetcher.getInstance().sched_isRunning()) {
-            DataFetcher.getInstance().sched_start(this, false);
-            //				progressBar.setVisibility(View.VISIBLE);
-            //			}
-//        }
-//        DbUpdated.close();
+        DataFetcher.getInstance().sched_start(this, false);
     }
 
     @Override
@@ -124,11 +113,6 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
         if (isHomeFragment) return null;
         return DbSchedule.SCHED_YEAR_ACTUAL;
     }
-
-	/*@Override
-    protected ViewBinder getViewBinder() {
-		return new ScheduleViewBinder();
-	}*/
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {

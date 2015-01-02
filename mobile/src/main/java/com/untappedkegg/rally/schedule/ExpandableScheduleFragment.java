@@ -41,10 +41,7 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        //		activity.getActionBar().setDisplayShowTitleEnabled(true);
-        //		getActivity().getActionBar().setTitle(R.string.app_name);
         try {
-            //	    	Bundle bundle = getArguments();
             isHomeFragment = getArguments().getBoolean("isHomeFragment");
         } catch (NullPointerException e) {
             isHomeFragment = false;
@@ -63,14 +60,6 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         }
     }
 
-    //    @Override
-    //	public void onActivityCreated(Bundle savedState) {
-    //	    super.onActivityCreated(savedState);
-
-    //	    getListView().setOnItemLongClickListener(this);
-    //	}
-
-
     /* ----- INHERITED METHODS ----- */
     //	Fragment
     @Override
@@ -82,15 +71,7 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
 
     @Override
     public void fetchData() {
-//        DbUpdated.open();
-//        if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY) {
-
-            //			if (!DataFetcher.getInstance().sched_isRunning()) {
-            DataFetcher.getInstance().sched_start(this, false);
-            //				progressBar.setVisibility(View.VISIBLE);
-            //			}
-//        }
-//        DbUpdated.close();
+        DataFetcher.getInstance().sched_start(this, false);
     }
 
     @Override
@@ -104,7 +85,6 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         if (isHomeFragment) {
             return DbSchedule.fetchUpcoming();
         } else {
-            //		return DbSchedule.fetch();
             return DbSchedule.fetchSections();
         }
 
@@ -116,7 +96,6 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         final int[] groupTo = new int[]{R.id.generic_section_list_header_textview};
         String[] from = new String[]{DbSchedule.SCHED_ID, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_EVT_SITE};
         int[] to = new int[]{R.id.sched_id, R.id.sched_date, R.id.sched_icon, R.id.sched_website};
-        //		return new WrapperExpandableListAdapter(getActivity(), R.layout.schedule_row, null, from, to, 0, this);
         return new ScheduleTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.schedule_row, from, to, this);
     }
 
@@ -126,40 +105,12 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         return DataFetcher.getInstance().sched_isRunning();
     }
 
-    //    @Override
-    //    protected String getSectionField() {
-    //        if (isHomeFragment)
-    //            return null;
-    //        return DbSchedule.SCHED_YEAR_ACTUAL;
-    //    }
-
-    //	@Override
-    //         protected SimpleCursorTreeAdapter.ViewBinder getViewBinder() {
-    //             return new ScheduleViewBinder();
-    //         }
-
-//    @Override
-//    protected void finishedLoading() {
-//        AppState.setNextNotification();
-//    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         final String eventId = ((TextView) v.findViewById(R.id.sched_id)).getText().toString();
         final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
         callback.showEventDetail(EventDetails.class.getName(), eventId, eventName);
     }
-
-    //    @Override
-    //	public void onListItemClick(ListView l, View v, int position, long id) {
-    ////        if(!adapter.isSection(position)) {
-    //            final String eventId = ((TextView) v.findViewById(R.id.sched_id)).getText().toString();
-    //            final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-    //            callback.showEventDetail(EventDetails.class.getName(), eventId, eventName);
-    ////        }
-    //		// call back for dialog fragment which gives the option to choose from stages, stage times, itinerary
-    //
-    //	}
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
@@ -227,22 +178,6 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         return true;
     }
 
-
-    //	@Override
-    //	public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
-    //		String startDate = ((TextView) v.findViewById(R.id.start_date)).getText().toString();
-    //		String endDate = ((TextView) v.findViewById(R.id.end_date)).getText().toString();
-    //
-    //		try {
-    //			CommonIntents.addRallyToCalendar(getActivity(), ((TextView) v.findViewById(R.id.sched_title)).getText().toString(), DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1) );
-    //			return true;
-    //		} catch (ParseException e) {
-    //			//
-    ////			e.printStackTrace();
-    //			return false;
-    //		}
-    //
-    //	}
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {

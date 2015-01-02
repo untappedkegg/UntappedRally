@@ -41,23 +41,6 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
     private static AppWidgetManager widgetManager;
     private static int[] widgetIds;
 
-//    private static final DisplayImageOptions nextEventOptions = new DisplayImageOptions.Builder()
-//            .showImageOnLoading(R.drawable.ra_large) // resource or drawable
-//            .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
-//            .showImageOnFail(R.drawable.ra_large) // resource or drawable
-//            .cacheInMemory(true).cacheOnDisk(true)
-//            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-//            .bitmapConfig(Bitmap.Config.RGB_565)
-//            .displayer(new FadeInBitmapDisplayer(750, true, true, false))
-//            .build();
-//    private static final DisplayImageOptions foregroundImg = new DisplayImageOptions.Builder()
-//            .cacheInMemory(true)
-//            .cacheOnDisk(true)
-//            .imageScaleType(ImageScaleType.EXACTLY)
-//            .bitmapConfig(Bitmap.Config.RGB_565)
-//            .displayer(new FadeInBitmapDisplayer(750, true, true, false))
-//            .build();
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         this.ctx = context;
@@ -167,9 +150,6 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                 }
 
             } catch (ParseException e) {
-                //                 views.setViewVisibility(R.id.next_event_img, View.GONE);
-                //                 if (AppState.isNullOrEmpty(counter.getText().toString()))
-                //                     counter.setVisibility(View.GONE);
                 e.printStackTrace();
             } catch (CursorIndexOutOfBoundsException e) {
 

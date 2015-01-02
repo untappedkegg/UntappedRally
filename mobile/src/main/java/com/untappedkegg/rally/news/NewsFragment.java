@@ -117,10 +117,8 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
         } else {
             loadList();
 
-//            if (!DataFetcher.getInstance().news_isRunning()) {
                 DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
                 progressBar.setVisibility(View.VISIBLE);
-//            }
         }
         DbUpdated.close();
     }
@@ -137,18 +135,15 @@ public class NewsFragment extends SectionList implements DataFetcher.Callbacks, 
         if (!adapter.isSection(position)) {
             final String source = ((TextView) v.findViewById(R.id.list_uri)).getText().toString();
             final String link = ((TextView) v.findViewById(R.id.list_link)).getText().toString();
-            //			String myId = ((TextView) v.findViewById(R.id.list_id)).getText().toString();
-            //			String status = ((TextView) v.findViewById(R.id.read_status)).getText().toString();
             final String title = ((TextView) v.findViewById(R.id.list_title)).getText().toString();
+
             if (!AppState.isNullOrEmpty(source) && !AppState.startsWithIgnoreCase(title, "Video")) {
                 // Call new fragment to display the Title, Image, and full Description for Michelin/Rally_America item
 
                 final String pubdate = ((TextView) v.findViewById(R.id.list_date2)).getText().toString();
                 final String descr = ((TextView) v.findViewById(R.id.list_descr)).getText().toString();
-//                Log.w(LOG_TAG, descr);
-                //                descr = Html.fromHtml(descr);
-                //                descr = Html.fromHtml(descr, ImageLoader.getInstance()., null);
                 final Fragment dialog = BaseDialogFragment.newInstance(title, descr, pubdate, link, source, true);
+
                 this.getChildFragmentManager().beginTransaction().add(dialog, dialog.toString()).commit();
 
             } else {

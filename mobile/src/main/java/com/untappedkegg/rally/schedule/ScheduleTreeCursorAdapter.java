@@ -91,19 +91,11 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             holder.icon.setMaxHeight(125);
             holder.icon.setAdjustViewBounds(true);
 
-            //			Context context = imageView.getContext();
-
             if (uri.contains("100aw")) {
                 uri = "ra" + uri;
             }
 
             ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri + "_large", holder.icon, scheduleOptions);
-            //			int id = ctx.getResources().getIdentifier(uri, "drawable", ctx.getPackageName());
-            //			if (id != 0) {
-            //				holder.icon.setImageResource(id);
-            //			} else {
-            //				holder.icon.setImageResource(R.drawable.ra_large);
-            //			}
         }
 
 
@@ -151,6 +143,5 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         ImageView icon, menu;
         TextView title, id, date, status, eventWebsite, website, startDate, endDate, location;
         int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn, locColumn/*, yearColumn*/;
-//        String location;
     }
 }

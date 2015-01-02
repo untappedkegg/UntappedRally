@@ -21,14 +21,6 @@ import com.untappedkegg.rally.util.DialogManager;
 public class EventActivity extends BaseContainer implements EventDetails.Callbacks, EventStages.Callbacks {
 
 	/*----- LIFECYCLE METHODS -----*/
-    //	@Override
-    //	public void onWindowFocusChanged(boolean hasFocus) {
-    //	        super.onWindowFocusChanged(hasFocus);
-    //	    if (hasFocus ) {
-    //	    	AppState.hideSystemUI(this);
-    //	    }
-    //	}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +38,6 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
                 } else {
                     TaskStackBuilder.create(this).addParentStack(this).startActivities();
                 }
-
-//                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
