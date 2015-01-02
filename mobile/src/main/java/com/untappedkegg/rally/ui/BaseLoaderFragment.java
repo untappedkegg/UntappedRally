@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
-import com.untappedkegg.rally.home.ActivityMain2;
+import com.untappedkegg.rally.home.ActivityMain;
 import com.untappedkegg.rally.home.NavDrawerFragment;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
@@ -71,7 +71,7 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
 
 
         if (position != 0) {
-            ActivityMain2.setCurPosition(position);
+            ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
             final Activity activity = getActivity();
             try {

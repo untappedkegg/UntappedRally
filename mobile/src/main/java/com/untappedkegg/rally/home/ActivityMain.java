@@ -80,7 +80,7 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain2 extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener {
+public class ActivityMain extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 

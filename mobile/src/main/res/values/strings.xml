@@ -80,9 +80,9 @@
     <!-- ABOUT -->
     <string name="about_main">This app is developed and published by UntappedKegg.
         \nFollow me on twitter at https://twitter.com/untappedkegg
-        \nTo view the changelog or upcoming features, visit: rally.untappedkegg.com
-        \n\n<u><b>Disclaimer</b></u>:\n
-        This app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America, Inc. in any way either expressed or implied.</string>
+        \n\nTo view the changelog or upcoming features, visit: rally.untappedkegg.com
+        \n\n<u><b>Disclaimer</b></u>:
+        \nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America, Inc. in any way either expressed or implied.</string>
     <string name="about_learn_more"> To learn more about the series, go to http://www.rally-america.com</string>
     <string name="about_version">App Version: %1$s</string>
 

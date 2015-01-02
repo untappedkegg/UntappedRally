@@ -72,7 +72,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
         if (position != 0) {
             getActivity().getActionBar().setTitle(modArray[position]);
             NavDrawerFragment.getListView().setItemChecked(position, true);
-            ActivityMain2.setCurPosition((short) position);
+            ActivityMain.setCurPosition((short) position);
         }
 
         return view;

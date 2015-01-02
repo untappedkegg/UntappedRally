@@ -35,7 +35,7 @@ public class AboutFragment extends Fragment {
             try {
                 getActivity().getActionBar().setTitle(modArray[position]);
                 NavDrawerFragment.getListView().setItemChecked(position, true);
-                ActivityMain2.setCurPosition(position);
+                ActivityMain.setCurPosition(position);
             } catch (Exception e) {
             }
         }

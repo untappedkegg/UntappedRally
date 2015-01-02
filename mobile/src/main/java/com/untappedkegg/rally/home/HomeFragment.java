@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
         getActivity().getActionBar().setTitle(modArray[position]);
         NavDrawerFragment.getListView().setItemChecked(position, true);
 
-        ActivityMain2.setCurPosition((short) position);
+        ActivityMain.setCurPosition((short) position);
     }
 
     @Override

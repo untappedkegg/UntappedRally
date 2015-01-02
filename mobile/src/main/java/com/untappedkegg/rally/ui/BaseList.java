@@ -27,7 +27,7 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher;
-import com.untappedkegg.rally.home.ActivityMain2;
+import com.untappedkegg.rally.home.ActivityMain;
 import com.untappedkegg.rally.home.NavDrawerFragment;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
@@ -173,7 +173,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
                 getActivity().getActionBar().setTitle(modArray[position]);
                 //                ((ListView) getActivity().findViewById(R.id.left_drawer)).setItemChecked(position, true);
                 NavDrawerFragment.getListView().setItemChecked(position, true);
-                ActivityMain2.setCurPosition(position);
+                ActivityMain.setCurPosition(position);
             } catch (Exception e) {
             }
         }

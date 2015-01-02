@@ -20,7 +20,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".home.ActivityMain2" >
+        <activity android:name=".home.ActivityMain" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,18 +43,18 @@
         <activity
             android:name=".feedback.Feedback"
             android:label="@string/feedback"
-            android:parentActivityName=".home.ActivityMain2" >
+            android:parentActivityName=".home.ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain2" />
+                android:value=".home.ActivityMain" />
         </activity>
         <activity
             android:name=".event.EventActivity"
             android:label="Event Details"
-            android:parentActivityName=".home.ActivityMain2" >
+            android:parentActivityName=".home.ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain2" />
+                android:value=".home.ActivityMain" />
         </activity>
         <activity android:name=".HelperActivity" >
         </activity>
@@ -96,10 +96,10 @@
         <activity
             android:name=".preference.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".home.ActivityMain2" >
+            android:parentActivityName=".home.ActivityMain" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain2" />
+                android:value=".home.ActivityMain" />
         </activity>
     </application>
 
