@@ -23,8 +23,7 @@ import java.text.ParseException;
  * create an instance of this fragment.
  */
 public class BaseDialogFragment extends DialogFragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_TITLE = "title";
     private static final String ARG_DESCRIPTION = "descr";
     private static final String ARG_PUBDATE = "pubdate";
@@ -32,7 +31,6 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     private static final String ARG_LINKIFY = "linkify";
     private static final String ARG_URL = "url";
 
-    // TODO: Rename and change types of parameters
     private String title, description, pubDate, imgLink, webLink;
     private TextView pubDateText, mDescription, mTitle;
     private ImageView imageView;

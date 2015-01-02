@@ -336,7 +336,11 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
 
         // Email
         try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("mail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
+            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
+        } catch (Exception e) { }
+
+        try {
+            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
         } catch (Exception e) { }
 
         // Twitter

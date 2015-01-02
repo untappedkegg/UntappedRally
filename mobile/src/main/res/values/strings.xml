@@ -22,7 +22,6 @@
         <item>Feedback</item>
         <item>Settings</item>
         <item>About</item>
-        <item>Exit</item>
     </string-array>
 
     <string name="oops">Oops!</string>

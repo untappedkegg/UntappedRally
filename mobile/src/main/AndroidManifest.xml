@@ -39,15 +39,6 @@
             </intent-filter>
         </activity>
         -->
-
-        <activity
-            android:name=".feedback.Feedback"
-            android:label="@string/feedback"
-            android:parentActivityName=".home.ActivityMain" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain" />
-        </activity>
         <activity
             android:name=".event.EventActivity"
             android:label="Event Details"
