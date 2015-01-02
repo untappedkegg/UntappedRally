@@ -36,11 +36,6 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
     }
 
 	 /* ----- LIFECYCLE METHODS ----- */
-    //    @Override
-    //    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    //
-    //    }
-
     /**
      * <p>Runs through the behavioral booleans to determine what to do next.
      * If the data has already been fetched ({@code dataFetched} ), then it calls {@link #loadData()}.
@@ -65,7 +60,7 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
         } else {
             setProgressBarVisibility(View.GONE);
             setEmptyText();
-            finishedLoading();
+            finishRequery();
         }
     }
 
@@ -90,7 +85,6 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
         }
     }
     //	LoaderCallbacks
-
     /**
      * <p>Creates the {@code SimpleCursorLoader} based on the cursor returned by {@link #loadCursor()}.</p>
      */
@@ -286,7 +280,8 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
     /**
      * <p>Handles the completion of loader. The subclass should override this method to handle this event.</p>
      */
-    protected void finishedLoading() {
+    protected void finishRequery() {
+        this.setEmptyText();
         // do nothing by default
     }
 

@@ -80,7 +80,8 @@ public class AppState extends Application {
 
     //Calendars
     //	public static final String EGG_CAL_XML= "https://bowtieegg.com/kyle/rally/schedule/events";
-    public static final String EGG_CAL_XML = "https://bowtieegg.com/kyle/rally/db/xml/";
+//    public static final String EGG_CAL_XML = "https://bowtieegg.com/kyle/rally/db/xml/";
+    public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
 //    public static final String EGG_DRAWABLE = "https://bowtieegg.com/kyle/rally/drawable/";
     //	public static final String EGG_CAL_XML = "https://web.missouri.edu/~kpetg6/wrc/events";
     public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";

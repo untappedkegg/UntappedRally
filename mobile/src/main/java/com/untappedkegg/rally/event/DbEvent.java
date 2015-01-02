@@ -10,8 +10,6 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.schedule.DbSchedule;
 
-import java.util.Calendar;
-
 public class DbEvent extends BaseDbAccessor {
 
     public static final String PHOTO_TABLE = "photos";
@@ -73,12 +71,12 @@ public class DbEvent extends BaseDbAccessor {
         return null;
     }
 
-    public static final void photosInsert(String title, String link, String eventCode) {
+    public static final void photosInsert(String title, String link, String eventCode, String year) {
         ContentValues vals = new ContentValues();
         vals.put(PHOTO_TITLE, title);
         vals.put(PHOTO_URL, link);
         vals.put(PHOTO_EVENT, eventCode);
-        vals.put(PHOTO_YEAR, Calendar.getInstance().get(Calendar.YEAR));
+        vals.put(PHOTO_YEAR, year);
 
         dbAdapter.insert(PHOTO_TABLE, vals);
     }

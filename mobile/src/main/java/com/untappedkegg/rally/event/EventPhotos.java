@@ -30,20 +30,16 @@ public class EventPhotos extends BaseGridView implements NewDataFetcher.Callback
         linkPts = link.split("/");
     }
 
-
     /*----- INHERITED METHODS -----*/
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final String link = ((TextView) view.findViewById(R.id.grid_link)).getText().toString();
-        //		Uri uri = Uri.parse(ImageLoader.getInstance().getLoadingUriForView((ImageView) view.findViewById(R.id.grid_image)));
         CommonIntents.openImage(getActivity(), link);
-
     }
 
     @Override
     protected void fetchData() {
         //		if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_PICS + linkPts[5] + linkPts[4])) > AppState.STAND_UPDATE_DELAY) {
-
         EventFetcher.getInstance().start(this, link, linkPts[4]);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -72,15 +68,17 @@ public class EventPhotos extends BaseGridView implements NewDataFetcher.Callback
         return EventFetcher.getInstance().isRunning();
     }
 
+    @Override
+    protected String getCustomEmptyText() {
+        return getString(R.string.empty_photos);
+    }
+
     //Callbacks
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
         if (!this.isDetached() && this.isVisible()) {
             this.loadData();
         }
-        //		DbUpdated.open();
-        //		DbUpdated.updated_insert(AppState.MOD_PICS + linkPts[5] + linkPts[4]);
-        //		DbUpdated.close();
     }
 
     public static class PhotoViewBinder implements ViewBinder {
@@ -90,16 +88,13 @@ public class EventPhotos extends BaseGridView implements NewDataFetcher.Callback
             switch (v.getId()) {
 
                 case R.id.grid_image:
-                    //				v.setVisibility(View.VISIBLE);
                     ImageLoader.getInstance().displayImage(c.getString(colIdx), (ImageView) v);
                     return true;
                 case R.id.grid_text:
                     String uri = c.getString(colIdx);
                     TextView tv = ((TextView) v);
                     tv.setLines(1);
-                    if (AppState.isNullOrEmpty(uri)) {
-                        //                    tv.setBackgroundColor(AppState.getApplication().getResources().getColor(android.R.color.transparent));
-                        tv.setVisibility(View.INVISIBLE);
+                    if (AppState.isNullOrEmpty(uri)) {tv.setVisibility(View.INVISIBLE);
                     } else {
                         tv.setText(uri);
                         tv.setVisibility(View.VISIBLE);
@@ -109,7 +104,6 @@ public class EventPhotos extends BaseGridView implements NewDataFetcher.Callback
                     return false;
             }
         }
-
     }
 
 }

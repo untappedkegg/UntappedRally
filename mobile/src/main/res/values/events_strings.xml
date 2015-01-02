@@ -10,6 +10,8 @@
     <string name="events_photos">Photos</string>
     <string name="events_results">Results</string>
 
+    <string name="empty_photos">Oops, there doesn\'t appear to be any photos right now.</string>
+
     <!-- stages_row -->
     <string name="event_stages_atc">First Car:</string>
 

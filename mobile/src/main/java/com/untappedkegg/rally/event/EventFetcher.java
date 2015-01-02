@@ -78,12 +78,13 @@ public class EventFetcher implements Fetcher {
 
         @Override
         protected Throwable doInBackground(Void... arg0) {
-
+            Log.e(LOG_TAG, "Photo Parsing Started");
             DbUpdated.open();
+            final String event = link.substring(link.lastIndexOf("/") + 1);
+            link += "/photos";
             if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(link)) > AppState.STAND_UPDATE_DELAY) {
                 try {
-                    final String event = link.substring(link.lastIndexOf("/") + 1);
-                    link += "/photos";
+
 
 
                     Pattern pattern = Pattern.compile("<a href='/assets/(.*?)</a>", Pattern.CASE_INSENSITIVE);
@@ -93,23 +94,24 @@ public class EventFetcher implements Fetcher {
                     if (conn.getResponseCode() == 200) {
                         DbEvent.delete_photos(event, year);
                         DbUpdated.updated_insert(link);
-                    }
-                    Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
+                        Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
 
 
-                    while (matcher.find()) {
-                        //							Log.w(""+matcher.groupCount(), matcher.group(0).replaceAll("'", "\""));
-                        //							String find = matcher.group(0);
-                        //							find.replaceAll("'", "\"");
-                        final String[] finds = matcher.group(0).replaceAll("'", "\"").split("\"");
-                        //							Log.e(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)) );
-                        DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), event);
+                        while (matcher.find()) {
+                            //							Log.w(""+matcher.groupCount(), matcher.group(0).replaceAll("'", "\""));
+                            //							String find = matcher.group(0);
+                            //							find.replaceAll("'", "\"");
+                            final String[] finds = matcher.group(0).replaceAll("'", "\"").split("\"");
+//                            							Log.e(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)) );
+                            DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), event, year);
+                        }
                     }
                     //
                     conn.disconnect();
                 } catch (Exception e) {
                     Log.d(LOG_TAG, e.toString());
                     e.printStackTrace();
+                    return e;
                 } finally {
                     DbUpdated.close();
                 }

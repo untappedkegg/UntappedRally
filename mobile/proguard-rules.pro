@@ -50,7 +50,12 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class com.android.vending.licensing.ILicensingService
 
--keep public class com.untappedkegg.rally.event.EventPhoto
+#-keepclasseswithmembernames class ** implements android.support.v4.ViewBinder
+
+#-keep public class com.untappedkegg.rally.event.EventPhoto
+#-keep public class com.untappedkegg.rally.event.EventPhotos$PhotoViewBinder
+
+#-keepattributes InnerClasses
 
 #To remove debug logs:
 -assumenosideeffects class android.util.Log {
