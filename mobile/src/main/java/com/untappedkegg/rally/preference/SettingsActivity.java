@@ -1,5 +1,6 @@
 package com.untappedkegg.rally.preference;
 
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -52,7 +53,11 @@ public class SettingsActivity extends PreferenceActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        final ActionBar actionBar = getActionBar();
+        if (actionBar != null)
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        
         notifyButton = new Button(this);
         notifyButton.setText(R.string.settings_notify_button);
         notifyButton.setOnClickListener(this);
