@@ -43,6 +43,7 @@
     </style>
 
     <style name="spinner" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:textStyle">bold</item>
         <item name="android:popupBackground">@color/translucent_dim_gray</item>
     </style>
 
@@ -73,6 +74,7 @@
  <color name="list_divider_color">@android:color/holo_blue_dark</color>
  <color name="transparent">@android:color/transparent</color>
  <color name="translucent_dim_gray">#EE696969</color>
+ <color name="spinner_background">#EE787878</color>
  <color name="translucent_dim_gray_more">#BB696969</color>
  <color name="side_menu">#DD333333</color>
 

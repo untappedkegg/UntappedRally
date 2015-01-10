@@ -62,9 +62,6 @@ public abstract class BaseWebView extends BaseFragment {
     }
 
 
-    /**
-     * @see android.support.v4.app.Fragment#onStart(android.app.Activity)
-     */
     @Override
     public void onStart() {
         super.onStart();
@@ -83,7 +80,7 @@ public abstract class BaseWebView extends BaseFragment {
         }
     }
 
-    protected void updateArgs(String args, String query) {
+    public void updateArgs(String args, String query) {
         this.link = args;
     }
 

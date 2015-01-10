@@ -10,24 +10,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 
 public abstract class ViewPagerFragment extends Fragment {
+    protected boolean needtopUpdateAllChildren = false;
 
     /**
-     * The {@link android.view.PagerAdapter} that will provide
+     * The {@link android.support.v4.app.FragmentPagerAdapter;} that will provide
      * fragments for each of the sections. We use a
      * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
      * will keep every loaded fragment in memory. If this becomes too memory
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    FragmentsPagerAdapter mSectionsPagerAdapter;
+    protected FragmentsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    ViewPager mViewPager;
+    protected ViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +46,60 @@ public abstract class ViewPagerFragment extends Fragment {
         mViewPager = (ViewPager) getActivity().findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setCurrentItem(getInitialPageNumber(), true);
+        if(needtopUpdateAllChildren) {
+            mViewPager.setOffscreenPageLimit(getNumPages() - 1);
+        }
+    }
+
+    protected Fragment getDisplayedFragment() {
+        final String tag = "android:switcher:" + mViewPager.getId() + ":" + mViewPager.getCurrentItem();
+        return getChildFragmentManager().findFragmentByTag(tag);
+    }
+
+    protected Fragment getChildByPosition(int position) {
+        final String tag = "android:switcher:" + mViewPager.getId() + ":" + position;
+        return getChildFragmentManager().findFragmentByTag(tag);
+    }
+
+    /**
+     * <p>Updates the arguments in the {@code dataFragment} if it extends {@link com.untappedkegg.rally.ui.BaseList} or {@link com.untappedkegg.rally.ui.BaseDetails}., subclass should override to handle
+     * updating the class arguments for other types of fragments.</p>
+     */
+    protected void updateArgs(String args, String query) {
+        updateArgs(args, query, false);
+    }
+
+    /**
+     * <p>Updates the arguments in the {@code dataFragment} if it extends {@link com.untappedkegg.rally.ui.BaseList} or {@link com.untappedkegg.rally.ui.BaseDetails}., subclass should override to handle
+     * updating the class arguments for other types of fragments.</p>
+     */
+    protected void updateArgs(String args, String query, boolean updateAll) {
+        Fragment[] fragments;
+        if (updateAll) {
+            fragments = new Fragment[getNumPages()];
+            for (int i = 0; i < getNumPages(); i++) {
+                fragments[i] = getChildByPosition(i);
+            }
+        } else {
+            fragments = new Fragment[] {getDisplayedFragment()};
+        }
+
+        for (Fragment dataFragment : fragments) {
+            try {
+                if (dataFragment != null) {
+                    if (dataFragment instanceof BaseList) {
+                        ((BaseList) dataFragment).updateArgs(args, query);
+                    } else if (dataFragment instanceof BaseFragment) {
+                        ((BaseFragment) dataFragment).updateArgs(args, query);
+                    } else if (dataFragment instanceof BaseMap) {
+                        ((BaseMap) dataFragment).updateArgs(args, query);
+                    }
+                }
+            } catch (Exception e) {
+                if(AppState.DEBUG)
+                    e.printStackTrace();
+            }
+        }
     }
 
     /**

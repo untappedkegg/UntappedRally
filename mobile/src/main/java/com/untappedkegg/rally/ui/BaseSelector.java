@@ -80,7 +80,7 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
      * updating the class arguments for other types of fragments.  Note that it also calls {@link #loadSelector()} to update the title and buttons.</p>
      */
     @Override
-    protected void updateArgs(String args, String query) {
+    public void updateArgs(String args, String query) {
         if (dataFragment != null) {
             if (dataFragment instanceof BaseList) {
                 ((BaseList) dataFragment).updateArgs(args, query);

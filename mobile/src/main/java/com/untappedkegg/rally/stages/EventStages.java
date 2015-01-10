@@ -13,23 +13,33 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.event.DbEvent;
-import com.untappedkegg.rally.ui.BaseContainer;
 import com.untappedkegg.rally.ui.SectionList;
 import com.untappedkegg.rally.util.DateManager;
 
 
 public class EventStages extends SectionList implements NewDataFetcher.Callbacks {
 
+    /*----- VARIABLES -----*/
     private String link;
     private String[] linkPts;
+    private Callbacks callbacks;
 
+    /*----- LIFECYCLE METHODS -----*/
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
         linkPts = link.split("/");
+
+        try {
+            callbacks = (Callbacks) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement " + Callbacks.class.getSimpleName());
+        }
     }
 
+    /*----- INHERITED METHODS -----*/
     @Override
     public void fetchData() {
         DbUpdated.open();
@@ -69,7 +79,7 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
             if (progressBar.isShown()) {
                 Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
             } else {
-                ((BaseContainer) getActivity()).selectContent(StagesSelector.class.getName(), link, ((TextView) v.findViewById(R.id.stages_id)).getText().toString());
+                callbacks.selectStageDetail(link, ((TextView) v.findViewById(R.id.stages_id)).getText().toString());
             }
         }
     }
@@ -85,7 +95,6 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
         DbUpdated.close();
     }
 
-
     @Override
     protected String getSectionField() {
         return DbEvent.STAGES_HEADER;
@@ -94,7 +103,6 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
     public interface Callbacks {
         public void selectStageDetail(String link, String stageNo);
     }
-
 
     /* (non-Javadoc)
      * @see com.untappedkegg.rally.ui.BaseList#getCustomEmptyText()

@@ -1,6 +1,5 @@
 package com.untappedkegg.rally.stages;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.os.Bundle;
@@ -10,10 +9,10 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.event.DbEvent;
-import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.ui.BaseWebView;
 
 public class StagesResults extends BaseWebView implements NewDataFetcher.Callbacks {
+
     /*----- VARIABLES -----*/
     private short curStage;
     private final StagesFetcher fetcher = StagesFetcher.getInstance();
@@ -21,6 +20,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     private short year;
     private boolean isFinished;
 
+    /*----- LIFECYCLE METHODS -----*/
     /**
      * (non-Javadoc)
      *
@@ -33,7 +33,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
         final String[] linkPts = link.split("/");
         eventCode = linkPts[5];
         year = Short.parseShort(linkPts[4]);
-        isFinished = DbSchedule.isEventFinished(eventCode, year);
+        isFinished = getArguments().getBoolean("isFinished");
     }
 
     @Override
@@ -54,8 +54,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     /*----- INHERITED METHODS -----*/
     @Override
     protected void fetchData() {
-        fetcher.startStageResults(this, getFullLink(), eventCode, curStage, year);
-
+        fetcher.startStageResults(this, getFullLink(), eventCode, curStage, year, isFinished);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
             mWebView.loadData(getResources().getString(R.string.stage_results_format, getResources().getString(R.string.stage_results_loading)), "text/html", "UTF-8");
         } else {
             DbEvent.open();
-            mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage), "text/html", "UTF-8");
+            mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
             DbEvent.close();
         }
     }
@@ -75,8 +74,16 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
         return fetcher.isRunning();
     }
 
-    @SuppressLint("NewApi")
-    protected void updateArgs(String args, String query) {
+    @Override
+    public void onDataFetchComplete(Throwable throwable, String key) {
+        DbEvent.open();
+        mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
+        DbEvent.close();
+        this.setProgressBarVisibility(View.GONE);
+    }
+
+    /*----- CUSTOM METHODS -----*/
+    public void updateArgs(String args, String query) {
         super.updateArgs(args, query);
         this.dataFetched = false;
         curStage = Short.parseShort(query);
@@ -86,15 +93,6 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
         startRequery();
     }
 
-    @Override
-    public void onDataFetchComplete(Throwable throwable, String key) {
-        DbEvent.open();
-        mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage), "text/html", "UTF-8");
-        DbEvent.close();
-        this.setProgressBarVisibility(View.GONE);
-    }
-
-    /*----- CUSTOM METHODS -----*/
     private String getFullLink() {
         if (!isFinished) {
             return link + String.format(AppState.FUNC_STAGE_TIMES, curStage);

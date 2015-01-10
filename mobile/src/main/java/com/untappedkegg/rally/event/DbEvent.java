@@ -8,6 +8,7 @@ import android.util.Log;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
+import com.untappedkegg.rally.data.DbAdapter;
 import com.untappedkegg.rally.schedule.DbSchedule;
 
 public class DbEvent extends BaseDbAccessor {
@@ -28,13 +29,14 @@ public class DbEvent extends BaseDbAccessor {
     public static final String STAGES_ATC = "atc";
     public static final String STAGES_NUMBER = "num";
     public static final String STAGES_HEADER = "header";
+    public static final String STAGES_TIMES = "times";
     public static final String STAGES_RESULTS = "results";
 
 
     // Create Statements
     private static final String EVENT_PHOTOS_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)", DbEvent.PHOTO_TABLE, DbEvent.PHOTO_ID, DbEvent.PHOTO_TITLE, DbEvent.PHOTO_URL, DbEvent.PHOTO_EVENT, DbEvent.PHOTO_YEAR);
 
-    private static final String STAGES_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, %s INTEGER, %s NUMERIC, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)", DbEvent.STAGES_TABLE, DbEvent.STAGES_ID, DbEvent.STAGES_YEAR, DbEvent.STAGES_NUMBER, DbEvent.STAGES_LENGTH, DbEvent.STAGES_ATC, DbEvent.STAGES_NAME, DbEvent.STAGES_EVENT, DbEvent.STAGES_HEADER, DbEvent.STAGES_RESULTS);
+    private static final String STAGES_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, %s INTEGER, %s NUMERIC, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)", DbEvent.STAGES_TABLE, DbEvent.STAGES_ID, DbEvent.STAGES_YEAR, DbEvent.STAGES_NUMBER, DbEvent.STAGES_LENGTH, DbEvent.STAGES_ATC, DbEvent.STAGES_NAME, DbEvent.STAGES_EVENT, DbEvent.STAGES_HEADER, DbEvent.STAGES_RESULTS, DbEvent.STAGES_TIMES);
 
     public static final void create(SQLiteDatabase db) {
         Log.d(LOG_TAG, "Creating table: " + DbEvent.PHOTO_TABLE);
@@ -99,9 +101,14 @@ public class DbEvent extends BaseDbAccessor {
         dbAdapter.insert(STAGES_TABLE, vals);
     }
 
-    public static final void stageResultsInsert(String eventCode, short year, short stage, String results) {
+    public static final void stageResultsInsert(String eventCode, short year, short stage, String results, boolean isResults) {
         ContentValues vals = new ContentValues();
-        vals.put(STAGES_RESULTS, results);
+        if(isResults) {
+            vals.put(STAGES_RESULTS, results);
+        } else
+        {
+            vals.put(STAGES_TIMES, results);
+        }
 
         dbAdapter.update(STAGES_TABLE, vals, String.format("%s = '%s' AND %s = %s AND %s = %s", STAGES_EVENT, eventCode, STAGES_NUMBER, stage, STAGES_YEAR, year));
     }
@@ -132,6 +139,12 @@ public class DbEvent extends BaseDbAccessor {
         return "";
     }
 
+    public static final String[] getStageNamesForEvent(String year, String eventCode) {
+        final Cursor c = dbAdapter.selectf("SELECT %s || '. ' || %s AS %s FROM %s WHERE %s = '%s' AND %s = %s ORDER BY %s ASC", STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
+
+        return DbAdapter.toStringArray(c);
+    }
+
     public static final short getMaxStageNumber(String year, String eventCode) {
         final Cursor c = dbAdapter.selectf("SELECT MAX(%s) FROM %s WHERE %s = '%s' AND %s = %s", STAGES_NUMBER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year);
         if (c.moveToFirst()) {
@@ -143,12 +156,12 @@ public class DbEvent extends BaseDbAccessor {
         return 0;
     }
 
-    public static final String fetchStageResults(String eventCode, short year, short curStage) {
-        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = '%s' AND %s = %s AND %s = %s", STAGES_RESULTS, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_NUMBER, curStage, STAGES_YEAR, year);
+    public static final String fetchStageResults(String eventCode, short year, short curStage, boolean isResults) {
+        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = '%s' AND %s = %s AND %s = %s", isResults ? STAGES_RESULTS : STAGES_TIMES, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_NUMBER, curStage, STAGES_YEAR, year);
         if (c.moveToFirst()) {
             final String results = c.getString(0);
             c.close();
-            Log.w(STAGES_RESULTS, results + "");
+//            Log.w(STAGES_RESULTS, results + "");
             if (AppState.isNullOrEmpty(results)) {
                 return AppState.getApplication().getResources().getString(R.string.stage_results_format, AppState.getApplication().getResources().getString(R.string.stage_results_error));
             } else {

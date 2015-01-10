@@ -2,7 +2,6 @@ package com.untappedkegg.rally.data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -15,14 +14,12 @@ import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.social.DbSocial;
 
-import java.util.Map.Entry;
-
 public class DbAdapter {
     /* ----- CONSTANTS ----- */
     /**
      * Update this value anytime there is a change made in this page or to any of the constants that this page references
      */
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     public static final String DB_NAME = "Untapped_Rally.db";
 
     private static final String LOG_TAG = DbAdapter.class.getSimpleName();
@@ -279,61 +276,22 @@ public class DbAdapter {
         handleCount = 0;
     }
 
-    // shared preferences
-
-    /**
-     * <p>Gets the {@code field} preference from the {@link SharedPreferences}.</p>
-     *
-     * @param field the name of the preference to retrieve
-     * @return the preference value if it exists, or empty string
-     */
-    public String prefs_select(String field) {
-        SharedPreferences preferences = AppState.getApplication().getSharedPreferences(AppState.PREFERENCES_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(field, "");
-    }
-
-    /**
-     * <p>Stores the {@code values} in the {@link SharedPreferences}.</p>
-     *
-     * @param values a map of preference names to preference values
-     * @return {@code true} if all of the {@code values} were successfully stored, {@code false} otherwise
-     */
-    public boolean prefs_insert(ContentValues values) {
+    public static final String[] toStringArray(Cursor c) {
         try {
-            SharedPreferences preferences = AppState.getApplication().getSharedPreferences(AppState.PREFERENCES_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            for (Entry<String, Object> value : values.valueSet()) {
-                editor.putString(value.getKey(), value.getValue().toString());
+            if (c.moveToFirst()) {
+                final int count = c.getCount();
+                String[] array = new String[count];
+                for (int i = 0; i < count; i++) {
+                    c.moveToPosition(i);
+                    array[i] = c.getString(0);
+                }
+                return array;
+            } else {
+            return new String[0];
             }
-            editor.apply();
-        } catch (Exception e) {
-            if (AppState.DEBUG) {
-                e.printStackTrace();
-            }
-            return false;
+        } finally {
+            c.close();
         }
-        return true;
-    }
-
-    /**
-     * <p>Deletes the specified preference from the {@link SharePreferences}.</p>
-     *
-     * @param field the name of the preference to delete
-     * @return {@code true} if the preference was successfully deleted, {@code false} otherwise
-     */
-    public boolean prefs_delete(String field) {
-        try {
-            SharedPreferences preferences = AppState.getApplication().getSharedPreferences(AppState.PREFERENCES_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.remove(field);
-            editor.apply();
-        } catch (Exception e) {
-            if (AppState.DEBUG) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-        return true;
     }
 
     /* ----- NESTED CLASSES ----- */
@@ -364,7 +322,9 @@ public class DbAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.d(LOG_TAG, "Upgrading from version " + oldVersion + " to " + newVersion + " which will destroy all old data.");
 
-            db.enableWriteAheadLogging();
+            try {
+                db.enableWriteAheadLogging();
+            } catch (Exception e) {}
 
             final String drop = "DROP TABLE IF EXISTS ";
 
@@ -376,6 +336,7 @@ public class DbAdapter {
 
             DbEvent.drop(db);
 
+            DbSocial.drop(db);
 
             onCreate(db);
         }

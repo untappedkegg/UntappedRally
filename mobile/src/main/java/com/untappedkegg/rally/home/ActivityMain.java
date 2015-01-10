@@ -280,11 +280,8 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
                 CommonIntents.openUrl(this, "http://www.rally-america.com/volunteer");
                 return;
             case 7:
-//                intent = new Intent(this, Feedback.class);
                 this.sendFeedback();
                 return;
-//                startActivity(intent);
-//                break;
             case 8: // Settings
                 intent = new Intent(this, SettingsActivity.class);
 //                startActivity(intent);

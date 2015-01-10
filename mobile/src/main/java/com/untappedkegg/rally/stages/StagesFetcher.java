@@ -41,8 +41,8 @@ public class StagesFetcher implements Fetcher {
         tasks.add(NewDataFetcher.execute(new StagesParser(callback, link, year)));
     }
 
-    public void startStageResults(Callbacks callback, String link, String eventCode, short stage, short year) {
-        tasks.add(NewDataFetcher.execute(new StageResultsParser(callback, link, eventCode, stage, year)));
+    public void startStageResults(Callbacks callback, String link, String eventCode, short stage, short year, boolean isResults) {
+        tasks.add(NewDataFetcher.execute(new StageResultsParser(callback, link, eventCode, stage, year, isResults)));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class StagesFetcher implements Fetcher {
                     String number = null;
 
                     final String find = matcher.group(0);
-                    //
+
                     //Stage Number
                     Matcher stageMatch = stageNum.matcher(find);
                     if (stageMatch.find()) {
@@ -111,12 +111,12 @@ public class StagesFetcher implements Fetcher {
                     if (timeMatch.find()) {
                         time = timeMatch.group(1);
                     }
-                    // Stage Dist
+                    // Stage Distance
                     Matcher distMatch = stageDist.matcher(find);
                     if (distMatch.find()) {
                         length = distMatch.group(1);
                     }
-                    //							Log.w(LOG_TAG, android.text.Html.fromHtml(find).toString());
+
                     if (AppState.isNullOrEmpty(name)) {
                         header = android.text.Html.fromHtml(find).toString();
                     } else {
@@ -128,7 +128,6 @@ public class StagesFetcher implements Fetcher {
                     //							Log.e(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)) );
                     //							DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), link.substring(link.lastIndexOf("/")+1));
                 }
-                //
 
             } catch (Exception e) {
                 Log.d(LOG_TAG, e.toString());
@@ -138,7 +137,6 @@ public class StagesFetcher implements Fetcher {
                 DbEvent.close();
             }
 
-            //			}
             return null;
         }
 
@@ -156,14 +154,16 @@ public class StagesFetcher implements Fetcher {
         private final short year;
         private final short curStage;
         private final String eventCode;
+        private boolean isResults;
 
-        public StageResultsParser(Callbacks callback, String link, String eventCode, short curStage, short year) {
+        public StageResultsParser(Callbacks callback, String link, String eventCode, short curStage, short year, boolean isResults) {
             this.callback = callback;
             this.function = "FUNC_STAGE_RESULTS";
             this.link = link;
             this.year = year;
             this.curStage = curStage;
             this.eventCode = eventCode;
+            this.isResults = isResults;
 
 
         }
@@ -178,13 +178,12 @@ public class StagesFetcher implements Fetcher {
                 if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(link)) > AppState.STAGE_RESULT_DELAY) {
 
                     Pattern pattern = Pattern.compile("<table(.*?)</table>", Pattern.CASE_INSENSITIVE);
-                    //					Matcher matcher = pattern.matcher(readStream(doGet(link)));
+
                     final HttpURLConnection conn = NewDataFetcher.get(link, null);
                     Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
                     if (matcher.find()) {
                         table += matcher.group(0) + "</body>" + "</html>";
-
-                        DbEvent.stageResultsInsert(eventCode, year, curStage, table.replaceAll("<a href=\"/driver_lookup", String.format("<a href=\"%s/driver_lookup", AppState.RA_BASE_URL)));
+                        DbEvent.stageResultsInsert(eventCode, year, curStage, table.replaceAll("<a href=\"/driver_lookup", String.format("<a href=\"%s/driver_lookup", AppState.RA_BASE_URL)), isResults);
 
                     }
 

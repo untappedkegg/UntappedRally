@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.stages.EventStages;
-import com.untappedkegg.rally.stages.StagesSelector;
+import com.untappedkegg.rally.stages.StagesViewPager;
 import com.untappedkegg.rally.ui.BaseContainer;
 import com.untappedkegg.rally.util.DialogManager;
 
@@ -93,7 +93,8 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
 
     @Override
     public void selectStageDetail(String link, String stageNo) {
-        this.selectContent(StagesSelector.class.getName(), link, stageNo);
+//        this.selectContent(StagesSelector.class.getName(), link, stageNo);
+        this.selectContent(StagesViewPager.class.getName(), link, stageNo);
     }
 
     @Override

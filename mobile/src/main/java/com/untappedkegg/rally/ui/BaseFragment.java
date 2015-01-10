@@ -91,7 +91,7 @@ public abstract class BaseFragment extends Fragment {
      * @param args  arguments associated with the {@code adn.GoMizzou.ARGS} passed to the fragment in the bundle
      * @param query argments associated with the {@code SearchManager.QUERY} passed to the fragment in the bundle
      */
-    protected void updateArgs(String args, String query) {
+    public void updateArgs(String args, String query) {
         //	do nothing by default
     }
 
