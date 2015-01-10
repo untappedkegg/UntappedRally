@@ -28,17 +28,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-        <activity
-            android:name=".home.Home"
-			android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
         <activity
             android:name=".event.EventActivity"
             android:label="Event Details"
@@ -47,8 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.ActivityMain" />
         </activity>
+        
         <activity android:name=".HelperActivity" >
         </activity>
+        
         <activity android:name=".widget.NextEventWidgetConfigureActivity" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

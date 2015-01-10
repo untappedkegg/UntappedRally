@@ -6,5 +6,5 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="1dp"
     android:background="@color/side_menu"
-    tools:context="com.ra.NavDrawerFragment" />
+    tools:context="com.untappedkegg.rally.home.NavDrawerFragment" />
 
