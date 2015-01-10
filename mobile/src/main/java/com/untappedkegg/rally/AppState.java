@@ -56,6 +56,12 @@ public class AppState extends Application {
     public static final String KEY_RESTARTING = "com.untappedkegg.rally.RESTART";
     public static final String KEY_POSITION = "com.untappedkegg.rally.POSITION";
 
+    // Market Package Names
+    public static final String MARKET_GOOGLE = "com.android.vending";
+    public static final String MARKET_AMAZON = "com.amazon.venezia";
+
+    public static final String AMAZON_ASIN_LINK = "amzn://apps/android?asin=B00RT90NAW";
+
     // Concurrency
     public static boolean NEWS_REFRESH = false;
     public static final short REQUERY_WAIT = 500;

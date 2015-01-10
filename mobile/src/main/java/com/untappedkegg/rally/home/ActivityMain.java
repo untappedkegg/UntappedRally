@@ -20,6 +20,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -347,6 +348,25 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
         Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
         if(twitterIntent != null)
             targetedShareIntents.add(twitterIntent);
+
+        // Market
+        try {
+            final String mPackageName = getPackageName();
+            final String installer = getPackageManager().getInstallerPackageName(mPackageName);
+            Intent marketIntent = null;
+
+            if (AppState.MARKET_GOOGLE.equalsIgnoreCase(installer)) {
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + mPackageName));
+                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            } else if (AppState.MARKET_AMAZON.equalsIgnoreCase(installer)) {
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("amzn://apps/android?p=" + mPackageName));
+                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            if (marketIntent != null)
+            targetedShareIntents.add(marketIntent);
+
+        } catch (Exception e) { }
 
         Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
