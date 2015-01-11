@@ -318,7 +318,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      * </p>The fragment is attached by calling {@link #attachFragment(Fragment, boolean, String, int)}.</p>
      *
      * @param uri            uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
-     * @param arguments      any extra data associated with the uri. If there is no data, pass "".
+     * @param args      any extra data associated with the uri. If there is no data, pass "".
      * @param query          any extra data meant to be used as a search query.
      * @param addToBackStack whether or not to add this transaction to the back
      *                       button's history.
@@ -329,7 +329,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      * <p>Works just like {@link #selectContent(String, String, String, boolean)} except {@code addToBackStack} is {@code true}.</p>
      *
      * @param uri       uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
-     * @param arguments any extra data associated with the uri. If there is no data, pass "".
+     * @param args any extra data associated with the uri. If there is no data, pass "".
      * @param query     any extra data meant to be used as a search query.
      * @see #selectContent(String, String, String, boolean)
      */
@@ -368,7 +368,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      * @param tag
      * @param replaceId
      */
-    protected void attachFragment(Fragment fragment, boolean addToBackStack, String tag, int replaceId) {
+    public void attachFragment(Fragment fragment, boolean addToBackStack, String tag, int replaceId) {
         if (!stopped) {
             FragmentManager man = getSupportFragmentManager();
             if (!addToBackStack) {

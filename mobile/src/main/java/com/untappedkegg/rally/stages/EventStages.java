@@ -40,6 +40,7 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
     }
 
     /*----- INHERITED METHODS -----*/
+
     @Override
     public void fetchData() {
         DbUpdated.open();
@@ -79,9 +80,16 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
             if (progressBar.isShown()) {
                 Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
             } else {
-                callbacks.selectStageDetail(link, ((TextView) v.findViewById(R.id.stages_id)).getText().toString());
+                final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
+                final View results = getActivity().findViewById(R.id.second_container);
+                if (results != null && results.getVisibility() == View.VISIBLE) {
+                    callbacks.updateStageResults(stageId);
+                } else {
+                    callbacks.selectStageDetail(link, stageId);
+                }
+                }
             }
-        }
+
     }
 
     @Override
@@ -102,6 +110,7 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
 
     public interface Callbacks {
         public void selectStageDetail(String link, String stageNo);
+        public void updateStageResults(String stageNo);
     }
 
     /* (non-Javadoc)

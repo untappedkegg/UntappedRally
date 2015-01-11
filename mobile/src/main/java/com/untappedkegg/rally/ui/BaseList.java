@@ -379,7 +379,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Sets the text returned from {@link #getEmptyText()} into {@code emptyView}.  Also, sets the {@code View.OnClickListener} returned from
      * {@link #getEmptyOnClick()} for the empty view.</p>
      *
-     * @param emptyText the text to be set in the empty view.
      */
     protected void setEmptyText() {
         if (emptyView != null && isAdded()) {

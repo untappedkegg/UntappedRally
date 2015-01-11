@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.untappedkegg.rally.AppState;
-import com.untappedkegg.rally.HelperActivity;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.ui.BaseWebView;
@@ -44,7 +43,7 @@ public class CommonIntents {
         ctx.startActivity(phoneIntent);
     }
 
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
     public static void openImage(Context ctx, String imageUri) {
         File img = ImageLoader.getInstance().getDiskCache().get(imageUri);
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
@@ -133,26 +132,6 @@ public class CommonIntents {
     }
 
 	/*----- Fragment and Container -----*/
-
-    /**
-     * Not every call needs to have {@code args}, {@code url}, or {@code query}. These may be {@code null}
-     *
-     * @param ctx      The Context of the calling Activity
-     * @param fragment The fragment you wish to youTubeStart (syntax: NAME{@code .class.getName();})
-     * @param args     Arbitrary aruments to pass in (or a Bundle)
-     * @param url
-     * @param query
-     */
-    public static void startNewFragment(Context ctx, String fragment, String args, String url, String query) {
-        Intent intent = new Intent(AppState.getApplication(), HelperActivity.class);
-        intent.putExtra(AppState.KEY_URL, url);
-        intent.putExtra(AppState.KEY_URI, fragment);
-        intent.putExtra(AppState.KEY_ARGS, args);
-        intent.putExtra(SearchManager.QUERY, query);
-        //		intent.putExtra(KEY_RESTARTING, url);
-
-        ctx.startActivity(intent);
-    }
 
     public static void startNewContainer(Context ctx, String fragment, String args, Class<?> ContainerClass, String query) {
         Intent intent = new Intent(AppState.getApplication(), ContainerClass);
@@ -245,9 +224,6 @@ public class CommonIntents {
                         .putExtra("beginTime", startTime.getTime())
                         .putExtra("endTime", endTime.getTime())
                         .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                //				if(!AppState.isNullOrEmpty(rrule)) {
-                //					intent	.putExtra("rrule", rrule);
-                //				}
                 ctx.startActivity(intent);
             } else {
                 Intent intent = new Intent(Intent.ACTION_INSERT).setData(Events.CONTENT_URI)
@@ -257,9 +233,6 @@ public class CommonIntents {
                         .putExtra(Events.EVENT_LOCATION, location)
                         .putExtra(Events.TITLE, title)
                         .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_FREE);
-                //				if(!AppState.isNullOrEmpty(rrule)) {
-                //		        	intent.putExtra(Events.RRULE, rrule);
-                //				}
                 ctx.startActivity(intent);
             }
         } catch (ActivityNotFoundException e) {
@@ -313,9 +286,8 @@ public class CommonIntents {
                     break;
                 }
             }
-            if (!found)
-                return null;
-            return share;
+            if (found)
+                return share;
         }
         return null;
     }

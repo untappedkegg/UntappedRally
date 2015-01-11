@@ -2,11 +2,13 @@ package com.untappedkegg.rally.event;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -19,6 +21,7 @@ import com.untappedkegg.rally.util.DialogManager;
  * @author Kyle
  */
 public class EventActivity extends BaseContainer implements EventDetails.Callbacks, EventStages.Callbacks {
+    private final String KEY_FRAGMENT = "fragment";
 
 	/*----- LIFECYCLE METHODS -----*/
     @Override
@@ -46,6 +49,33 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     }
 
     /* ----- INHERITED METHODS ----- */
+    @Override
+    protected int getContentLayout() {
+        return R.layout.generic_dual_pane_layout;
+    }
+
+    @Override
+    public void onBackPressed() {
+        final View secondContainer = findViewById(R.id.second_container);
+        if (secondContainer != null) {
+            secondContainer.setVisibility(View.GONE);
+            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.second_container));
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            final View secondContainer = findViewById(R.id.second_container);
+            if (secondContainer != null) {
+                secondContainer.setVisibility(View.GONE);
+            }
+        }
+    }
+
     // BaseContainer
     @SuppressWarnings("unchecked")
     @Override
@@ -87,8 +117,34 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
 
     @Override
     public void selectStages(String link) {
-        this.selectContent(EventStages.class.getName(), link);
 
+            // If screen is XLarge & Landscape
+        if ((getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE &&
+        getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            final View secondContainer = findViewById(R.id.second_container);
+        if (secondContainer != null ) {
+            secondContainer.setVisibility(View.VISIBLE);
+        }
+            this.selectContent(EventStages.class.getName(), link);
+
+          final Fragment fragment = new StagesViewPager();
+
+            Bundle bundle = new Bundle();
+            bundle.putString(AppState.KEY_ARGS, link);
+            bundle.putString(SearchManager.QUERY, "1");
+            fragment.setArguments(bundle);
+            attachFragment(fragment, false, StagesViewPager.class.getSimpleName(), R.id.second_container);
+
+        } else {
+            this.selectContent(EventStages.class.getName(), link);
+        }
+
+    }
+
+    @Override
+    public void updateStageResults(String stageNo) {
+        ((StagesViewPager)getSupportFragmentManager().findFragmentById(R.id.second_container)).updateChildArgs(stageNo);
     }
 
     @Override
@@ -108,3 +164,4 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     }
 
 }
+

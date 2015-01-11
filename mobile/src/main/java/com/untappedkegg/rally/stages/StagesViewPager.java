@@ -30,6 +30,7 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     private String query;
 //    private OnFragmentInteractionListener mListener;
     private boolean isFinished;
+    private Spinner stagesSpinner;
 
     public StagesViewPager() {
         // Set to true so that the Spinner updates both child Fragments
@@ -66,7 +67,7 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.stages_viewpager, container, false);
-
+        stagesSpinner = (Spinner) v.findViewById(R.id.stages_results_spinner);
         return v;
     }
 
@@ -81,7 +82,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
         final String[] stages = DbEvent.getStageNamesForEvent(linkPts[4], linkPts[5]);
 
         //Spinners
-        final Spinner stagesSpinner = (Spinner) getActivity().findViewById(R.id.stages_results_spinner);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stages);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -160,6 +160,12 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void updateChildArgs(String stageNo) {
+        this.curStage = Short.valueOf(stageNo);
+        stagesSpinner.setSelection(curStage - 1);
+        this.updateArgs(link, stageNo, true);
     }
 
 

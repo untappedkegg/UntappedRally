@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="14dp"
     android:paddingRight="14dp" >
-    
+
     <TextView android:id="@+id/carousel_page_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,12 +27,12 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:visibility="gone" />
-    
+
 
     <ImageView android:id="@+id/carousel_page_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
+
         android:scaleType="fitXY" />
     <!-- android:contentDescription="@string/image" -->
 
@@ -44,9 +44,7 @@
         android:padding="5dp"
         android:gravity="center_horizontal"
         android:background="@color/translucent_dim_gray_more"
-        android:textColor="@android:color/primary_text_dark"
-        android:clickable="false"
-        android:textIsSelectable="false" />
+        android:textColor="@android:color/white"/>
     <!-- android:background="@drawable/library_overlay_background" -->
 
     <TextView
@@ -57,7 +55,7 @@
         android:layout_alignRight="@id/carousel_page_image"
         android:layout_marginBottom="5dip"
         android:layout_marginRight="5dip"
-        
+
         android:textColor="@android:color/primary_text_dark"
         android:textIsSelectable="false"
         android:visibility="gone" />

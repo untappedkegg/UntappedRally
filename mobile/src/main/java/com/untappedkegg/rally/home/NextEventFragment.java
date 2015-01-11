@@ -53,7 +53,7 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
             .showImageOnFail(R.drawable.ra_large) // resource or drawable
             .cacheInMemory(true).cacheOnDisk(true)
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-            .bitmapConfig(Bitmap.Config.RGB_565)
+            .bitmapConfig(Bitmap.Config.ARGB_8888)
             .displayer(new FadeInBitmapDisplayer(750, true, true, false))
             .build();
 

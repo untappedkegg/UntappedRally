@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".45"
+        android:orientation="vertical">
+        <!--<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".50"
+            android:orientation="vertical">
+            <TextView android:id="@+id/home_upcoming_text"
+                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:textSize="16sp"
+            android:text="@string/upcoming_events"
+            android:background="@color/section_header"
+            android:textColor="@color/section_text" />
+            <FrameLayout android:id="@+id/home_top"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+        </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".60"
+            android:orientation="vertical">
+            <TextView android:id="@+id/home_next_event_text"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:paddingTop="3dp"
+                      android:paddingBottom="3dp"
+                      android:paddingLeft="10dp"
+                      android:textSize="18sp"
+                      android:text="@string/next_event"
+                      android:background="@color/section_header"
+                      android:textColor="@color/section_text" />
+            <FrameLayout android:id="@+id/home_middle"
+                         android:layout_width="fill_parent"
+                         android:layout_height="match_parent">
+            </FrameLayout>
+            </LinearLayout>
+    </LinearLayout>   
+    
+    <LinearLayout 
+        android:layout_height="match_parent"
+        android:layout_width="2dp"
+        android:background="@color/title_bar_background">
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight=".60"
+        android:orientation="vertical">
+        <TextView android:id="@+id/home_news_text"
+            android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"
+		android:text="@string/latest_news"
+	    android:background="@color/section_header"
+	    android:textColor="@color/section_text" />
+	    <FrameLayout android:id="@+id/home_bottom"
+	        android:layout_width="fill_parent"
+	        android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>   
+    
+</LinearLayout>

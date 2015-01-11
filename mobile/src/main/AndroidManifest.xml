@@ -36,10 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.ActivityMain" />
         </activity>
-        
-        <activity android:name=".HelperActivity" >
-        </activity>
-        
+
         <activity android:name=".widget.NextEventWidgetConfigureActivity" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

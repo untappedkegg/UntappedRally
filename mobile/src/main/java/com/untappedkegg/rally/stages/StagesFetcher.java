@@ -171,7 +171,7 @@ public class StagesFetcher implements Fetcher {
         protected Throwable doInBackground(Void... arg0) {
 
 
-            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" style=\"background:%s; text-align:center;\"><h3>Stage Finish Times</h3>", AppState.RALLY_AMERICA_CSS, ctx.getResources().getString(R.color.ActionBar).replaceFirst("ff", ""));
+            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" style=\"background:%s; text-align:center;\">", AppState.RALLY_AMERICA_CSS, ctx.getResources().getString(R.color.ActionBar).replaceFirst("ff", ""));
             try {
                 DbEvent.open();
 

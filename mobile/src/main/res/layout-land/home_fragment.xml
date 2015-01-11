@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight=".45"
+        android:layout_weight=".5"
         android:orientation="vertical">
         <!--<LinearLayout
             android:layout_width="fill_parent"
@@ -32,15 +32,15 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight=".60"
+            android:layout_weight=".5"
             android:orientation="vertical">
             <TextView android:id="@+id/home_next_event_text"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:paddingTop="3dp"
-                      android:paddingBottom="3dp"
+                      android:paddingTop="6dp"
+                      android:paddingBottom="6dp"
                       android:paddingLeft="10dp"
-                      android:textSize="18sp"
+                      android:textSize="20sp"
                       android:text="@string/next_event"
                       android:background="@color/section_header"
                       android:textColor="@color/section_text" />
@@ -49,16 +49,16 @@
                          android:layout_height="match_parent">
             </FrameLayout>
             </LinearLayout>
-    </LinearLayout>   
-    
-    <LinearLayout 
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="2dp"
         android:background="@color/title_bar_background">
-        
+
     </LinearLayout>
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight=".60"
@@ -66,10 +66,10 @@
         <TextView android:id="@+id/home_news_text"
             android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:paddingLeft="10dp"
-        android:textSize="18sp"
+        android:textSize="20sp"
 		android:text="@string/latest_news"
 	    android:background="@color/section_header"
 	    android:textColor="@color/section_text" />
@@ -77,6 +77,6 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="match_parent">
         </FrameLayout>
-    </LinearLayout>   
-    
+    </LinearLayout>
+
 </LinearLayout>

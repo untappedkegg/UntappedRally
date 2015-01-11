@@ -84,5 +84,6 @@
         \nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America, Inc. in any way either expressed or implied.</string>
     <string name="about_learn_more"> To learn more about the series, go to http://www.rally-america.com</string>
     <string name="about_version">App Version: %1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
