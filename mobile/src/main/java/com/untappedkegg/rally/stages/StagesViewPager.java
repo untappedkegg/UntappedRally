@@ -145,7 +145,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         this.curStage = (short) (position + 1);
-//            mSectionsPagerAdapter.notifyDataSetChanged();
         this.updateArgs(link, String.valueOf(curStage), true);
     }
 
