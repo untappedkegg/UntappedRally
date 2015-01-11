@@ -125,6 +125,19 @@ public class DbSchedule extends BaseDbAccessor {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
     }
+    public static boolean isEventStarted(String eventId) {
+        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", SCHED_START_DATE, SCHED_TABLE, SCHED_ID, eventId);
+
+            try {
+                c.moveToFirst();
+                return DateManager.todayIsBefore(c.getString(0));
+            } catch (Exception e) {
+                return false;
+            } finally {
+                c.close();
+            }
+
+    }
 
     public static final boolean isEventFinished(String eventCode, short year) {
         final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = '%s' AND %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_SHORT_CODE, eventCode, SCHED_YEAR, year);

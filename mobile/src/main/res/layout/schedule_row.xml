@@ -3,34 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:orientation="horizontal" >
-    	
+
    		<ImageView android:id="@+id/sched_icon"
      	  	 android:layout_width="wrap_content"
      	  	 android:layout_height="wrap_content"
-     	  	 android:scaleType="fitCenter" 
+            android:maxWidth="75dp"
+     	  	 android:scaleType="fitCenter"
      	  	 android:layout_gravity="center_horizontal|center_vertical"
      	  	 android:contentDescription="@string/icon" />
-   		
+
    	 	<TextView android:id="@+id/sched_title"
     	    android:layout_width="0dp"
     	    android:layout_height="wrap_content"
     	    android:layout_weight="1"
     	    android:layout_gravity="center_vertical"
     	    android:textSize="18sp"
-    	    android:padding="3dp" 
+    	    android:padding="3dp"
     	    android:layout_marginRight="5dp"
     	    android:textColor="@color/title_color"/>
-   	 	
+
     	<TextView android:id="@+id/sched_id"
     	    android:layout_width="wrap_content"
     	    android:layout_height="wrap_content"
     	    android:visibility="gone" />
-    	
+
     	<ImageView android:id="@+id/sched_menu_btn"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -40,15 +41,15 @@
         android:padding="15dp"
 	    android:contentDescription="@string/menu"/>
     </LinearLayout>
-    	
 
-        
-        
-        <RelativeLayout 
+
+
+
+        <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-    	
+
              <TextView android:id="@+id/sched_date"
      	   android:layout_width="wrap_content"
      	   android:layout_height="wrap_content"
@@ -57,42 +58,42 @@
     	   android:layout_marginLeft="5dp"
      	   android:visibility="visible" />
 
-        
+
         <TextView android:id="@+id/sched_status"
      	   android:layout_width="wrap_content"
      	   android:layout_height="wrap_content"
      	   android:layout_marginRight="10dp"
      	   android:textColor="@color/light_green"
      	   android:layout_alignParentRight="true"
-     	   android:visibility="visible" />    
-     	   
-    	
+     	   android:visibility="visible" />
+
+
         </RelativeLayout>
-        
+
         <TextView android:id="@+id/sched_event_website"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
-        
+
         <TextView android:id="@+id/sched_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
-        
+
         <TextView android:id="@+id/sched_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
-        
+
         <TextView android:id="@+id/sched_website"
      	   android:layout_width="wrap_content"
      	   android:layout_height="wrap_content"
      	   android:visibility="gone" />
-		   
+
 		<TextView android:id="@+id/sched_location"
      	   android:layout_width="wrap_content"
      	   android:layout_height="wrap_content"
      	   android:visibility="gone" />
-    
+
 
 </LinearLayout>

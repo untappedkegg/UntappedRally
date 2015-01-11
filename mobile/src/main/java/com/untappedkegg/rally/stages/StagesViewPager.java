@@ -79,15 +79,7 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
         }
         query = String.valueOf(curStage);
 
-        final String[] stages = DbEvent.getStageNamesForEvent(linkPts[4], linkPts[5]);
-
-        //Spinners
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stages);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stagesSpinner.setAdapter(adapter);
-        stagesSpinner.setSelection(curStage - 1);
-        stagesSpinner.setOnItemSelectedListener(this);
+        setUpSpinner();
     }
 
 
@@ -164,10 +156,27 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
 
     public void updateChildArgs(String stageNo) {
         this.curStage = Short.valueOf(stageNo);
-        stagesSpinner.setSelection(curStage - 1);
+        if (this.stagesSpinner.getCount() == 0) {
+            setUpSpinner();
+        } else {
+            stagesSpinner.setSelection(curStage - 1);
+        }
         this.updateArgs(link, stageNo, true);
     }
 
+    /*----- CUSTOM METHODS -----*/
+    private void setUpSpinner() {
+        final String[] stages = DbEvent.getStageNamesForEvent(linkPts[4], linkPts[5]);
+
+        //Spinners
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, stages);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stagesSpinner.setAdapter(adapter);
+        stagesSpinner.setSelection(curStage - 1);
+        stagesSpinner.setOnItemSelectedListener(this);
+
+    }
 
     /**
      * This interface must be implemented by activities that contain this

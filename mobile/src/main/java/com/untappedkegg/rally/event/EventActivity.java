@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.stages.EventStages;
 import com.untappedkegg.rally.stages.StagesViewPager;
 import com.untappedkegg.rally.ui.BaseContainer;
@@ -21,13 +22,14 @@ import com.untappedkegg.rally.util.DialogManager;
  * @author Kyle
  */
 public class EventActivity extends BaseContainer implements EventDetails.Callbacks, EventStages.Callbacks {
-    private final String KEY_FRAGMENT = "fragment";
+    private boolean isEventStarted;
 
 	/*----- LIFECYCLE METHODS -----*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayShowHomeEnabled(true);
+        isEventStarted = !DbSchedule.isEventStarted(getIntent().getExtras().getString(AppState.KEY_ARGS));
     }
 
     @Override
@@ -119,7 +121,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     public void selectStages(String link) {
 
             // If screen is XLarge & Landscape
-        if ((getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE &&
+        if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE &&
         getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             final View secondContainer = findViewById(R.id.second_container);

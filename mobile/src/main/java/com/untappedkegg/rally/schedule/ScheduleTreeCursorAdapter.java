@@ -27,7 +27,7 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
     private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
-            .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
+            .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
 
 
     public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int collapsedGroupLayout, int expandedGroupLayout, String[] groupFrom, int[] groupTo, int childLayout, int lastChildLayout, String[] childFrom, int[] childTo) {
@@ -87,8 +87,8 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         // Icon
         String uri = c.getString(holder.iconColumn).toLowerCase(Locale.US);
         if (!AppState.isNullOrEmpty(uri)) {
-            holder.icon.setMaxWidth(125);
-            holder.icon.setMaxHeight(125);
+//            holder.icon.setMaxWidth(125);
+//            holder.icon.setMaxHeight(125);
             holder.icon.setAdjustViewBounds(true);
 
             if (uri.contains("100aw")) {

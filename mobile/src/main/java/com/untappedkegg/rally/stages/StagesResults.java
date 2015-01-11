@@ -86,11 +86,13 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     public void updateArgs(String args, String query) {
         super.updateArgs(args, query);
         this.dataFetched = false;
-        curStage = Short.parseShort(query);
-
-        fetchData();
-        showPage();
-        startRequery();
+        final short mQuery = Short.parseShort(query);
+        if (curStage != mQuery){
+            curStage = mQuery;
+            fetchData();
+            showPage();
+            startRequery();
+        }
     }
 
     private String getFullLink() {

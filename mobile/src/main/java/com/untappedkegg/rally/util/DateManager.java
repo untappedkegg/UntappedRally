@@ -306,4 +306,20 @@ public class DateManager {
             return 1;
         }
     }
+
+    /**
+     * @param date StartDate in ISO-8601
+     * @return {@code true} if today is before, {@code false} otherwise
+     */
+    public static boolean todayIsBefore(String date)  {
+        if ("CANCELLED".equalsIgnoreCase(date)) return false;
+
+        try {
+            return ISO8601_DATEONLY.parse(date).getTime() > ISO8601_DATEONLY.parse(now(ISO8601_DATEONLY)).getTime();
+        } catch (ParseException e) {
+            if (AppState.DEBUG)
+       			e.printStackTrace();
+            return false;
+        }
+    }
 }
