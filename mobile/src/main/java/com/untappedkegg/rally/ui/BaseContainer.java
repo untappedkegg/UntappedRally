@@ -44,6 +44,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
     protected String curUri;
     protected String curArgs;
     protected String curQuery;
+    protected int curId;
     protected ProgressDialog progressDialog;
 
 	/* ----- LIFECYCLE METHODS ----- */
@@ -68,6 +69,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
         curUri = firstValueInBundles(AppState.KEY_URI, "", intentExtras);
         curArgs = firstValueInBundles(AppState.KEY_ARGS, "", intentExtras);
         curQuery = firstValueInBundles(SearchManager.QUERY, "", intentExtras);
+        curId = intentExtras.getInt(AppState.KEY_ID);
         restarting = firstValueInBundles(AppState.KEY_RESTARTING, false, intentExtras, savedInstanceState);
         stopped = false;
 
@@ -78,7 +80,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
         if (restarting) {
             Log.d(LOG_TAG, String.format("Recieved restart: uri=%s args=%s query=%s", curUri, curArgs, curQuery));
         } else {
-            selectContent(curUri, curArgs, curQuery, false);
+            selectContent(curUri, curArgs, curQuery, curId, false);
         }
     }
 
@@ -323,18 +325,18 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      * @param addToBackStack whether or not to add this transaction to the back
      *                       button's history.
      */
-    public abstract void selectContent(String uri, String args, String query, boolean addToBackStack);
+    public abstract void selectContent(String uri, String args, String query, int id, boolean addToBackStack);
 
     /**
-     * <p>Works just like {@link #selectContent(String, String, String, boolean)} except {@code addToBackStack} is {@code true}.</p>
+     * <p>Works just like {@link #selectContent(String, String, String, int, boolean)} except {@code addToBackStack} is {@code true}.</p>
      *
      * @param uri       uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
      * @param args any extra data associated with the uri. If there is no data, pass "".
      * @param query     any extra data meant to be used as a search query.
-     * @see #selectContent(String, String, String, boolean)
+     * @see #selectContent(String, String, String, int, boolean)
      */
     public void selectContent(String uri, String args, String query) {
-        selectContent(uri, args, query, true);
+        selectContent(uri, args, query, 0, true);
     }
 
     /**
@@ -343,10 +345,10 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      *
      * @param uri  uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
      * @param args any extra data associated with the uri. If there is no data, pass "".
-     * @see #selectContent(String, String, String, boolean)
+     * @see #selectContent(String, String, String, int, boolean)
      */
     public void selectContent(String uri, String args) {
-        selectContent(uri, args, null, true);
+        selectContent(uri, args, null, 0, true);
     }
 
     /**
@@ -356,12 +358,12 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
      * @param uri uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
      * @see #selectContent(String, String, String, boolean)
      */
-    public void selectContent(String uri) {
-        selectContent(uri, null, null, true);
-    }
+//    public void selectContent(String uri) {
+//        selectContent(uri, null, null, true);
+//    }
 
     /**
-     * <p>Attaches the fragment for {@link #selectContent(String, String, String, boolean)}. Subclasses should not override this method.</p>
+     * <p>Attaches the fragment for {@link #selectContent(String, String, String, int, boolean)}. Subclasses should not override this method.</p>
      *
      * @param fragment
      * @param addToBackStack

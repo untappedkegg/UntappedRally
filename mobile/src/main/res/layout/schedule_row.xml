@@ -37,7 +37,8 @@
 	    android:layout_height="wrap_content"
 	    android:background="@drawable/ic_action_overflow"
 	    android:clickable="true"
-        android:layout_gravity="center"
+        android:onClick="onScheduleMenuClick"
+        android:layout_gravity="center_horizontal"
         android:padding="15dp"
 	    android:contentDescription="@string/menu"/>
     </LinearLayout>

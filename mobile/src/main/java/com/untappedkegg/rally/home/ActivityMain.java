@@ -17,6 +17,7 @@
 package com.untappedkegg.rally.home;
 
 import android.app.ActionBar;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -34,6 +35,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
@@ -41,17 +46,23 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
+import com.untappedkegg.rally.event.EventPhotos;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsActivity;
+import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
 import com.untappedkegg.rally.schedule.ScheduleFragment;
 import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
+import com.untappedkegg.rally.stages.EventStages;
 import com.untappedkegg.rally.util.CommonIntents;
+import com.untappedkegg.rally.util.DateManager;
 import com.untappedkegg.rally.util.DialogManager;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -81,12 +92,13 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener {
+public class ActivityMain extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
     private static CharSequence mTitle;
     private String[] mActionBarDrawer;
+    private View menuView;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the
@@ -353,11 +365,11 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
             Intent marketIntent = null;
 
             if (AppState.MARKET_GOOGLE.equalsIgnoreCase(installer)) {
-                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + mPackageName));
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_GOOGLE + mPackageName));
                 marketIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
             } else if (AppState.MARKET_AMAZON.equalsIgnoreCase(installer)) {
-                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("amzn://apps/android?p=" + mPackageName));
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_AMAZON + mPackageName));
                 marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             }
             if (marketIntent != null)
@@ -384,8 +396,27 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
     // CALLBACKS
     // ScheduleFragment.Callbacks
     @Override
-    public void showEventDetail(String fragment, String args, String eventName) {
-        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
+    public void showEventDetail(String fragment, String eventName, int id) {
+//        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
+//        Log.e("SELECT showEventDetail", "args = " + args + " id = " + id);
+        Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
+        intent.putExtra(AppState.KEY_URI, fragment);
+        intent.putExtra(SearchManager.QUERY, eventName);
+        intent.putExtra(AppState.KEY_ID, id);
+
+        startActivity(intent);
+
+    }
+
+    public void showEventDetail(String fragment, String link, String eventName, int id) {
+//        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
+        Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
+        intent.putExtra(AppState.KEY_ARGS, link);
+        intent.putExtra(AppState.KEY_URI, fragment);
+        intent.putExtra(SearchManager.QUERY, eventName);
+        intent.putExtra(AppState.KEY_ID, id);
+
+        startActivity(intent);
 
     }
 
@@ -401,5 +432,60 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
         } else if (key.equals("pref_news_cutoff")) {
             AppState.NEWS_REFRESH = true;
         }
+    }
+
+    /*----- SCHEDULE FRAGMENT ONCLICK METHODS -----*/
+    public void onScheduleMenuClick(View v) {
+        menuView = ((View) v.getParent().getParent());
+        final boolean isFinished = DbSchedule.isEventFinished(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
+        final String date = ((TextView) menuView.findViewById(R.id.sched_date)).getText().toString();
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.schedule);
+        if (AppState.isNullOrEmpty(((TextView) menuView.findViewById(R.id.sched_website)).getText().toString())) {
+            popup.getMenu().removeItem(R.id.menu_schedule_website);
+        }
+        if (!isFinished) {
+            popup.getMenu().removeItem(R.id.menu_schedule_photos);
+        }
+        if (isFinished || "TBD".equalsIgnoreCase(date) || "CANCELLED".equalsIgnoreCase(date)) {
+            popup.getMenu().removeItem(R.id.menu_schedule_add_to_cal);
+        }
+        popup.setOnMenuItemClickListener(this);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        final String website = ((TextView) menuView.findViewById(R.id.sched_event_website)).getText().toString();
+        final String eventName = ((TextView) menuView.findViewById(R.id.sched_title)).getText().toString();
+        final int id = Integer.parseInt(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
+
+        switch (item.getItemId()) {
+            case R.id.menu_schedule_stages:
+                showEventDetail(EventStages.class.getName(), website, eventName, id);
+                break;
+            case R.id.menu_schedule_photos:
+                showEventDetail(EventPhotos.class.getName(), website, eventName, id);
+                break;
+            case R.id.menu_schedule_website:
+                CommonIntents.openUrl(this, ((TextView) menuView.findViewById(R.id.sched_website)).getText().toString());
+                break;
+            case R.id.menu_schedule_event_website:
+                CommonIntents.openUrl(this, website);
+                break;
+            case R.id.menu_schedule_add_to_cal:
+                final String startDate = ((TextView) menuView.findViewById(R.id.sched_start_date)).getText().toString();
+                final String endDate = ((TextView) menuView.findViewById(R.id.sched_end_date)).getText().toString();
+                final String location = ((TextView) menuView.findViewById(R.id.sched_location)).getText().toString();
+
+
+                try {
+                    CommonIntents.addRallyToCalendar(this, eventName, DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1), location);
+                    return true;
+                } catch (ParseException e) {
+                    Toast.makeText(this, getResources().getString(R.string.calendar_error), Toast.LENGTH_LONG).show();
+                }
+        }
+        return true;
     }
 }

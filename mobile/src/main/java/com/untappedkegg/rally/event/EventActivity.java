@@ -29,7 +29,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayShowHomeEnabled(true);
-        isEventStarted = !DbSchedule.isEventStarted(getIntent().getExtras().getString(AppState.KEY_ARGS));
+        isEventStarted = !DbSchedule.isEventStarted(getIntent().getExtras().getInt(AppState.KEY_ID));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     // BaseContainer
     @SuppressWarnings("unchecked")
     @Override
-    public void selectContent(String uri, String args, String query, boolean addToBackStack) {
+    public void selectContent(String uri, String args, String query, int id, boolean addToBackStack) {
         Fragment fragment;
 
         // default fragment
@@ -104,6 +104,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
             Bundle bundle = new Bundle();
             if (!AppState.isNullOrEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
             if (!AppState.isNullOrEmpty(query)) bundle.putString(SearchManager.QUERY, query);
+            bundle.putInt(AppState.KEY_ID, id);
             fragment.setArguments(bundle);
         }
 

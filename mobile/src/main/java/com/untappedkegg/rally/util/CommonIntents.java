@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract;
@@ -139,6 +140,14 @@ public class CommonIntents {
         intent.putExtra(AppState.KEY_ARGS, args);
         intent.putExtra(SearchManager.QUERY, query);
         //		intent.putExtra(KEY_RESTARTING, url);
+
+        ctx.startActivity(intent);
+    }
+
+    public static void startNewContainer(Context ctx, String fragment, Class<?> ContainerClass, Bundle bundle) {
+        Intent intent = new Intent(AppState.getApplication(), ContainerClass);
+        intent.putExtra(AppState.KEY_URI, fragment);
+        intent.putExtra(AppState.KEY_BUNDLE, bundle);
 
         ctx.startActivity(intent);
     }

@@ -59,7 +59,7 @@ public class DbEvent extends BaseDbAccessor {
         db.execSQL(DROP + DbEvent.STAGES_TABLE);
     }
 
-    public static final Cursor fetchDetails(String eventId) {
+    public static final Cursor fetchDetails(int eventId) {
         return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s", DbSchedule.SCHED_TABLE, DbSchedule.SCHED_ID, eventId);
     }
 

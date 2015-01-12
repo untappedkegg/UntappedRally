@@ -3,32 +3,20 @@ package com.untappedkegg.rally.schedule;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.event.EventDetails;
-import com.untappedkegg.rally.event.EventPhotos;
 import com.untappedkegg.rally.interfaces.Refreshable;
-import com.untappedkegg.rally.stages.EventStages;
 import com.untappedkegg.rally.ui.ExpandableList;
-import com.untappedkegg.rally.util.CommonIntents;
-import com.untappedkegg.rally.util.DateManager;
 
-import java.text.ParseException;
-import java.util.Calendar;
-
-public class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, OnClickListener, AdapterView.OnItemLongClickListener, Refreshable, OnMenuItemClickListener {
+public class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ AdapterView.OnItemLongClickListener, Refreshable/*, OnMenuItemClickListener*/ {
 
     private Callbacks callback;
     private boolean isHomeFragment;
@@ -103,7 +91,7 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         final int[] groupTo = new int[]{R.id.generic_section_list_header_textview};
         String[] from = new String[]{DbSchedule.SCHED_ID, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_EVT_SITE};
         int[] to = new int[]{R.id.sched_id, R.id.sched_date, R.id.sched_icon, R.id.sched_website};
-        return new ScheduleTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.schedule_row, from, to, this);
+        return new ScheduleTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.schedule_row, from, to);
     }
 
 
@@ -114,9 +102,9 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        final String eventId = ((TextView) v.findViewById(R.id.sched_id)).getText().toString();
+        final int eventId = Integer.parseInt(((TextView) v.findViewById(R.id.sched_id)).getText().toString());
         final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-        callback.showEventDetail(EventDetails.class.getName(), eventId, eventName);
+        callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
     }
 
     @Override
@@ -139,74 +127,17 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         }
     }
 
-    @Override
-    public void onClick(View v) {
-        menuView = ((View) v.getParent().getParent());
-        final boolean isFinished = DbSchedule.isEventFinished(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
-        final String date = ((TextView) menuView.findViewById(R.id.sched_date)).getText().toString();
-        PopupMenu popup = new PopupMenu(getActivity(), v);
-        popup.inflate(R.menu.schedule);
-        if (AppState.isNullOrEmpty(((TextView) menuView.findViewById(R.id.sched_website)).getText().toString())) {
-            popup.getMenu().removeItem(R.id.menu_schedule_website);
-        }
-        if (!isFinished) {
-            popup.getMenu().removeItem(R.id.menu_schedule_photos);
-        }
-        if ("TBD".equalsIgnoreCase(date) || "CANCELLED".equalsIgnoreCase(date) || isFinished) {
-            popup.getMenu().removeItem(R.id.menu_schedule_add_to_cal);
-        }
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
-    }
-
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        final String website = ((TextView) menuView.findViewById(R.id.sched_event_website)).getText().toString();
-        final String eventName = ((TextView) menuView.findViewById(R.id.sched_title)).getText().toString();
-
-        switch (item.getItemId()) {
-            case R.id.menu_schedule_stages:
-                callback.showEventDetail(EventStages.class.getName(), website, eventName);
-                break;
-            case R.id.menu_schedule_photos:
-                callback.showEventDetail(EventPhotos.class.getName(), website, eventName);
-                break;
-            case R.id.menu_schedule_website:
-                CommonIntents.openUrl(getActivity(), ((TextView) menuView.findViewById(R.id.sched_website)).getText().toString());
-                break;
-            case R.id.menu_schedule_event_website:
-                CommonIntents.openUrl(getActivity(), website);
-                break;
-            case R.id.menu_schedule_add_to_cal:
-                final String startDate = ((TextView) menuView.findViewById(R.id.sched_start_date)).getText().toString();
-                final String endDate = ((TextView) menuView.findViewById(R.id.sched_end_date)).getText().toString();
-                final String location = ((TextView) menuView.findViewById(R.id.sched_location)).getText().toString();
-
-
-                try {
-                    CommonIntents.addRallyToCalendar(getActivity(), eventName, DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1), location);
-                    return true;
-                } catch (ParseException e) {
-                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.calendar_error), Toast.LENGTH_LONG).show();
-                }
-        }
-        return true;
-    }
-
-
-
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {
-        public void showEventDetail(String fragment, String args, String eventName);
+        public void showEventDetail(String fragment, String eventName, int id);
     }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        final String eventId = ((TextView) v.findViewById(R.id.sched_id)).getText().toString();
+        final int eventId = Integer.parseInt(((TextView) v.findViewById(R.id.sched_id)).getText().toString());
         final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-        callback.showEventDetail(EventDetails.class.getName(), eventId, eventName);
+        callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
         return true;
     }
 }

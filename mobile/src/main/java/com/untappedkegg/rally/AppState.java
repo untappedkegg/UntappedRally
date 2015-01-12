@@ -52,15 +52,22 @@ public class AppState extends Application {
     public static final String KEY_SCROLL_Y = "com.untappedkegg.rally.SCROLL_Y";
     public static final String KEY_URL = "com.untappedkegg.rally.URL";
     public static final String KEY_URI = "com.untappedkegg.rally.URI";
+    public static final String KEY_ID = "com.untappedkegg.rally.ID";
     public static final String KEY_ARGS = "com.untappedkegg.rally.ARGS";
+    public static final String KEY_ISFINISHED = "com.untappedkegg.rally.ISFINISHED";
+    public static final String KEY_BUNDLE = "com.untappedkegg.rally.ICICLE";
+
     public static final String KEY_RESTARTING = "com.untappedkegg.rally.RESTART";
     public static final String KEY_POSITION = "com.untappedkegg.rally.POSITION";
 
     // Market Package Names
+    public static final String APP_LINK_GOOGLE = "market://details?id=";
+    public static final String APP_LINK_AMAZON = "amzn://apps/android?p=";
+
     public static final String MARKET_GOOGLE = "com.android.vending";
     public static final String MARKET_AMAZON = "com.amazon.venezia";
 
-    public static final String AMAZON_ASIN_LINK = "amzn://apps/android?asin=B00RT90NAW";
+    public static final String APP_LINK_AMAZON_ASIN = "amzn://apps/android?asin=B00RT90NAW";
 
     // Concurrency
     public static boolean NEWS_REFRESH = false;

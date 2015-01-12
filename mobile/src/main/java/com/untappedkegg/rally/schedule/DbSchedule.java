@@ -125,7 +125,7 @@ public class DbSchedule extends BaseDbAccessor {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
     }
-    public static boolean isEventStarted(String eventId) {
+    public static boolean isEventStarted(int eventId) {
         final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", SCHED_START_DATE, SCHED_TABLE, SCHED_ID, eventId);
 
             try {
@@ -141,6 +141,17 @@ public class DbSchedule extends BaseDbAccessor {
 
     public static final boolean isEventFinished(String eventCode, short year) {
         final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = '%s' AND %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_SHORT_CODE, eventCode, SCHED_YEAR, year);
+        if (c.moveToFirst()) {
+            final short status = DateManager.todayIsBetween(c.getString(0), c.getString(1));
+            c.close();
+            return status == 2;
+        }
+        c.close();
+        return false;
+    }
+
+    public static final boolean isEventFinished(int id) {
+        final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_ID, id);
         if (c.moveToFirst()) {
             final short status = DateManager.todayIsBetween(c.getString(0), c.getString(1));
             c.close();
@@ -196,8 +207,8 @@ public class DbSchedule extends BaseDbAccessor {
         }
     }
 
-    public static final String fetchEventRA_link(String eventID) {
-        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", SCHED_EVT_SITE, SCHED_TABLE, SCHED_ID, eventID);
+    public static final String fetchEventRA_link(int eventId) {
+        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", SCHED_EVT_SITE, SCHED_TABLE, SCHED_ID, eventId);
 
         try {
             c.moveToFirst();

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -98,8 +97,8 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
         holder.location.setText(c.getString(holder.locColumn));
 
         //Menu
-        parentFragment.registerForContextMenu(holder.menu);
-        holder.menu.setOnClickListener((OnClickListener) parentFragment);
+//        parentFragment.registerForContextMenu(holder.menu);
+//        holder.menu.setOnClickListener((OnClickListener) parentFragment);
         holder.eventWebsite.setText(c.getString(holder.eventWebsiteColumn));
         holder.website.setText(c.getString(holder.websiteColumn));
 

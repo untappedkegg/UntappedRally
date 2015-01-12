@@ -3,7 +3,6 @@ package com.untappedkegg.rally.schedule;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleCursorTreeAdapter;
@@ -23,7 +22,7 @@ import java.util.Locale;
  * Created by kyle on 8/10/2014.
  */
 public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
-    private Fragment parentFragment;
+//    private Fragment parentFragment;
     private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
@@ -38,9 +37,9 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         super(context, cursor, collapsedGroupLayout, expandedGroupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
     }
 
-    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo, Fragment parent) {
+    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo/*, Fragment parent*/) {
         super(context, cursor, groupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
-        this.parentFragment = parent;
+//        this.parentFragment = parent;
     }
 
     @Override
@@ -112,8 +111,8 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         holder.location.setText(c.getString(holder.locColumn));
 
         //Menu
-        parentFragment.registerForContextMenu(holder.menu);
-        holder.menu.setOnClickListener((View.OnClickListener) parentFragment);
+//        parentFragment.registerForContextMenu(holder.menu);
+//        holder.menu.setOnClickListener((View.OnClickListener) parentFragment);
         holder.eventWebsite.setText(c.getString(holder.eventWebsiteColumn));
         holder.website.setText(c.getString(holder.websiteColumn));
 

@@ -34,11 +34,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.text.ParseException;
 import java.util.Locale;
 
-/**
- * A fragment with a Google +1 button.
- * Use the {@link NextEventFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class NextEventFragment extends BaseFragment implements View.OnClickListener, DataFetcher.Callbacks, Refreshable {
 
     TextView counter, name;
@@ -48,7 +44,8 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
     private String eventName;
     private boolean isRequeryFinished;
     private Callbacks callback;
-    private final DisplayImageOptions nextEventOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ra_large) // resource or drawable
+    private final DisplayImageOptions nextEventOptions = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.ra_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
             .showImageOnFail(R.drawable.ra_large) // resource or drawable
             .cacheInMemory(true).cacheOnDisk(true)
@@ -223,7 +220,7 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (isRequeryFinished) {
-            callback.showEventDetail(EventDetails.class.getName(), String.valueOf(eventId), eventName);
+            callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
         } else {
             Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
         }
@@ -238,6 +235,6 @@ public class NextEventFragment extends BaseFragment implements View.OnClickListe
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {
-        public void showEventDetail(String fragment, String args, String eventName);
+        public void showEventDetail(String fragment, String eventName, int eventId);
     }
 }

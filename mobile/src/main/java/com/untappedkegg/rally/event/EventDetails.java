@@ -37,7 +37,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class EventDetails extends BaseDetails implements NewDataFetcher.Callbacks {
-    private static String eventId = "";
+    private static int eventId;
     private static String eventName;
     private Callbacks callback;
     private boolean isFinished = false;
@@ -67,7 +67,7 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        eventId = getArguments().getString(AppState.KEY_ARGS);
+        eventId = getArguments().getInt(AppState.KEY_ID);
         eventName = getArguments().getString(SearchManager.QUERY);
         isFinished = DbSchedule.isEventFinished(eventId);
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -218,18 +218,6 @@ public class EventDetails extends BaseDetails implements NewDataFetcher.Callback
                         }
                     });
                     ((ViewGroup) v).addView(newRow);
-
-                    // Results
-                    //				newRow = inflater.inflate(R.layout.event_details_row, null);
-                    //				((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.events_results);
-                    //
-                    //				newRow.setOnClickListener(new View.OnClickListener() {
-                    //					@Override
-                    //					public void onClick(View v) {
-                    //						callback.selectResults(((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
-                    //						}
-                    //					});
-                    //				((ViewGroup) v).addView(newRow);
 
                     //Photos
                     if (isFinished) {
