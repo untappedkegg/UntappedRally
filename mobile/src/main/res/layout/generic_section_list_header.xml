@@ -7,4 +7,5 @@
     android:textColor="@color/section_text"
     android:padding="5dp"
     android:gravity="center_horizontal"
+    android:tag="header"
     android:text="Foo" />

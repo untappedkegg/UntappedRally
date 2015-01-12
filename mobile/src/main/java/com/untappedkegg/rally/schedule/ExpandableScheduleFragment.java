@@ -28,7 +28,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.text.ParseException;
 import java.util.Calendar;
 
-public class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, OnClickListener,/*OnItemLongClickListener,*/ Refreshable, OnMenuItemClickListener {
+public class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, OnClickListener, AdapterView.OnItemLongClickListener, Refreshable, OnMenuItemClickListener {
 
     private Callbacks callback;
     private boolean isHomeFragment;
@@ -58,6 +58,13 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         if (savedInstanceState != null) {
             isHomeFragment = savedInstanceState.getBoolean("isHomeFragment");
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        listView.setOnItemLongClickListener(this);
     }
 
     /* ----- INHERITED METHODS ----- */
@@ -110,6 +117,15 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         final String eventId = ((TextView) v.findViewById(R.id.sched_id)).getText().toString();
         final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
         callback.showEventDetail(EventDetails.class.getName(), eventId, eventName);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if(!"header".equals(view.getTag())) {
+            view.findViewById(R.id.sched_menu_btn).callOnClick();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -177,6 +193,8 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
         }
         return true;
     }
+
+
 
 
     /* ----- NESTED INTERFACES ----- */

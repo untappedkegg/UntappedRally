@@ -1,7 +1,9 @@
 package com.untappedkegg.rally.ui;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -190,20 +192,23 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     /**
      * <p>Resets the scroll to the saved scroll position.</p>
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void setScroll() {
-        try {
 
-            if ((scrollIndex > 0 || scrollTop > 0) && listView != null) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        listView.setSelectionFromTop(scrollIndex, scrollTop);
-                    }
-                });
-            }
-        } catch (Exception e) {
-            if (AppState.DEBUG) {
-                e.printStackTrace();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                try {
+                if ((scrollIndex > 0 || scrollTop > 0) && listView != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            listView.setSelectionFromTop(scrollIndex, scrollTop);
+                        }
+                    });
+                }
+            }catch(Exception e){
+                if (AppState.DEBUG) {
+                    e.printStackTrace();
+                }
             }
         }
     }

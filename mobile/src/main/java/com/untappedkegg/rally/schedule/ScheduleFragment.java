@@ -7,6 +7,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -27,7 +28,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.text.ParseException;
 import java.util.Calendar;
 
-public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, OnClickListener, Refreshable, OnMenuItemClickListener, View.OnLongClickListener {
+public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, OnClickListener, Refreshable, OnMenuItemClickListener, View.OnLongClickListener, AdapterView.OnItemLongClickListener {
 
     private Callbacks callback;
     private boolean isHomeFragment;
@@ -59,12 +60,12 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
         }
     }
 
-//        @Override
-//    	public void onActivityCreated(Bundle savedState) {
-//    	    super.onActivityCreated(savedState);
-//
-//    	    getListView().setOnItemLongClickListener(this);
-//    	}
+        @Override
+    	public void onActivityCreated(Bundle savedState) {
+    	    super.onActivityCreated(savedState);
+
+    	    getListView().setOnItemLongClickListener(this);
+    	}
 
 
     /* ----- INHERITED METHODS ----- */
@@ -123,6 +124,15 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
         }
         // call back for dialog fragment which gives the option to choose from stages, stage times, itinerary
 
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if(!adapter.isSection(position)) {
+            view.findViewById(R.id.sched_menu_btn).callOnClick();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -210,7 +220,6 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
 
         return true;
     }
-
 
 
     /* ----- NESTED INTERFACES ----- */
