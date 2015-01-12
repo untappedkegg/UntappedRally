@@ -309,18 +309,24 @@ public class DataFetcher {
                     ctx.deleteFile(fileName);
                 }
                 // Otherwise, creates a file to store the standings
+                if (AppState.DEBUG)
                 Log.i(LOG_TAG, "Writing to file: " + fileName);
                 final FileOutputStream outputStream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
                 outputStream.write(table.getBytes());
 
 
             } catch (Exception e) {
-                Log.d(LOG_TAG, e.toString());
+                if (AppState.DEBUG)
                 e.printStackTrace();
                 return e;
             }
 
             return null;
+        }
+
+        private void removeOldFiles() {
+             final String [] fileParts = fileName.split("_");
+            final int year = Short.parseShort(fileParts[fileParts.length -1]) - 6;
         }
 
         @Override

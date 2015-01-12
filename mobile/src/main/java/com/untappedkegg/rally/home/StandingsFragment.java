@@ -3,6 +3,7 @@ package com.untappedkegg.rally.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +100,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
 
         fileName = ((String) champSpinner.getItemAtPosition(0)).replaceAll(" ", "") + "_" + yearSpinner.getItemAtPosition(0);
 
-
         progressBar = (ProgressBar) getActivity().findViewById(R.id.web_view_progress);
 
         this.showPage();
@@ -130,13 +130,13 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     public void showPage() {
         DbUpdated.open();
         if (CommonIntents.fileExists(getActivity(), fileName) && DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAND + fileName)) <= AppState.STAND_UPDATE_DELAY) {
-            //			Log.e(this.getClass().getName(), "Loading File: " + fileName);
-            //			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
+//			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
+            Log.e(getClass().getSimpleName(), getActivity().getFileStreamPath(fileName).toString());
             progressBar.setVisibility(View.GONE);
-            mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
+            mWebView.loadUrl(getFileUri());
+//            mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
             mWebView.reload();
         } else {
-            //			Log.e(this.getClass().getName(), "File Not Found");
             progressBar.setVisibility(View.VISIBLE);
             DataFetcher.getInstance().standings_start(this, getLink(), fileName);
         }
@@ -151,7 +151,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     //OnItemSelectedListener
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //		parent.getItemAtPosition(position);
 
         switch (parent.getId()) {
 
@@ -207,7 +206,6 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
         }
 
         fileName = selection.replaceAll(" ", "") + "_" + year;
-        //		Log.w("file name = ",fileName);
 
         //For some reason I have to call this twice in order for it to take effect
         //		this.showPage();
@@ -217,5 +215,9 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private String getFileUri() {
+        return "file://" + getActivity().getFileStreamPath(fileName);
     }
 }

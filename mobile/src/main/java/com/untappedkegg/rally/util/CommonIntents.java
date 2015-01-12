@@ -264,7 +264,6 @@ public class CommonIntents {
         String fileContents = null;
         if (fileExists(ctx, fileName)) {
             try {
-                //				InputStream inputStream = ctx.openFileInput(AppState.FUNC_RA_STAND);
                 fileContents = DataFetcher.readStream(ctx.openFileInput(fileName));
             } catch (Exception e) {
                 fileContents = "File Not Found";

@@ -1,5 +1,6 @@
 package com.untappedkegg.rally.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
@@ -79,6 +80,24 @@ public final class ScreenUtils {
 
     public static final boolean isDisplayLandscape() {
         return ctx.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    public static final int getScreenWidth(Context mActivityContext) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) mActivityContext).getWindowManager().getDefaultDisplay().getMetrics( displaymetrics);
+        return (int) (displaymetrics.widthPixels / displaymetrics.xdpi);
+    }
+
+    public static final int getScreenHeight(Context mActivityContext) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) mActivityContext).getWindowManager().getDefaultDisplay().getMetrics( displaymetrics);
+        return displaymetrics.heightPixels;
+    }
+
+    public static final DisplayMetrics getScreenMetrics(Context mActivityContext) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) mActivityContext).getWindowManager().getDefaultDisplay().getMetrics( displaymetrics);
+        return displaymetrics;
     }
 
 }
