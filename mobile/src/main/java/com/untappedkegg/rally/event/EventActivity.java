@@ -122,7 +122,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     public void selectStages(String link) {
 
             // If screen is XLarge & Landscape
-        if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE &&
+        if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
         getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             final View secondContainer = findViewById(R.id.second_container);

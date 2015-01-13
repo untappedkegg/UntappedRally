@@ -154,7 +154,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/ra_link_color"
-                    android:textStyle=""
                     android:layout_marginLeft="5dp"/>
 
                 </LinearLayout>
@@ -163,6 +162,7 @@
 					android:id="@+id/events_descr"
 					android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:padding="6dp"
                     android:textSize="16sp" />
 
