@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Callbacks;
@@ -96,7 +97,7 @@ public class SocialFetcher implements Fetcher {
 
                 return null;
             } catch (Exception e) {
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                     return e;
                 }

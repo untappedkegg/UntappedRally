@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 
-import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 
 import java.lang.reflect.Field;
 
@@ -51,15 +51,15 @@ public class CarouselViewPager extends ViewPager {
             CarouselScroller scroller = new CarouselScroller(this.getContext());
             mScroller.set(this, scroller);
         } catch (NoSuchFieldException e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         } catch (IllegalArgumentException e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         } catch (IllegalAccessException e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         }

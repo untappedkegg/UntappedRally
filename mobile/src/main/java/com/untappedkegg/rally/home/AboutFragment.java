@@ -1,16 +1,15 @@
 package com.untappedkegg.rally.home;
 
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 
 /**
@@ -50,14 +49,7 @@ public class AboutFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String version;
-        try {
-            version = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(((Object) this).getClass().getSimpleName(), "Could not find our package. Initiate FUBAR sequence.");
-            version = "";
-        }
-        versionView.setText(getString(R.string.about_version, version));
+        versionView.setText(getString(R.string.about_version, BuildConfig.VERSION_NAME));
         main.setText(R.string.about_main);
         learnMore.setText(R.string.about_learn_more);
 

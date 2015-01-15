@@ -3,6 +3,7 @@ package com.untappedkegg.rally.util;
 import android.text.format.DateUtils;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -317,7 +318,7 @@ public class DateManager {
         try {
             return ISO8601_DATEONLY.parse(date).getTime() > ISO8601_DATEONLY.parse(now(ISO8601_DATEONLY)).getTime();
         } catch (ParseException e) {
-            if (AppState.DEBUG)
+            if (BuildConfig.DEBUG)
        			e.printStackTrace();
             return false;
         }

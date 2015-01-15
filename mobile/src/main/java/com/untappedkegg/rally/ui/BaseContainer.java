@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher;
@@ -171,7 +172,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
         if (throwable != null) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 DialogManager.raiseUIError(this, throwable, false);
             }
         }

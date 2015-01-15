@@ -44,8 +44,6 @@ import java.util.Locale;
  * then somehow allow the user to view the results for a given stage
  */
 public class AppState extends Application {
-    // Behavior flags
-    public static final boolean DEBUG = true;
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -315,8 +313,6 @@ public class AppState extends Application {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
-                // For testing, set the timer to go off in 1 minute
-//                final long diff = System.currentTimeMillis() + (60 * 1000);
                 final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime();
                 //The intent is declared in the manifest, if changed here it must also be changed there
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);

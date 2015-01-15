@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
@@ -292,7 +293,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
                 });
             }
         } catch (Exception e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         }

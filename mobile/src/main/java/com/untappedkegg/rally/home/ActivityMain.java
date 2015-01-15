@@ -20,7 +20,6 @@ import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -43,6 +41,7 @@ import android.widget.Toast;
 import com.google.android.gms.plus.PlusShare;
 import com.google.android.gms.plus.model.people.Person;
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
@@ -329,19 +328,11 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
     private void sendFeedback() {
         List<Intent> targetedShareIntents = new ArrayList<Intent>();
 
-            String version;
-            try {
-                version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            } catch (PackageManager.NameNotFoundException e) {
-                Log.e(((Object) this).getClass().getSimpleName(), "Could not find our package. Initiate FUBAR sequence.");
-                version = "unknown";
-            }
-
-            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s \nPlease leave the above lines for debugging purposes. Thank you!\n\n", version, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL);
+            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s \nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL);
 
         // Google+
         ArrayList<Person> recipients = new ArrayList<Person>();
-        recipients.add(PlusShare.createPerson("109961307643513437237", "UntappedKegg"));
+        recipients.add(PlusShare.createPerson("109961307643513437237", BuildConfig.DEV_NAME));
         targetedShareIntents.add(new PlusShare.Builder(this).setType("text/plain").setRecipients(recipients).getIntent());
 
         // Email

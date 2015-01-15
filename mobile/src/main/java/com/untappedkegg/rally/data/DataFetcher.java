@@ -7,6 +7,7 @@ import android.os.AsyncTask.Status;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.news.SAXNews;
@@ -309,14 +310,14 @@ public class DataFetcher {
                     ctx.deleteFile(fileName);
                 }
                 // Otherwise, creates a file to store the standings
-                if (AppState.DEBUG)
+                if (BuildConfig.DEBUG)
                 Log.i(LOG_TAG, "Writing to file: " + fileName);
                 final FileOutputStream outputStream = ctx.openFileOutput(fileName, Context.MODE_PRIVATE);
                 outputStream.write(table.getBytes());
 
 
             } catch (Exception e) {
-                if (AppState.DEBUG)
+                if (BuildConfig.DEBUG)
                 e.printStackTrace();
                 return e;
             }

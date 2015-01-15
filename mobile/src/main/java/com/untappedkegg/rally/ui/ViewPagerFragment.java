@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 
 public abstract class ViewPagerFragment extends Fragment {
@@ -96,7 +96,7 @@ public abstract class ViewPagerFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
-                if(AppState.DEBUG)
+                if(BuildConfig.DEBUG)
                     e.printStackTrace();
             }
         }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.util.DateManager;
 
 import java.text.ParseException;
@@ -46,7 +47,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
                 c.setTime(DateManager.parse(startTime, DateManager.GOMIZZOU_TIMEONLY));
             } catch (ParseException e) {
                 c.setTime(new Date());
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             }

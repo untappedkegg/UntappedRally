@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
 import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.NewDataFetcher;
@@ -206,7 +207,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
                     });
                 }
             }catch(Exception e){
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             }

@@ -8,6 +8,7 @@ import android.os.AsyncTask.Status;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONArray;
@@ -70,11 +71,11 @@ public class NewDataFetcher {
                 connection = (HttpsURLConnection) url.openConnection();
                 ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
             } catch (NoSuchAlgorithmException e) {
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             } catch (KeyManagementException e) {
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             }
@@ -120,11 +121,11 @@ public class NewDataFetcher {
                 connection = (HttpsURLConnection) url.openConnection();
                 ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
             } catch (NoSuchAlgorithmException e) {
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             } catch (KeyManagementException e) {
-                if (AppState.DEBUG) {
+                if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
             }
@@ -195,7 +196,7 @@ public class NewDataFetcher {
         try {
             JSONObject = new JSONObject(string);
         } catch (JSONException e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         }
@@ -230,7 +231,7 @@ public class NewDataFetcher {
         try {
             jsonArray = new JSONArray(string);
         } catch (JSONException e) {
-            if (AppState.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
         }
