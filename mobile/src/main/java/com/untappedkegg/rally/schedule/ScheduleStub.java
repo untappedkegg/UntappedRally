@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.interfaces.Refreshable;
 
 
-public class ScheduleStub extends Fragment {
+public class ScheduleStub extends Fragment implements Refreshable {
 
     public ScheduleStub() {
         // Required empty public constructor
@@ -30,4 +31,8 @@ public class ScheduleStub extends Fragment {
         this.getChildFragmentManager().beginTransaction().replace(R.id.schedule_stub_content, fragment).commit();
     }
 
+    @Override
+    public void refreshData() {
+        ((Refreshable) getChildFragmentManager().findFragmentById(R.id.schedule_stub_content)).refreshData();
+    }
 }
