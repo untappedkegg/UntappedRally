@@ -50,7 +50,9 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class com.android.vending.licensing.ILicensingService
 
-#-keepclasseswithmembernames class ** implements android.support.v4.ViewBinder
+-printseeds seeds.txt
+-printusage usage.txt
+-printmapping mapping.txt
 
 #-keep public class com.untappedkegg.rally.event.EventPhoto
 #-keep public class com.untappedkegg.rally.event.EventPhotos$PhotoViewBinder

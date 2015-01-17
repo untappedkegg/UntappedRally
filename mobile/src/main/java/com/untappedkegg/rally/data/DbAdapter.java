@@ -19,7 +19,7 @@ public class DbAdapter {
     /**
      * Update this value anytime there is a change made in this page or to any of the constants that this page references
      */
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     public static final String DB_NAME = "Untapped_Rally.db";
 
     private static final String LOG_TAG = DbAdapter.class.getSimpleName();
