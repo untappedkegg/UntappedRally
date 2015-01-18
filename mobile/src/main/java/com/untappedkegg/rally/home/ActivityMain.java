@@ -383,9 +383,11 @@ public class ActivityMain extends ActionBarActivity implements ScheduleFragment.
 
         } catch (Exception e) { }
 
-        Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
-        startActivity(chooserIntent);
+        if(!targetedShareIntents.isEmpty()) {
+            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+            startActivity(chooserIntent);
+        } else Toast.makeText(this, "No apps support this action", Toast.LENGTH_SHORT).show();
 
     }
 
