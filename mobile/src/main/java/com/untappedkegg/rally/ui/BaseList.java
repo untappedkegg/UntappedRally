@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -171,7 +172,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
 
         if (position != 0) {
             try {
-                getActivity().getActionBar().setTitle(modArray[position]);
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
                 //                ((ListView) getActivity().findViewById(R.id.left_drawer)).setItemChecked(position, true);
                 NavDrawerFragment.getListView().setItemChecked(position, true);
                 ActivityMain.setCurPosition(position);

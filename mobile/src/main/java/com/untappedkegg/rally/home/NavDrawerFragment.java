@@ -1,13 +1,15 @@
 package com.untappedkegg.rally.home;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,6 +53,7 @@ public class NavDrawerFragment extends Fragment {
      */
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private static ListView mLeftDrawerListView;
     private View mFragmentContainerView;
@@ -98,7 +101,7 @@ public class NavDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mLeftDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, getResources().getStringArray(R.array.action_bar_modules)));
+        mLeftDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, getResources().getStringArray(R.array.action_bar_modules)));
         mLeftDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mLeftDrawerListView;
     }
@@ -114,7 +117,8 @@ public class NavDrawerFragment extends Fragment {
      * @param fragmentId   The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout) {
+    public void setUp(int fragmentId, DrawerLayout drawerLayout, Toolbar toolbar) {
+        this.mToolbar = toolbar;
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
@@ -131,7 +135,8 @@ public class NavDrawerFragment extends Fragment {
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /* host Activity */
                 mDrawerLayout, /* DrawerLayout object */
-                R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
+                toolbar,
+//                R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open, /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close /* "close drawer" description for accessibility */) {
             @Override
@@ -253,12 +258,12 @@ public class NavDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
 
     private ActionBar getActionBar() {
-        return getActivity().getActionBar();
+        return ((ActionBarActivity)getActivity()).getSupportActionBar();
     }
 
     public static ListView getListView() {

@@ -3,6 +3,7 @@ package com.untappedkegg.rally.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +72,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
 
 
         if (position != 0) {
-            getActivity().getActionBar().setTitle(modArray[position]);
+            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
             NavDrawerFragment.getListView().setItemChecked(position, true);
             ActivityMain.setCurPosition((short) position);
         }

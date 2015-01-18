@@ -53,11 +53,11 @@ public class SettingsActivity extends PreferenceActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         final ActionBar actionBar = getActionBar();
         if (actionBar != null)
         actionBar.setDisplayHomeAsUpEnabled(true);
-        
+
         notifyButton = new Button(this);
         notifyButton.setText(R.string.settings_notify_button);
         notifyButton.setOnClickListener(this);

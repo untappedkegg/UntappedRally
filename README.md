@@ -6,6 +6,8 @@ Untapped Rally is an Android app providing news, videos, schedules, and stage ti
 [![Demo app](https://images-na.ssl-images-amazon.com/images/G/01/AmazonMobileApps/amazon-apps-store-us-black.png)](http://www.amazon.com/gp/mas/dl/android?p=com.untappedkegg.rally&ref=mas_pm_Untapped_Rally)
 
 ## Change Log
+* Upcoming
+    - Material Theme (possibly options)
 
 * 1.0.2.5
     - Bug Fixes

@@ -6,7 +6,7 @@
     <string name="settings_use_experimental_sched">Use Expandable Schedule</string>
     <string name="settings_use_experimental_sched_summary">Here be dragons</string>
 
-    <string name="pref_news_title">Number of Days to Keep News Items</string>
+    <string name="pref_news_title">Days to Keep News Items</string>
     <string name="pref_news_dialog_title">Keep For</string>
     <string-array name="pref_news_entries">
         <item>15 days</item>

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/menu_schedule_stages"
         android:title="@string/events_stages"
         android:orderInCategory="1"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item android:id="@+id/menu_schedule_photos"
         android:title="@string/events_photos"
         android:orderInCategory="2"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item android:id="@+id/menu_schedule_event_website"
         android:title="@string/event_website"
         android:orderInCategory="3"
         android:icon="@drawable/ic_action_web_site"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item android:id="@+id/menu_schedule_website"
         android:title="@string/website"
         android:orderInCategory="4"
         android:icon="@drawable/ic_action_web_site"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
     <item android:id="@+id/menu_schedule_add_to_cal"
         android:icon="@drawable/ic_action_event"
         android:title="@string/add_to_cal"
         android:orderInCategory="10"
-        android:showAsAction="always" />
+        app:showAsAction="always" />
 
 </menu>

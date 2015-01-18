@@ -16,7 +16,7 @@
 
 package com.untappedkegg.rally.home;
 
-import android.app.ActionBar;
+
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,9 +25,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -48,7 +50,7 @@ import com.untappedkegg.rally.event.EventActivity;
 import com.untappedkegg.rally.event.EventPhotos;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.news.NewsFragment;
-import com.untappedkegg.rally.preference.SettingsActivity;
+import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
 import com.untappedkegg.rally.schedule.ScheduleFragment;
@@ -91,7 +93,7 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends FragmentActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener {
+public class ActivityMain extends ActionBarActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener, Toolbar.OnMenuItemClickListener {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
@@ -110,11 +112,21 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
         super.onCreate(savedInstanceState);
         BaseDbAccessor.open();
         mActionBarDrawer = getResources().getStringArray(R.array.action_bar_modules);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.master);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar.inflateMenu(R.menu.main);
+//        mToolbar.setOnMenuItemClickListener(this);
+        setSupportActionBar(mToolbar);
+        try{
+            getSupportActionBar().getThemedContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         mNavDrawerFragment = (NavDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mNavDrawerFragment.setUp(R.id.left_drawer, mDrawerLayout);
+        mNavDrawerFragment.setUp(R.id.left_drawer, mDrawerLayout, mToolbar);
 
 
         if (savedInstanceState == null) {
@@ -128,6 +140,8 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
         }
 
     AppState.getSettings().registerOnSharedPreferenceChangeListener(this);
+
+
 
     }
 
@@ -154,7 +168,7 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             curPosition = savedInstanceState.getShort("pos");
-            getActionBar().setTitle(mActionBarDrawer[curPosition]);
+            getSupportActionBar().setTitle(mActionBarDrawer[curPosition]);
         }
         super.onRestoreInstanceState(savedInstanceState);
     }
@@ -248,7 +262,7 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
     }
 
     void restoreActionBar() {
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -294,7 +308,8 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
                 this.sendFeedback();
                 return;
             case 8: // Settings
-                intent = new Intent(this, SettingsActivity.class);
+//                intent = new Intent(this, SettingsActivity.class);
+                fragment = new SettingsFragment();
 //                startActivity(intent);
                 break;
             case 9: // About
@@ -381,7 +396,7 @@ public class ActivityMain extends FragmentActivity implements ScheduleFragment.C
         } else {
             mTitle = title;
         }
-        getActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(mTitle);
     }
 
     // CALLBACKS

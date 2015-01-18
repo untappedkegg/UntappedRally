@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().getActionBar().setTitle(modArray[position]);
+        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
         NavDrawerFragment.getListView().setItemChecked(position, true);
 
         ActivityMain.setCurPosition((short) position);
