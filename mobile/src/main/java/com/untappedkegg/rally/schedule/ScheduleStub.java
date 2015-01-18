@@ -2,6 +2,7 @@ package com.untappedkegg.rally.schedule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class ScheduleStub extends Fragment implements Refreshable {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e(getString(R.string.settings_use_experimental_sched), String.valueOf(AppState.getSettings().getBoolean(getString(R.string.settings_use_experimental_sched), false)));
         final Fragment fragment = AppState.getSettings().getBoolean(getString(R.string.settings_use_experimental_sched), false) ? new ExpandableScheduleFragment() : new ScheduleFragment();
         // Pass the arguments on to the child
         fragment.setArguments(this.getArguments());

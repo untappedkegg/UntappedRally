@@ -19,7 +19,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.util.Locale;
 
 /**
- * Created by kyle on 8/10/2014.
+ * Created by UntappedKegg on 8/10/2014.
  */
 public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
 //    private Fragment parentFragment;

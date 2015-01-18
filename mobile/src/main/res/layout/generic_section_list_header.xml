@@ -8,4 +8,5 @@
     android:padding="5dp"
     android:gravity="center_horizontal"
     android:tag="header"
-    android:text="Foo" />
+    android:textSize="18sp"
+    android:textStyle="bold" />

@@ -49,11 +49,10 @@ import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
 import com.untappedkegg.rally.event.EventPhotos;
 import com.untappedkegg.rally.interfaces.Refreshable;
+import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.DbSchedule;
-import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
-import com.untappedkegg.rally.schedule.ScheduleFragment;
 import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
 import com.untappedkegg.rally.stages.EventStages;
@@ -93,7 +92,7 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends ActionBarActivity implements ScheduleFragment.Callbacks, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, ExpandableScheduleFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener, Toolbar.OnMenuItemClickListener {
+public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 

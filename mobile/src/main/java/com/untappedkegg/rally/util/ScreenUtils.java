@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import com.untappedkegg.rally.AppState;
 
 /**
- * Created by kyle on 1/11/15.
+ * Created by UntappedKegg on 1/11/15.
  */
 public final class ScreenUtils {
     private static Context ctx = AppState.getApplication();

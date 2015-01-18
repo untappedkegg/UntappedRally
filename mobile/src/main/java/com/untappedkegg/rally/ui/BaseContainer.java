@@ -1,14 +1,14 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -24,7 +24,7 @@ import com.untappedkegg.rally.util.DialogManager;
  *
  * @author russellja
  */
-public abstract class BaseContainer extends FragmentActivity implements DataFetcher.Callbacks, NewDataFetcher.Callbacks {
+public abstract class BaseContainer extends ActionBarActivity implements DataFetcher.Callbacks, NewDataFetcher.Callbacks {
     /* ----- CONSTANTS ----- */
     protected final String LOG_TAG = BaseContainer.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(((Object) this).hashCode());
 
@@ -65,6 +65,10 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
 //        destroyingViaConfigChange = false;
         setContentView(getContentLayout());
 
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        mToolbar.inflateMenu(R.menu.main);
+//        mToolbar.setOnMenuItemClickListener(this);
+        setSupportActionBar(mToolbar);
 
         Bundle intentExtras = getIntent().getExtras();
         curUri = firstValueInBundles(AppState.KEY_URI, "", intentExtras);
@@ -76,7 +80,7 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
 
         fetcher = getFetcher();
 
-        setTitle(this, getTitleText());
+        setTitle(getTitleText());
 
         if (restarting) {
             Log.d(LOG_TAG, String.format("Recieved restart: uri=%s args=%s query=%s", curUri, curArgs, curQuery));
@@ -414,13 +418,12 @@ public abstract class BaseContainer extends FragmentActivity implements DataFetc
     /**
      * <p>Sets the title field in the master layout.</p>
      *
-     * @param activity the activity to set the title of
      * @param title    the title text
      * @throws NullPointerException if the activity is null or the view couldn't be found.
      */
-    public static void setTitle(Activity activity, String title) {
+    public void setTitle( String title) {
         if (!AppState.isNullOrEmpty(title)) {
-            activity.getActionBar().setTitle(title);
+            getSupportActionBar().setTitle(title);
         }
     }
 

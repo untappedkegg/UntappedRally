@@ -14,11 +14,12 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.interfaces.Refreshable;
+import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.SectionList;
 
 public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
 
-    private Callbacks callback;
+    private ScheduleItemClickReceiver callback;
     private boolean isHomeFragment;
 
     public ScheduleFragment() {
@@ -34,9 +35,9 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
             isHomeFragment = false;
         }
         try {
-            callback = (Callbacks) activity;
+            callback = (ScheduleItemClickReceiver) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement ScheduleFragment.Callbacks.");
+            throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
         }
     }
 
@@ -130,11 +131,5 @@ public class ScheduleFragment extends SectionList implements DataFetcher.Callbac
             }
         }
     }
-
-    /* ----- NESTED INTERFACES ----- */
-    public interface Callbacks {
-        public void showEventDetail(String fragment, String eventName, int id);
-    }
-
 
 }

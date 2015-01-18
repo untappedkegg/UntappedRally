@@ -18,7 +18,7 @@ import com.untappedkegg.rally.news.NewsCarousel;
 /**
  * Container {@link Fragment} to hold the Fragments that make up the 'Home' tab
  *
- * @author Kyle
+ * @author UntappedKegg
  */
 public class HomeFragment extends Fragment implements OnClickListener, Refreshable {
 

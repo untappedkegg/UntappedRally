@@ -20,7 +20,7 @@ import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 /**
  * <p>Base implementation for a Loader Fragment, such as a Grid.  Includes a requery manager.</p>
  *
- * @author kyle
+ * @author UntappedKegg
  */
 public abstract class BaseLoaderFragment extends BaseFragment implements LoaderCallbacks<Cursor> {
     /* ----- CONSTANTS ----- */

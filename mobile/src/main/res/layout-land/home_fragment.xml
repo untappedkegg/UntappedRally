@@ -41,6 +41,7 @@
                       android:paddingBottom="6dp"
                       android:paddingLeft="10dp"
                       android:textSize="20sp"
+                      android:textStyle="bold"
                       android:text="@string/next_event"
                       android:background="@color/section_header"
                       android:textColor="@color/section_text" />
@@ -70,6 +71,7 @@
         android:paddingBottom="6dp"
         android:paddingLeft="10dp"
         android:textSize="20sp"
+        android:textStyle="bold"
 		android:text="@string/latest_news"
 	    android:background="@color/section_header"
 	    android:textColor="@color/section_text" />

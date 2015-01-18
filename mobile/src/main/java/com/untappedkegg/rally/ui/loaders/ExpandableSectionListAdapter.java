@@ -1,7 +1,7 @@
 package com.untappedkegg.rally.ui.loaders;
 
 /**
- * Created by kyle on 8/9/2014.
+ * Created by UntappedKegg on 8/9/2014.
  */
 
 import android.database.DataSetObserver;

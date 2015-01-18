@@ -19,7 +19,7 @@ import com.untappedkegg.rally.ui.BaseContainer;
 import com.untappedkegg.rally.util.DialogManager;
 
 /**
- * @author Kyle
+ * @author UntappedKegg
  */
 public class EventActivity extends BaseContainer implements EventDetails.Callbacks, EventStages.Callbacks {
     private boolean isEventStarted;
@@ -28,7 +28,9 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayShowHomeEnabled(true);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         isEventStarted = !DbSchedule.isEventStarted(getIntent().getExtras().getInt(AppState.KEY_ID));
     }
 
@@ -38,8 +40,9 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 final Intent parentIntent = NavUtils.getParentActivityIntent(this);
-                if (NavUtils.shouldUpRecreateTask(this, parentIntent)) {
-                    NavUtils.navigateUpTo(this, parentIntent);
+                if (!NavUtils.shouldUpRecreateTask(this, parentIntent)) {
+//                    NavUtils.navigateUpTo(this, parentIntent);
+                    this.finish();
                 } else {
                     TaskStackBuilder.create(this).addParentStack(this).startActivities();
                 }

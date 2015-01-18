@@ -9,7 +9,8 @@
     <color name="light_green">#FF008500</color>
     <color name="light_red">#FF850000</color>
 
-    <color name="section_header">#FF4500</color>
+    <!--<color name="section_header">#FF4500</color>-->
+    <color name="section_header">@color/ra_link_color</color>
     <color name="section_text">#FFFFFF</color>
 
     <color name="text_color">#FFFFFF</color>

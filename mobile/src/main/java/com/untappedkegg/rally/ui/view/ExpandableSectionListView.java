@@ -28,7 +28,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Created by kyle on 8/9/2014.
+ * Created by UntappedKegg on 8/9/2014.
  */
 public class ExpandableSectionListView extends ExpandableListView {
 

@@ -26,7 +26,7 @@ import com.untappedkegg.rally.util.DateManager;
 /**
  * SectionList Fragment to display the news stories
  *
- * @author Kyle
+ * @author UntappedKegg
  */
 public class NewsFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
     //	private Callbacks callbacks;

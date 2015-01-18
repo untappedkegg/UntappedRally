@@ -33,7 +33,7 @@ import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 //import com.untappedkegg.rally.ui.view.ExpandableSectionListView;
 
 /**
- * Created by kyle on 8/9/2014.
+ * Created by UntappedKegg on 8/9/2014.
  */
 public abstract class ExpandableList extends BaseFragment implements LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, ExpandableListView.OnChildClickListener {
     /* ----- VARIABLES ----- */
