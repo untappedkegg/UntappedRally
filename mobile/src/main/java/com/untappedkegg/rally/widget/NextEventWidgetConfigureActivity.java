@@ -88,7 +88,7 @@ public class NextEventWidgetConfigureActivity extends Activity {
         if (titleValue != null) {
             return titleValue;
         } else {
-            return context.getString(R.string.appwidget_text);
+            return context.getString(R.string.abc_action_mode_done);
         }
     }
 

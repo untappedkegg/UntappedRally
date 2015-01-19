@@ -1,25 +1,8 @@
-/*
- * Copyright 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.untappedkegg.rally.home;
 
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -92,7 +75,7 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, SharedPreferences.OnSharedPreferenceChangeListener, PopupMenu.OnMenuItemClickListener {
+public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, PopupMenu.OnMenuItemClickListener {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
@@ -137,10 +120,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
         } else {
             curPosition = savedInstanceState.getShort("pos");
         }
-
-    AppState.getSettings().registerOnSharedPreferenceChangeListener(this);
-
-
 
     }
 
@@ -342,7 +321,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     private void sendFeedback() {
         List<Intent> targetedShareIntents = new ArrayList<Intent>();
 
-            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s \nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL);
+            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s (%s)\nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL, Build.DEVICE);
 
         // Google+
         ArrayList<Person> recipients = new ArrayList<Person>();
@@ -351,11 +330,11 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
         // Email
         try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
+            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
         } catch (Exception e) { }
 
         try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, "UntappedKegg@gmail.com"));
+            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
         } catch (Exception e) { }
 
         // Twitter
@@ -386,7 +365,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
             Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
             startActivity(chooserIntent);
-        } else Toast.makeText(this, "No apps support this action", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, R.string.no_apps_available, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -429,16 +408,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
     public static void setCurPosition(short position) {
         curPosition = position;
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-        if (key.equals("setting_notifications")) {
-            AppState.setNextNotification();
-        } else if (key.equals("pref_news_cutoff")) {
-            AppState.NEWS_REFRESH = true;
-        }
     }
 
     /*----- SCHEDULE FRAGMENT ONCLICK METHODS -----*/

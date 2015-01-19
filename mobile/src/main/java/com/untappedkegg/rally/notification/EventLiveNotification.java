@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
@@ -99,14 +100,15 @@ public class EventLiveNotification {
         //        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 //
-                .setSound(Uri.parse(AppState.getSettings().getString("setting_notifications_ringtone", "content://settings/system/notification_sound")))
+                
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                         // Set required fields, including the small icon, the
                         // notification title, and text.
-                .setSmallIcon(R.drawable.ic_launcher).setContentTitle(title)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle(title)
                         //                .setContentText(text)
 
                         // All fields below this line are optional.
@@ -150,12 +152,17 @@ public class EventLiveNotification {
                         // should ensure that the activity in this notification's
                         // content intent provides access to the same actions in
                         // another way.
-                .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT)).addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), res.getString(R.string.website)), PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), res.getString(R.string.website)), PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
-        if (AppState.getSettings().getBoolean("setting_notifications_vibrate", true))
-        builder = builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        if (AppState.getSettings().getBoolean("setting_notifications_vibrate", true)) {
+            builder = builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        }
+        if (AppState.getSettings().getBoolean("setting_notifications_sound", true)) {
+            builder = builder.setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION));
+        }
 
         notify(context, builder.build());
     }

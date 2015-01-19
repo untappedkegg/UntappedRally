@@ -4,7 +4,6 @@
     <string name="settings_show_notifications">Event Notifications</string>
     <string name="settings_show_regional_events">Show Regional Events</string>
     <string name="settings_use_experimental_sched">Use Expandable Schedule</string>
-    <string name="settings_use_experimental_sched_summary">Here be dragons</string>
 
     <string name="pref_news_title">Days to Keep News Items</string>
     <string name="pref_news_dialog_title">Keep For</string>
@@ -26,6 +25,7 @@
 
     <string name="pref_news_default">30</string>
     <string name="settings_notify_button">Test Notification</string>
+    <string name="pref_default_ringtone">System Default</string>
 
 
 </resources>
