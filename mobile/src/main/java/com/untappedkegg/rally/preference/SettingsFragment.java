@@ -12,9 +12,9 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,12 +39,12 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.settings);
 
-        PreferenceCategory fakeHeader = new PreferenceCategory(getActivity());
-        fakeHeader.setTitle(R.string.pref_header_notifications);
-        getPreferenceScreen().addPreference(fakeHeader);
-        addPreferencesFromResource(R.xml.pref_notification);
+//        PreferenceCategory fakeHeader = new PreferenceCategory(getActivity());
+//        fakeHeader.setTitle(R.string.pref_header_notifications);
+//        getPreferenceScreen().addPreference(fakeHeader);
+//        addPreferencesFromResource(R.xml.pref_notification);
 
-        
+
 
     }
 
@@ -55,20 +55,27 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         notifyButton.setText(R.string.settings_notify_button);
         notifyButton.setOnClickListener(this);
         getListView().addFooterView(notifyButton);
-        
-        bindPreferenceSummaryToValue(findPreference("setting_notifications_ringtone"));
+
+//        bindPreferenceSummaryToValue(findPreference("setting_notifications_ringtone"));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-        for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); ++i) {
+        final int count = getPreferenceScreen().getPreferenceCount();
+        for (int i = 0; i < count; ++i) {
             Preference preference = getPreferenceScreen().getPreference(i);
             if (preference instanceof PreferenceGroup) {
                 PreferenceGroup preferenceGroup = (PreferenceGroup) preference;
-                for (int j = 0; j < preferenceGroup.getPreferenceCount(); ++j) {
+                final int innerCount = preferenceGroup.getPreferenceCount();
+                for (int j = 0; j < innerCount; ++j) {
                     updatePreference(preferenceGroup.getPreference(j));
                 }
             } else {
@@ -78,13 +85,19 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     }
 
     @Override
-    public void onPause() {
+    public void onStop() {
         getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-        super.onPause();
+        super.onStop();
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//        if("setting_notifications_ringtone".equals(key)) {
+        try {
+            Log.e("PreferencesFragment", key + ": " + sharedPreferences.getString(key, "not_found"));
+        } catch (Exception e) {}
+//        }
+
         final Activity activity = getActivity();
         if(activity instanceof OnSharedPreferenceChangeListener) {
             ((OnSharedPreferenceChangeListener) activity).onSharedPreferenceChanged(sharedPreferences, key);

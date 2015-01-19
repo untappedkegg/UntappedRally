@@ -133,10 +133,11 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
         if (CommonIntents.fileExists(getActivity(), fileName) && DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAND + fileName)) <= AppState.STAND_UPDATE_DELAY) {
 //			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
             Log.e(getClass().getSimpleName(), getActivity().getFileStreamPath(fileName).toString());
-            progressBar.setVisibility(View.GONE);
-            mWebView.loadUrl(getFileUri());
-//            mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
+
+//            mWebView.loadUrl(getFileUri());
+            mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
             mWebView.reload();
+            progressBar.setVisibility(View.GONE);
         } else {
             progressBar.setVisibility(View.VISIBLE);
             DataFetcher.getInstance().standings_start(this, getLink(), fileName);
