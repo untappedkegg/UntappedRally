@@ -11,6 +11,8 @@
         android:gravity="center_horizontal"
         android:minWidth="100dp"
         android:padding="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="2dp"
         style="@style/spinner" />
 
     <include layout="@layout/viewpager"/>

@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
-import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.news.SAXNews;
 import com.untappedkegg.rally.schedule.SAXSchedule;
@@ -287,7 +286,7 @@ public class DataFetcher {
         @Override
         protected Throwable doInBackground(Void... arg0) {
 
-            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">%s\n</head>\n<body text=\"#ffffff\" style=\"background:%s; text-align:center;\">", AppState.RALLY_AMERICA_CSS, ctx.getResources().getString(R.color.ActionBar).replaceFirst("ff", ""));
+            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">%s\n</head>\n<body text=\"#ffffff\" text-align:center;\">", AppState.RALLY_AMERICA_CSS);
             try {
                 Pattern pattern = Pattern.compile("<table(.*?)</table>", Pattern.CASE_INSENSITIVE);
                 //					Matcher matcher = pattern.matcher(readStream(doGet(link)));

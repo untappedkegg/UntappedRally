@@ -67,6 +67,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
         WebSettings websettings = mWebView.getSettings();
         websettings.setUseWideViewPort(true);
 
+        mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar));
         mWebView.setWebChromeClient(new WebChromeClient());
 
 
