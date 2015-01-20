@@ -7,7 +7,8 @@ Untapped Rally is an Android app providing news, videos, schedules, and stage ti
 
 ## Change Log
 * Upcoming
-    - Material Theme (possibly options)
+    - Material Theme
+    - Bug Fixes
 
 * 1.0.2.5
     - Bug Fixes

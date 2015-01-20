@@ -10,9 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:minWidth="100dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:padding="3dp"
         style="@style/spinner" />
 
     <include layout="@layout/viewpager"/>

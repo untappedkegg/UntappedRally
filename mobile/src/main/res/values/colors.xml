@@ -20,6 +20,7 @@
 
     <color name="ActionBar_actual">#141414</color>
     <color name="ActionBar">#222222</color>
+    <color name="ActionBar_alt">#333333</color>
     <color name="ActionBar_transparent">#CC222222</color>
     <!--<color name="list_divider_color">#33B5E5</color>-->
     <color name="list_divider_color">@android:color/holo_blue_dark</color>

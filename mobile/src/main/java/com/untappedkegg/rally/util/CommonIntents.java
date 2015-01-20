@@ -28,8 +28,10 @@ import java.util.List;
 public class CommonIntents {
     /* ----- CUSTOM METHODS ----- */
     /*----- General Intents -----*/
-    public static void sendEmail(Context ctx, String emailAddress, String subject, String message) {
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", emailAddress, null));
+    public static void sendEmail(Context ctx, String[] emailAddress, String subject, String message) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
         if (!AppState.isNullOrEmpty(subject)) {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
@@ -61,8 +63,18 @@ public class CommonIntents {
     }
 
     public static void getDirections(Context ctx, String address) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://maps.google.com/maps?daddr=%s", address)));
-        ctx.startActivity(intent);
+
+        // Try using the 'proper' Google Maps URI, if that fails, try to open in a browser
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("geo:0,0?q=" + address.replaceAll(" ", "+")));
+                ctx.startActivity(intent);
+        }catch (Exception e) {
+            // ActivityNotFoundException
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format("http://maps.google.com/maps?daddr=%s", address.replaceAll(" ", "%20"))));
+            ctx.startActivity(intent);
+
+        }
     }
 
     public static void getDirections(Context ctx, double latitude, double longitude) {
@@ -226,15 +238,7 @@ public class CommonIntents {
         }
 
         try {
-            if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                Intent intent = new Intent(Intent.ACTION_EDIT).setType("vnd.android.cursor.item/event")
-                        .putExtra("title", title)
-                        .putExtra("eventLocation", location)
-                        .putExtra("beginTime", startTime.getTime())
-                        .putExtra("endTime", endTime.getTime())
-                        .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                ctx.startActivity(intent);
-            } else {
+
                 Intent intent = new Intent(Intent.ACTION_INSERT).setData(Events.CONTENT_URI)
                         .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime.getTime())
                         .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTime())
@@ -243,7 +247,7 @@ public class CommonIntents {
                         .putExtra(Events.TITLE, title)
                         .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_FREE);
                 ctx.startActivity(intent);
-            }
+
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(ctx, R.string.no_calendar, Toast.LENGTH_LONG).show();

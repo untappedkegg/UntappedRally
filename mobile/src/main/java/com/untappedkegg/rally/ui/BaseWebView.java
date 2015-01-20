@@ -55,7 +55,7 @@ public abstract class BaseWebView extends BaseFragment {
         //        mWebView.setInitialScale(100);
         //        mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar));
+        mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar_alt));
         mWebView.setInitialScale(this.getScale());
 
         return view;

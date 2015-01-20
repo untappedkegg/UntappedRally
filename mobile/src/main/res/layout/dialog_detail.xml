@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/ActionBar" >
-<RelativeLayout 
+    android:layout_height="wrap_content" >
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-    
+
     <LinearLayout android:id="@+id/news_detail_lin"
         android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/section_header" >
-		
+
 	<TextView android:id="@+id/news_details_title"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:textColor="@color/section_text"
 		android:textSize="20sp"
-		
+
 		android:layout_margin="5dp" />
 	</LinearLayout>
-	
+
 	<LinearLayout android:id="@+id/news_details_linear"
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/news_detail_lin"
 		android:layout_alignParentLeft="true"
 		android:orientation="vertical" >
-	
-		
+
+
 		<TextView android:id="@+id/news_pub_date"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textColor="@color/text_color" />
-		
+
 		<ImageView android:id="@+id/news_details_img"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:scaleType="center"
      	android:layout_gravity="center_horizontal|center_vertical"
      	android:adjustViewBounds="true"/>
-		
+
 	</LinearLayout>
 
 	<TextView android:id="@+id/news_details_descr"
@@ -51,7 +50,7 @@
 		android:layout_margin="5dp"
 		android:textColor="@color/text_color"
 		android:visibility="visible" />
-	
+
 
 </RelativeLayout>
 </ScrollView>

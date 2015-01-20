@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +131,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
         DbUpdated.open();
         if (CommonIntents.fileExists(getActivity(), fileName) && DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAND + fileName)) <= AppState.STAND_UPDATE_DELAY) {
 //			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
-            Log.e(getClass().getSimpleName(), getActivity().getFileStreamPath(fileName).toString());
+//            Log.e(getClass().getSimpleName(), getActivity().getFileStreamPath(fileName).toString());
 
 //            mWebView.loadUrl(getFileUri());
             mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");

@@ -9,7 +9,6 @@
     android:id="@+id/outer"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/ActionBar"
     android:orientation="horizontal">
 
     <FrameLayout android:id="@+id/main_container"

@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
-import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Callbacks;
@@ -171,7 +170,7 @@ public class StagesFetcher implements Fetcher {
         protected Throwable doInBackground(Void... arg0) {
 
 
-            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" style=\"background:%s; text-align:center;\">", AppState.RALLY_AMERICA_CSS, ctx.getResources().getString(R.color.ActionBar).replaceFirst("ff", ""));
+            String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" text-align:center;\">", AppState.RALLY_AMERICA_CSS);
             try {
                 DbEvent.open();
 

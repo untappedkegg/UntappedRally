@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:attr/selectableItemBackground"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
     <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:padding="6dp">
+        android:padding="6dp">
+
     <TextView android:id="@+id/event_details_list_title"
         android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
@@ -16,28 +18,28 @@
     	android:padding="5dp"
     	android:layout_alignParentLeft="true"
     	android:textColor="@color/title_color"  />
-    
+
     <ImageView android:id="@+id/event_details_list_right_arrow"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:background="@drawable/ic_action_next_item_disabled"
+        android:background="@drawable/ic_action_next_item"
         android:contentDescription="@string/go"
         android:layout_alignParentRight="true"
         android:layout_marginRight="3dp"/>
-    
+
     </RelativeLayout>
-    
+
     <TextView android:id="@+id/event_details_list_uri"
      	   android:layout_width="wrap_content"
      	   android:layout_height="wrap_content"
      	   android:visibility="gone" />
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_height="1px"
         android:layout_width="match_parent"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@color/list_divider_color">
-        
+
     </LinearLayout>
 
 </LinearLayout>

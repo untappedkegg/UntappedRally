@@ -12,10 +12,10 @@
         -->
         <item name="colorPrimary">@color/ActionBar_actual</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="colorPrimaryDark">@color/ActionBar</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/ra_link_color</item>
-        <item name="android:windowBackground">@color/ActionBar</item>
+        <item name="android:windowBackground">@color/ActionBar_alt</item>
     </style>
 
     <!-- <item name="android:listViewStyle">@style/MyListViewStyle</item> -->
@@ -24,7 +24,7 @@
         <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
         <item name="android:textColor">@color/text_color</item>
 
-        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <!--<item name="android:popupMenuStyle">@style/PopupMenu</item>-->
     </style>
     <style name="MyListViewStyle" parent="@android:style/Widget.ListView">
 
@@ -48,12 +48,12 @@
         <item name="android:paddingRight">11dip</item>
     </style>
 
-    <style name="spinner" parent="@android:style/Widget.Holo.Spinner">
+    <style name="spinner" parent="Widget.AppCompat.Spinner.DropDown.ActionBar">
         <item name="android:textStyle">bold</item>
-        <item name="android:popupBackground">@color/translucent_dim_gray</item>
+        <!--<item name="android:popupBackground">@color/translucent_dim_gray</item>-->
     </style>
 
-    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+    <style name="PopupMenu" parent="Widget.AppCompat.Light.PopupMenu">
     <item name="android:popupBackground">@color/translucent_dim_gray</item>
 </style>
 
