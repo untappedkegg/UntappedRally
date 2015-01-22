@@ -3,6 +3,7 @@ package com.untappedkegg.rally.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
 import com.untappedkegg.rally.AppState;
@@ -75,6 +76,13 @@ public final class ScreenUtils {
                 return Size.UNDEFINED.ordinal();
         }
 
+
+    }
+
+    public static final boolean isLargeTablet(Context ctx) {
+        final Resources res = ctx.getResources();
+        return (res.getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
+                res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
     }
 

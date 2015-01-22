@@ -37,6 +37,15 @@
                 android:value=".home.ActivityMain" />
         </activity>
 
+        <activity
+            android:name=".stages.ActivityStages"
+            android:label="Event Details"
+            android:parentActivityName=".event.EventActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".event.EventActivity" />
+        </activity>
+
         <activity android:name=".widget.NextEventWidgetConfigureActivity" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

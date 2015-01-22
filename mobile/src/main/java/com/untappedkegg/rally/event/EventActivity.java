@@ -2,27 +2,25 @@ package com.untappedkegg.rally.event;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.schedule.DbSchedule;
+import com.untappedkegg.rally.stages.ActivityStages;
 import com.untappedkegg.rally.stages.EventStages;
-import com.untappedkegg.rally.stages.StagesViewPager;
 import com.untappedkegg.rally.ui.BaseContainer;
 import com.untappedkegg.rally.util.DialogManager;
 
 /**
  * @author UntappedKegg
  */
-public class EventActivity extends BaseContainer implements EventDetails.Callbacks, EventStages.Callbacks {
-    private boolean isEventStarted;
+public class EventActivity extends BaseContainer implements EventDetails.Callbacks {
+    protected boolean isEventStarted;
 
 	/*----- LIFECYCLE METHODS -----*/
     @Override
@@ -54,33 +52,6 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     }
 
     /* ----- INHERITED METHODS ----- */
-    @Override
-    protected int getContentLayout() {
-        return R.layout.generic_dual_pane_layout;
-    }
-
-    @Override
-    public void onBackPressed() {
-        final View secondContainer = findViewById(R.id.second_container);
-        if (secondContainer != null) {
-            secondContainer.setVisibility(View.GONE);
-            getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.second_container));
-        }
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            final View secondContainer = findViewById(R.id.second_container);
-            if (secondContainer != null) {
-                secondContainer.setVisibility(View.GONE);
-            }
-        }
-    }
-
     // BaseContainer
     @SuppressWarnings("unchecked")
     @Override
@@ -125,7 +96,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     public void selectStages(String link) {
 
             // If screen is XLarge & Landscape
-        if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
+       /* if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
         getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
             final View secondContainer = findViewById(R.id.second_container);
@@ -144,20 +115,17 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
 
         } else {
             this.selectContent(EventStages.class.getName(), link);
-        }
+        }*/
+        Intent intent = new Intent(AppState.getApplication(), ActivityStages.class);
+        intent.putExtra(AppState.KEY_URI, "");
+        intent.putExtra(SearchManager.QUERY, curQuery);
+        intent.putExtra(AppState.KEY_ID, curId);
+        intent.putExtra(AppState.KEY_URL, link);
 
+        startActivity(intent);
     }
 
-    @Override
-    public void updateStageResults(String stageNo) {
-        ((StagesViewPager)getSupportFragmentManager().findFragmentById(R.id.second_container)).updateChildArgs(stageNo);
-    }
 
-    @Override
-    public void selectStageDetail(String link, String stageNo) {
-//        this.selectContent(StagesSelector.class.getName(), link, stageNo);
-        this.selectContent(StagesViewPager.class.getName(), link, stageNo);
-    }
 
     @Override
     public void selectResults(String link) {

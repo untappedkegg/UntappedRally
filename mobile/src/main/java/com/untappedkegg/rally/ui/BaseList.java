@@ -91,7 +91,11 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
         dataFetched = false;
         fetchOnCreate = true;
         hasSwappedCursor = true;
-        position = (short) getArguments().getInt(AppState.KEY_POSITION);
+        try {
+            position = (short) getArguments().getInt(AppState.KEY_POSITION);
+        } catch (NullPointerException e) {
+            position = 0;
+        }
         modArray = getResources().getStringArray(R.array.action_bar_modules);
 
     }
