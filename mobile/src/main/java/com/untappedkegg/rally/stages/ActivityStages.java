@@ -19,13 +19,13 @@ public class ActivityStages extends EventActivity implements EventStages.Callbac
 
     /*----- VARIABLES -----*/
     private boolean isTablet = false;
-    private String link;
+//    private String link;
 
     /*----- LIFECYCLE METHODS -----*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        link = DbSchedule.fetchEventRA_link(curId);
+//        link = DbSchedule.fetchEventRA_link(curId);
         isTablet = ScreenUtils.isLargeTablet(this);
     }
 
@@ -60,7 +60,7 @@ public class ActivityStages extends EventActivity implements EventStages.Callbac
 //            if (isEventStarted)
                 attachFragment(resultsFragment, false, ((Object) resultsFragment).getClass().getCanonicalName(), R.id.second_container);
 
-            if (isEventStarted && ((getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
+            if (/*isEventStarted &&*/ ((getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
                     getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)) {
                 findViewById(R.id.second_container).setVisibility(View.VISIBLE);
             }
