@@ -30,7 +30,7 @@ public class CommonIntents {
     /*----- General Intents -----*/
     public static void sendEmail(Context ctx, String[] emailAddress, String subject, String message) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this (or PayPal apparently)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
         if (!AppState.isNullOrEmpty(subject)) {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
