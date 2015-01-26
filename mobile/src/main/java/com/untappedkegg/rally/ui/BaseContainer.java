@@ -378,14 +378,14 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
     public void attachFragment(Fragment fragment, boolean addToBackStack, String tag, int replaceId) {
         if (!stopped) {
             FragmentManager man = getSupportFragmentManager();
-            if (!addToBackStack) {
-                int count = man.getBackStackEntryCount();
-                if (count > 0) {
-                    // emulate back button then move forward.
-                    man.popBackStack(man.getBackStackEntryAt(count - 1).getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    addToBackStack = true;
-                }
-            }
+//            if (!addToBackStack) {
+//                int count = man.getBackStackEntryCount();
+//                if (count > 0) {
+//                    // emulate back button then move forward.
+//                    man.popBackStack(man.getBackStackEntryAt(count - 1).getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//                    addToBackStack = true;
+//                }
+//            }
 
             Log.d(LOG_TAG, String.format("Attaching %s for content fragment with tag %s.", ((Object) fragment).getClass().getSimpleName(), tag));
             FragmentTransaction transaction = man.beginTransaction();
@@ -466,35 +466,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         //		return R.layout.master;
         return R.layout.generic_frame_layout;
     }
-
-    /**
-     * <p>Default sets the left and right buttons to the default {@code OnMenuButtonClick}.</p>
-     */
-    //	protected void setMenuButtonClickListeners() {
-    //		OnMenuButtonClick onMenuButtonClick = new OnMenuButtonClick(this);
-    //		findViewById(getLeftButtonId()).setOnClickListener(onMenuButtonClick);
-    //		findViewById(getRightButtonId()).setOnClickListener(onMenuButtonClick);
-    //	}
-
-    /**
-     * <p>Default implementation returns {@code R.id.left_menu_button}. The subclass can override this
-     * method to change this value.</p>
-     *
-     * @return the id used for this container.
-     */
-    //	protected int getLeftButtonId() {
-    //		return R.id.left_menu_button;
-    //	}
-
-    /**
-     * <p>Default implementation returns {@code R.id.right_menu_button}. The subclass can override this
-     * method to change this value.</p>
-     *
-     * @return the id used for this container.
-     */
-    //	protected int getRightButtonId() {
-    //		return R.id.right_menu_button;
-    //	}
 
     /**
      * <p>Returns the first occurrence of a key in a list of bundles.</p>

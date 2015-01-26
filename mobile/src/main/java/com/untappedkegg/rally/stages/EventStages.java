@@ -81,8 +81,8 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
                 Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
             } else {
                 final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
-                final View results = getActivity().findViewById(R.id.second_container);
-                if (results != null && results.getVisibility() == View.VISIBLE) {
+                
+                if (getActivity().findViewById(R.id.second_container) != null ) {
                     callbacks.updateStageResults(stageId);
                 } else {
                     callbacks.selectStageDetail(link, stageId);

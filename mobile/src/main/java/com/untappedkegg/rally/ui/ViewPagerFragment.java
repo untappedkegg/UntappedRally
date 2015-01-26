@@ -14,7 +14,7 @@ import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 
 public abstract class ViewPagerFragment extends Fragment {
-    protected boolean needtopUpdateAllChildren = false;
+    protected boolean updateAllChildren = false;
 
     /**
      * The {@link android.support.v4.app.FragmentPagerAdapter;} that will provide
@@ -44,10 +44,12 @@ public abstract class ViewPagerFragment extends Fragment {
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) getActivity().findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(getInitialPageNumber(), true);
-        if(needtopUpdateAllChildren) {
-            mViewPager.setOffscreenPageLimit(getNumPages() - 1);
+        if (mViewPager != null) {
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            mViewPager.setCurrentItem(getInitialPageNumber(), true);
+            if (updateAllChildren) {
+                mViewPager.setOffscreenPageLimit(getNumPages() - 1);
+            }
         }
     }
 

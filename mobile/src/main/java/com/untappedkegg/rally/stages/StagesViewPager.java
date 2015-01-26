@@ -34,7 +34,7 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
 
     public StagesViewPager() {
         // Set to true so that the Spinner updates both child Fragments
-        needtopUpdateAllChildren = true;
+        updateAllChildren = true;
 
     }
 
