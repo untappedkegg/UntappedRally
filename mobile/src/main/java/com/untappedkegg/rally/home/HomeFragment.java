@@ -84,8 +84,13 @@ public class HomeFragment extends Fragment implements OnClickListener, Refreshab
 
 
     public void refreshData() {
-        ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NextEventFragment.class.getCanonicalName())).refreshData();
-        ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NewsCarousel.class.getCanonicalName())).refreshData();
+        try {
+            ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NextEventFragment.class.getCanonicalName())).refreshData();
+        } catch (NullPointerException e) {}
+
+        try {
+            ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NewsCarousel.class.getCanonicalName())).refreshData();
+        } catch(NullPointerException e) {}
     }
 
     /* ----- NESTED INTERFACES ----- */
