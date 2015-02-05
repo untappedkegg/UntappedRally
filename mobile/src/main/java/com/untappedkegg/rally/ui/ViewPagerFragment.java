@@ -72,7 +72,7 @@ public abstract class ViewPagerFragment extends Fragment {
     }
 
     /**
-     * <p>Updates the arguments in the {@code dataFragment} if it extends {@link com.untappedkegg.rally.ui.BaseList} or {@link com.untappedkegg.rally.ui.BaseDetails}., subclass should override to handle
+     * <p>Updates the arguments in the {@code dataFragment} if it extends {@link com.untappedkegg.rally.ui.BaseList}, {@link com.untappedkegg.rally.ui.BaseFragment} or {@link com.untappedkegg.rally.ui.BaseDetails}., subclass should override to handle
      * updating the class arguments for other types of fragments.</p>
      */
     protected void updateArgs(String args, String query, boolean updateAll) {

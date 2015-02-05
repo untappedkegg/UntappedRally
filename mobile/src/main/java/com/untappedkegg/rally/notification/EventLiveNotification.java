@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -100,7 +99,7 @@ public class EventLiveNotification {
         //        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 //
-                
+
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
@@ -115,7 +114,7 @@ public class EventLiveNotification {
 
                         // Use a default priority (recognized on devices running Android
                         // 4.1 or later)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
                         // Provide a large icon, shown with the notification in the
                         // notification drawer on devices running Android 3.0 or later.
@@ -153,7 +152,7 @@ public class EventLiveNotification {
                         // content intent provides access to the same actions in
                         // another way.
                 .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), res.getString(R.string.website)), PendingIntent.FLAG_UPDATE_CURRENT))
+//                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), res.getString(R.string.website)), PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);

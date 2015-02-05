@@ -2,7 +2,6 @@ package com.untappedkegg.rally.stages;
 
 import android.app.Activity;
 import android.app.SearchManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     // eventCode @ 5, year @ 4
     private String[] linkPts;
     private String query;
-//    private OnFragmentInteractionListener mListener;
     private boolean isFinished;
     private Spinner stagesSpinner;
 
@@ -56,12 +54,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
         final String[] linkPts = link.split("/");
         isFinished = DbSchedule.isEventFinished(linkPts[5], Short.parseShort(linkPts[4]));
 
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
@@ -92,7 +84,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     @Override
@@ -149,9 +140,7 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {  }
 
     public void updateChildArgs(String stageNo) {
         this.curStage = Short.valueOf(stageNo);
@@ -175,21 +164,6 @@ public class StagesViewPager extends ViewPagerFragment implements AdapterView.On
         stagesSpinner.setSelection(curStage - 1);
         stagesSpinner.setOnItemSelectedListener(this);
 
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
     }
 
 

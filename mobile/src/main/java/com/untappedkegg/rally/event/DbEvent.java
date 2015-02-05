@@ -161,7 +161,6 @@ public class DbEvent extends BaseDbAccessor {
         if (c.moveToFirst()) {
             final String results = c.getString(0);
             c.close();
-//            Log.w(STAGES_RESULTS, results + "");
             if (AppState.isNullOrEmpty(results)) {
                 return AppState.getApplication().getResources().getString(R.string.stage_results_format, AppState.getApplication().getResources().getString(R.string.stage_results_error));
             } else {
