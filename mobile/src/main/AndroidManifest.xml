@@ -81,14 +81,6 @@
             </intent-filter>
         </receiver>
 
-        <!--<activity
-            android:name=".preference.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".home.ActivityMain" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.ActivityMain" />
-        </activity>-->
     </application>
 
 </manifest>

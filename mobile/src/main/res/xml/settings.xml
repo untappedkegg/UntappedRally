@@ -16,7 +16,7 @@
 
     <CheckBoxPreference android:key="@string/settings_use_experimental_sched"
         android:title="@string/settings_use_experimental_sched"
-        android:defaultValue="false"
+        android:defaultValue="true"
         />
 
 
