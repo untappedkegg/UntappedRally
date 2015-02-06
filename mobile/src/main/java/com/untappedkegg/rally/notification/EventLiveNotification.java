@@ -20,7 +20,6 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
-import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.schedule.DbSchedule;
 
 import java.util.Locale;
@@ -42,14 +41,10 @@ public class EventLiveNotification {
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.
      * <p/>
-     * TODO: Customize this method's arguments to present relevant content in
-     * the notification.
      * <p/>
-     * TODO: Customize the contents of this method to tweak the behavior and
-     * presentation of event live notifications. Make
-     * sure to follow the
+     * Make sure to follow the
      * <a href="https://developer.android.com/design/patterns/notifications.html">
-     * Notification design guidelines</a> when doing so.
+     * Notification design guidelines</a>.
      *
      * @see #cancel(Context)
      */
@@ -65,9 +60,8 @@ public class EventLiveNotification {
             return;
         }
         final String eventName = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));
+
         final int eventId = c.getInt(c.getColumnIndex(DbSchedule.SCHED_ID));
-//        final String startDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE));
-//        final String endDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_END_DATE));
         final String fromTo = c.getString(c.getColumnIndex(DbSchedule.SCHED_FROM_TO));
         final String website = c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE));
         String uri = c.getString(c.getColumnIndex(DbSchedule.SCHED_SHORT_CODE)).toLowerCase(Locale.US);
@@ -78,36 +72,23 @@ public class EventLiveNotification {
             uri = "ra" + uri;
         }
         final String imgUrl = AppState.EGG_DRAWABLE + uri + "_large";
-        //        if (DateManager.todayIsBetween(startDate, endDate) != 1) {
-        //            return;
-        //        }
-        // This image is used as the notification's large icon (thumbnail).
+
         final Bitmap picture = ImageLoader.getInstance().loadImageSync(imgUrl, new ImageSize(128, 128));
+
         final Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
-        intent.putExtra(AppState.KEY_URI, EventDetails.class.getName());
-        intent.putExtra(AppState.KEY_ARGS, String.valueOf(eventId));
+        intent.putExtra(AppState.KEY_ID, eventId);
         intent.putExtra(SearchManager.QUERY, eventName);
 
-        //        final String ticker = exampleString;
         final String title = res.getString(R.string.event_live_notification_title_template, eventName);
-        //        final String text = res.getString(R.string.event_live_notification_placeholder_text_template, exampleString);
-        //        long diff = System.currentTimeMillis();
-        //        try {
-        //            diff = DateManager.parse(startDate, DateManager.ISO8601_DATEONLY).getTime();
-        //        } catch (ParseException e) {
-        ////            diff = 0;
-        //            e.printStackTrace();
-        //        }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-//
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                         // Set required fields, including the small icon, the
                         // notification title, and text.
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.small_flag)
                 .setContentTitle(title)
                         //                .setContentText(text)
 
@@ -119,10 +100,10 @@ public class EventLiveNotification {
 
                         // Provide a large icon, shown with the notification in the
                         // notification drawer on devices running Android 3.0 or later.
-                .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(),R.drawable.ic_launcher_large) : picture)
+                .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(),R.drawable.ic_launcher) : picture)
 
                         // Set ticker text (preview) information for this notification.
-                        //                .setTicker(ticker)
+                .setTicker(title)
 
                         // Show a number. This is useful when stacking notifications of
                         // a single type.
@@ -141,10 +122,12 @@ public class EventLiveNotification {
                         //                .setWhen(diff)
                         // Set the pending intent to be initiated when the user touches
                         // the notification.
-                .setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)).setContentText(fromTo)
+                .setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                .setContentText(fromTo)
                         // Show expanded text content on devices running Android 4.1 or
                         // later.
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(eventName + "\n" + fromTo).setBigContentTitle(title)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(eventName + "\n" + fromTo)
+                .setBigContentTitle(title)
                         /*.setSummaryText(eventName + "\n" + fromTo)*/)
 
                         // Example additional actions for this notification. These will
@@ -153,7 +136,7 @@ public class EventLiveNotification {
                         // content intent provides access to the same actions in
                         // another way.
                 .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US,"%s's %s", eventName, res.getString(R.string.website))), PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US, "%s's %s", eventName, res.getString(R.string.website))), PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
@@ -174,7 +157,7 @@ public class EventLiveNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, String, int)}.
+     * {@link #notify(Context, int)}.
      */
     public static void cancel(final Context context) {
         final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
