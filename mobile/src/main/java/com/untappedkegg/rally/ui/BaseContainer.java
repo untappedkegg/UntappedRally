@@ -66,8 +66,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         setContentView(getContentLayout());
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        mToolbar.inflateMenu(R.menu.main);
-//        mToolbar.setOnMenuItemClickListener(this);
         setSupportActionBar(mToolbar);
 
         Bundle intentExtras = getIntent().getExtras();
@@ -114,8 +112,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         if (fetcher != null) {
             fetcher.interrupt();
         }
-
-        //		locationFetcher.stopUpdates(this);
     }
 
 	/* ----- INHERITED METHODS ----- */
@@ -135,17 +131,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
 
     }
 
-    /**
-     * <p>Redirects pressing the menu button to open the left menu. Subclass should override to change this behavior.</p>
-     */
-    //	@Override
-    //	public boolean onKeyUp(int keyCode, KeyEvent event) {
-    //        if (keyCode == KeyEvent.KEYCODE_MENU) {
-    //
-    //            return true;
-    //        }
-    //        return super.onKeyUp(keyCode, event);
-    //    }
 
     /**
      * <p>Saves {@code restarting} as true in the saved instance state bundle.  Subclass should override this to save other variables.</p>
@@ -185,26 +170,7 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
             progressDialog = null;
         }
 
-
-        //		if(parser.equals(AppState.KEY_NEARBY_RANGE)) {
-        //			ContentValues values = new ContentValues();
-        //			values.put(parser, true);
-        //
-        //		}
     }
-
-    // LocationFetcher.Callbacks
-    /**
-     * <p>Starts the right menu data fetch.</p>
-     */
-    //	@Override
-    //	public void onLocationUpdated(double latitude, double longitude) {
-    //
-    //	}
-
-    /**
-     * <p>Tells the right menu that the location fetch failed.</p>
-     */
 
 	/* ----- CUSTOM METHODS ----- */
     /**
@@ -357,17 +323,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
     }
 
     /**
-     * <p>Works just like {@code selectContent(String, String, String, boolean)} except {@code args} and {@code query} are {@code null} and
-     * {@code addToBackStack} is {@code true}.</p>
-     *
-     * @param uri uniform resource identifier (class defined), or "" to denote the default. Does not need to be globally unique.
-     * @see #selectContent(String, String, String, boolean)
-     */
-//    public void selectContent(String uri) {
-//        selectContent(uri, null, null, true);
-//    }
-
-    /**
      * <p>Attaches the fragment for {@link #selectContent(String, String, String, int, boolean)}. Subclasses should not override this method.</p>
      *
      * @param fragment
@@ -394,26 +349,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
             transaction.commit();
         }
     }
-
-    /**
-     * <p>Default creates the left and right side menus and starts the {@code locationFetcher} updates.  The subclass can override this method
-     * to change this behavior.</p>
-     */
-//    protected void createSideMenus() {
-        //		locationFetcher.startUpdates(this);
-//    }
-
-    /**
-     * <p>Sets the title field in the master layout.</p>
-     *
-     * @param fragment the fragment calling this method
-     * @param title the title text
-     * @throws NullPointerException if the fragment is null, the fragment's activity is null, or the
-     *             view couldn't be found.
-     */
-    //	public static void setTitle(Fragment fragment, String title) {
-    //		setTitle(fragment.getActivity(), title);
-    //	}
 
     /**
      * <p>Sets the title field in the master layout.</p>
@@ -510,55 +445,4 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         return null;
     }
 
-	/* ----- NESTED CLASSES ----- */
-
-    /**
-     * <p>The default {@code View.OnClickListener} for the left and right menu buttons.</p>
-     *
-     * @author russellja
-     */
-//    public class OnMenuButtonClick implements View.OnClickListener {
-//        /* ----- VARIABLES ----- */
-//        private Context ctx;
-//
-//        /* ----- CONSTRUCTORS ----- */
-//        public OnMenuButtonClick(Context ctx) {
-//            super();
-//            this.ctx = ctx;
-//        }
-//
-//        /* ----- INHERITED METHODS ----- */
-//        @Override
-//        public void onClick(View v) {
-//            switch (v.getId()) {
-//
-//            }
-//        }
-//
-//		/* ----- CUSTOM METHODS ----- */
-//
-//        /**
-//         * <p>If the content fragment has a carousel then it pauses it.</p>
-//         */
-//        private void pause() {
-//            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
-//            if (BaseCarousel.class.isAssignableFrom(((Object) fragment).getClass())) {
-//                ((BaseCarousel) fragment).pauseCarousel();
-//            } else if (CarouselList.class.isAssignableFrom(((Object) fragment).getClass())) {
-//                ((CarouselList) fragment).pauseCarousel();
-//            }
-//        }
-//
-//        /**
-//         * <p>If the content fragment has a carousel then it resumes it.</p>
-//         */
-//        private void resume() {
-//            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_container);
-//            if (BaseCarousel.class.isAssignableFrom(((Object) fragment).getClass())) {
-//                ((BaseCarousel) fragment).resumeCarousel();
-//            } else if (CarouselList.class.isAssignableFrom(((Object) fragment).getClass())) {
-//                ((CarouselList) fragment).resumeCarousel();
-//            }
-//        }
-//    }
 }

@@ -25,7 +25,7 @@ public class DbUpdated extends BaseDbAccessor {
      * @param source The Module which is making the request (ie. com.WRCLive.News)
      * @return
      */
-    public static final void updated_insert(String source) {
+    public static void updated_insert(final String source) {
         long time = System.currentTimeMillis();
         ContentValues initialValues = new ContentValues();
         initialValues.put(SOURCE, source);
@@ -38,7 +38,7 @@ public class DbUpdated extends BaseDbAccessor {
      * @param source The Module which is making the request (ie. com.WRCLive.News)
      * @return a {@code long} which represents the {@code System.currentTimeMillis()/1000} of the last update
      */
-    public static final long lastUpdated_by_Source(String source) {
+    public static long lastUpdated_by_Source(final String source) {
         final Cursor c = dbAdapter.select(String.format("SELECT %s FROM %s WHERE %s='%s'", TIME, UPDATED_TABLE, SOURCE, source));
         //check that something is returned to avoid 'Cursor Out of Bounds Exception
         //if no results are returned, make sure that an update is performed

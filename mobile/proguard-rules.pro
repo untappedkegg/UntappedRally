@@ -18,7 +18,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--optimizationpasses 5
+-optimizationpasses 9
 
 #When not preverifing in a case-insensitive filing system, such as Windows. Because this tool unpacks your processed jars, you should then use:
 -dontusemixedcaseclassnames
@@ -32,9 +32,12 @@
 #Specifies to write out some more information during processing. If the program terminates with an exception, this option will print out the entire stack trace, instead of just the exception message.
 -verbose
 
+#Specifies that the access modifiers of classes and class members may be broadened during processing. This can improve the results of the optimization step.
+-allowaccessmodification
+
 #The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle. Note that the Dalvik VM also can't handle aggressive overloading (of static fields).
 #To understand or change this check http://proguard.sourceforge.net/index.html#/manual/optimizations.html
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,class/marking/final,code/removal/advanced,code/simplification/advanced,code/allocation/variable,method/inlining/*
 
 #To repackage classes on a single package
 #-repackageclasses ''

@@ -22,7 +22,7 @@ import java.util.Locale;
  * Created by UntappedKegg on 8/10/2014.
  */
 public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
-//    private Fragment parentFragment;
+
     private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
@@ -37,9 +37,8 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         super(context, cursor, collapsedGroupLayout, expandedGroupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
     }
 
-    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo/*, Fragment parent*/) {
+    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo) {
         super(context, cursor, groupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
-//        this.parentFragment = parent;
     }
 
     @Override
@@ -111,8 +110,6 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         holder.location.setText(c.getString(holder.locColumn));
 
         //Menu
-//        parentFragment.registerForContextMenu(holder.menu);
-//        holder.menu.setOnClickListener((View.OnClickListener) parentFragment);
         holder.eventWebsite.setText(c.getString(holder.eventWebsiteColumn));
         holder.website.setText(c.getString(holder.websiteColumn));
 

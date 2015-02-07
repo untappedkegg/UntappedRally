@@ -10,7 +10,7 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.event.DbEvent;
 import com.untappedkegg.rally.ui.BaseSelector;
 
-public class StagesSelector extends BaseSelector {
+public final class StagesSelector extends BaseSelector {
     /*----- VARIABLES -----*/
     private short curStage;
     private short maxStage;

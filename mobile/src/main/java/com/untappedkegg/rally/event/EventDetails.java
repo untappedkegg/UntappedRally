@@ -36,7 +36,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventDetails extends BaseDetails implements NewDataFetcher.Callbacks {
+public final class EventDetails extends BaseDetails implements NewDataFetcher.Callbacks {
     private static int eventId;
     private static String eventName;
     private Callbacks callback;

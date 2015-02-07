@@ -46,12 +46,6 @@
                 android:value=".event.EventActivity" />
         </activity>
 
-        <activity android:name=".widget.NextEventWidgetConfigureActivity" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
         <receiver
             android:name=".widget.NextEventWidget"
             android:label="@string/widget_next_event" >

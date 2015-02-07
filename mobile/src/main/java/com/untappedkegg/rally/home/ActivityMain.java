@@ -97,14 +97,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
         setContentView(R.layout.master);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        mToolbar.inflateMenu(R.menu.main);
-//        mToolbar.setOnMenuItemClickListener(this);
         setSupportActionBar(mToolbar);
-        try{
-            getSupportActionBar().getThemedContext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         mNavDrawerFragment = (NavDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -286,7 +279,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 this.sendFeedback();
                 return;
             case 8: // Settings
-//                intent = new Intent(this, SettingsActivity.class);
                 fragment = new SettingsFragment();
 //                startActivity(intent);
                 break;

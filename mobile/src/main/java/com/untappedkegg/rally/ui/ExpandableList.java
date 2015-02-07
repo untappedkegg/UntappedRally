@@ -1,12 +1,12 @@
 package com.untappedkegg.rally.ui;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,16 +132,13 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     public void onResume() {
         super.onResume();
 
-
         final short position = (short) getArguments().getInt(AppState.KEY_POSITION);
-
 
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
-            final Activity activity = getActivity();
             try {
-                activity.getActionBar().setTitle(modArray[position]);
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
                 //                ((ListView) activity.findViewById(R.id.left_drawer)).setItemChecked(position, true);
                 NavDrawerFragment.getListView().setItemChecked(position, true);
             } catch (NullPointerException e) {

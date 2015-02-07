@@ -20,7 +20,6 @@ import com.untappedkegg.rally.util.DateManager;
 import java.util.Locale;
 
 public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
-    private final Fragment parentFragment;
     private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
@@ -28,7 +27,6 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
 
     public ScheduleCursorAdaptor(Context context, int layout, Cursor c, String[] from, int[] to, int flags, Fragment parent) {
         super(context, layout, c, from, to, flags);
-        this.parentFragment = parent;
     }
 
     @Override
@@ -97,8 +95,6 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
         holder.location.setText(c.getString(holder.locColumn));
 
         //Menu
-//        parentFragment.registerForContextMenu(holder.menu);
-//        holder.menu.setOnClickListener((OnClickListener) parentFragment);
         holder.eventWebsite.setText(c.getString(holder.eventWebsiteColumn));
         holder.website.setText(c.getString(holder.websiteColumn));
 

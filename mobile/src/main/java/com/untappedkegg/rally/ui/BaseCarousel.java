@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
-import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.ui.loaders.CarouselAdapter;
@@ -78,7 +77,6 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //		Analytics.trackScreen(getActivity(), getClass().getName());
-        BaseDbAccessor.open();
         dataFetched = (savedInstanceState != null) ? savedInstanceState.getBoolean("dataFetched") : dataFetched;
         autoRotate = (savedInstanceState != null) ? savedInstanceState.getBoolean("autoRotate") : autoRotate;
     }
@@ -87,7 +85,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
      * {@inheritDoc}
      * <p/>
      * <p>Creates the fragment layout and gets the required views from it based on what is returned from {@link #getLayout()}, {@link #getProgressBarId()},
-     * {@link #getPagerId()}, and {@link #getPagerDotsId()}.  Subclass should override those methods to change the values returned, or override this method
+     * and {@link #getPagerId()}.  Subclass should override those methods to change the values returned, or override this method
      * with a call to get the view returned from the super to get another view from the layout.</p>
      */
     @Override
@@ -95,7 +93,6 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
         View view = inflater.inflate(getLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
         pager = (CarouselViewPager) view.findViewById(getPagerId());
-        //		pagerDots = (ViewPagerDots) view.findViewById(getPagerDotsId());
         return view;
     }
 
@@ -114,8 +111,6 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
         pager.setAdapter(adapter);
         pager.setCallbacks(this);
         pager.setPageMarginDP(getPageMarginDP());
-
-        //		BaseContainer.setTitle(this, getTitleText());
 
         if (dataFetched) {
             loadPages();
@@ -146,7 +141,6 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     public void onDestroy() {
         super.onDestroy();
         this.pauseCarousel();
-        BaseDbAccessor.close();
     }
 
 	/* ----- INHERITED METHODS ----- */
@@ -261,7 +255,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
 
     /**
      * <p>Default implementation returns {@code R.layout.generic_carousel}. The subclass can override this method to change this value.
-     * If this value is changed, {@link #getProgressBarId()}, {@link #getPagerId()}, {@link #getPagerDotsId()} will also need to be changed.</p>
+     * If this value is changed, {@link #getProgressBarId()}, {@link #getPagerId()} will also need to be changed.</p>
      *
      * @return the layout used for this page
      */

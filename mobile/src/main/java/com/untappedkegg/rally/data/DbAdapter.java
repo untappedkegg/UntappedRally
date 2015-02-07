@@ -14,7 +14,7 @@ import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.social.DbSocial;
 
-public class DbAdapter {
+public final class DbAdapter {
     /* ----- CONSTANTS ----- */
     /**
      * Update this value anytime there is a change made in this page or to any of the constants that this page references
@@ -127,7 +127,7 @@ public class DbAdapter {
      * @return the {@link Cursor} over the query results, positioned before the first entry
      * @see #selectf(String, Object...)
      */
-    public Cursor select(String select) {
+    public Cursor select(final String select) {
         Log.d(LOG_TAG, "Executing SQL: " + select);
         return db.rawQuery(select, null);
     }
@@ -154,7 +154,7 @@ public class DbAdapter {
      * @see #updateIfExistsElseInsert(String, ContentValues, String)
      * @see #updateIfExistsElseInsert(String, ContentValues, ContentValues, String)
      */
-    public long insert(String table, ContentValues values) {
+    public long insert(final String table, final ContentValues values) {
         Log.d(LOG_TAG, String.format("Inserting %s into %s table.", values.toString(), table));
         return db.insert(table, null, values);
     }
@@ -169,7 +169,7 @@ public class DbAdapter {
      * @see #updateIfExistsElseInsert(String, ContentValues, String)
      * @see #updateIfExistsElseInsert(String, ContentValues, ContentValues, String)
      */
-    public int update(String table, ContentValues values, String where) {
+    public int update(final String table, final ContentValues values, final String where) {
         Log.d(LOG_TAG, String.format("Updating table %s where %s with values %s.", table, where, values.toString()));
         return db.update(table, values, where, null);
     }
@@ -185,7 +185,7 @@ public class DbAdapter {
      * @return the id of the first row updated or the row inserted, -1 if an error occurred
      * @see #updateIfExistsElseInsert(String, ContentValues, String)
      */
-    public long updateIfExistsElseInsert(String table, ContentValues insertValues, ContentValues updateValues, String where) {
+    public long updateIfExistsElseInsert(final String table, final ContentValues insertValues, final ContentValues updateValues, final String where) {
         final int affected = update(table, updateValues, where);
         if (affected <= 0) {
             return insert(table, insertValues);
@@ -204,7 +204,7 @@ public class DbAdapter {
      * @return the id of the first row updated or the row inserted, -1 if an error occurred
      * @see #updateIfExistsElseInsert(String, ContentValues, ContentValues, String)
      */
-    public long updateIfExistsElseInsert(String table, ContentValues values, String where) {
+    public long updateIfExistsElseInsert(final String table, final ContentValues values, final String where) {
         return updateIfExistsElseInsert(table, values, values, where);
     }
 
@@ -215,7 +215,7 @@ public class DbAdapter {
      * @return the number of rows affected
      * @see #delete(String, String)
      */
-    public int delete(String table) {
+    public int delete(final String table) {
         Log.d(LOG_TAG, String.format("Deleting all from table %s.", table));
         return db.delete(table, "1", null);
     }
@@ -228,7 +228,7 @@ public class DbAdapter {
      * @return the number of rows affected
      * @see #delete(String)
      */
-    public int delete(String table, String where) {
+    public int delete(final String table, final String where) {
         Log.d(LOG_TAG, String.format("Deleting from table %s where %s.", table, where));
         return db.delete(table, where, null);
     }
@@ -240,7 +240,7 @@ public class DbAdapter {
      * @return the number of rows in the table
      * @see #count(String, String)
      */
-    public int count(String table) {
+    public int count(final String table) {
         return count(table, null);
     }
 
@@ -252,7 +252,7 @@ public class DbAdapter {
      * @return the number of rows in the table that meet the {@code where} criteria
      * @see #count(String)
      */
-    public int count(String table, String where) {
+    public int count(final String table, final String where) {
         //		StringBuilder select = new StringBuilder(String.format("SELECT count(_id) FROM %s", table));
         String select = String.format("SELECT count(_id) FROM %s", table);
         if (!AppState.isNullOrEmpty(where)) {
@@ -260,7 +260,7 @@ public class DbAdapter {
             select += String.format(" WHERE %s", where);
         }
 
-        Cursor cursor = db.rawQuery(select.toString(), null);
+        final Cursor cursor = db.rawQuery(select.toString(), null);
         try {
             if (cursor.moveToFirst()) {
                 return cursor.getInt(0);
@@ -276,7 +276,7 @@ public class DbAdapter {
         handleCount = 0;
     }
 
-    public static final String[] toStringArray(Cursor c) {
+    public static final String[] toStringArray(final Cursor c) {
         try {
             if (c.moveToFirst()) {
                 final int count = c.getCount();

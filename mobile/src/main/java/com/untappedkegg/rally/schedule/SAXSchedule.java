@@ -47,22 +47,19 @@ public class SAXSchedule extends BaseSAX {
                 startDate = endDate = dates;
             } else {
                 try {
-                    datesArray = dates.split(" ");
+                   final String[] datesArray = dates.split(" ");
                     if (datesArray.length > 3) {
                         startDate = DateManager.ISO8601_DATEONLY.format(DateManager.RALLY_AMERICA.parse(datesArray[0] + " " + datesArray[1] + ", " + year));
                         endDate = DateManager.ISO8601_DATEONLY.format(DateManager.RALLY_AMERICA.parse(datesArray[0] + " " + datesArray[3] + " " + year));
                     } else {
                         endDate = startDate = DateManager.ISO8601_DATEONLY.format(DateManager.RALLY_AMERICA.parse(dates));
                     }
-                    //					Log.w(this.getClass().getCanonicalName(), String.format("Name = %s, Start = %s, end = %s, Year = %s, Website = %s, Dates = %s", name, startDate, endDate, year, website, dates));
+
                 } catch (Exception e) {
                     startDate = endDate = "TBD";
-                    //					e.printStackTrace();
                 }
             }
 
-            //			String title, startDate, endDate, fromTo, country, series, year;
-            //			Log.w(this.getClass().getCanonicalName(), String.format("Name = %s, Start = %s, end = %s, Year = %s, Website = %s, Dates = %s", name, startDate, endDate, year, website, dates));
             try {
                 from = DateManager.SCHED_FROM.format(DateManager.ISO8601_DATEONLY.parse(startDate));
 
@@ -72,7 +69,7 @@ public class SAXSchedule extends BaseSAX {
             }
             try {
                 to = DateManager.SCHED_TO.format(DateManager.ISO8601_DATEONLY.parse(endDate));
-                //				startDate.equalsIgnoreCase(endDate) ? fromTo = to : fromTo += " to " + to;
+
                 if (!startDate.equalsIgnoreCase(endDate)) {
                     fromTo += " to " + to;
                 } else {

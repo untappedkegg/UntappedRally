@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.untappedkegg.rally.data.BaseDbAccessor;
 
-public class DbSocial extends BaseDbAccessor {
+public final class DbSocial extends BaseDbAccessor {
 
     public DbSocial() {
     }
@@ -18,25 +18,25 @@ public class DbSocial extends BaseDbAccessor {
     public static final String YOUTUBE_DIR_LINK = "dir_link";
     public static final String YOUTUBE_ICON = "icon";
 
-    public static final String YT_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)", YOUTUBE_TABLE, YOUTUBE_ID, YOUTUBE_TITLE, YOUTUBE_LINK, YOUTUBE_DIR_LINK, YOUTUBE_ICON);
+    private static final String YT_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)", YOUTUBE_TABLE, YOUTUBE_ID, YOUTUBE_TITLE, YOUTUBE_LINK, YOUTUBE_DIR_LINK, YOUTUBE_ICON);
 
 
     /* ----- PROCEDURES ----- */
     // global
-    public static final void create(SQLiteDatabase db) {
+    public static void create(final SQLiteDatabase db) {
         dbAdapter.create(db, YOUTUBE_TABLE, YT_CREATE);
     }
 
-    public static final void drop(SQLiteDatabase db) {
+    public static void drop(final SQLiteDatabase db) {
         dbAdapter.drop(db, YOUTUBE_TABLE);
     }
 
-    public static final void delete(String function) {
+    public static void delete(final String function) {
         dbAdapter.delete(function);
     }
 
     // Queries
-    public static final void insertVideo(String title, String ytLink, String dirLink, String thumbnail) {
+    public static void insertVideo(final String title, final String ytLink, final String dirLink, final String thumbnail) {
         ContentValues values = new ContentValues();
         values.put(YOUTUBE_TITLE, title);
         values.put(YOUTUBE_LINK, ytLink);
@@ -47,7 +47,7 @@ public class DbSocial extends BaseDbAccessor {
         dbAdapter.insert(YOUTUBE_TABLE, values);
     }
 
-    public static final Cursor youtube_select() {
+    public static Cursor youtube_select() {
         return dbAdapter.selectf("SELECT * FROM %s", YOUTUBE_TABLE);
     }
 

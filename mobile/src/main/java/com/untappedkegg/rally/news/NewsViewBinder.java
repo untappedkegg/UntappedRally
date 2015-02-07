@@ -16,8 +16,6 @@ import com.untappedkegg.rally.util.DateManager;
 import java.text.ParseException;
 
 public final class NewsViewBinder implements ViewBinder {
-    /* ----- CONSTANTS ----- */
-    //	private static final String LOG_TAG = NewsViewBinder.class.getSimpleName();
 
     /* ----- VARIABLES ----- */
     private boolean isHomeFragment;
@@ -52,7 +50,7 @@ public final class NewsViewBinder implements ViewBinder {
             case R.id.list_date:
                 TextView tv = (TextView) view;
                 if (!AppState.isNullOrEmpty(uri)) {
-                    //				String date;
+
                     try {
                         tv.setText(DateUtils.getRelativeDateTimeString(ctx, DateManager.DATABASE.parse(uri).getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.YEAR_IN_MILLIS, DateUtils.FORMAT_NO_YEAR));//getRelativeTimeSpanString(DateManager.DATABASE.parse(uri).getTime()));
 
@@ -69,10 +67,6 @@ public final class NewsViewBinder implements ViewBinder {
             case R.id.list_descr:
                 if (AppState.isNullOrEmpty(uri) || isHomeFragment) {
                     view.setVisibility(View.GONE);
-                    //				 return true;
-                } else {
-                    //                 ((TextView) view).setText(Html.fromHtml(uri));
-                    //                 return false;
                 }
                 return false;
 

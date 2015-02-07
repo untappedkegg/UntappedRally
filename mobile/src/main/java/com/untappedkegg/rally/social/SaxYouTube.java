@@ -7,19 +7,19 @@ import org.xml.sax.SAXException;
 
 public class SaxYouTube extends BaseSAX {
     // tag names
-    static final String TAG_USERNAME = "username";
-    static final String TAG_TYPE = "type";
-    static final String TAG_PRIORITY = "priority";
+//    static final String TAG_USERNAME = "username";
+//    static final String TAG_TYPE = "type";
+//    static final String TAG_PRIORITY = "priority";
     static final String TAG_THUMBNAIL = "thumbnail";
     static final String TAG_YT_LINK = "player";
     static final String TAG_YT_DIRECT_LINK = "content";
-    static final String TAG_TWITTER_ROOT = "status";
+//    static final String TAG_TWITTER_ROOT = "status";
     static final String TAG_YOUTUBE_ROOT = "entry";
-    static final String TAG_MENU_ROOT = "item";
-    static final String TAG_IMAGE = "image";
-    static final String TAG_ARTIST = "artist";
-    static final String TAG_SONG_TITLE = "track";
-    static final String TAG_VIMEO_ROOT = "video";
+//    static final String TAG_MENU_ROOT = "item";
+//    static final String TAG_IMAGE = "image";
+//    static final String TAG_ARTIST = "artist";
+//    static final String TAG_SONG_TITLE = "track";
+//    static final String TAG_VIMEO_ROOT = "video";
 
     // attribute names
     private static final String ATT_URL = "url";

@@ -17,7 +17,7 @@ import com.untappedkegg.rally.R;
  * A simple {@link Fragment} subclass.
  *
  */
-public class AboutFragment extends Fragment {
+public final class AboutFragment extends Fragment {
 
     private TextView versionView, main, learnMore;
 

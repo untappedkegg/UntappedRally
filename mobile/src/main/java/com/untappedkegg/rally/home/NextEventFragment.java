@@ -35,7 +35,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 
-public class NextEventFragment extends BaseFragment implements View.OnClickListener, DataFetcher.Callbacks, Refreshable {
+public final class NextEventFragment extends BaseFragment implements View.OnClickListener, DataFetcher.Callbacks, Refreshable {
 
     TextView counter, name;
     ImageView picture, background;

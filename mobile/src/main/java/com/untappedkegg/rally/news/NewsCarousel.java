@@ -27,7 +27,7 @@ import com.untappedkegg.rally.util.DateManager;
  * Use the {@link NewsCarousel#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks, Refreshable {
+public final class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks, Refreshable {
 
     public NewsCarousel() {
         // Required empty public constructor

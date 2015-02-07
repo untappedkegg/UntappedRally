@@ -34,15 +34,6 @@ import java.util.Locale;
  * (ones that are shown in the UI)
  *
  */
-
-/**
- * GamePlan for Data Acquisition:
- * <p/>
- * RA: similar, would have to modify the bash script to include
- * the rally-america website (either in addition to, or instead of the event's site)
- * when parsing the stages table, count the number of stages
- * then somehow allow the user to view the results for a given stage
- */
 public class AppState extends Application {
 
     // Generic Keys
@@ -119,7 +110,7 @@ public class AppState extends Application {
 
     //SharedPreferences Fields
     public static final String PREFERENCES_NAME = "SharedPreferences";
-    //Carry over from GoMizzou
+    //Carry over
     public static final float CAROUSEL_SCROLL_DURATION_SECS = (float) .75;
     public static final short CAROUSEL_DELAY_SECS = 5;
     public static final short CAROUSEL_START_DELAY_SECS = 7;
@@ -217,7 +208,7 @@ public class AppState extends Application {
         super.onCreate();
         // Initialize the default preferences. The third parameter indicates whether this should be done more than once
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
+//        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
 
         // Create global configuration and initialize ImageLoader with this configuration
         final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()

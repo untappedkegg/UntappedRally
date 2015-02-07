@@ -11,7 +11,7 @@ import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DbAdapter;
 import com.untappedkegg.rally.schedule.DbSchedule;
 
-public class DbEvent extends BaseDbAccessor {
+public final class DbEvent extends BaseDbAccessor {
 
     public static final String PHOTO_TABLE = "photos";
     public static final String PHOTO_ID = "_id";
@@ -38,7 +38,7 @@ public class DbEvent extends BaseDbAccessor {
 
     private static final String STAGES_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, %s INTEGER, %s NUMERIC, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)", DbEvent.STAGES_TABLE, DbEvent.STAGES_ID, DbEvent.STAGES_YEAR, DbEvent.STAGES_NUMBER, DbEvent.STAGES_LENGTH, DbEvent.STAGES_ATC, DbEvent.STAGES_NAME, DbEvent.STAGES_EVENT, DbEvent.STAGES_HEADER, DbEvent.STAGES_RESULTS, DbEvent.STAGES_TIMES);
 
-    public static final void create(SQLiteDatabase db) {
+    public static void create(final SQLiteDatabase db) {
         Log.d(LOG_TAG, "Creating table: " + DbEvent.PHOTO_TABLE);
         db.execSQL(EVENT_PHOTOS_CREATE);
 
@@ -53,17 +53,17 @@ public class DbEvent extends BaseDbAccessor {
 
     }
 
-    public static final void drop(SQLiteDatabase db) {
+    public static void drop(final SQLiteDatabase db) {
         db.execSQL(DROP + DbEvent.PHOTO_TABLE);
 
         db.execSQL(DROP + DbEvent.STAGES_TABLE);
     }
 
-    public static final Cursor fetchDetails(int eventId) {
+    public static Cursor fetchDetails(final int eventId) {
         return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s", DbSchedule.SCHED_TABLE, DbSchedule.SCHED_ID, eventId);
     }
 
-    public static final String fetchNameById(String eventId) {
+    public static String fetchNameById(final String eventId) {
         Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", DbSchedule.SCHED_TITLE, DbSchedule.SCHED_TABLE, DbSchedule.SCHED_ID, eventId);
         if (c.moveToFirst()) {
             String name = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));
@@ -73,7 +73,7 @@ public class DbEvent extends BaseDbAccessor {
         return null;
     }
 
-    public static final void photosInsert(String title, String link, String eventCode, String year) {
+    public static void photosInsert(final String title, final String link, final String eventCode, final String year) {
         ContentValues vals = new ContentValues();
         vals.put(PHOTO_TITLE, title);
         vals.put(PHOTO_URL, link);
@@ -83,12 +83,11 @@ public class DbEvent extends BaseDbAccessor {
         dbAdapter.insert(PHOTO_TABLE, vals);
     }
 
-    public static final Cursor getPhotosByEvent_and_Year(String eventCode, String year) {
-
+    public static Cursor getPhotosByEvent_and_Year(final String eventCode, final String year) {
         return dbAdapter.selectf("SELECT * FROM %s WHERE %s = '%s' AND %s = %s", PHOTO_TABLE, PHOTO_EVENT, eventCode, PHOTO_YEAR, year);
     }
 
-    public static final void stagesInsert(String event, String name, String num, String atc, String length, String year, String header) {
+    public static void stagesInsert(final String event, final String name, final String num, final String atc, final String length, final String year, final String header) {
         ContentValues vals = new ContentValues();
         vals.put(STAGES_EVENT, event);
         vals.put(STAGES_YEAR, year);
@@ -101,7 +100,7 @@ public class DbEvent extends BaseDbAccessor {
         dbAdapter.insert(STAGES_TABLE, vals);
     }
 
-    public static final void stageResultsInsert(String eventCode, short year, short stage, String results, boolean isResults) {
+    public static void stageResultsInsert(final String eventCode, final short year, final short stage, final String results, final boolean isResults) {
         ContentValues vals = new ContentValues();
         if(isResults) {
             vals.put(STAGES_RESULTS, results);
@@ -113,22 +112,22 @@ public class DbEvent extends BaseDbAccessor {
         dbAdapter.update(STAGES_TABLE, vals, String.format("%s = '%s' AND %s = %s AND %s = %s", STAGES_EVENT, eventCode, STAGES_NUMBER, stage, STAGES_YEAR, year));
     }
 
-    public static final Cursor stagesSelect(String eventCode, String year) {
+    public static Cursor stagesSelect(final String eventCode, final String year) {
         return dbAdapter.selectf("SELECT %s, %s || '. ' || %s AS %s, %s, %s || ' mi.' AS %s, %s, %s FROM %s WHERE %s = '%s' AND %s = %s ORDER BY %s",
                 STAGES_ID, STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_ATC, STAGES_LENGTH, STAGES_LENGTH, STAGES_NUMBER, STAGES_HEADER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
     }
 
-    public static final void delete_stages(String eventCode, String year) {
+    public static void delete_stages(final String eventCode, final String year) {
         final String where = String.format("%s = '%s' AND %s = %s", STAGES_EVENT, eventCode, STAGES_YEAR, year);
         dbAdapter.delete(STAGES_TABLE, where);
     }
 
-    public static final void delete_photos(String eventCode, String year) {
+    public static void delete_photos(final String eventCode, final String year) {
         final String where = String.format("%s = '%s' AND %s = %s", PHOTO_EVENT, eventCode, PHOTO_YEAR, year);
         dbAdapter.delete(PHOTO_TABLE, where);
     }
 
-    public static final String getStageName(String year, String eventCode, short stageNo) {
+    public static String getStageName(final String year, final String eventCode, final short stageNo) {
         final Cursor c = dbAdapter.selectf("SELECT %s || '. ' || %s AS %s FROM %s WHERE %s = '%s' AND %s = %s AND %s = %s", STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_NUMBER, stageNo, STAGES_YEAR, year);
         if (c.moveToFirst()) {
             final String stageName = c.getString(0);
@@ -139,13 +138,13 @@ public class DbEvent extends BaseDbAccessor {
         return "";
     }
 
-    public static final String[] getStageNamesForEvent(String year, String eventCode) {
+    public static String[] getStageNamesForEvent(final String year, final String eventCode) {
         final Cursor c = dbAdapter.selectf("SELECT %s || '. ' || %s AS %s FROM %s WHERE %s = '%s' AND %s = %s ORDER BY %s ASC", STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
 
         return DbAdapter.toStringArray(c);
     }
 
-    public static final short getMaxStageNumber(String year, String eventCode) {
+    public static short getMaxStageNumber(final String year, final String eventCode) {
         final Cursor c = dbAdapter.selectf("SELECT MAX(%s) FROM %s WHERE %s = '%s' AND %s = %s", STAGES_NUMBER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year);
         if (c.moveToFirst()) {
             final short maxStage = c.getShort(0);
@@ -156,7 +155,7 @@ public class DbEvent extends BaseDbAccessor {
         return 0;
     }
 
-    public static final String fetchStageResults(String eventCode, short year, short curStage, boolean isResults) {
+    public static String fetchStageResults(final String eventCode, final short year, final short curStage, final boolean isResults) {
         final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = '%s' AND %s = %s AND %s = %s", isResults ? STAGES_RESULTS : STAGES_TIMES, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_NUMBER, curStage, STAGES_YEAR, year);
         if (c.moveToFirst()) {
             final String results = c.getString(0);

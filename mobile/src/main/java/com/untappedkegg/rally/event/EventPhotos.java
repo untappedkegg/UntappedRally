@@ -16,7 +16,7 @@ import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.ui.BaseGridView;
 import com.untappedkegg.rally.util.CommonIntents;
 
-public class EventPhotos extends BaseGridView implements NewDataFetcher.Callbacks {
+public final class EventPhotos extends BaseGridView implements NewDataFetcher.Callbacks {
 
 
     private String link;

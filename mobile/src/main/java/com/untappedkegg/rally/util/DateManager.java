@@ -24,30 +24,22 @@ public class DateManager {
     //User preferred time format
     static final Locale locale = AppState.localeUser;
 
-    public static final DateFormat iso8602 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
     public static final DateFormat bestOfRally = new SimpleDateFormat("EEE, dd.MM.yyyy HH:mm:ss", Locale.US);
 
     // ISO8601 - used inside the local database, because it is lexically sortable.
     public static final DateFormat DATABASE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
     public static final DateFormat YEAR = new SimpleDateFormat("yyyy", Locale.US);
 
-    public static final DateFormat dateonly = new SimpleDateFormat("MM/dd/yyyy", locale);
-    public static final DateFormat timeonly = new SimpleDateFormat("h:mm a", locale);
-    public static final DateFormat SCHED_DATE = new SimpleDateFormat("yyyy-MMM-dd HH:mm", Locale.US);
-
     public static final DateFormat ISO8601_DATEONLY = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-    public static final DateFormat ISO8601_TIMEONLY = new SimpleDateFormat("HH:mm:ss", locale);
-    public static final DateFormat GOMIZZOU = new SimpleDateFormat("MM/dd/yyyy hh:mm a", locale);
-    public static final DateFormat GOMIZZOU_DATEONLY = new SimpleDateFormat("M/dd/yyyy", locale);
-    public static final DateFormat GOMIZZOU_TIMEONLY = new SimpleDateFormat("h:mm a", locale);
+    public static final DateFormat STANDARD = new SimpleDateFormat("MM/dd/yyyy hh:mm a", locale);
+    public static final DateFormat TIMEONLY = new SimpleDateFormat("h:mm a", locale);
     public static final DateFormat DATEONLY_HUMAN_READABLE = new SimpleDateFormat("EEEE MMM d, yyyy", locale);
     public static final DateFormat DAYONLY_HUMAN_READABLE = new SimpleDateFormat("EEE, MMMM d", locale);
     public static final DateFormat FULL_HUMAN_READABLE = new SimpleDateFormat("EEEE MMM d, yyyy hh:mm a", locale);
     public static final DateFormat RALLY_AMERICA = new SimpleDateFormat("MMMM dd, yyyy", locale);
     public static final DateFormat SCHED_FROM = new SimpleDateFormat("MMM dd", locale);
     public static final DateFormat SCHED_TO = new SimpleDateFormat("MMM dd, yyyy", locale);
-    public static final DateFormat DAY_OF_WEEK = new SimpleDateFormat("EEEE", locale);
-    public static final DateFormat DAY_AND_DATE = new SimpleDateFormat("EEE, MMM d, yyyy", locale);
 
     public static final DateFormat RSS_DATE = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", locale);
     public static final DateFormat RSS_DATE_OFFSET = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss ZZZZZ", locale);
@@ -78,11 +70,11 @@ public class DateManager {
         }
     }
 
-    public static String formatForGoMizzou(Date date) {
-        synchronized (GOMIZZOU) {
-            return GOMIZZOU.format(date);
-        }
-    }
+//    public static String formatStandard(Date date) {
+//        synchronized (STANDARD) {
+//            return STANDARD.format(date);
+//        }
+//    }
 
     public static int timeBetweenInMinutes(long prevDate) {
         //		if (AppState.isNullOrEmpty(String.valueOf(prevDate))) {
@@ -198,9 +190,9 @@ public class DateManager {
         }
     }
 
-    public static Date parseFromGoMizzou(String date) throws ParseException {
-        synchronized (GOMIZZOU) {
-            return GOMIZZOU.parse(date.trim());
+    public static Date parseFromStandard(String date) throws ParseException {
+        synchronized (STANDARD) {
+            return STANDARD.parse(date.trim());
         }
     }
 
@@ -225,12 +217,6 @@ public class DateManager {
 
     public static long nowInUTC() {
         return Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTimeInMillis();
-        //		Log.d("DateManager", String.valueOf(date));
-        //		return date;
-        //		Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTime();
-        //		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-        //		cal.set(year + 1900, month, day, hour, minute, second);
-        //		cal.getTime().getTime();
     }
 
     /**

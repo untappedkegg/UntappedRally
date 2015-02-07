@@ -20,7 +20,7 @@ import com.untappedkegg.rally.news.NewsCarousel;
  *
  * @author UntappedKegg
  */
-public class HomeFragment extends Fragment implements OnClickListener, Refreshable {
+public final class HomeFragment extends Fragment implements OnClickListener, Refreshable {
 
 
     private Callbacks callbacks;

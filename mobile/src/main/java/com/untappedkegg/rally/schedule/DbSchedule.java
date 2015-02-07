@@ -10,7 +10,7 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.util.DateManager;
 
-public class DbSchedule extends BaseDbAccessor {
+public final class DbSchedule extends BaseDbAccessor {
 
     public DbSchedule() {
         // Required Empty Constructor
@@ -35,14 +35,14 @@ public class DbSchedule extends BaseDbAccessor {
     public static final String SCHED_LOC = "location";
 
     private static final String NATIONAL = String.format("%s = '%s'", SCHED_SERIES, "National");
-    private static boolean SHOW_ALL;
 
 
     // Create statements
-    private static final String SCHEDULE_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s NUMERIC, %s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)", DbSchedule.SCHED_TABLE, DbSchedule.SCHED_ID, DbSchedule.SCHED_TITLE, DbSchedule.SCHED_START_DATE, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_SERIES, DbSchedule.SCHED_END_DATE, DbSchedule.SCHED_YEAR, DbSchedule.SCHED_SITE, DbSchedule.SCHED_SEQ, DbSchedule.SCHED_EVT_SITE, DbSchedule.SCHED_IMG, DbSchedule.SCHED_DESCR, DbSchedule.SCHED_LOC, DbSchedule.SCHED_YEAR_ACTUAL);
+    private static final String SCHEDULE_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s NUMERIC, %s TEXT, %s INTEGER, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s INTEGER)",
+            DbSchedule.SCHED_TABLE, DbSchedule.SCHED_ID, DbSchedule.SCHED_TITLE, DbSchedule.SCHED_START_DATE, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_SERIES, DbSchedule.SCHED_END_DATE, DbSchedule.SCHED_YEAR, DbSchedule.SCHED_SITE, DbSchedule.SCHED_SEQ, DbSchedule.SCHED_EVT_SITE, DbSchedule.SCHED_IMG, DbSchedule.SCHED_DESCR, DbSchedule.SCHED_LOC, DbSchedule.SCHED_YEAR_ACTUAL);
 
 
-    public static final void create(SQLiteDatabase db) {
+    public static void create(final SQLiteDatabase db) {
         Log.d(LOG_TAG, "Creating table: " + DbSchedule.SCHED_TABLE);
         db.execSQL(SCHEDULE_CREATE);
 
@@ -51,11 +51,11 @@ public class DbSchedule extends BaseDbAccessor {
         db.execSQL(String.format(CREATE_INDEX, SCHED_SHORT_CODE, SCHED_TABLE, SCHED_SHORT_CODE));
     }
 
-    public static final void drop(SQLiteDatabase db) {
+    public static void drop(final SQLiteDatabase db) {
         db.execSQL(DROP + SCHED_TABLE);
     }
 
-    public static final void insert_schedule(String title, String startDate, String endDate, String fromTo, String imgLink, String series, String year, String website, String seq, String eventSite, String location, String yearActual) {
+    public static void insert_schedule(final String title, final String startDate, final String endDate, final String fromTo, final String imgLink, final String series, final String year, final String website, final String seq, final String eventSite, final String location, final String yearActual) {
         final ContentValues vals = new ContentValues();
         vals.put(SCHED_TITLE, title);
         vals.put(SCHED_START_DATE, startDate);
@@ -70,56 +70,56 @@ public class DbSchedule extends BaseDbAccessor {
         vals.put(SCHED_IMG, imgLink);
         vals.put(SCHED_LOC, location);
         vals.put(SCHED_YEAR_ACTUAL, yearActual);
-        String where = String.format("%s = '%s' AND %s = %s", SCHED_TITLE, title, SCHED_YEAR, year);
-        dbAdapter.updateIfExistsElseInsert(SCHED_TABLE, vals, where);
+
+        dbAdapter.updateIfExistsElseInsert(SCHED_TABLE, vals, String.format("%s = '%s' AND %s = %s", SCHED_TITLE, title, SCHED_YEAR, year));
     }
 
-    public static final void insert_schedule_description(String eventSite, String description) {
+    public static void insert_schedule_description(final String eventSite, final String description) {
         final ContentValues vals = new ContentValues();
         vals.put(SCHED_DESCR, description);
         final String where = String.format("%s = '%s' ", SCHED_EVT_SITE, eventSite);
         dbAdapter.update(SCHED_TABLE, vals, where);
     }
 
-    public static final Cursor fetch() {
-        SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
-        if (SHOW_ALL) {
+    public static Cursor fetch() {
+
+        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
             return dbAdapter.selectf("SELECT * FROM %s ORDER BY %s DESC, %s ASC", SCHED_TABLE, SCHED_YEAR, SCHED_START_DATE);
         } else {
             return dbAdapter.selectf("SELECT * FROM %s WHERE %s ORDER BY %s DESC, %s ASC", SCHED_TABLE, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
     }
 
-    public static final Cursor fetchSections() {
+    public static Cursor fetchSections() {
         return dbAdapter.selectf("SELECT DISTINCT %s, _id FROM %s GROUP BY %s ORDER BY %s DESC", SCHED_YEAR_ACTUAL, SCHED_TABLE, SCHED_YEAR_ACTUAL, SCHED_YEAR_ACTUAL);
     }
 
-    public static final Cursor fetchUpcoming() {
-        SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
+    public static Cursor fetchUpcoming() {
+
         final String today = DateManager.format(DateManager.now(), DateManager.ISO8601_DATEONLY);
         final String year = DateManager.format(DateManager.now(), DateManager.YEAR);
-        if (SHOW_ALL) {
+
+        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
         } else {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
     }
 
-    public static final Cursor getChildren(String yearActual) {
-        SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
-//        Log.w(DbSchedule.LOG_TAG, "SHOW_ALL = " + SHOW_ALL );
-        if (SHOW_ALL) {
+    public static Cursor getChildren(final String yearActual) {
+
+        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
             return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s ORDER BY %s ASC", SCHED_TABLE, SCHED_YEAR_ACTUAL, yearActual,SCHED_START_DATE );
         } else {
             return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s AND %s ORDER BY %s ASC", SCHED_TABLE, SCHED_YEAR_ACTUAL, yearActual, NATIONAL, SCHED_START_DATE);
         }
     }
 
-    public static final Cursor fetchNextEvent() {
+    public static Cursor fetchNextEvent() {
         final String today = DateManager.format(DateManager.now(), DateManager.ISO8601_DATEONLY);
         final String year = DateManager.format(DateManager.now(), DateManager.YEAR);
-        SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
-        if (SHOW_ALL) {
+
+        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
         } else {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
@@ -139,7 +139,7 @@ public class DbSchedule extends BaseDbAccessor {
 
     }
 
-    public static final boolean isEventFinished(String eventCode, short year) {
+    public static boolean isEventFinished(final String eventCode, final short year) {
         final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = '%s' AND %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_SHORT_CODE, eventCode, SCHED_YEAR, year);
         if (c.moveToFirst()) {
             final short status = DateManager.todayIsBetween(c.getString(0), c.getString(1));
@@ -150,7 +150,7 @@ public class DbSchedule extends BaseDbAccessor {
         return false;
     }
 
-    public static final boolean isEventFinished(int id) {
+    public static boolean isEventFinished(final int id) {
         final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_ID, id);
         if (c.moveToFirst()) {
             final short status = DateManager.todayIsBetween(c.getString(0), c.getString(1));
@@ -161,7 +161,7 @@ public class DbSchedule extends BaseDbAccessor {
         return false;
     }
 
-    public static final boolean isEventFinished(String id) {
+    public static boolean isEventFinished(final String id) {
         final Cursor c = dbAdapter.selectf("SELECT %s, %s FROM %s WHERE %s = %s", SCHED_START_DATE, SCHED_END_DATE, SCHED_TABLE, SCHED_ID, id);
         if (c.moveToFirst()) {
             final short status = DateManager.todayIsBetween(c.getString(0), c.getString(1));
@@ -172,12 +172,11 @@ public class DbSchedule extends BaseDbAccessor {
         return false;
     }
 
-    public static final String fetchNextEventStart() {
+    public static String fetchNextEventStart() {
         final String today = DateManager.now(DateManager.ISO8601_DATEONLY);
-//        Log.e("DbSchedule", "today = " + today);
-        SHOW_ALL = AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true);
+
         Cursor cursor;
-        if ( SHOW_ALL ) {
+        if ( AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true) ) {
             cursor = dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s ORDER BY %s DESC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, SCHED_START_DATE);
         } else {
             cursor = dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s ORDER BY %s DESC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
@@ -207,7 +206,7 @@ public class DbSchedule extends BaseDbAccessor {
         }
     }
 
-    public static final String fetchEventRA_link(int eventId) {
+    public static String fetchEventRA_link(final int eventId) {
         final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = %s", SCHED_EVT_SITE, SCHED_TABLE, SCHED_ID, eventId);
 
         try {

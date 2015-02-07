@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.untappedkegg.rally.ui.ViewPagerFragment;
 
-public class Videos extends ViewPagerFragment {
+public final class Videos extends ViewPagerFragment {
 
     public Videos() {
     }

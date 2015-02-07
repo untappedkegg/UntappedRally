@@ -28,7 +28,7 @@ import com.untappedkegg.rally.util.DateManager;
 import java.util.Calendar;
 //import android.util.Log;
 
-public class StandingsFragment extends Fragment implements DataFetcher.Callbacks, OnItemSelectedListener, Refreshable {
+public final class StandingsFragment extends Fragment implements DataFetcher.Callbacks, OnItemSelectedListener, Refreshable {
 
     private WebView mWebView;
     private ProgressBar progressBar;
@@ -108,7 +108,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
-        if (parser.equalsIgnoreCase(AppState.FUNC_RA_STAND) /*|| parser.equalsIgnoreCase(AppState.FUNC_WRC_STAND)*/) {
+        if (parser.equalsIgnoreCase(AppState.FUNC_RA_STAND)) {
 
             this.showPage();
 
@@ -131,10 +131,7 @@ public class StandingsFragment extends Fragment implements DataFetcher.Callbacks
     public void showPage() {
         DbUpdated.open();
         if (CommonIntents.fileExists(getActivity(), fileName) && DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAND + fileName)) <= AppState.STAND_UPDATE_DELAY) {
-//			Log.e("contents", CommonIntents.readFile(getActivity(), fileName));
-//            Log.e(getClass().getSimpleName(), getActivity().getFileStreamPath(fileName).toString());
 
-//            mWebView.loadUrl(getFileUri());
             mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
             mWebView.reload();
             progressBar.setVisibility(View.GONE);

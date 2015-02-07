@@ -31,10 +31,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.Locale;
 
-/**
- * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link NextEventWidgetConfigureActivity NextEventWidgetConfigureActivity}
- */
 public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Callbacks {
     private static Intent intent;
     private static Context ctx;
@@ -53,14 +49,14 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
         }
     }
 
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
+//    @Override
+//    public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
-        final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            NextEventWidgetConfigureActivity.deleteTitlePref(context, appWidgetIds[i]);
-        }
-    }
+//        final int N = appWidgetIds.length;
+//        for (int i = 0; i < N; i++) {
+//            NextEventWidgetConfigureActivity.deleteTitlePref(context, appWidgetIds[i]);
+//        }
+//    }
 
     @Override
     public void onEnabled(Context context) {
@@ -76,7 +72,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         BaseDbAccessor.open();
-        CharSequence widgetText = NextEventWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+//        CharSequence widgetText = NextEventWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_next_event);
 
@@ -159,7 +155,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
             }
         }
 
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+//        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         if (intent != null) {
             views.setOnClickPendingIntent(R.id.widget_next_event_frame, PendingIntent.getActivity(context, PendingIntent.FLAG_UPDATE_CURRENT, intent, Intent.FLAG_ACTIVITY_NEW_TASK));

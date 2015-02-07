@@ -17,7 +17,7 @@ import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.ui.BaseGridView;
 
-public class YouTubeFragment extends BaseGridView implements NewDataFetcher.Callbacks, Refreshable {
+public final class YouTubeFragment extends BaseGridView implements NewDataFetcher.Callbacks, Refreshable {
 
 
     @Override

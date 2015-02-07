@@ -54,14 +54,6 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (requeryManager != null) {
-            requeryManager.interrupt();
-        }
-    }
-
     /**
      * <p>Closes the database.</p>
      */
@@ -69,6 +61,9 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         BaseDbAccessor.close();
+        if (requeryManagerIsAlive()) {
+            requeryManager.interrupt();
+        }
     }
 
 
@@ -148,7 +143,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * <p>Checks to see if the {@link #requeryManager} is still running.</p>
      *
-     * @return true if the {@link requeryManager} is not null and is still running, false otherwise
+     * @return true if the {@code requeryManager} is not null and is still running, false otherwise
      */
     protected boolean requeryManagerIsAlive() {
         return requeryManager != null && requeryManager.isAlive();

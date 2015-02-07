@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -30,7 +29,7 @@ import com.untappedkegg.rally.R;
  * > design guidelines</a> for a complete explanation of the behaviors
  * implemented here.
  */
-public class NavDrawerFragment extends Fragment {
+public final class NavDrawerFragment extends Fragment {
 
     /**
      * Remember the position of the selected item.
@@ -53,7 +52,6 @@ public class NavDrawerFragment extends Fragment {
      */
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private static ListView mLeftDrawerListView;
     private View mFragmentContainerView;
@@ -118,13 +116,9 @@ public class NavDrawerFragment extends Fragment {
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
      */
     public void setUp(int fragmentId, DrawerLayout drawerLayout, Toolbar toolbar) {
-        this.mToolbar = toolbar;
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
-        // set a custom shadow that overlays the main content when the drawer
-        // opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
 
         final ActionBar actionBar = getActionBar();

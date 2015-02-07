@@ -12,11 +12,7 @@ import com.untappedkegg.rally.schedule.DbSchedule;
 /**
  * Created by UntappedKegg on 1/21/15.
  */
-public class ActivityStages extends EventActivity implements EventStages.Callbacks {
-
-    /*----- VARIABLES -----*/
-
-    /*----- LIFECYCLE METHODS -----*/
+public final class ActivityStages extends EventActivity implements EventStages.Callbacks {
 
     /*----- INHERITED METHODS -----*/
     // BaseContainer
@@ -62,12 +58,12 @@ public class ActivityStages extends EventActivity implements EventStages.Callbac
     }
 
     @Override
-    public void selectStageDetail(String link, String stageNo) {
+    public void selectStageDetail(final String link, final String stageNo) {
         super.selectContent(StagesViewPager.class.getName(), link, stageNo, 0, true);
     }
 
     @Override
-    public void updateStageResults(String stageNo) {
+    public void updateStageResults(final String stageNo) {
         try {
             ((StagesViewPager) getSupportFragmentManager().findFragmentById(R.id.second_container)).updateChildArgs(stageNo);
         } catch (Exception e ) {

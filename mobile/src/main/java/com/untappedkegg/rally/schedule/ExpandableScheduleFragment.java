@@ -17,7 +17,7 @@ import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.ExpandableList;
 
-public class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ AdapterView.OnItemLongClickListener, Refreshable/*, OnMenuItemClickListener*/ {
+public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ AdapterView.OnItemLongClickListener, Refreshable/*, OnMenuItemClickListener*/ {
 
     private ScheduleItemClickReceiver callback;
     private boolean isHomeFragment;
@@ -51,7 +51,6 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         listView.setOnItemLongClickListener(this);
     }
 
@@ -77,11 +76,12 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
 
     @Override
     protected Cursor loadCursor() {
-        if (isHomeFragment) {
-            return DbSchedule.fetchUpcoming();
-        } else {
-            return DbSchedule.fetchSections();
-        }
+        return isHomeFragment ? DbSchedule.fetchUpcoming() : DbSchedule.fetchSections();
+//        if (isHomeFragment) {
+//            return DbSchedule.fetchUpcoming();
+//        } else {
+//            return DbSchedule.fetchSections();
+//        }
 
     }
 
@@ -89,8 +89,8 @@ public class ExpandableScheduleFragment extends ExpandableList implements DataFe
     protected SimpleCursorTreeAdapter createCursorAdapter() {
         final String[] groupFrom = new String[]{DbSchedule.SCHED_YEAR_ACTUAL};
         final int[] groupTo = new int[]{R.id.generic_section_list_header_textview};
-        String[] from = new String[]{DbSchedule.SCHED_ID, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_EVT_SITE};
-        int[] to = new int[]{R.id.sched_id, R.id.sched_date, R.id.sched_icon, R.id.sched_website};
+        final String[] from = new String[]{DbSchedule.SCHED_ID, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_EVT_SITE};
+        final int[] to = new int[]{R.id.sched_id, R.id.sched_date, R.id.sched_icon, R.id.sched_website};
         return new ScheduleTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.schedule_row, from, to);
     }
 

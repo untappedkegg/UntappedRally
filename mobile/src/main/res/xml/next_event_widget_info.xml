@@ -5,6 +5,6 @@
     android:updatePeriodMillis="3600000"
     android:previewImage="@drawable/widget_next_event_preview"
     android:initialLayout="@layout/widget_next_event"
-    android:resizeMode="horizontal">
+    android:resizeMode="horizontal|vertical">
 </appwidget-provider>
     <!-- android:configure="com.ra.widget.NextEventWidgetConfigureActivity" -->

@@ -44,7 +44,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         if (!AppState.isNullOrEmpty(startTime)) {
             try {
-                c.setTime(DateManager.parse(startTime, DateManager.GOMIZZOU_TIMEONLY));
+                c.setTime(DateManager.parse(startTime, DateManager.TIMEONLY));
             } catch (ParseException e) {
                 c.setTime(new Date());
                 if (BuildConfig.DEBUG) {
@@ -73,6 +73,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minuteOfHour);
-        tv.setText(DateManager.format(c.getTime(), DateManager.GOMIZZOU_TIMEONLY));
+        tv.setText(DateManager.format(c.getTime(), DateManager.TIMEONLY));
     }
 }

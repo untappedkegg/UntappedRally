@@ -17,7 +17,7 @@ import com.untappedkegg.rally.ui.SectionList;
 import com.untappedkegg.rally.util.DateManager;
 
 
-public class EventStages extends SectionList implements NewDataFetcher.Callbacks {
+public final class EventStages extends SectionList implements NewDataFetcher.Callbacks {
 
     /*----- VARIABLES -----*/
     private String link;
@@ -81,7 +81,7 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
                 Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
             } else {
                 final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
-                
+
                 if (getActivity().findViewById(R.id.second_container) != null ) {
                     callbacks.updateStageResults(stageId);
                 } else {
@@ -96,8 +96,8 @@ public class EventStages extends SectionList implements NewDataFetcher.Callbacks
     public void onDataFetchComplete(Throwable throwable, String key) {
         try {
             loadList();
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
+        
         DbUpdated.open();
         DbUpdated.updated_insert(AppState.MOD_STAGES + linkPts[5] + linkPts[4]);
         DbUpdated.close();

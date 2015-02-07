@@ -19,7 +19,7 @@ import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.ui.ViewPagerFragment;
 
 
-public class StagesViewPager extends ViewPagerFragment implements AdapterView.OnItemSelectedListener {
+public final class StagesViewPager extends ViewPagerFragment implements AdapterView.OnItemSelectedListener {
 
     /*-----VARIABLES -----*/
     private short curStage;

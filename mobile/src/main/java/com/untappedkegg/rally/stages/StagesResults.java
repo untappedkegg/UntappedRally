@@ -83,7 +83,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     }
 
     /*----- CUSTOM METHODS -----*/
-    public void updateArgs(String args, String query) {
+    public void updateArgs(final String args, final String query) {
         super.updateArgs(args, query);
         this.dataFetched = false;
         final short mQuery = Short.parseShort(query);

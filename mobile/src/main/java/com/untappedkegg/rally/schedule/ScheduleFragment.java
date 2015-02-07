@@ -17,7 +17,7 @@ import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.SectionList;
 
-public class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
+public final class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
 
     private ScheduleItemClickReceiver callback;
     private boolean isHomeFragment;

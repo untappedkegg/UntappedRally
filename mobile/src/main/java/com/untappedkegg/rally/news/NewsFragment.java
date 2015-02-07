@@ -28,7 +28,7 @@ import com.untappedkegg.rally.util.DateManager;
  *
  * @author UntappedKegg
  */
-public class NewsFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
+public final class NewsFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
     //	private Callbacks callbacks;
     private boolean isHomeFragment;
 
