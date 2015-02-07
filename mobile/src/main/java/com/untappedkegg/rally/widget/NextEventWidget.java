@@ -61,7 +61,8 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
     @Override
     public void onEnabled(Context context) {
         // Ensure Data is present
-        DataFetcher.getInstance().sched_start(this, false);
+        if (!DbSchedule.isDataPresent())
+            DataFetcher.getInstance().sched_start(this, false);
         // Enter relevant functionality for when the first widget is created
     }
 
@@ -85,6 +86,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                 final short evtStatus = DateManager.todayIsBetween(nextEventStart, c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_END_DATE)));
                 final String eventName = c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_TITLE));
                 final int eventId = c.getInt(c.getColumnIndex(DbSchedule.SCHED_ID));
+                Log.e("Widget: eventId", "" + eventId);
                 String uri = c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_SHORT_CODE)).toLowerCase(Locale.US);
                 views.setTextViewText(R.id.widget_next_event_title, eventName);
                 if (uri.contains("100aw")) {
@@ -119,7 +121,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                 });
                 intent = new Intent(AppState.getApplication(), EventActivity.class);
                 intent.putExtra(AppState.KEY_URI, EventDetails.class.getName());
-                intent.putExtra(AppState.KEY_ARGS, String.valueOf(eventId));
+                intent.putExtra(AppState.KEY_ID, eventId);
                 intent.putExtra(SearchManager.QUERY, eventName);
 
                 if (evtStatus == 0) {

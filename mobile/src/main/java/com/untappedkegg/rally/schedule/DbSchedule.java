@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.util.DateManager;
@@ -185,6 +186,7 @@ public final class DbSchedule extends BaseDbAccessor {
         try {
             return cursor.getString(cursor.getColumnIndexOrThrow(SCHED_START_DATE));
         } catch (Exception e) {
+            if (BuildConfig.DEBUG)
             Log.e("DbSchedule", "Error getting time");
             return DateManager.now(DateManager.ISO8601_DATEONLY);
         } finally {
@@ -199,6 +201,7 @@ public final class DbSchedule extends BaseDbAccessor {
         try {
             return c.getString(c.getColumnIndexOrThrow(SCHED_IMG));
         } catch (Exception e) {
+            if (BuildConfig.DEBUG)
             Log.e("DbSchedule", "Error getting time");
             return "";
         } finally {
@@ -213,10 +216,15 @@ public final class DbSchedule extends BaseDbAccessor {
             c.moveToFirst();
             return c.getString(0);
         } catch (Exception e) {
+            if (BuildConfig.DEBUG)
             e.printStackTrace();
             return "";
         } finally {
             c.close();
         }
+    }
+
+    public static boolean isDataPresent() {
+        return dbAdapter.count(SCHED_TABLE) > 0;
     }
 }

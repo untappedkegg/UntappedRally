@@ -1,10 +1,10 @@
 package com.untappedkegg.rally.event;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Callbacks;
@@ -20,16 +20,16 @@ import java.util.regex.Pattern;
 
 public class EventFetcher implements Fetcher {
 
-    private static final EventFetcher instance = new EventFetcher(AppState.getApplication());
-    private static Context ctx;
+    private static final EventFetcher instance = new EventFetcher(/*AppState.getApplication()*/);
+//    private static Context ctx;
     private static final String LOG_TAG = instance.getClass().getSimpleName();
 
     private final List<AsyncTask<Void, Integer, Throwable>> tasks = new ArrayList<AsyncTask<Void, Integer, Throwable>>();
 
     /* ----- CONSTRUCTORS ----- */
-    private EventFetcher(Context ctx) {
-        EventFetcher.ctx = ctx;
-    }
+//    private EventFetcher(Context ctx) {
+//        EventFetcher.ctx = ctx;
+//    }
 
     public static EventFetcher getInstance() {
         return instance;
@@ -53,7 +53,6 @@ public class EventFetcher implements Fetcher {
 
     @Override
     public void interrupt() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -151,15 +150,21 @@ public class EventFetcher implements Fetcher {
 
                     while (matcher.find()) {
 
-                        final String finds = matcher.group(0);
-                        final String eventDetails = finds.substring(finds.indexOf("<p>"), finds.indexOf("</p>")).replace("<p>", "\n");
+                        try {
+                            // If there aren't any details, this may produce an IndexOutOfBoundsException
+                            final String finds = matcher.group(0);
+                            final String eventDetails = finds.substring(finds.indexOf("<p>"), finds.indexOf("</p>")).replace("<p>", "\n");
 
-                        DbSchedule.insert_schedule_description(link, eventDetails);
+                            DbSchedule.insert_schedule_description(link, eventDetails);
+                        } catch (Exception e) {
+                            if (BuildConfig.DEBUG)
+                                Log.w(LOG_TAG, e.toString());
+                        }
                     }
 
                     conn.disconnect();
                 } catch (Exception e) {
-                    Log.d(LOG_TAG, e.toString());
+                    if (BuildConfig.DEBUG)
                     e.printStackTrace();
                     return e;
                 } finally {
@@ -172,7 +177,7 @@ public class EventFetcher implements Fetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Photo Parsing finished");
+            Log.d(LOG_TAG, "Details Parsing finished");
             callback.onDataFetchComplete(result, function);
         }
     }

@@ -39,8 +39,8 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
             case android.R.id.home:
                 final Intent parentIntent = NavUtils.getParentActivityIntent(this);
                 if (!NavUtils.shouldUpRecreateTask(this, parentIntent)) {
-//                    NavUtils.navigateUpTo(this, parentIntent);
-                    this.finish();
+                    NavUtils.navigateUpTo(this, parentIntent);
+//                    this.finish();
                 } else {
                     TaskStackBuilder.create(this).addParentStack(this).startActivities();
                 }

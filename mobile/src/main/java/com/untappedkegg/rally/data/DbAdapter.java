@@ -253,10 +253,9 @@ public final class DbAdapter {
      * @see #count(String)
      */
     public int count(final String table, final String where) {
-        //		StringBuilder select = new StringBuilder(String.format("SELECT count(_id) FROM %s", table));
+        
         String select = String.format("SELECT count(_id) FROM %s", table);
         if (!AppState.isNullOrEmpty(where)) {
-            //			select.append(String.format(" WHERE %s", where));
             select += String.format(" WHERE %s", where);
         }
 
