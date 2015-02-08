@@ -72,7 +72,7 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         curUri = firstValueInBundles(AppState.KEY_URI, "", intentExtras);
         curArgs = firstValueInBundles(AppState.KEY_ARGS, "", intentExtras);
         curQuery = firstValueInBundles(SearchManager.QUERY, "", intentExtras);
-        curId = intentExtras.getInt(AppState.KEY_ID);
+        curId = firstValueInBundles(AppState.KEY_ID, 0, intentExtras);
         restarting = firstValueInBundles(AppState.KEY_RESTARTING, false, intentExtras, savedInstanceState);
         stopped = false;
 
@@ -418,6 +418,24 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         }
         return defaultValue;
     }
+
+    /**
+     * <p>Returns the first occurrence of a key in a list of bundles.</p>
+     *
+     * @param key          The key to search for.
+     * @param defaultValue The default value to return if no match is found.
+     * @param bundles      List of Bundles to search in. Allowed to contain nulls.
+     * @return The value of {@code key} or {@code defaultValue} if {@code key} was not found.
+     */
+    protected static int firstValueInBundles(String key, int defaultValue, Bundle... bundles) {
+        for (Bundle bundle : bundles) {
+            if (bundle != null && bundle.containsKey(key)) {
+                return bundle.getInt(key);
+            }
+        }
+        return defaultValue;
+    }
+
 
     /**
      * <p>Returns the first occurrence of a key in a list of bundles.</p>

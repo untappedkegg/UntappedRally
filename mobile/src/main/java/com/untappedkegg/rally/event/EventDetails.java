@@ -67,9 +67,12 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        eventId = getArguments().getInt(AppState.KEY_ID);
-        eventName = getArguments().getString(SearchManager.QUERY);
-        isFinished = DbSchedule.isEventFinished(eventId);
+        final Bundle bundle = getArguments();
+        if (bundle != null) {
+            eventId = bundle.getInt(AppState.KEY_ID);
+            eventName = bundle.getString(SearchManager.QUERY);
+            isFinished = DbSchedule.isEventFinished(eventId);
+        }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 

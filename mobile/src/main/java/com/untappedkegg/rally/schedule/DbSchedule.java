@@ -227,4 +227,12 @@ public final class DbSchedule extends BaseDbAccessor {
     public static boolean isDataPresent() {
         return dbAdapter.count(SCHED_TABLE) > 0;
     }
+
+    public static boolean hasDetails(String link) {
+        final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = '%s'", SCHED_DESCR, SCHED_TABLE, SCHED_EVT_SITE, link);
+        final boolean result = c.moveToFirst() && !AppState.isNullOrEmpty(c.getString(0));
+        c.close();
+        return result;
+
+    }
 }

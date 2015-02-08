@@ -136,7 +136,7 @@ public class EventFetcher implements Fetcher {
         protected Throwable doInBackground(Void... arg0) {
 
             DbUpdated.open();
-            if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(link)) > AppState.CAL_UPDATE_DELAY) {
+            if (!DbSchedule.hasDetails(link)) {
                 try {
 
                     Pattern pattern = Pattern.compile("<div class=\"event-details\">(.*?)</p>", Pattern.CASE_INSENSITIVE);

@@ -279,6 +279,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 this.sendFeedback();
                 return;
             case 8: // Settings
+//                intent = new Intent(this, SettingsActivity.class);
                 fragment = new SettingsFragment();
 //                startActivity(intent);
                 break;

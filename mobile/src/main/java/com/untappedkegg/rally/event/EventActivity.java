@@ -29,7 +29,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        isEventStarted = !DbSchedule.isEventStarted(getIntent().getExtras().getInt(AppState.KEY_ID));
+        isEventStarted = !DbSchedule.isEventStarted(curId);
     }
 
     @Override
@@ -121,6 +121,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         intent.putExtra(SearchManager.QUERY, curQuery);
         intent.putExtra(AppState.KEY_ID, curId);
         intent.putExtra(AppState.KEY_URL, link);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
         startActivity(intent);
     }
