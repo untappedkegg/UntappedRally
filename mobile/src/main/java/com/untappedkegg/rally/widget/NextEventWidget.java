@@ -61,8 +61,10 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
     @Override
     public void onEnabled(Context context) {
         // Ensure Data is present
+        BaseDbAccessor.open();
         if (!DbSchedule.isDataPresent())
             DataFetcher.getInstance().sched_start(this, false);
+        BaseDbAccessor.close();
         // Enter relevant functionality for when the first widget is created
     }
 
@@ -86,7 +88,6 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                 final short evtStatus = DateManager.todayIsBetween(nextEventStart, c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_END_DATE)));
                 final String eventName = c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_TITLE));
                 final int eventId = c.getInt(c.getColumnIndex(DbSchedule.SCHED_ID));
-                Log.e("Widget: eventId", "" + eventId);
                 String uri = c.getString(c.getColumnIndexOrThrow(DbSchedule.SCHED_SHORT_CODE)).toLowerCase(Locale.US);
                 views.setTextViewText(R.id.widget_next_event_title, eventName);
                 if (uri.contains("100aw")) {

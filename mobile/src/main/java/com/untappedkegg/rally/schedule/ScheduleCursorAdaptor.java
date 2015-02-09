@@ -40,7 +40,6 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder.icon = (ImageView) v.findViewById(R.id.sched_icon);
             holder.title = (TextView) v.findViewById(R.id.sched_title);
 //            holder.id = (TextView) v.findViewById(R.id.sched_title);
-            holder.menu = (ImageView) v.findViewById(R.id.sched_menu_btn);
 
             holder.date = (TextView) v.findViewById(R.id.sched_date);
             holder.date = (TextView) v.findViewById(R.id.sched_date);
@@ -123,7 +122,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
     }
 
     static class ScheduleViewHolder {
-        ImageView icon, menu;
+        ImageView icon;
         TextView title, /*id,*/ date, status, eventWebsite, website, startDate, endDate, location;
         int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn/*, yearColumn*/, locColumn;
     }

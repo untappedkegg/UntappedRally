@@ -3,11 +3,9 @@
     android:minWidth="180dp"
     android:minHeight="40dp"
     android:updatePeriodMillis="3600000"
-    android:initialLayout="@layout/widget_next_event"
     android:previewImage="@drawable/widget_next_event_preview"
+    android:initialLayout="@layout/widget_next_event"
     android:resizeMode="horizontal"
     android:widgetCategory="home_screen|keyguard"
     android:initialKeyguardLayout="@layout/widget_next_event">
 </appwidget-provider>
-    <!-- android:updatePeriodMillis="86400000" one day -->
-    <!-- android:configure="com.ra.widget.NextEventWidgetConfigureActivity" -->

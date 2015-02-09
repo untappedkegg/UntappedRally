@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,7 +16,7 @@ import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.SectionList;
 
-public final class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
+public final class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
 
     private ScheduleItemClickReceiver callback;
     private boolean isHomeFragment;
@@ -48,12 +47,12 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
         }
     }
 
-        @Override
-    	public void onActivityCreated(Bundle savedState) {
-    	    super.onActivityCreated(savedState);
-
-    	    getListView().setOnItemLongClickListener(this);
-    	}
+//        @Override
+//    	public void onActivityCreated(Bundle savedState) {
+//    	    super.onActivityCreated(savedState);
+//
+//    	    getListView().setOnItemLongClickListener(this);
+//    	}
 
 
     /* ----- INHERITED METHODS ----- */
@@ -114,14 +113,14 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
 
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if(!adapter.isSection(position)) {
-            view.findViewById(R.id.sched_menu_btn).callOnClick();
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//        if(!adapter.isSection(position)) {
+////            view.findViewById(R.id.sched_menu_btn).callOnClick();
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {

@@ -17,7 +17,7 @@ import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.ExpandableList;
 
-public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ AdapterView.OnItemLongClickListener, Refreshable/*, OnMenuItemClickListener*/ {
+public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ /*AdapterView.OnItemLongClickListener,*/ Refreshable/*, OnMenuItemClickListener*/ {
 
     private ScheduleItemClickReceiver callback;
     private boolean isHomeFragment;
@@ -48,11 +48,11 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
         }
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        listView.setOnItemLongClickListener(this);
-    }
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        listView.setOnItemLongClickListener(this);
+//    }
 
     /* ----- INHERITED METHODS ----- */
     //	Fragment
@@ -107,14 +107,14 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
         callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if(!"header".equals(view.getTag())) {
-            view.findViewById(R.id.sched_menu_btn).callOnClick();
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//        if(!"header".equals(view.getTag())) {
+//            view.findViewById(R.id.sched_menu_btn).callOnClick();
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {

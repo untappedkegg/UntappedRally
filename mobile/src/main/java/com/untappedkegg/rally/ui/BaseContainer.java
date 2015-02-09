@@ -14,6 +14,7 @@ import android.util.Log;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Fetcher;
@@ -64,6 +65,7 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         super.onCreate(savedInstanceState);
 //        destroyingViaConfigChange = false;
         setContentView(getContentLayout());
+        BaseDbAccessor.open();
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -112,6 +114,7 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
         if (fetcher != null) {
             fetcher.interrupt();
         }
+        BaseDbAccessor.close();
     }
 
 	/* ----- INHERITED METHODS ----- */

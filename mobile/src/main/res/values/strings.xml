@@ -3,7 +3,7 @@
 
     <string name="app_name">Untapped Rally</string>
     <!-- WIDGETS -->
-    <string name="widget_next_event">Next Event</string>
+    <string name="widget_next_event">Rally - Next Event</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -26,7 +26,7 @@
     <string name="oops">Oops!</string>
     <string name="no_network_connection_msg">You don\'t seem to have an Internet connection at the moment. We\'ll go ahead and load old data, if it exists</string>
     <string name="generic_empty_list_text">No Data Found. \nPlease try again later.</string>
-    <string name="invalid_url">That does not seem to be a valid link</string>
+    <string name="invalid_url">Oops, that does not seem to be a valid link</string>
 
     <!-- FeedBack -->
     <string name="feedback">Feedback</string>

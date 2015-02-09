@@ -19,8 +19,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.plus.PlusShare;
@@ -30,22 +28,16 @@ import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
-import com.untappedkegg.rally.event.EventPhotos;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsFragment;
-import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
-import com.untappedkegg.rally.stages.EventStages;
 import com.untappedkegg.rally.util.CommonIntents;
-import com.untappedkegg.rally.util.DateManager;
 import com.untappedkegg.rally.util.DialogManager;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -75,7 +67,7 @@ import java.util.List;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks, PopupMenu.OnMenuItemClickListener {
+public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
@@ -387,7 +379,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
     }
 
-    public void showEventDetail(String fragment, String link, String eventName, int id) {
+/*    public void showEventDetail(String fragment, String link, String eventName, int id) {
 //        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
         Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
         intent.putExtra(AppState.KEY_ARGS, link);
@@ -397,14 +389,14 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
         startActivity(intent);
 
-    }
+    }*/
 
     public static void setCurPosition(short position) {
         curPosition = position;
     }
 
     /*----- SCHEDULE FRAGMENT ONCLICK METHODS -----*/
-    public void onScheduleMenuClick(View v) {
+ /*   public void onScheduleMenuClick(View v) {
         menuView = ((View) v.getParent().getParent());
         final boolean isFinished = DbSchedule.isEventFinished(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
         final String date = ((TextView) menuView.findViewById(R.id.sched_date)).getText().toString();
@@ -422,8 +414,8 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
         popup.setOnMenuItemClickListener(this);
         popup.show();
     }
-
-    @Override
+*/
+/*    @Override
     public boolean onMenuItemClick(MenuItem item) {
         final String website = ((TextView) menuView.findViewById(R.id.sched_event_website)).getText().toString();
         final String eventName = ((TextView) menuView.findViewById(R.id.sched_title)).getText().toString();
@@ -456,5 +448,5 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 }
         }
         return true;
-    }
+    }*/
 }
