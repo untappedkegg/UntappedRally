@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.event.DbEvent;
 import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.schedule.DbSchedule;
@@ -253,7 +254,7 @@ public final class DbAdapter {
      * @see #count(String)
      */
     public int count(final String table, final String where) {
-        
+
         String select = String.format("SELECT count(_id) FROM %s", table);
         if (!AppState.isNullOrEmpty(where)) {
             select += String.format(" WHERE %s", where);
@@ -323,7 +324,10 @@ public final class DbAdapter {
 
             try {
                 db.enableWriteAheadLogging();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                if (BuildConfig.DEBUG)
+                    e.printStackTrace();
+            }
 
             final String drop = "DROP TABLE IF EXISTS ";
 

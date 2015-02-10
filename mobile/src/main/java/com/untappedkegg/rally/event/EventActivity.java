@@ -21,6 +21,7 @@ import com.untappedkegg.rally.util.DialogManager;
  */
 public class EventActivity extends BaseContainer implements EventDetails.Callbacks {
     protected boolean isEventStarted;
+    private boolean shouldRecreate;
 
 	/*----- LIFECYCLE METHODS -----*/
     @Override
@@ -30,6 +31,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         isEventStarted = !DbSchedule.isEventStarted(curId);
+        shouldRecreate = getIntent().getBooleanExtra(AppState.KEY_SHOULD_RECREATE, false);
     }
 
     @Override
@@ -37,10 +39,9 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                final Intent parentIntent = NavUtils.getParentActivityIntent(this);
-                if (!NavUtils.shouldUpRecreateTask(this, parentIntent)) {
-                    NavUtils.navigateUpTo(this, parentIntent);
-//                    this.finish();
+
+                if ( !shouldRecreate) {
+                    NavUtils.navigateUpTo(this, NavUtils.getParentActivityIntent(this));
                 } else {
                     TaskStackBuilder.create(this).addParentStack(this).startActivities();
                 }
@@ -95,33 +96,13 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
     @Override
     public void selectStages(String link) {
 
-            // If screen is XLarge & Landscape
-       /* if (isEventStarted && (getResources().getConfiguration().screenLayout &  Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE &&
-        getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-
-            final View secondContainer = findViewById(R.id.second_container);
-        if (secondContainer != null ) {
-            secondContainer.setVisibility(View.VISIBLE);
-        }
-            this.selectContent(EventStages.class.getName(), link);
-
-          final Fragment fragment = new StagesViewPager();
-
-            Bundle bundle = new Bundle();
-            bundle.putString(AppState.KEY_ARGS, link);
-            bundle.putString(SearchManager.QUERY, "1");
-            fragment.setArguments(bundle);
-            attachFragment(fragment, false, StagesViewPager.class.getSimpleName(), R.id.second_container);
-
-        } else {
-            this.selectContent(EventStages.class.getName(), link);
-        }*/
         Intent intent = new Intent(AppState.getApplication(), ActivityStages.class);
         intent.putExtra(AppState.KEY_URI, "");
         intent.putExtra(SearchManager.QUERY, curQuery);
         intent.putExtra(AppState.KEY_ID, curId);
         intent.putExtra(AppState.KEY_URL, link);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.putExtra(AppState.KEY_SHOULD_RECREATE, shouldRecreate);
 
         startActivity(intent);
     }

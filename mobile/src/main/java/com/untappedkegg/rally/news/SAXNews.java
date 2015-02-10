@@ -30,10 +30,10 @@ public class SAXNews extends BaseSAX {
                  * Handle the news individually as necessary based on
                  * the format of the pubDate
                  */
-                if (uri.equals(AppState.SOURCE_BEST_OF_RALLY)) {
+                /*if (uri.equals(AppState.SOURCE_BEST_OF_RALLY)) {
                     pubDate = DateManager.formatForDatabase(DateManager.bestOfRally.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.bestOfRally.parse(buffer));
-                } else if (uri.equals(AppState.SOURCE_IRALLY) || uri.equals(AppState.SOURCE_CITROEN)) {
+                } else*/ if (uri.equals(AppState.SOURCE_IRALLY) /*|| uri.equals(AppState.SOURCE_CITROEN)*/) {
                     pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
                 } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {

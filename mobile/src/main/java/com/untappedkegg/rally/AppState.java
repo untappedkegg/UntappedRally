@@ -42,6 +42,7 @@ public class AppState extends Application {
     public static final String KEY_URL = "com.untappedkegg.rally.URL";
     public static final String KEY_URI = "com.untappedkegg.rally.URI";
     public static final String KEY_ID = "com.untappedkegg.rally.ID";
+    public static final String KEY_SHOULD_RECREATE = "com.untappedkegg.rally.RECREATE";
     public static final String KEY_ARGS = "com.untappedkegg.rally.ARGS";
     public static final String KEY_ISFINISHED = "com.untappedkegg.rally.ISFINISHED";
     public static final String KEY_BUNDLE = "com.untappedkegg.rally.ICICLE";
@@ -73,14 +74,9 @@ public class AppState extends Application {
     public static final String RSS_RALLY_MERICA = "http://rally-america.com/news/rss";
 
     //Calendars
-//	public static final String EGG_CAL_XML= "https://bowtieegg.com/kyle/rally/schedule/events";
-//    public static final String EGG_CAL_XML = "https://bowtieegg.com/kyle/rally/db/xml/";
     public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
-//    public static final String EGG_DRAWABLE = "https://bowtieegg.com/kyle/rally/drawable/";
     public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
 //    public static final String EGG_DRAWABLE = "http://untappedkegg.com/rally/drawable/";
-    //Alternatively the xml and script are hosted at bowtieegg.com
-    //	public static final String EGG_CAL_XML = http://bowtieegg.com/kyle/wrc/schedule/events
 
     public static final String RA_STANDINGS = "http://rally-america.com/champ_standings2?Endo=%s&Class=%s&Champ=0&yr=%s";
     public static final String RA_BASE_URL = "http://rally-america.com";
@@ -91,8 +87,8 @@ public class AppState extends Application {
 
     // Sources
     public static final String SOURCE_IRALLY = "iRally";
-    public static final String SOURCE_CITROEN = "Citroen";
-    public static final String SOURCE_BEST_OF_RALLY = "Michelin";
+//    public static final String SOURCE_CITROEN = "Citroen";
+//    public static final String SOURCE_BEST_OF_RALLY = "Michelin";
     public static final String SOURCE_RALLY_AMERICA = "RA";
 
 
@@ -114,7 +110,7 @@ public class AppState extends Application {
     public static final float CAROUSEL_SCROLL_DURATION_SECS = (float) .75;
     public static final short CAROUSEL_DELAY_SECS = 5;
     public static final short CAROUSEL_START_DELAY_SECS = 7;
-    public static final short LOCATION_UPDATE_INTERVAL_MINUTES = 10;
+//    public static final short LOCATION_UPDATE_INTERVAL_MINUTES = 10;
 
     public static final String RALLY_AMERICA_CSS = "<style type=\"text/css\"> a:link {color: #FDBC11;} a:visited {color: #FDBC11;}" +
             ".table th, .table td {border-top:0;border-bottom:1px solid #FFF; padding:5px}" +
@@ -136,8 +132,8 @@ public class AppState extends Application {
     public static final Locale localeUSA = Locale.US;
 
     //time constants
-    public static final String DAY_START = " 00:00";
-    public static final String DAY_END = " 23:59";
+//    public static final String DAY_START = " 00:00";
+//    public static final String DAY_END = " 23:59";
 
     /* ----- VARIABLES ----- */
     private static Application instance;

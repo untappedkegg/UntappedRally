@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -27,7 +26,6 @@ import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.util.DateManager;
 
-import java.io.File;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -94,14 +92,15 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                     uri = "ra" + uri;
                 }
                 uri += "_large";
-                File file = ImageLoader.getInstance().getDiskCache().get(uri);
-                if (file != null && file.canRead()) {
-                    views.setImageViewBitmap(R.id.widget_next_event_img, BitmapFactory.decodeFile(file.getAbsolutePath()));
-                } else
+//                File file = ImageLoader.getInstance().getDiskCache().get(uri);
+//                if (file != null /*&& file.canRead()*/) {
+//                    views.setImageViewBitmap(R.id.widget_next_event_img, BitmapFactory.decodeFile(file.getAbsolutePath()));
+//                } else
                 ImageLoader.getInstance().loadImage(AppState.EGG_DRAWABLE + uri, new ImageLoadingListener() {
+
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
-//                        views.setImageViewResource(R.id.widget_next_event_img, R.drawable.ra_large);
+
                     }
 
                     @Override
@@ -124,18 +123,17 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
                 intent.putExtra(AppState.KEY_URI, EventDetails.class.getName());
                 intent.putExtra(AppState.KEY_ID, eventId);
                 intent.putExtra(SearchManager.QUERY, eventName);
+                intent.putExtra(AppState.KEY_SHOULD_RECREATE, true);
 
                 if (evtStatus == 0) {
                     final long evntTime = DateManager.parse(nextEventStart, DateManager.ISO8601_DATEONLY).getTime();
                     long diff = evntTime - System.currentTimeMillis();
 
                     if (diff > 0) {
-                        String time = "";
                         String[] relative = DateManager.formatAsRelativeTime(diff);
-                        for (short i = 0; i < 2; i++) {
-                             /*if (!relative[i].startsWith("0"))*/
-                            time += relative[i] + " ";
-                        }
+//                        for (short i = 0; i < 2; i++) {
+                        String  time = relative[0] + " " + relative[1];
+//                        }
                         views.setTextViewText(R.id.widget_header_text, AppState.getApplication().getString(R.string.next_event) + ": " + time);
                         views.setTextColor(R.id.widget_header_text, context.getResources().getColor(android.R.color.white));
 //                        views.setTextColor(R.id.widget_header_text, android.R.color.white);

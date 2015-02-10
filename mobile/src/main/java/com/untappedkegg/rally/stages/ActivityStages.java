@@ -3,7 +3,6 @@ package com.untappedkegg.rally.stages;
 import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.MenuItem;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -16,19 +15,6 @@ import com.untappedkegg.rally.schedule.DbSchedule;
 public final class ActivityStages extends EventActivity implements EventStages.Callbacks {
 
     /*----- INHERITED METHODS -----*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                this.finish();
-                overridePendingTransition(0, 0);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();

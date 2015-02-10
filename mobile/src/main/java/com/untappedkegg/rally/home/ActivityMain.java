@@ -374,6 +374,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
         intent.putExtra(AppState.KEY_URI, fragment);
         intent.putExtra(SearchManager.QUERY, eventName);
         intent.putExtra(AppState.KEY_ID, id);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
         startActivity(intent);
 

@@ -78,6 +78,7 @@ public class EventLiveNotification {
         final Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
         intent.putExtra(AppState.KEY_ID, eventId);
         intent.putExtra(SearchManager.QUERY, eventName);
+        intent.putExtra(AppState.KEY_SHOULD_RECREATE, true);
 
         final String title = res.getString(R.string.event_live_notification_title_template, eventName);
 
