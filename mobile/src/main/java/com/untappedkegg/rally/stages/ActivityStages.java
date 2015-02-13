@@ -46,7 +46,7 @@ public final class ActivityStages extends EventActivity implements EventStages.C
                     Fragment resultsFragment = new StagesViewPager();
                     Bundle resultsBundle = new Bundle();
                     resultsBundle.putString(AppState.KEY_ARGS, link);
-                    resultsBundle.putString(SearchManager.QUERY, "1");
+                    resultsBundle.putString(SearchManager.QUERY, "0");
                     resultsBundle.putInt(AppState.KEY_ID, id);
 
                     resultsFragment.setArguments(resultsBundle);

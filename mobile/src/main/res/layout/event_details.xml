@@ -162,8 +162,14 @@
 					android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textIsSelectable="true"
-                    android:padding="6dp"
+                    android:padding="10dp"
                     android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_height="1px"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@color/list_divider_color"/>
 
                 <TableLayout android:id="@+id/events_actions_table"
                     android:layout_width="match_parent"

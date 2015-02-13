@@ -208,10 +208,10 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
 
                     final LayoutInflater inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View newRow = inflater.inflate(R.layout.event_details_row, null);
-                    newRow.findViewById(R.id.event_details_list_right_arrow).setVisibility(View.GONE);
-                    ((ViewGroup) v).addView(newRow);
+//                    newRow.findViewById(R.id.event_details_list_right_arrow).setVisibility(View.GONE);
+//                    ((ViewGroup) v).addView(newRow);
                     // Stages
-                    newRow = inflater.inflate(R.layout.event_details_row, null);
+//                    newRow = inflater.inflate(R.layout.event_details_row, null);
                     ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.events_stages);
 
                     newRow.setOnClickListener(new View.OnClickListener() {

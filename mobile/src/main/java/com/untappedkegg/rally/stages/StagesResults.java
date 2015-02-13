@@ -54,18 +54,24 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     /*----- INHERITED METHODS -----*/
     @Override
     protected void fetchData() {
+        if(curStage > 0)
         fetcher.startStageResults(this, getFullLink(), eventCode, curStage, year, isFinished);
     }
 
     @Override
     protected void showPage() {
         mWebView.loadUrl("about:blank");
-        if (this.shouldRequery()) {
-            mWebView.loadData(getResources().getString(R.string.stage_results_format, getResources().getString(R.string.stage_results_loading)), "text/html", "UTF-8");
+        if (curStage > 0) {
+            if (this.shouldRequery()) {
+                mWebView.loadData(getResources().getString(R.string.stage_results_format, getResources().getString(R.string.stage_results_loading)), "text/html", "UTF-8");
+            } else {
+                DbEvent.open();
+                mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
+                DbEvent.close();
+            }
         } else {
-            DbEvent.open();
-            mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
-            DbEvent.close();
+                mWebView.loadData(getResources().getString(R.string.stage_results_format, getResources().getString(R.string.stage_results_select)), "text/html", "UTF-8");
+                this.setProgressBarVisibility(View.GONE);
         }
     }
 
