@@ -59,13 +59,18 @@ public class AppState extends Application {
 
     public static final String APP_LINK_AMAZON_ASIN = "amzn://apps/android?asin=B00RT90NAW";
 
+    // About
+    public static final String CHANGELOG_URL = "http://untappedkegg.com/android/rally/changelog.txtx";
+    public static final String SOCIAL_TWITTER = "https://twitter.com/untappedkegg";
+    public static final String SOCIAL_G_PLUS = "https://google.com/+Untappedkegg/posts";
+
     // Concurrency
     public static boolean NEWS_REFRESH = false;
     public static final short REQUERY_WAIT = 500;
     public static final short STAGE_RESULT_DELAY = 60;
     public static final short STAND_UPDATE_DELAY = 1;
     public static final short YT_UPDATE_DELAY = 1;
-    public static final short RSS_UPDATE_DELAY = 30; //Do not update on youTubeStart if this amt of time (in minutes) has not elapsed
+    public static final short RSS_UPDATE_DELAY = 30; //Do not update on News if this amt of time (in minutes) has not elapsed
     public static final short CAL_UPDATE_DELAY = 7; //7 days
 
 

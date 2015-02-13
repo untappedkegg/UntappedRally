@@ -73,11 +73,18 @@
     <string name="skip_button_label">Skip</string>
 
     <!-- ABOUT -->
-    <string name="about_main">This app is developed and published by UntappedKegg.
-        \nFollow me on twitter at https://twitter.com/untappedkegg
-        \n\nTo view the changelog or upcoming features, visit: rally.untappedkegg.com
-        \n\n<u><b>Disclaimer</b></u>:
+    <string name="about_main">This app is developed and published by UntappedKegg.\n</string>
+    <string name="about_disclaimer"><u><b>Disclaimer</b></u>:
         \nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America, Inc. in any way either expressed or implied.</string>
+
     <string name="about_learn_more"> To learn more about the series, go to http://www.rally-america.com</string>
     <string name="about_version">App Version: %1$s</string>
+    <string name="about_changelog">View Changelog</string>
+    <string name="changelog">Change Log</string>
+    <string name="about_follow">Follow Me</string>
+
+    <string name="twitter_handle">\@UntappedKegg</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

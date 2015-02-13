@@ -3,25 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="3dp"
+    android:paddingBottom="3dp"
     tools:context="com.ra.home.AboutFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView android:id="@+id/about_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="all" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/about_learn_more"
+        android:padding="3dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/about_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:text="@string/about_main"/>
+
+            <TextView android:id="@+id/about_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/about_follow"
+                android:layout_below="@id/about_main"/>
+
+            <LinearLayout android:id="@+id/about_social_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/about_follow">
+
+                <ImageButton android:id="@+id/about_twitter_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/twitter_larry"/>
+
+                <ImageButton android:id="@+id/about_g_plus_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/g_plus"/>
+
+                </LinearLayout>
+
+            <Button android:id="@+id/about_changelog_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_social_bar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                style="?android:attr/buttonStyleSmall"
+                android:text="@string/about_changelog"/>
+
+            <TextView android:id="@+id/about_disclaimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/about_changelog_btn"
+                android:text="@string/about_disclaimer"/>
+        </RelativeLayout>
     </ScrollView>
 
     <TextView android:id="@+id/about_learn_more"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_above="@+id/about_version"
-              android:layout_centerHorizontal="true"
-              android:padding="5dp"
-              android:autoLink="all"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/about_version"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="5dp"
+        android:autoLink="all"
+        android:text="@string/about_learn_more"/>
 
     <TextView android:id="@+id/about_version"
         android:layout_alignParentBottom="true"

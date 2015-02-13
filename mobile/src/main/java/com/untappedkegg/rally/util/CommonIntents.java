@@ -225,7 +225,8 @@ public final class CommonIntents {
             for (ResolveInfo info : resInfo) {
                 if (info.activityInfo.packageName.toLowerCase().contains(type) || info.activityInfo.name.toLowerCase().contains(type) ) {
                     share.putExtra(Intent.EXTRA_SUBJECT,  subject);
-                    share.putExtra(Intent.EXTRA_TEXT,     text);
+                    if (!AppState.isNullOrEmpty(text))
+                    share.putExtra(Intent.EXTRA_TEXT, text);
                     share.setPackage(info.activityInfo.packageName);
                     found = true;
                     break;
