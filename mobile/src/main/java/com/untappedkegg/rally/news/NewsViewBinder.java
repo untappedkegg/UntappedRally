@@ -52,8 +52,7 @@ public final class NewsViewBinder implements ViewBinder {
                 if (!AppState.isNullOrEmpty(uri)) {
 
                     try {
-                        tv.setText(DateUtils.getRelativeDateTimeString(ctx, DateManager.DATABASE.parse(uri).getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.YEAR_IN_MILLIS, DateUtils.FORMAT_NO_YEAR));//getRelativeTimeSpanString(DateManager.DATABASE.parse(uri).getTime()));
-
+                        tv.setText(DateUtils.getRelativeDateTimeString(ctx, DateManager.DATABASE.parse(uri).getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.YEAR_IN_MILLIS, DateUtils.FORMAT_NO_YEAR));
                         return true;
                     } catch (ParseException e) {
                         view.setVisibility(View.GONE);

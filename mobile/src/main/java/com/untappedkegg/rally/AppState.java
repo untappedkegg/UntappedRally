@@ -92,8 +92,6 @@ public class AppState extends Application {
 
     // Sources
     public static final String SOURCE_IRALLY = "iRally";
-//    public static final String SOURCE_CITROEN = "Citroen";
-//    public static final String SOURCE_BEST_OF_RALLY = "Michelin";
     public static final String SOURCE_RALLY_AMERICA = "RA";
 
 

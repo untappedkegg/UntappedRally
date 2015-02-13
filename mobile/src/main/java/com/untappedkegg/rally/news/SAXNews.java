@@ -30,10 +30,7 @@ public class SAXNews extends BaseSAX {
                  * Handle the news individually as necessary based on
                  * the format of the pubDate
                  */
-                /*if (uri.equals(AppState.SOURCE_BEST_OF_RALLY)) {
-                    pubDate = DateManager.formatForDatabase(DateManager.bestOfRally.parse(buffer));
-                    shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.bestOfRally.parse(buffer));
-                } else*/ if (uri.equals(AppState.SOURCE_IRALLY) /*|| uri.equals(AppState.SOURCE_CITROEN)*/) {
+                if (uri.equals(AppState.SOURCE_IRALLY) ) {
                     pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
                     shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
                 } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
@@ -54,7 +51,7 @@ public class SAXNews extends BaseSAX {
              */
         } else if (localName.equalsIgnoreCase("description") && uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
 
-            Pattern pattern = Pattern.compile("src=\"(.*?)\"", Pattern.CASE_INSENSITIVE);//Pattern.compile("src=\"[^\"]*");
+            Pattern pattern = Pattern.compile("src=\"(.*?)\"", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(buffer);
             if (matcher.find()) {
                 imgLink = "http://www.rally-america.com" + matcher.group(1);
