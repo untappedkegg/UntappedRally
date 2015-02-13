@@ -2,7 +2,6 @@ package com.untappedkegg.rally.schedule;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
@@ -20,7 +19,6 @@ import com.untappedkegg.rally.ui.ExpandableList;
 public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ /*AdapterView.OnItemLongClickListener,*/ Refreshable/*, OnMenuItemClickListener*/ {
 
     private ScheduleItemClickReceiver callback;
-    private boolean isHomeFragment;
 
     public ExpandableScheduleFragment() {
     }
@@ -30,21 +28,9 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            isHomeFragment = getArguments().getBoolean("isHomeFragment");
-        } catch (NullPointerException e) {
-            isHomeFragment = false;
-        }
-        try {
             callback = (ScheduleItemClickReceiver) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
-        }
-    }
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            isHomeFragment = savedInstanceState.getBoolean("isHomeFragment");
         }
     }
 
@@ -55,14 +41,6 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
 //    }
 
     /* ----- INHERITED METHODS ----- */
-    //	Fragment
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isHomeFragment", isHomeFragment);
-        super.onSaveInstanceState(outState);
-    }
-
-
     @Override
     public void fetchData() {
         DataFetcher.getInstance().sched_start(this, false);
@@ -76,13 +54,7 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
 
     @Override
     protected Cursor loadCursor() {
-        return isHomeFragment ? DbSchedule.fetchUpcoming() : DbSchedule.fetchSections();
-//        if (isHomeFragment) {
-//            return DbSchedule.fetchUpcoming();
-//        } else {
-//            return DbSchedule.fetchSections();
-//        }
-
+        return DbSchedule.fetchSections();
     }
 
     @Override

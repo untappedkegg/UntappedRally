@@ -18,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.plus.PlusShare;
@@ -35,7 +34,6 @@ import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
 import com.untappedkegg.rally.util.CommonIntents;
-import com.untappedkegg.rally.util.DialogManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +71,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
     private static CharSequence mTitle;
     private String[] mActionBarDrawer;
-    private View menuView;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the
@@ -241,7 +238,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
      */
     public void onNavDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        Intent intent = null;
         Fragment fragment = null;
         Bundle icicle = new Bundle();
         icicle.putInt(AppState.KEY_POSITION, position);
@@ -271,9 +267,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 this.sendFeedback();
                 return;
             case 8: // Settings
-//                intent = new Intent(this, SettingsActivity.class);
                 fragment = new SettingsFragment();
-//                startActivity(intent);
                 break;
             case 9: // About
                 fragment = new AboutFragment();
@@ -295,10 +289,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                         .commit();
                 curPosition = (short) position;
             }
-        } else if (intent != null) {
-                startActivity(intent);
-        } else if (position != 5 && position != 6) {
-           DialogManager.raiseUIError(this, "Error", "This feature has not been implemented yet", false);
         }
 
     }
@@ -368,8 +358,6 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     // ScheduleFragment.Callbacks
     @Override
     public void showEventDetail(String fragment, String eventName, int id) {
-//        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
-//        Log.e("SELECT showEventDetail", "args = " + args + " id = " + id);
         Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
         intent.putExtra(AppState.KEY_URI, fragment);
         intent.putExtra(SearchManager.QUERY, eventName);
@@ -380,74 +368,8 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
     }
 
-/*    public void showEventDetail(String fragment, String link, String eventName, int id) {
-//        CommonIntents.startNewContainer(this, fragment, args, EventActivity.class, eventName);
-        Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
-        intent.putExtra(AppState.KEY_ARGS, link);
-        intent.putExtra(AppState.KEY_URI, fragment);
-        intent.putExtra(SearchManager.QUERY, eventName);
-        intent.putExtra(AppState.KEY_ID, id);
-
-        startActivity(intent);
-
-    }*/
-
     public static void setCurPosition(short position) {
         curPosition = position;
     }
 
-    /*----- SCHEDULE FRAGMENT ONCLICK METHODS -----*/
- /*   public void onScheduleMenuClick(View v) {
-        menuView = ((View) v.getParent().getParent());
-        final boolean isFinished = DbSchedule.isEventFinished(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
-        final String date = ((TextView) menuView.findViewById(R.id.sched_date)).getText().toString();
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.inflate(R.menu.schedule);
-        if (AppState.isNullOrEmpty(((TextView) menuView.findViewById(R.id.sched_website)).getText().toString())) {
-            popup.getMenu().removeItem(R.id.menu_schedule_website);
-        }
-        if (!isFinished) {
-            popup.getMenu().removeItem(R.id.menu_schedule_photos);
-        }
-        if (isFinished || "TBD".equalsIgnoreCase(date) || "CANCELLED".equalsIgnoreCase(date)) {
-            popup.getMenu().removeItem(R.id.menu_schedule_add_to_cal);
-        }
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
-    }
-*/
-/*    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        final String website = ((TextView) menuView.findViewById(R.id.sched_event_website)).getText().toString();
-        final String eventName = ((TextView) menuView.findViewById(R.id.sched_title)).getText().toString();
-        final int id = Integer.parseInt(((TextView) menuView.findViewById(R.id.sched_id)).getText().toString());
-
-        switch (item.getItemId()) {
-            case R.id.menu_schedule_stages:
-                showEventDetail(EventStages.class.getName(), website, eventName, id);
-                break;
-            case R.id.menu_schedule_photos:
-                showEventDetail(EventPhotos.class.getName(), website, eventName, id);
-                break;
-            case R.id.menu_schedule_website:
-                CommonIntents.openUrl(this, ((TextView) menuView.findViewById(R.id.sched_website)).getText().toString());
-                break;
-            case R.id.menu_schedule_event_website:
-                CommonIntents.openUrl(this, website);
-                break;
-            case R.id.menu_schedule_add_to_cal:
-                final String startDate = ((TextView) menuView.findViewById(R.id.sched_start_date)).getText().toString();
-                final String endDate = ((TextView) menuView.findViewById(R.id.sched_end_date)).getText().toString();
-                final String location = ((TextView) menuView.findViewById(R.id.sched_location)).getText().toString();
-
-
-                try {
-                    CommonIntents.addRallyToCalendar(this, eventName, DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1), location);
-                    return true;
-                } catch (ParseException e) {
-                    Toast.makeText(this, getResources().getString(R.string.calendar_error), Toast.LENGTH_LONG).show();
-                }
-        }
-        return true;
-    }*/
 }

@@ -3,7 +3,6 @@ package com.untappedkegg.rally.schedule;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +24,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
             .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
 
-    public ScheduleCursorAdaptor(Context context, int layout, Cursor c, String[] from, int[] to, int flags, Fragment parent) {
+    public ScheduleCursorAdaptor(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
     }
 
@@ -39,7 +38,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder = new ScheduleViewHolder();
             holder.icon = (ImageView) v.findViewById(R.id.sched_icon);
             holder.title = (TextView) v.findViewById(R.id.sched_title);
-//            holder.id = (TextView) v.findViewById(R.id.sched_title);
+            holder.id = (TextView) v.findViewById(R.id.sched_title);
 
             holder.date = (TextView) v.findViewById(R.id.sched_date);
             holder.date = (TextView) v.findViewById(R.id.sched_date);
@@ -53,11 +52,11 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
             holder.locColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_LOC);
             holder.iconColumn = c.getColumnIndex(DbSchedule.SCHED_SHORT_CODE);
             holder.titleColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_TITLE);
-//            holder.idColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_ID);
+            holder.idColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_ID);
             holder.fromToColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_FROM_TO);
             holder.eventWebsiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_EVT_SITE);
             holder.websiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_SITE);
-            //			holder.yearColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_YEAR);
+
             holder.startColumn = c.getColumnIndex(DbSchedule.SCHED_START_DATE);
             holder.endColumn = c.getColumnIndex(DbSchedule.SCHED_END_DATE);
 
@@ -81,8 +80,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
 
 
         // ID
-        //		holder.id.setText(c.getString(holder.idColumn));
-        //		holder.id.setVisibility(View.GONE);
+        holder.id.setText(c.getString(holder.idColumn));
         // Title
         holder.title.setText(c.getString(holder.titleColumn));
         holder.title.setVisibility(View.VISIBLE);
@@ -114,8 +112,6 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
         } else if (status == -1) {
             holder.status.setText(R.string.cancelled);
             holder.status.setTextColor(AppState.getApplication().getResources().getColor(R.color.red));
-        } else {
-
         }
 
 
@@ -123,7 +119,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
 
     static class ScheduleViewHolder {
         ImageView icon;
-        TextView title, /*id,*/ date, status, eventWebsite, website, startDate, endDate, location;
+        TextView title, id, date, status, eventWebsite, website, startDate, endDate, location;
         int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn/*, yearColumn*/, locColumn;
     }
 

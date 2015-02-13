@@ -29,14 +29,6 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
 
 
-    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int collapsedGroupLayout, int expandedGroupLayout, String[] groupFrom, int[] groupTo, int childLayout, int lastChildLayout, String[] childFrom, int[] childTo) {
-        super(context, cursor, collapsedGroupLayout, expandedGroupLayout, groupFrom, groupTo, childLayout, lastChildLayout, childFrom, childTo);
-    }
-
-    public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int collapsedGroupLayout, int expandedGroupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo) {
-        super(context, cursor, collapsedGroupLayout, expandedGroupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
-    }
-
     public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo) {
         super(context, cursor, groupLayout, groupFrom, groupTo, childLayout, childFrom, childTo);
     }
@@ -57,7 +49,6 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             holder.icon = (ImageView) v.findViewById(R.id.sched_icon);
             holder.title = (TextView) v.findViewById(R.id.sched_title);
             holder.id = (TextView) v.findViewById(R.id.sched_title);
-//            holder.menu = (ImageView) v.findViewById(R.id.sched_menu_btn);
 
             holder.date = (TextView) v.findViewById(R.id.sched_date);
             holder.date = (TextView) v.findViewById(R.id.sched_date);
@@ -75,7 +66,6 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             holder.fromToColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_FROM_TO);
             holder.eventWebsiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_EVT_SITE);
             holder.websiteColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_SITE);
-            //			holder.yearColumn = c.getColumnIndexOrThrow(DbSchedule.SCHED_YEAR);
             holder.startColumn = c.getColumnIndex(DbSchedule.SCHED_START_DATE);
             holder.endColumn = c.getColumnIndex(DbSchedule.SCHED_END_DATE);
 
@@ -130,14 +120,12 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         } else if (status == -1) {
             holder.status.setText(R.string.cancelled);
             holder.status.setTextColor(AppState.getApplication().getResources().getColor(R.color.red));
-        } else {
-
         }
     }
 
     static class ScheduleViewHolder {
         ImageView icon;
         TextView title, id, date, status, eventWebsite, website, startDate, endDate, location;
-        int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn, locColumn/*, yearColumn*/;
+        int websiteColumn, eventWebsiteColumn, startColumn, endColumn, iconColumn, titleColumn, idColumn, fromToColumn, locColumn;
     }
 }

@@ -2,7 +2,6 @@ package com.untappedkegg.rally.schedule;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ListView;
@@ -19,7 +18,6 @@ import com.untappedkegg.rally.ui.SectionList;
 public final class ScheduleFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
 
     private ScheduleItemClickReceiver callback;
-    private boolean isHomeFragment;
 
     public ScheduleFragment() {
     }
@@ -29,41 +27,21 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            isHomeFragment = getArguments().getBoolean("isHomeFragment");
-        } catch (NullPointerException e) {
-            isHomeFragment = false;
-        }
-        try {
             callback = (ScheduleItemClickReceiver) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
         }
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (savedInstanceState != null) {
-            isHomeFragment = savedInstanceState.getBoolean("isHomeFragment");
-        }
-    }
-
 //        @Override
 //    	public void onActivityCreated(Bundle savedState) {
 //    	    super.onActivityCreated(savedState);
-//
 //    	    getListView().setOnItemLongClickListener(this);
 //    	}
 
 
     /* ----- INHERITED METHODS ----- */
     //	Fragment
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isHomeFragment", isHomeFragment);
-        super.onSaveInstanceState(outState);
-    }
-
-
     @Override
     public void fetchData() {
         DataFetcher.getInstance().sched_start(this, false);
@@ -77,18 +55,14 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
 
     @Override
     protected Cursor loadCursor() {
-        if (isHomeFragment) {
-            return DbSchedule.fetchUpcoming();
-        } else {
-            return DbSchedule.fetch();
-        }
+        return DbSchedule.fetch();
     }
 
     @Override
     protected SimpleCursorAdapter createCursorAdapter() {
         String[] from = new String[]{DbSchedule.SCHED_ID, DbSchedule.SCHED_FROM_TO, DbSchedule.SCHED_SHORT_CODE, DbSchedule.SCHED_EVT_SITE};
         int[] to = new int[]{R.id.sched_id, R.id.sched_date, R.id.sched_icon, R.id.sched_website};
-        return new ScheduleCursorAdaptor(getActivity(), R.layout.schedule_row, null, from, to, 0, this);
+        return new ScheduleCursorAdaptor(getActivity(), R.layout.schedule_row, null, from, to, 0);
     }
 
     @Override
@@ -98,7 +72,6 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
 
     @Override
     protected String getSectionField() {
-        if (isHomeFragment) return null;
         return DbSchedule.SCHED_YEAR_ACTUAL;
     }
 
@@ -109,18 +82,8 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
             final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
             callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
         }
-        // call back for dialog fragment which gives the option to choose from stages, stage times, itinerary
 
     }
-
-//    @Override
-//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//        if(!adapter.isSection(position)) {
-////            view.findViewById(R.id.sched_menu_btn).callOnClick();
-//            return true;
-//        }
-//        return false;
-//    }
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
