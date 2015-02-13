@@ -60,7 +60,7 @@ public class AppState extends Application {
     public static final String APP_LINK_AMAZON_ASIN = "amzn://apps/android?asin=B00RT90NAW";
 
     // About
-    public static final String CHANGELOG_URL = "http://untappedkegg.com/android/rally/changelog.txtx";
+    public static final String CHANGELOG_URL = "http://untappedkegg.com/android/rally/changelog.txt";
     public static final String SOCIAL_TWITTER = "https://twitter.com/untappedkegg";
     public static final String SOCIAL_G_PLUS = "https://google.com/+Untappedkegg/posts";
 
