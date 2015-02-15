@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.util.DateManager;
@@ -44,7 +45,15 @@ public final class NewsViewBinder implements ViewBinder {
                     view.setVisibility(View.VISIBLE);
                     return true;
                 } else {
-                    return false;
+                    imageView.setAdjustViewBounds(true);
+
+                    if (uri.contains("100aw")) {
+                        uri = "ra" + uri;
+                    }
+
+                    ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri + "_large", imageView);
+                    imageView.setVisibility(View.VISIBLE);
+                    return true;
                 }
 
             case R.id.list_date:

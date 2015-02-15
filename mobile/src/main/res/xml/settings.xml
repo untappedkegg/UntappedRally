@@ -21,7 +21,7 @@
 
     </PreferenceCategory>
 
-    
+
     <PreferenceCategory android:title="@string/pref_header_news"
         android:icon="@android:drawable/ic_menu_agenda">
 
@@ -33,9 +33,17 @@
             android:entryValues="@array/pref_news_values"
             android:defaultValue="@string/pref_news_default" />
 
+        <MultiSelectListPreference
+            android:key="event_feeds"
+            android:title="@string/pref_event_news"
+            android:dialogTitle="@string/pref_event_feed_dialog"
+            android:summary="@string/pref_event_news_summary"
+            android:entries="@array/pref_event_news_entries"
+            android:entryValues="@array/pref_event_news_values"   />
+
     </PreferenceCategory>
 
-    
+
     <PreferenceCategory
         android:title="@string/pref_header_notifications"
         android:icon="@android:drawable/ic_popup_reminder">

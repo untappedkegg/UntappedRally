@@ -8,15 +8,8 @@ import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
-import com.untappedkegg.rally.news.DbNews;
-import com.untappedkegg.rally.news.SAXNews;
 import com.untappedkegg.rally.schedule.SAXSchedule;
 import com.untappedkegg.rally.util.DateManager;
-
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +32,6 @@ public class DataFetcher {
     private static final DataFetcher instance = new DataFetcher(AppState.getApplication());
     private static Context ctx;
 
-    private AsyncTask<Void, Void, Throwable> newsThread;
     private AsyncTask<Void, Void, Throwable> scheduleThread;
     private AsyncTask<Void, Void, Throwable> standingsThread;
 
@@ -53,29 +45,6 @@ public class DataFetcher {
     }
 
     /* CUSTOM METHODS */
-    // HTTP Methods //
-    public static InputStream doGet(String url) throws IOException {
-
-        Log.i(LOG_TAG + " doGet", "Retrieving from " + url);
-
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
-        return httpClient.execute(request).getEntity().getContent();
-    }
-
-    public static InputStream doPost(String url, String postMsg) throws IOException {
-
-        Log.i(LOG_TAG, "Retrieving from " + url + " with post arguments " + postMsg);
-
-        DefaultHttpClient httpClient = new DefaultHttpClient();
-        HttpPost request = new HttpPost(url);
-        StringEntity postEntity = new StringEntity(postMsg);
-        request.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        postEntity.setContentType("application/x-www-form-urlencoded");
-        request.setEntity(postEntity);
-
-        return httpClient.execute(request).getEntity().getContent();
-    }
 
     public static String readStream(InputStream stream) throws IOException {
         InputStreamReader isr = new InputStreamReader(stream);
@@ -101,46 +70,9 @@ public class DataFetcher {
     }
 
     // Parser Control Methods //
-    // global
-    public void global_interrupt() {
-        if (newsThread != null) newsThread.cancel(true);
-    }
-
     // AsyncTask Methods
     private static <P, R> AsyncTask<Void, P, R> executeParallel(AsyncTask<Void, P, R> task) {
         return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    /* ----- NESTED CLASSES ----- */
-    public static class FetchTask {
-        public final String link;
-        public final BaseSAX sax;
-
-        public FetchTask(String link,BaseSAX sax) {
-            this.link = link;
-            this.sax = sax;
-        }
-    }
-
-
-    // News
-    public boolean news_isRunning() {
-        return newsThread != null && newsThread.getStatus() != Status.FINISHED;
-    }
-
-    public void news_start(String uri, Callbacks callback) {
-        if (!news_isRunning()) {
-            FetchTask[] tasks = new FetchTask[]{
-                    new FetchTask(AppState.RSS_RALLY_MERICA, new SAXNews(AppState.SOURCE_RALLY_AMERICA)),
-                    //Irally should go last because they have errors fairly regularly
-                    new FetchTask(AppState.RSS_IRALLY, new SAXNews(AppState.SOURCE_IRALLY))};
-            newsThread = executeParallel(new NewsParser(uri, callback, tasks));
-        }
-    }
-
-
-    public void news_interrupt() {
-        if (newsThread != null) newsThread.cancel(true);
     }
 
     //Overview Standing
@@ -183,47 +115,6 @@ public class DataFetcher {
 
 	/* ----- NESTED CLASSES ----- */
     // Parsers
-
-    private static class NewsParser extends AsyncTask<Void, Void, Throwable> {
-        private final String uri;
-        private final FetchTask[] tasks;
-        private final Callbacks callback;
-
-        public NewsParser(String uri, Callbacks callback, FetchTask[] tasks) {
-            this.callback = callback;
-            this.tasks = tasks;
-            this.uri = uri;
-        }
-
-        @Override
-        protected Throwable doInBackground(Void... arg0) {
-            DbNews.open();
-
-            for (FetchTask task : tasks) {
-                try {
-                    HttpURLConnection conn = NewDataFetcher.get(task.link, null);
-                    if (conn.getResponseCode() == 200) {
-                        SAXParserFactory.newInstance().newSAXParser().parse(conn.getInputStream(), task.sax);
-                    }
-                    conn.disconnect();
-                } catch (Exception e) {
-                    Log.d(LOG_TAG, e.toString());
-                    return e;
-                }
-
-            }
-            DbNews.deleteOldItems();
-            DbNews.close();
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "News Parsing finished");
-            callback.onDataFetchComplete(result, uri);
-        }
-    }
 
     private static class ScheduleParser extends AsyncTask<Void, Void, Throwable> {
         private final String uri = AppState.MOD_SCHED;

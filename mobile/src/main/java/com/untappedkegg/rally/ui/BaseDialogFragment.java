@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
@@ -93,8 +94,13 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ImageLoader.getInstance().displayImage(imgLink, imageView);
-        imageView.setOnClickListener(this);
+        if (!AppState.isNullOrEmpty(imgLink)) {
+            ImageLoader.getInstance().displayImage(imgLink, imageView);
+            imageView.setOnClickListener(this);
+        } else {
+            imageView.setVisibility(View.GONE);
+            pubDateText.setTextColor(getResources().getColor(R.color.gray));
+        }
         mTitle.setText(title);
         mTitle.setOnClickListener(this);
 

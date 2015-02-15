@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.untappedkegg.rally.news;
 
 import android.app.Activity;
@@ -9,14 +6,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.Html;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
-import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.DbUpdated;
+import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.ui.BaseDialogFragment;
 import com.untappedkegg.rally.ui.SectionList;
@@ -28,7 +26,7 @@ import com.untappedkegg.rally.util.DateManager;
  *
  * @author UntappedKegg
  */
-public final class NewsFragment extends SectionList implements DataFetcher.Callbacks, Refreshable {
+public final class NewsFragment extends SectionList implements NewDataFetcher.Callbacks, Refreshable {
     //	private Callbacks callbacks;
     private boolean isHomeFragment;
 
@@ -90,7 +88,7 @@ public final class NewsFragment extends SectionList implements DataFetcher.Callb
     }
 
     @Override
-    protected boolean shouldRequeryData() { return DataFetcher.getInstance().news_isRunning(); }
+    protected boolean shouldRequeryData() { return NewsFetcher.getInstance().isRunning(); }
 
     @Override
     protected ViewBinder getViewBinder() {
@@ -116,8 +114,7 @@ public final class NewsFragment extends SectionList implements DataFetcher.Callb
             loadList();
         } else {
             loadList();
-
-                DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
+            NewsFetcher.getInstance().news_start(this);
                 progressBar.setVisibility(View.VISIBLE);
         }
         DbUpdated.close();
@@ -125,7 +122,7 @@ public final class NewsFragment extends SectionList implements DataFetcher.Callb
 
     @Override
     public void refreshData() {
-        DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
+        NewsFetcher.getInstance().news_start(this);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -137,11 +134,11 @@ public final class NewsFragment extends SectionList implements DataFetcher.Callb
             final String link = ((TextView) v.findViewById(R.id.list_link)).getText().toString();
             final String title = ((TextView) v.findViewById(R.id.list_title)).getText().toString();
 
-            if (!AppState.isNullOrEmpty(source) && !AppState.startsWithIgnoreCase(title, "Video")) {
+            final String descr = ((TextView) v.findViewById(R.id.list_descr)).getText().toString();
+            if (!descr.endsWith("...") && !descr.endsWith(Html.fromHtml("&#8594;").toString()) && !AppState.startsWithIgnoreCase(title, "Video")) {
                 // Call new fragment to display the Title, Image, and full Description for Michelin/Rally_America item
 
                 final String pubdate = ((TextView) v.findViewById(R.id.list_date2)).getText().toString();
-                final String descr = ((TextView) v.findViewById(R.id.list_descr)).getText().toString();
                 final Fragment dialog = BaseDialogFragment.newInstance(title, descr, pubdate, link, source, true);
 
                 this.getChildFragmentManager().beginTransaction().add(dialog, dialog.toString()).commit();

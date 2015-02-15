@@ -17,6 +17,8 @@
         <item name="colorAccent">@color/ra_link_color</item>
         <item name="android:windowBackground">@color/ActionBar_alt</item>
         </style>
+
+    <!--Use this theme for individual API level customizations -->
     <style name="AppIntermediateTheme" parent="AppBaseTheme">
 
     </style>

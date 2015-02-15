@@ -95,4 +95,38 @@
 
     <string name="twitter_handle">\@UntappedKegg</string>
 
+    <!-- PREFERENCES -->
+    <string name="pref_event_news">Event Specific News</string>
+    <string name="pref_event_news_summary">Select the events you would like to see news for</string>
+    <string name="pref_event_feed_dialog">Select Events</string>
+    <string-array name="pref_event_news_entries">
+        <item>100 Acre Wood</item>
+        <item>Lake Superior</item>
+        <item>Mt. Washington Hill Climb</item>
+        <item>New England Forest</item>
+        <item>Ojibwe Forest</item>
+        <item>Oregon Trail</item>
+        <item>Show-Me Rally</item>
+        <item>Susquehannock Trail</item>
+    </string-array>
+
+    <string-array name="pref_event_news_values">
+        <item>100aw</item>
+        <item>lspr</item>
+        <item>mtwa</item>
+        <item>nefr</item>
+        <item>ofpr</item>
+        <item>oregon</item>
+        <item>smr</item>
+        <item>stpr</item>
+    </string-array>
+
+    <!--"oregon";
+    public static final String SOURCE_STPR = "stpr";
+    public static final String SOURCE_MTWA = "mtwa";
+    public static final String SOURCE_NEFT = "neft";
+    public static final String SOURCE_OFPR = "ofpr";
+    public static final String SOURCE_LSPR = "lspr";
+    public static final String SOURCE_SHOME = "smr";-->
+
 </resources>

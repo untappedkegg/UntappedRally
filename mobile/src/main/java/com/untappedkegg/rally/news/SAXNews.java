@@ -1,6 +1,7 @@
 package com.untappedkegg.rally.news;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.data.BaseSAX;
 import com.untappedkegg.rally.util.DateManager;
 
@@ -44,6 +45,8 @@ public class SAXNews extends BaseSAX {
             } catch (ParseException e) {
                 pubDate = buffer;
                 shortDate = buffer;
+                if (BuildConfig.DEBUG)
+                    e.printStackTrace();
             }
 
             /**
@@ -54,7 +57,7 @@ public class SAXNews extends BaseSAX {
             Pattern pattern = Pattern.compile("src=\"(.*?)\"", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(buffer);
             if (matcher.find()) {
-                imgLink = "http://www.rally-america.com" + matcher.group(1);
+                imgLink = AppState.RA_BASE_URL + matcher.group(1);
             }
 
         } else if (localName.equalsIgnoreCase("item")) {
@@ -64,12 +67,18 @@ public class SAXNews extends BaseSAX {
 
             try {
                 if (DateManager.timeBetweenInDays(DateManager.DATABASE.parse(pubDate).getTime()) < Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"))) {
-                    if ((!uri.equals(AppState.SOURCE_RALLY_AMERICA) && title.startsWith("RA")) || uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
+                        // Filter out all Non Rally America stories form iRally
+                    if (!uri.equals(AppState.SOURCE_RALLY_AMERICA) && title.startsWith("RA")) {
                         DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
+                    } else if (!uri.equals(AppState.SOURCE_IRALLY)) {
+                        DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
+                    } else {
+                        return;
                     }
                 }
             } catch (ParseException e) {
-
+                if(BuildConfig.DEBUG)
+                    e.printStackTrace();
             }
 
             imgLink = null;

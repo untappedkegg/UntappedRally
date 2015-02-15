@@ -10,8 +10,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
-import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.DbUpdated;
+import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.ui.BaseCarousel;
 import com.untappedkegg.rally.ui.BaseDialogFragment;
@@ -19,15 +19,8 @@ import com.untappedkegg.rally.ui.loaders.CarouselAdapter;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NewsCarousel.Callbacks} interface
- * to handle interaction events.
- * Use the {@link NewsCarousel#newInstance} factory method to
- * create an instance of this fragment.
- */
-public final class NewsCarousel extends BaseCarousel implements DataFetcher.Callbacks, Refreshable {
+
+public final class NewsCarousel extends BaseCarousel implements NewDataFetcher.Callbacks, Refreshable {
 
     public NewsCarousel() {
         // Required empty public constructor
@@ -47,8 +40,8 @@ public final class NewsCarousel extends BaseCarousel implements DataFetcher.Call
         DbUpdated.open();
         if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) > AppState.RSS_UPDATE_DELAY) {
 
-            if (!DataFetcher.getInstance().news_isRunning()) {
-                DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
+            if (!NewsFetcher.getInstance().isRunning()) {
+                NewsFetcher.getInstance().news_start( this);
                 progressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -85,7 +78,7 @@ public final class NewsCarousel extends BaseCarousel implements DataFetcher.Call
      */
     @Override
     protected boolean shouldRequery() {
-        return DataFetcher.getInstance().news_isRunning();
+        return NewsFetcher.getInstance().isRunning();
     }
 
     @Override
@@ -138,7 +131,7 @@ public final class NewsCarousel extends BaseCarousel implements DataFetcher.Call
 
     @Override
     public void refreshData() {
-        DataFetcher.getInstance().news_start(AppState.MOD_NEWS, this);
+        NewsFetcher.getInstance().news_start( this);
         progressBar.setVisibility(View.VISIBLE);
     }
 

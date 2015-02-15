@@ -13,6 +13,8 @@ import com.untappedkegg.rally.util.DateManager;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.Set;
 
 
 public final class DbNews extends BaseDbAccessor {
@@ -79,7 +81,14 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchAllNews() {
-        return dbAdapter.select(String.format("SELECT * FROM %s ORDER BY %s DESC", NEWS_TABLE, PUBDATE));
+        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
+        if (feeds != null) {
+            for (String feed : feeds) {
+               whereIn += ", '" + feed + "'";
+            }
+        }
+        return dbAdapter.select(String.format("SELECT * FROM %s WHERE %s IN (%s) ORDER BY %s DESC", NEWS_TABLE, SOURCE, whereIn, PUBDATE));
     }
 
     public static void updateReadStatusById(final String id) {
@@ -100,7 +109,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchItemById(final String id) {
-        return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %d", NEWS_TABLE, ID, Integer.valueOf(id));
+        return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s", NEWS_TABLE, ID, id);
     }
 
 }

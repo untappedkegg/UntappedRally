@@ -24,6 +24,7 @@ import com.untappedkegg.rally.util.DateManager;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -78,6 +79,29 @@ public class AppState extends Application {
     public static final String RSS_IRALLY = "http://www.irallylive.com/rss/irally_news.xml";
     public static final String RSS_RALLY_MERICA = "http://rally-america.com/news/rss";
 
+    // Event Specific News
+    public static final HashMap<String, String> NEWS_MAP = new HashMap<String, String>() {{
+       put (SOURCE_100AW, RSS_100AW);
+       put(SOURCE_OREGON, RSS_OREGON);
+       put( SOURCE_STPR, RSS_STPR );
+       put( SOURCE_MTWA, RSS_MTWA);
+       put( SOURCE_NEFR, RSS_NEFR);
+       put( SOURCE_OFPR, RSS_OFPR);
+       put( SOURCE_LSPR, RSS_LSPR);
+       put(SOURCE_SHOME, RSS_SHOWME);
+
+    }};
+
+    public static final String RSS_100AW = "http://www.100aw.org/?feed=rss2";
+    public static final String RSS_OREGON = "http://oregontrailrally.com/?feed=rss2";
+    public static final String RSS_STPR = "http://www.stpr.org/feed/";
+    public static final String RSS_MTWA = "http://climbtotheclouds.com/feed/";
+    public static final String RSS_NEFR = "http://www.newenglandforestrally.com/feed/";
+    //Ojibwe
+    public static final String RSS_OFPR = "http://ojibweforestrally.com/feed";
+    public static final String RSS_LSPR = "http://www.lsprorally.com/feed/";
+    public static final String RSS_SHOWME = "http://showmerally.100aw.org/?feed=rss2";
+
     //Calendars
     public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
     public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
@@ -93,6 +117,14 @@ public class AppState extends Application {
     // Sources
     public static final String SOURCE_IRALLY = "iRally";
     public static final String SOURCE_RALLY_AMERICA = "RA";
+    public static final String SOURCE_100AW = "100aw";
+    public static final String SOURCE_OREGON = "oregon";
+    public static final String SOURCE_STPR = "stpr";
+    public static final String SOURCE_MTWA = "mtwa";
+    public static final String SOURCE_NEFR = "nefr";
+    public static final String SOURCE_OFPR = "ofpr";
+    public static final String SOURCE_LSPR = "lspr";
+    public static final String SOURCE_SHOME = "smr";
 
 
     // Modules
