@@ -3,7 +3,6 @@ package com.untappedkegg.rally.schedule;
 import android.app.Activity;
 import android.database.Cursor;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
@@ -11,12 +10,11 @@ import android.widget.TextView;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
-import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.ExpandableList;
 
-public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, /*OnClickListener,*/ /*AdapterView.OnItemLongClickListener,*/ Refreshable/*, OnMenuItemClickListener*/ {
+public final class ExpandableScheduleFragment extends ExpandableList implements DataFetcher.Callbacks, Refreshable {
 
     private ScheduleItemClickReceiver callback;
 
@@ -33,12 +31,6 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
             throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
         }
     }
-
-//    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        listView.setOnItemLongClickListener(this);
-//    }
 
     /* ----- INHERITED METHODS ----- */
     @Override
@@ -73,22 +65,6 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-        final int eventId = Integer.parseInt(((TextView) v.findViewById(R.id.sched_id)).getText().toString());
-        final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-        callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
-    }
-
-//    @Override
-//    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//        if(!"header".equals(view.getTag())) {
-//            view.findViewById(R.id.sched_menu_btn).callOnClick();
-//            return true;
-//        }
-//        return false;
-//    }
-
-    @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
 
         if (parser.equals(AppState.MOD_SCHED)) {
@@ -103,7 +79,7 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
         final int eventId = Integer.parseInt(((TextView) v.findViewById(R.id.sched_id)).getText().toString());
         final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-        callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
+        callback.showEventDetail( eventName, eventId);
         return true;
     }
 }

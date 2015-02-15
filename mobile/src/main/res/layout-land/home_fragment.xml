@@ -55,7 +55,7 @@
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="2dp"
-        android:background="@color/title_bar_background">
+        android:background="@color/cyan">
 
     </LinearLayout>
 

@@ -74,7 +74,7 @@ public final class NewsViewBinder implements ViewBinder {
                 tv = (TextView) view;
                 tv.setText(uri);
                 if (uri.equals(res.getString(R.string.news_read))) {
-                    tv.setTextColor(res.getColor(R.color.Aqua));
+                    tv.setTextColor(res.getColor(R.color.cyan));
                 } else {
                     //redundant but necessary for the ViewBinder to not F-it up
                     tv.setTextColor(res.getColor(R.color.red));

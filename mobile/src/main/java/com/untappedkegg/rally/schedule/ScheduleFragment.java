@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
-import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.ui.SectionList;
@@ -32,13 +31,6 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
             throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
         }
     }
-
-//        @Override
-//    	public void onActivityCreated(Bundle savedState) {
-//    	    super.onActivityCreated(savedState);
-//    	    getListView().setOnItemLongClickListener(this);
-//    	}
-
 
     /* ----- INHERITED METHODS ----- */
     //	Fragment
@@ -80,7 +72,7 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
         if (!adapter.isSection(position)) {
             final int eventId = Integer.parseInt(((TextView) v.findViewById(R.id.sched_id)).getText().toString());
             final String eventName = ((TextView) v.findViewById(R.id.sched_title)).getText().toString();
-            callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
+            callback.showEventDetail( eventName, eventId);
         }
 
     }

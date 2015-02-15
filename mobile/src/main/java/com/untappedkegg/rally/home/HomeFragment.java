@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.news.NewsCarousel;
 
@@ -23,7 +24,7 @@ import com.untappedkegg.rally.news.NewsCarousel;
 public final class HomeFragment extends Fragment implements OnClickListener, Refreshable {
 
 
-    private Callbacks callbacks;
+    private NavDrawerItemSelected callbacks;
     private short position;
     private String[] modArray;
     private static final Fragment nextEventFrag = new NextEventFragment();
@@ -34,7 +35,7 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
         super.onAttach(activity);
 
         try {
-            callbacks = (Callbacks) activity;
+            callbacks = (NavDrawerItemSelected) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + ((Object) this).getClass().getCanonicalName() + ".Callbacks");
         }
@@ -89,11 +90,6 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
         try {
             ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NewsCarousel.class.getCanonicalName())).refreshData();
         } catch(NullPointerException e) {}
-    }
-
-    /* ----- NESTED INTERFACES ----- */
-    public interface Callbacks {
-        public void onNavDrawerItemSelected(int position);
     }
 
 

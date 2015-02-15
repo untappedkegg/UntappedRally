@@ -108,7 +108,7 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
         short status = DateManager.todayIsBetween(c.getString(holder.startColumn), c.getString(holder.endColumn));
         if (status == 0) {
             holder.status.setText(R.string.upcoming);
-            holder.status.setTextColor(AppState.getApplication().getResources().getColor(R.color.title_bar_background));
+            holder.status.setTextColor(AppState.getApplication().getResources().getColor(R.color.cyan));
         } else if (status == 1) {
             //currently running
             holder.status.setText(R.string.live);

@@ -20,6 +20,8 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
+import com.untappedkegg.rally.event.EventDetails;
+import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.news.NewsFragment;
@@ -55,7 +57,7 @@ import com.untappedkegg.rally.util.CommonIntents;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, HomeFragment.Callbacks, NextEventFragment.Callbacks, NavDrawerFragment.Callbacks {
+public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, NavDrawerItemSelected {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
@@ -224,6 +226,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
      *
      * @param position The selected position on the Left Menu
      */
+    @Override
     public void onNavDrawerItemSelected(final int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
@@ -292,9 +295,9 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     // CALLBACKS
     // ScheduleFragment.Callbacks
     @Override
-    public void showEventDetail(String fragment, String eventName, int id) {
+    public void showEventDetail( String eventName, int id) {
         Intent intent = new Intent(AppState.getApplication(), EventActivity.class);
-        intent.putExtra(AppState.KEY_URI, fragment);
+        intent.putExtra(AppState.KEY_URI, EventDetails.class.getName());
         intent.putExtra(SearchManager.QUERY, eventName);
         intent.putExtra(AppState.KEY_ID, id);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

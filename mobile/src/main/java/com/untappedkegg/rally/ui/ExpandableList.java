@@ -10,9 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.SimpleCursorTreeAdapter.ViewBinder;
@@ -27,13 +25,11 @@ import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
-//import com.untappedkegg.rally.ui.loaders.ExpandableSectionListAdapter;
-//import com.untappedkegg.rally.ui.view.ExpandableSectionListView;
 
 /**
  * Created by UntappedKegg on 8/9/2014.
  */
-public abstract class ExpandableList extends BaseFragment implements LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener, ExpandableListView.OnChildClickListener {
+public abstract class ExpandableList extends BaseFragment implements LoaderCallbacks<Cursor>, ExpandableListView.OnChildClickListener {
     /* ----- VARIABLES ----- */
     protected SimpleCursorTreeAdapter adapter;
     protected View emptyView;
@@ -42,7 +38,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      */
     private volatile boolean hasSwappedCursor;
     protected ProgressBar progressBar;
-    protected LinearLayout buttonBar;
     protected View listHeaderView;
     protected int scrollIndex;
     protected int scrollTop;
@@ -59,27 +54,22 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        dataFetched = (savedInstanceState != null) ? savedInstanceState.getBoolean("dataFetched") : dataFetched;
-        fetchOnCreate = (savedInstanceState != null) ? savedInstanceState.getBoolean("fetchOnCreate") : fetchOnCreate;
         scrollIndex = (savedInstanceState != null) ? savedInstanceState.getInt("scrollIndex") : 0;
         scrollTop = (savedInstanceState != null) ? savedInstanceState.getInt("scrollTop") : 0;
     }
 
     /**
      * <p>Creates the fragment layout and gets the required views from it based on what is returned from
-     * {@link #getListLayout()}, {@link #getProgressBarId()}, {@link BaseList#getButtonBarId()}, and
-     * {@link #getEmptyViewId()}.  Subclass should override those methods to change the values returned, or
-     * override this method with a call to get the view returned from the super to get another view from the layout.</p>
+     * {@link #getListLayout()} and {@link #getProgressBarId()}.  Subclass should override those methods to change the values returned,
+     * or override this method with a call to get the view returned from the super to get another view from the layout.</p>
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getListLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
         listView = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
-        listView.setOnItemClickListener(this);
+
         listView.setClickable(true);
-        //        buttonBar = (LinearLayout) view.findViewById(getButtonBarId());
         emptyView = view.findViewById(android.R.id.empty);
         if (emptyView != null) {
             listView.setEmptyView(emptyView);
@@ -87,7 +77,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
         if (getListHeaderId() != -1) {
             listHeaderView = inflater.inflate(getListHeaderId(), null);
         }
-        isFromRestore = (savedInstanceState != null) ? savedInstanceState.getBoolean("isFromRestore") : false;
+        isFromRestore = savedInstanceState != null && savedInstanceState.getBoolean("isFromRestore");
         return view;
     }
 
@@ -164,8 +154,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt("scrollIndex", scrollIndex);
         outState.putInt("scrollTop", scrollTop);
-        outState.putBoolean("dataFetched", dataFetched);
-        outState.putBoolean("fetchOnCreate", fetchOnCreate);
         outState.putBoolean("isFromRestore", true);
         super.onSaveInstanceState(outState);
     }
@@ -247,8 +235,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
 
     /**
      * <p>Default implementation returns {@code R.layout.generic_list}. The subclass can override this method to change this value.
-     * If this value is changed, {@link #getButtonBarId()}, {@link #getProgressBarId()}, {@link #getListViewId()}, {@link #getEmptyViewId()}
-     * will also need to be changed.</p>
+     * If this value is changed {@link #getProgressBarId()} will also need to be changed.</p>
      *
      * @return the layout used for this list.
      */

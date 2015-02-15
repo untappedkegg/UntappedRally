@@ -66,7 +66,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
         WebSettings websettings = mWebView.getSettings();
         websettings.setUseWideViewPort(true);
 
-        mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar));
+        mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar_dark));
         mWebView.setWebChromeClient(new WebChromeClient());
 
 

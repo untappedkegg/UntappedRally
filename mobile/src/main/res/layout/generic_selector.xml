@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
     <RelativeLayout android:id="@+id/generic_selector_title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
-	    android:background="@color/title_bar_background"
+	    android:background="@color/cyan"
 	    android:padding="5dp">
-	    
+
         <ImageButton android:id="@+id/generic_selector_title_prev"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
 			android:contentDescription="@string/selector_prev"/>
         <ImageButton android:id="@+id/generic_selector_title_next"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"	        
+	        android:layout_height="wrap_content"
 	        android:background="@drawable/next_button"
 	        android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
@@ -32,8 +32,8 @@
 			android:paddingTop="5dp"
 			android:paddingBottom="5dp"
 			android:contentDescription="@string/selector_next"/>
-			
-        
+
+
         <TextView android:id="@+id/generic_selector_title_text"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -44,12 +44,12 @@
 	        android:layout_marginLeft="20dp"
 	        android:layout_marginRight="20dp"/>
 	        <!-- android:textAppearance="@style/selectorTitleText"  -->
-            
+
     </RelativeLayout>
-    
+
     <FrameLayout android:id="@+id/generic_selector_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/generic_selector_title_bar" />
-    
+
 </RelativeLayout>

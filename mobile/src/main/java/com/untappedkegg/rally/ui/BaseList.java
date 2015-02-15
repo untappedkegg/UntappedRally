@@ -1,6 +1,5 @@
 package com.untappedkegg.rally.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,14 +9,10 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,8 +27,6 @@ import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,7 +53,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      */
     private volatile boolean hasSwappedCursor;
     protected ProgressBar progressBar;
-    protected LinearLayout buttonBar;
     protected View emptyView;
     protected View listHeaderView;
     private SimpleCursorAdapter adapter;
@@ -123,7 +115,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getListLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
-        buttonBar = (LinearLayout) view.findViewById(getButtonBarId());
         emptyView = view.findViewById(getEmptyViewId());
         if (emptyView != null) {
             ListView listView = (ListView) view.findViewById(getListViewId());
@@ -255,13 +246,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-        if (buttonBar != null) {
-            removeButtonBar();
-            List<Button> buttonList = new ArrayList<Button>();
-            createButtons(cursor, buttonList);
-            addButtonsToButtonBar(buttonList);
-        }
-
         adapter.swapCursor(cursor);
         hasSwappedCursor = true;
         setEmptyText();
@@ -310,16 +294,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      */
     protected int getListLayout() {
         return R.layout.generic_list;
-    }
-
-    /**
-     * <p>Default implementation returns {@code R.id.generic_list_buttonbar2}.  The subclass can override this method to change this value
-     * if {@link #getListLayout()} is overridden.  The id returned is used to set {@code buttonBar}.</p>
-     *
-     * @return the id for the button bar in the layout.
-     */
-    protected int getButtonBarId() {
-        return R.id.generic_list_buttonbar2;
     }
 
     /**
@@ -399,8 +373,8 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     }
 
     /**
-     * <p>This method shouldn't be overridden to return custom empty text.  This method checks {@link DataFetcher#isInternetConnected()} as
-     * well as {@link #getProgressBarVisibility()} to display a message in those cases.  Instead override {@link #getCustomEmptyText()} to set the custom empty
+     * <p>This method shouldn't be overridden to return custom empty text.  This method checks {@link DataFetcher#isInternetConnected()} to display a message in that case.
+     * Instead override {@link #getCustomEmptyText()} to set the custom empty
      * text or {@link #getContactingEmptyText()} to set the message to be displayed while performing the network operation.  If none of these
      * situations apply {@code R.string.generic_empty_list_text} is returned.</p>
      *
@@ -497,64 +471,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     }
 
     /**
-     * <p>Should not be overridden.  To customize the buttons added to the button bar override {@link #createButtons(Cursor, List)}.</p>
-     *
-     * @param buttonList the list of buttons to be added to the button bar
-     */
-    @SuppressLint("NewApi")
-    protected void addButtonsToButtonBar(List<Button> buttonList) {
-        if (buttonList.size() > 0 && buttonBar.getVisibility() == View.GONE) {
-            buttonBar.setVisibility(View.VISIBLE);
-            int weightSum = (buttonList.size() >= 2) ? buttonList.size() : 3;
-            buttonBar.setWeightSum(weightSum);
-        }
-
-        for (Button button : buttonList) {
-            //			if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            //			    button.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.menubutton));
-            //			} else {
-            //			    button.setBackground(getActivity().getResources().getDrawable(R.drawable.menubutton));
-            //			}
-
-            //			button.setTextAppearance(getActivity(), R.style.GoMizzouButton);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-            params.setMargins(10, 5, 10, 5);
-            button.setLayoutParams(params);
-            button.setGravity(Gravity.CENTER);
-            button.setSingleLine(true);
-            button.setEllipsize(TextUtils.TruncateAt.END);
-            buttonBar.addView(button);
-        }
-    }
-
-    /**
-     * <p>Clears all buttons from the button bar. Subclass should override this method to customize this behavior.</p>
-     */
-    protected void removeButtonBar() {
-        if (buttonBar.getChildCount() > 0) {
-            buttonBar.removeAllViews();
-        }
-
-        if (buttonBar.getVisibility() == View.VISIBLE) {
-            buttonBar.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * <p>Disables a specific button without removing it.  Note the button is identified by tag not id, this tag should
-     * be added to the button in {@link #createButtons(Cursor, List)}.</p>
-     *
-     * @param tag the tag of the button to be disabled
-     */
-    protected void disableButton(String tag) {
-        LinearLayout buttonBar = (LinearLayout) getActivity().findViewById(getButtonBarId());
-        Button button = (Button) buttonBar.findViewWithTag(tag);
-        if (button != null) {
-            button.setEnabled(false);
-        }
-    }
-
-    /**
      * <p>Subclasses should override this method if the {@code SimpleCursorAdapter} returned by
      * {@link #getCursorAdapter()} needs to be modified or disregarded.</p>
      *
@@ -596,16 +512,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Does nothing by default, subclasses should override this method to handle fetching data via a network operation or some other method.</p>
      */
     public abstract void fetchData();
-
-    /**
-     * <p>Does nothing by default, subclasses should override this method to create the buttons to be placed in the button bar.</p>
-     *
-     * @param cursor     the {@code Cursor} populating the {@code ListView}
-     * @param buttonList the {@code List} of buttons to be passed to {@code addButtonsToButtonBar()}
-     */
-    protected void createButtons(Cursor cursor, List<Button> buttonList) {
-        // do nothing by default
-    }
 
     /**
      * <p>Handles the completion of loader. The subclass should override this method to handle this event.</p>

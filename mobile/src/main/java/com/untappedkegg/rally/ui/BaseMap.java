@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.untappedkegg.rally.AppState;
-import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
@@ -400,7 +399,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
                 line.color(Color.parseColor(hexColor));
             } catch (Exception e) {
                 //				line.color(R.color.transparentbutton_selected_color);
-                line.color(R.color.transparent);
+                line.color(android.R.color.transparent);
             }
             line.width(5);
             line.visible(true);

@@ -25,8 +25,9 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
-import com.untappedkegg.rally.event.EventDetails;
+import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
 import com.untappedkegg.rally.interfaces.Refreshable;
+import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.ui.BaseFragment;
 import com.untappedkegg.rally.util.DateManager;
@@ -43,7 +44,7 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
     private int eventId;
     private String eventName;
     private boolean isRequeryFinished;
-    private Callbacks callback;
+    private ScheduleItemClickReceiver callback;
     private final DisplayImageOptions nextEventOptions = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ra_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ra_large) // resource or drawable
@@ -63,9 +64,9 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            callback = (Callbacks) activity;
+            callback = (ScheduleItemClickReceiver) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement NextEventFragment.Callbacks.");
+            throw new ClassCastException(activity.toString() + " must implement " + NavDrawerItemSelected.class.getSimpleName());
         }
     }
 
@@ -220,7 +221,7 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         if (isRequeryFinished) {
-            callback.showEventDetail(EventDetails.class.getName(), eventName, eventId);
+            callback.showEventDetail( eventName, eventId);
         } else {
             Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
         }
@@ -233,8 +234,4 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
         }
     }
 
-    /* ----- NESTED INTERFACES ----- */
-    public interface Callbacks {
-        public void showEventDetail(String fragment, String eventName, int eventId);
-    }
 }
