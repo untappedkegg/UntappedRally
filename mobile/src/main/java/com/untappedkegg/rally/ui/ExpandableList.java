@@ -23,10 +23,8 @@ import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
-import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
-import com.untappedkegg.rally.home.NavDrawerFragment;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
 //import com.untappedkegg.rally.ui.loaders.ExpandableSectionListAdapter;
@@ -90,7 +88,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
             listHeaderView = inflater.inflate(getListHeaderId(), null);
         }
         isFromRestore = (savedInstanceState != null) ? savedInstanceState.getBoolean("isFromRestore") : false;
-        BaseDbAccessor.open();
         return view;
     }
 
@@ -132,15 +129,13 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     public void onResume() {
         super.onResume();
 
-        final short position = (short) getArguments().getInt(AppState.KEY_POSITION);
+        final short position = getArguments().getShort(AppState.KEY_POSITION);
 
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
             try {
                 ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-                //                ((ListView) activity.findViewById(R.id.left_drawer)).setItemChecked(position, true);
-                NavDrawerFragment.getListView().setItemChecked(position, true);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -157,18 +152,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
         listHeaderView = null;
         scrollTop = (view == null) ? 0 : view.getTop();
         super.onDestroyView();
-//        adapter = null;
-//        listView.setAdapter(adapter);
-        BaseDbAccessor.close();
-    }
-
-    /**
-     * <p>Closes the database.</p>
-     */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
     }
 
        /*----- INHERITED METHODS -----*/

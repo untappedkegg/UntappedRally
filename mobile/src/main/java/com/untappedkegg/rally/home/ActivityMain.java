@@ -3,10 +3,7 @@ package com.untappedkegg.rally.home;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -18,12 +15,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.google.android.gms.plus.PlusShare;
-import com.google.android.gms.plus.model.people.Person;
 import com.untappedkegg.rally.AppState;
-import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
@@ -34,9 +27,6 @@ import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.ScheduleStub;
 import com.untappedkegg.rally.social.YouTubeFragment;
 import com.untappedkegg.rally.util.CommonIntents;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -69,8 +59,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
-    private static CharSequence mTitle;
-    private String[] mActionBarDrawer;
+    private static String[] mActionBarDrawer;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the
@@ -95,7 +84,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
         if (savedInstanceState == null) {
             Bundle bundle = new Bundle();
-            bundle.putInt(AppState.KEY_POSITION, 0);
+            bundle.putShort(AppState.KEY_POSITION, (short)0);
             Fragment home = new HomeFragment();
             home.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, home).commit();
@@ -170,8 +159,8 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
-            if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+            if (!mDrawerLayout.isDrawerOpen(Gravity.START)) {
+                mDrawerLayout.openDrawer(Gravity.START);
             } else {
                 mDrawerLayout.closeDrawers();
             }
@@ -184,14 +173,14 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(Gravity.LEFT); //|| mDrawerLayout.isDrawerOpen(Gravity.RIGHT);
+        final boolean drawerOpen = mDrawerLayout.isDrawerOpen(Gravity.START);
         try {
             menu.findItem(R.id.menu_refresh).setVisible(!drawerOpen);
+            return true;
         } catch (Exception e) {
-
+            return super.onPrepareOptionsMenu(menu);
         }
 
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -214,7 +203,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+        if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
             mDrawerLayout.closeDrawers();
         } else {
             super.onBackPressed();
@@ -222,10 +211,9 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     }
 
     void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(mActionBarDrawer[curPosition]);
         }
@@ -234,13 +222,13 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     /**
      * Called when an item in the navigation drawer is selected.
      *
-     * @param position
+     * @param position The selected position on the Left Menu
      */
-    public void onNavDrawerItemSelected(int position) {
+    public void onNavDrawerItemSelected(final int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
         Bundle icicle = new Bundle();
-        icicle.putInt(AppState.KEY_POSITION, position);
+        icicle.putShort(AppState.KEY_POSITION, (short)position);
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
@@ -263,13 +251,13 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
             case 6: // Worker Info
                 CommonIntents.openUrl(this, "http://www.rally-america.com/volunteer");
                 return;
-            case 7:
-                this.sendFeedback();
-                return;
-            case 8: // Settings
+//            case 7:
+//                CommonIntents.sendFeedback(this);
+//                return;
+            case 7: // Settings
                 fragment = new SettingsFragment();
                 break;
-            case 9: // About
+            case 8: // About
                 fragment = new AboutFragment();
                 break;
             case 10: // Exit
@@ -287,71 +275,18 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 transaction.replace(R.id.content_frame, fragment)
                         .addToBackStack(((Object) fragment).getClass().getSimpleName())
                         .commit();
-                curPosition = (short) position;
+                curPosition = (short)position;
             }
         }
 
     }
 
-    private void sendFeedback() {
-        List<Intent> targetedShareIntents = new ArrayList<Intent>();
 
-            final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s (%s)\nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL, Build.DEVICE);
-
-        // Google+
-        ArrayList<Person> recipients = new ArrayList<Person>();
-        recipients.add(PlusShare.createPerson("109961307643513437237", BuildConfig.DEV_NAME));
-        targetedShareIntents.add(new PlusShare.Builder(this).setType("text/plain").setRecipients(recipients).getIntent());
-
-        // Email
-        try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception e) { }
-
-        try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception e) { }
-
-        // Twitter
-        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
-        if(twitterIntent != null)
-            targetedShareIntents.add(twitterIntent);
-
-        // Market
-        try {
-            final String mPackageName = getPackageName();
-            final String installer = getPackageManager().getInstallerPackageName(mPackageName);
-            Intent marketIntent = null;
-
-            if (AppState.MARKET_GOOGLE.equalsIgnoreCase(installer)) {
-                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_GOOGLE + mPackageName));
-                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            } else if (AppState.MARKET_AMAZON.equalsIgnoreCase(installer)) {
-                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_AMAZON + mPackageName));
-                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            if (marketIntent != null)
-            targetedShareIntents.add(marketIntent);
-
-        } catch (Exception e) { }
-
-        if(!targetedShareIntents.isEmpty()) {
-            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
-            startActivity(chooserIntent);
-        } else Toast.makeText(this, R.string.no_apps_available, Toast.LENGTH_SHORT).show();
-
-    }
 
     @Override
     public void setTitle(CharSequence title) {
-        if (AppState.isNullOrEmpty(title.toString())) {
-            mTitle = getResources().getString(R.string.app_name);
-        } else {
-            mTitle = title;
-        }
-        getSupportActionBar().setTitle(mTitle);
+        getSupportActionBar().setTitle(AppState.isNullOrEmpty(title.toString()) ? getResources().getString(R.string.app_name) : title);
+        super.setTitle(title);
     }
 
     // CALLBACKS
@@ -369,6 +304,7 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
     }
 
     public static void setCurPosition(short position) {
+        NavDrawerFragment.setListViewPosition(position);
         curPosition = position;
     }
 

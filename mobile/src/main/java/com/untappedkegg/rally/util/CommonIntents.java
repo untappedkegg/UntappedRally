@@ -6,11 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Parcelable;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
+import com.google.android.gms.plus.PlusShare;
+import com.google.android.gms.plus.model.people.Person;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
@@ -18,6 +22,7 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -236,6 +241,57 @@ public final class CommonIntents {
                 return share;
         }
         return null;
+    }
+
+    public static void sendFeedback(final Context ctx) {
+        List<Intent> targetedShareIntents = new ArrayList<Intent>();
+
+        final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s (%s)\nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL, Build.DEVICE);
+
+        // Google+
+        ArrayList<Person> recipients = new ArrayList<Person>();
+        recipients.add(PlusShare.createPerson("109961307643513437237", BuildConfig.DEV_NAME));
+        targetedShareIntents.add(new PlusShare.Builder(ctx).setType("text/plain").setRecipients(recipients).getIntent());
+
+        // Email
+        try {
+            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
+        } catch (Exception e) { }
+
+        try {
+            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
+        } catch (Exception e) { }
+
+        // Twitter
+        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
+        if(twitterIntent != null)
+            targetedShareIntents.add(twitterIntent);
+
+        // Market
+        try {
+            final String mPackageName = ctx.getPackageName();
+            final String installer = ctx.getPackageManager().getInstallerPackageName(mPackageName);
+            Intent marketIntent = null;
+
+            if (AppState.MARKET_GOOGLE.equalsIgnoreCase(installer)) {
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_GOOGLE + mPackageName));
+                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            } else if (AppState.MARKET_AMAZON.equalsIgnoreCase(installer)) {
+                marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppState.APP_LINK_AMAZON + mPackageName));
+                marketIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            if (marketIntent != null)
+                targetedShareIntents.add(marketIntent);
+
+        } catch (Exception e) { }
+
+        if(!targetedShareIntents.isEmpty()) {
+            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+            ctx.startActivity(chooserIntent);
+        } else Toast.makeText(ctx, R.string.no_apps_available, Toast.LENGTH_SHORT).show();
+
     }
 
 }

@@ -132,7 +132,6 @@ public class AppState extends Application {
 
     //	public static final Locale USERLOCALE;
     public static final Locale localeUser = Locale.getDefault();
-    public static final Locale localeUSA = Locale.US;
 
     //time constants
 //    public static final String DAY_START = " 00:00";

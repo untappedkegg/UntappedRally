@@ -13,11 +13,13 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.home.ActivityMain;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +71,16 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
                 }
             } else {
                 updatePreference(preference);
+            }
+        }
+
+        final short position = getArguments().getShort(AppState.KEY_POSITION);
+        final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
+        if (position != 0) {
+            ActivityMain.setCurPosition(position);
+            try {
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+            } catch (Exception e) {
             }
         }
     }

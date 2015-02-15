@@ -14,7 +14,7 @@
         android:padding="3dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView android:id="@+id/about_main"
                 android:layout_width="wrap_content"
@@ -56,20 +56,14 @@
 
                 </LinearLayout>
 
-            <Button android:id="@+id/about_changelog_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/about_social_bar"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                style="?android:attr/buttonStyleSmall"
-                android:text="@string/about_changelog"/>
-
             <TextView android:id="@+id/about_disclaimer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_below="@id/about_changelog_btn"
+                android:layout_marginTop="50dp"
+                android:layout_below="@id/about_social_bar"
+                android:layout_alignParentBottom="true"
+
+                android:gravity="center_horizontal"
                 android:text="@string/about_disclaimer"/>
         </RelativeLayout>
     </ScrollView>
@@ -81,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="5dp"
         android:autoLink="all"
+        android:gravity="center_horizontal"
         android:text="@string/about_learn_more"/>
 
     <TextView android:id="@+id/about_version"

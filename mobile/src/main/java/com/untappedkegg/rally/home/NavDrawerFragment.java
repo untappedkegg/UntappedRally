@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.untappedkegg.rally.AppState;
@@ -30,6 +31,13 @@ import com.untappedkegg.rally.R;
  * implemented here.
  */
 public final class NavDrawerFragment extends Fragment {
+
+    /**
+     * Behavioral flags to determine whether to add the header and footer respectively
+     * We can let Proguard strip them out
+     */
+    private final boolean hasHeaderView = false;
+    private final boolean hasFooterView = true;
 
     /**
      * Remember the position of the selected item.
@@ -70,7 +78,6 @@ public final class NavDrawerFragment extends Fragment {
         // Read in the flag indicating whether or not the user has demonstrated
         // awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
-        //        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = AppState.getSettings().getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
         if (savedInstanceState != null) {
@@ -78,8 +85,6 @@ public final class NavDrawerFragment extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        // Select either the default item (0) or the last selected item.
-        //        selectItem(mCurrentSelectedPosition);
     }
 
     @Override
@@ -90,16 +95,45 @@ public final class NavDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    /**
+     * Set up the Nav Drawer Views and add header/footer<br/><br/>
+     * {@inheritDoc}
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mLeftDrawerListView = (ListView) inflater.inflate(R.layout.navigation_drawer, container, false);
+        if (hasHeaderView) {
+            ImageView iv = new ImageView(getActivity());
+            iv.setImageResource(R.drawable.ic_launcher_large);
+            iv.setAdjustViewBounds(true);
+            mLeftDrawerListView.addHeaderView(iv);
+
+            mLeftDrawerListView.setSelectionAfterHeaderView();
+        }
+        if (hasFooterView) {
+            View footer = inflater.inflate(R.layout.navigation_footer, container, false);
+            footer.findViewById(R.id.navigation_about).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectItem(8);
+                }
+            });
+            footer.findViewById(R.id.navigation_settings).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectItem(7);
+                }
+            });
+            mLeftDrawerListView.addFooterView(footer);
+        }
+
         mLeftDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-        mLeftDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, getResources().getStringArray(R.array.action_bar_modules)));
+        mLeftDrawerListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, getResources().getStringArray(R.array.nav_bar_modules)));
         mLeftDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mLeftDrawerListView;
     }
@@ -183,16 +217,18 @@ public final class NavDrawerFragment extends Fragment {
     }
 
     private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mLeftDrawerListView != null) {
+
+            mCurrentSelectedPosition = position;
+//            if (mLeftDrawerListView != null) {
             mLeftDrawerListView.setItemChecked(position, true);
-        }
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
-        }
-        if (mCallbacks != null) {
-            mCallbacks.onNavDrawerItemSelected(position);
-        }
+//            }
+            if (mDrawerLayout != null) {
+                mDrawerLayout.closeDrawer(mFragmentContainerView);
+            }
+            if (mCallbacks != null) {
+                mCallbacks.onNavDrawerItemSelected(position - mLeftDrawerListView.getHeaderViewsCount());
+            }
+//        }
     }
 
     @Override
@@ -238,10 +274,7 @@ public final class NavDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /**
@@ -252,7 +285,6 @@ public final class NavDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
 
@@ -260,8 +292,15 @@ public final class NavDrawerFragment extends Fragment {
         return ((ActionBarActivity)getActivity()).getSupportActionBar();
     }
 
-    public static ListView getListView() {
-        return mLeftDrawerListView;
+    public static void setListViewPosition(short position) {
+
+        switch (position) {
+            case 7:
+            case 8:
+                return;
+            default:
+                mLeftDrawerListView.setItemChecked(position + mLeftDrawerListView.getHeaderViewsCount(), true);
+        }
     }
 
     /**

@@ -24,7 +24,7 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
 
 
     private Callbacks callbacks;
-    private int position;
+    private short position;
     private String[] modArray;
     private static final Fragment nextEventFrag = new NextEventFragment();
 
@@ -38,17 +38,15 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + ((Object) this).getClass().getCanonicalName() + ".Callbacks");
         }
-        position = getArguments().getInt(AppState.KEY_POSITION);
+        position = getArguments().getShort(AppState.KEY_POSITION);
         modArray = getResources().getStringArray(R.array.action_bar_modules);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        ActivityMain.setCurPosition( position);
         ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-        NavDrawerFragment.getListView().setItemChecked(position, true);
-
-        ActivityMain.setCurPosition((short) position);
     }
 
     @Override

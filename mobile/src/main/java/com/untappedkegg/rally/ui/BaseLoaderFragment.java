@@ -1,12 +1,12 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +14,6 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
-import com.untappedkegg.rally.home.NavDrawerFragment;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
 /**
@@ -67,17 +66,14 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
     @Override
     public void onResume() {
         super.onResume();
-        final short position = (short) getArguments().getInt(AppState.KEY_POSITION);
+        final short position = getArguments().getShort(AppState.KEY_POSITION);
 
 
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
-            final Activity activity = getActivity();
             try {
-                activity.getActionBar().setTitle(modArray[position]);
-                //                ((ListView) activity.findViewById(R.id.left_drawer)).setItemChecked(position, true);
-                NavDrawerFragment.getListView().setItemChecked(position, true);
+                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
 
             } catch (NullPointerException e) {
                 e.printStackTrace();

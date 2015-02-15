@@ -30,7 +30,6 @@ import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
-import com.untappedkegg.rally.home.NavDrawerFragment;
 import com.untappedkegg.rally.ui.loaders.SimpleCursorLoader;
 
 import java.util.ArrayList;
@@ -92,7 +91,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
         fetchOnCreate = true;
         hasSwappedCursor = true;
         try {
-            position = (short) getArguments().getInt(AppState.KEY_POSITION);
+            position = getArguments().getShort(AppState.KEY_POSITION);
         } catch (NullPointerException e) {
             position = 0;
         }
@@ -175,11 +174,9 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
         super.onResume();
 
         if (position != 0) {
+            ActivityMain.setCurPosition(position);
             try {
                 ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-                //                ((ListView) getActivity().findViewById(R.id.left_drawer)).setItemChecked(position, true);
-                NavDrawerFragment.getListView().setItemChecked(position, true);
-                ActivityMain.setCurPosition(position);
             } catch (Exception e) {
             }
         }

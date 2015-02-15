@@ -26,7 +26,6 @@ import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
 
 import java.util.Calendar;
-//import android.util.Log;
 
 public final class StandingsFragment extends Fragment implements DataFetcher.Callbacks, OnItemSelectedListener, Refreshable {
 
@@ -38,7 +37,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
     private String fileName;
     private String selection = "";
     //ActionBar
-    private int position;
+    private short position;
     private String[] modArray;
 
     public StandingsFragment() {
@@ -51,7 +50,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        position = getArguments().getInt(AppState.KEY_POSITION);
+        position = getArguments().getShort(AppState.KEY_POSITION);
         modArray = getResources().getStringArray(R.array.action_bar_modules);
     }
 
@@ -72,9 +71,8 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
 
 
         if (position != 0) {
+            ActivityMain.setCurPosition( position);
             ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-            NavDrawerFragment.getListView().setItemChecked(position, true);
-            ActivityMain.setCurPosition((short) position);
         }
 
         return view;
@@ -206,8 +204,6 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
 
         fileName = selection.replaceAll(" ", "") + "_" + year;
 
-        //For some reason I have to call this twice in order for it to take effect
-        //		this.showPage();
         this.showPage();
     }
 
