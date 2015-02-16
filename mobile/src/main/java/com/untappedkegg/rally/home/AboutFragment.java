@@ -38,6 +38,7 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
         // Required empty public constructor
     }
 
+    /*----- LIFECYCLE METHODS -----*/
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -47,8 +48,6 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about_fragment, null, false);
-
-
 
         versionView = (TextView) view.findViewById(R.id.about_version);
         twitter = (ImageButton) view.findViewById(R.id.about_twitter_btn);
@@ -80,6 +79,13 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
         versionView.setText(getString(R.string.about_version, BuildConfig.VERSION_NAME));
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().invalidateOptionsMenu();
+    }
+
+    /*----- INHERITED METHODS -----*/
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -132,4 +138,5 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
                 break;
         }
     }
+
 }

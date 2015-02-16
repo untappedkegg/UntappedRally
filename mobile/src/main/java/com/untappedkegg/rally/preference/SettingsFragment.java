@@ -2,7 +2,6 @@ package com.untappedkegg.rally.preference;
 
 
 import android.app.AlarmManager;
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +21,7 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.home.ActivityMain;
 
 /**
- * A simple {@link Fragment} subclass.
+ * An {@link android.support.v4.app.Fragment} compatible implementation of {@link android.preference.PreferenceFragment}
  */
 public class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener, View.OnClickListener {
 
@@ -53,7 +52,6 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     public void onStart() {
         super.onStart();
         AppState.getSettings().registerOnSharedPreferenceChangeListener(this);
-
     }
 
     @Override
@@ -92,24 +90,23 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().invalidateOptionsMenu();
+    }
+
+    /*----- INHERITED METHODS -----*/
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
         if (key.equals("setting_notifications")) {
             AppState.setNextNotification();
-        } else if (key.equals("pref_news_cutoff")) {
+        } else if (key.equals("pref_news_cutoff") || key.equals("event_feeds")) {
             AppState.NEWS_REFRESH = true;
         }
 
         updatePreference(findPreference(key));
     }
-
-    private void updatePreference(Preference preference) {
-        if (preference instanceof ListPreference) {
-            ListPreference listPreference = (ListPreference) preference;
-            listPreference.setSummary(listPreference.getEntry());
-        }
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -120,5 +117,20 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         alarm.set(AlarmManager.RTC, 0, pendingIntent);
         AppState.setNextNotification();
     }
+
+    /*----- CUSTOM METHODS -----*/
+
+    /**
+     * Updated the UI to reflect changes in the Shared Preferences
+     *
+     * @param preference the preference that was changed
+     */
+    private void updatePreference(Preference preference) {
+        if (preference instanceof ListPreference) {
+            ListPreference listPreference = (ListPreference) preference;
+            listPreference.setSummary(listPreference.getEntry());
+        }
+    }
+
 
 }
