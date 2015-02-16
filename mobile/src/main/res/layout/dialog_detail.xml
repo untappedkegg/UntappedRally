@@ -16,7 +16,6 @@
 		android:layout_height="wrap_content"
 		android:textColor="@color/section_text"
 		android:textSize="20sp"
-
 		android:layout_margin="5dp" />
 	</LinearLayout>
 
@@ -46,8 +45,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@id/news_details_linear"
-		android:layout_alignParentLeft="true"
 		android:layout_margin="5dp"
+        android:textSize="15sp"
 		android:textColor="@color/text_color"
 		android:visibility="visible" />
 

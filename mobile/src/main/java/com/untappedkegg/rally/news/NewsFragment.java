@@ -1,6 +1,7 @@
 package com.untappedkegg.rally.news;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,27 +22,16 @@ import com.untappedkegg.rally.ui.BaseDialogFragment;
 import com.untappedkegg.rally.ui.SectionList;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
+import com.untappedkegg.rally.util.DialogManager;
 
 /**
  * SectionList Fragment to display the news stories
  *
  * @author UntappedKegg
  */
-public final class NewsFragment extends SectionList implements NewDataFetcher.Callbacks, Refreshable {
+public final class NewsFragment extends SectionList implements NewDataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
     //	private Callbacks callbacks;
     private boolean isHomeFragment;
-
-    /**
-     *
-     */
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            isHomeFragment = savedInstanceState.getBoolean("isHomeFragment");
-        }
-
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -51,6 +42,21 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
         } catch (NullPointerException e) {
             isHomeFragment = false;
         }
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            isHomeFragment = savedInstanceState.getBoolean("isHomeFragment");
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        getListView().setOnItemLongClickListener(this);
     }
 
     @Override
@@ -146,9 +152,9 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
             } else {
                 CommonIntents.openUrl(getActivity(), link);
             }
-            if (!((TextView) v.findViewById(R.id.read_status)).getText().toString().equals(getActivity().getResources().getString(R.string.news_read))) {
+            if (!((TextView) v.findViewById(R.id.read_status)).getText().toString().equals(getString(R.string.news_read))) {
                 DbNews.open();
-                DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.list_id)).getText().toString());
+                DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.list_id)).getText().toString(), true);
                 DbNews.close();
                 loadList();
             }
@@ -158,6 +164,24 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     @Override
     protected String getCustomEmptyText() {
         return this.getString(R.string.news_no_new);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        if (((TextView) view.findViewById(R.id.read_status)).getText().toString().equals(getString(R.string.news_read))) {
+            final String dbId = ((TextView) view.findViewById(R.id.list_id)).getText().toString();
+            // Ask the User if they want to mark this item unread
+            DialogManager.raiseTwoButtonDialog(getActivity(), getString(R.string.news_mark_unread), null, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    DbNews.updateReadStatusById(dbId, false);
+                    loadList();
+                }
+            }, null);
+            return true;
+        }
+        return false;
     }
 
     /*----- NESTED CLASSES -----*/

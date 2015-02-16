@@ -36,25 +36,15 @@ public final class NewsViewBinder implements ViewBinder {
             case R.id.list_icon:
 
                 final ImageView imageView = (ImageView) view;
-                if (uri.equals(AppState.SOURCE_IRALLY)) {
-                    imageView.setImageResource(R.drawable.irally_logo);
-                    view.setVisibility(View.VISIBLE);
-                    return true;
-                } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
-                    imageView.setImageResource(R.drawable.src_ra);
-                    view.setVisibility(View.VISIBLE);
-                    return true;
-                } else {
                     imageView.setAdjustViewBounds(true);
 
                     if (uri.contains("100aw")) {
                         uri = "ra" + uri;
                     }
 
-                    ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri + "_large", imageView);
+                    ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri.toLowerCase() + "_large", imageView);
                     imageView.setVisibility(View.VISIBLE);
                     return true;
-                }
 
             case R.id.list_date:
                 TextView tv = (TextView) view;

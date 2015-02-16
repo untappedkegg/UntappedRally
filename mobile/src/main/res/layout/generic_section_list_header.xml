@@ -3,10 +3,7 @@
           android:id="@+id/generic_section_list_header_textview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/section_header"
-    android:textColor="@color/section_text"
     android:padding="5dp"
     android:gravity="center_horizontal"
-    android:tag="header"
-    android:textSize="18sp"
-    android:textStyle="bold" />
+    style="@style/title_text"
+    android:tag="header" />

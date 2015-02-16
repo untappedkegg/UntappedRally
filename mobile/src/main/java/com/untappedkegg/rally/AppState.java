@@ -260,18 +260,12 @@ public class AppState extends Application {
 
     }
 
-    /* (non-Javadoc)
-     * @see android.app.Application#onLowMemory()
-     */
     @Override
     public void onLowMemory() {
         ImageLoader.getInstance().clearMemoryCache();
         super.onLowMemory();
     }
 
-    /* (non-Javadoc)
-     * @see android.app.Application#onTrimMemory(int)
-     */
     @Override
     public void onTrimMemory(int level) {
         if (level == ComponentCallbacks2.TRIM_MEMORY_BACKGROUND) {

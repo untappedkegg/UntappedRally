@@ -110,7 +110,7 @@ public final class NewsCarousel extends BaseCarousel implements NewDataFetcher.C
             CommonIntents.openUrl(getActivity(), link);
         }
         DbNews.open();
-        DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.carousel_page_id)).getText().toString());
+        DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.carousel_page_id)).getText().toString(), true);
         DbNews.close();
 
 

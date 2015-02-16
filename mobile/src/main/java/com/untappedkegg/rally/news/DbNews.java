@@ -33,7 +33,8 @@ public final class DbNews extends BaseDbAccessor {
     public static final String STATUS = "status";
 
     // CREATE STATEMENTS
-    private static final String NEWS_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s varchar(6) DEFAULT 'Unread')", DbNews.NEWS_TABLE, DbNews.ID, DbNews.TITLE, DbNews.LINK, DbNews.DESCR, DbNews.PUBDATE, DbNews.SHORTDATE, DbNews.SOURCE, DbNews.IMAGE_LINK, DbNews.STATUS);
+    private static final String NEWS_CREATE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s varchar(6) DEFAULT 'Unread')",
+                                                        DbNews.NEWS_TABLE, DbNews.ID, DbNews.TITLE, DbNews.LINK, DbNews.DESCR, DbNews.PUBDATE, DbNews.SHORTDATE, DbNews.SOURCE, DbNews.IMAGE_LINK, DbNews.STATUS);
 
     public static void create(final SQLiteDatabase db) {
         Log.d(LOG_TAG, "Creating table: " + DbNews.NEWS_TABLE);
@@ -91,9 +92,9 @@ public final class DbNews extends BaseDbAccessor {
         return dbAdapter.select(String.format("SELECT * FROM %s WHERE %s IN (%s) ORDER BY %s DESC", NEWS_TABLE, SOURCE, whereIn, PUBDATE));
     }
 
-    public static void updateReadStatusById(final String id) {
+    public static void updateReadStatusById(final String id, final boolean read) {
         ContentValues values = new ContentValues();
-        values.put(STATUS, AppState.getApplication().getResources().getString(R.string.news_read));
+        values.put(STATUS, read ? AppState.getApplication().getResources().getString(R.string.news_read) : AppState.getApplication().getResources().getString(R.string.news_unread));
 
         final String where = String.format("%s = '%s'", ID, id);
 
@@ -105,7 +106,14 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchCarouselCurrentEvents() {
-        return dbAdapter.selectf("SELECT * FROM %s WHERE %s != '' ORDER BY %s DESC LIMIT 5", NEWS_TABLE, IMAGE_LINK, PUBDATE);
+        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
+        if (feeds != null) {
+            for (String feed : feeds) {
+                whereIn += ", '" + feed + "'";
+            }
+        }
+        return dbAdapter.selectf("SELECT * FROM %s WHERE %s != '' AND %s in (%s) ORDER BY %s DESC LIMIT 5", NEWS_TABLE, IMAGE_LINK, SOURCE, whereIn, PUBDATE);
     }
 
     public static Cursor fetchItemById(final String id) {
