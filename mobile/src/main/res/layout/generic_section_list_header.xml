@@ -5,5 +5,5 @@
     android:layout_height="wrap_content"
     android:padding="5dp"
     android:gravity="center_horizontal"
-    style="@style/title_text"
+    style="@style/TitleStrip"
     android:tag="header" />

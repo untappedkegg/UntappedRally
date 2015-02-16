@@ -18,8 +18,7 @@
             android:maxWidth="75dp"
      	  	android:scaleType="fitCenter"
      	  	android:layout_gravity="center"
-     	  	android:contentDescription="@string/icon"
-      	 	android:visibility="gone" />
+     	  	android:contentDescription="@string/icon" />
    	 	<TextView android:id="@+id/list_title"
     	    android:layout_width="0dp"
     	    android:layout_height="wrap_content"
