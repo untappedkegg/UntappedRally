@@ -27,7 +27,6 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
     private NavDrawerItemSelected callbacks;
     private short position;
     private String[] modArray;
-    private static final Fragment nextEventFrag = new NextEventFragment();
 
     /* ----- LIFECYCLE METHODS ----- */
     @Override
@@ -61,7 +60,7 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
         super.onActivityCreated(savedInstanceState);
 
         final FragmentTransaction transaction = getChildFragmentManager().beginTransaction() ;
-            transaction.replace(R.id.home_middle, nextEventFrag, NextEventFragment.class.getCanonicalName());
+            transaction.replace(R.id.home_middle, new NextEventFragment(), NextEventFragment.class.getCanonicalName());
             transaction.replace(R.id.home_bottom, new NewsCarousel(), NewsCarousel.class.getCanonicalName());
             transaction.commit();
 

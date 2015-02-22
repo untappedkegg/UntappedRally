@@ -81,7 +81,6 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_next_event, container, false);
         counter = (TextView) view.findViewById(R.id.next_event_count_down);
-//        counter.setVisibility(View.GONE);
         name = (TextView) view.findViewById(R.id.next_event_name);
         picture = (ImageView) view.findViewById(R.id.next_event_img);
         background = (ImageView) view.findViewById(R.id.next_event_background);
