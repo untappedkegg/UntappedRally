@@ -1,10 +1,6 @@
 package com.untappedkegg.rally.preference;
 
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -19,6 +15,7 @@ import android.widget.Button;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.home.ActivityMain;
+import com.untappedkegg.rally.notification.EventLiveNotification;
 
 /**
  * An {@link android.support.v4.app.Fragment} compatible implementation of {@link android.preference.PreferenceFragment}
@@ -110,11 +107,12 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
     @Override
     public void onClick(View v) {
-        final AlarmManager alarm = (AlarmManager) AppState.getApplication().getSystemService(Context.ALARM_SERVICE);
+//        final AlarmManager alarm = (AlarmManager) AppState.getApplication().getSystemService(Context.ALARM_SERVICE);
 
         //The intent is declared in the manifest, if changed here it must also be changed there
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(AppState.getApplication(), 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
-        alarm.set(AlarmManager.RTC, 0, pendingIntent);
+        EventLiveNotification.notify(AppState.getApplication(), true);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(AppState.getApplication(), 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
+//        alarm.set(AlarmManager.RTC, 0, pendingIntent);
         AppState.setNextNotification();
     }
 

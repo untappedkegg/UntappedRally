@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -21,6 +22,7 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
 import com.untappedkegg.rally.schedule.DbSchedule;
+import com.untappedkegg.rally.util.DateManager;
 
 import java.util.Locale;
 
@@ -48,7 +50,8 @@ public class EventLiveNotification {
      *
      * @see #cancel(Context)
      */
-    public static void notify(final Context context, final int number) {
+    public static void notify(final Context context, final boolean override) {
+
         final Resources res = context.getResources();
 
         //Get Data
@@ -59,6 +62,20 @@ public class EventLiveNotification {
             BaseDbAccessor.close();
             return;
         }
+
+        // Determine whether to actually display the notification or not
+        if(!override && AppState.getSettings().getString("last_notification_date", "0").equals(DateManager.now(DateManager.ISO8601_DATEONLY))) {
+            // normal notification
+            // has been shown
+            Log.e("Notification", "exiting");
+            c.close();
+            return;
+        } else {
+            AppState.getSettings().edit().putString("last_notification_date", c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE))).apply();
+        }
+
+
+
         final String eventName = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));
 
         final int eventId = c.getInt(c.getColumnIndex(DbSchedule.SCHED_ID));
@@ -101,14 +118,14 @@ public class EventLiveNotification {
 
                         // Provide a large icon, shown with the notification in the
                         // notification drawer on devices running Android 3.0 or later.
-                .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(),R.drawable.ic_launcher) : picture)
+                .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(), R.drawable.ic_launcher) : picture)
 
                         // Set ticker text (preview) information for this notification.
                 .setTicker(title)
 
                         // Show a number. This is useful when stacking notifications of
                         // a single type.
-                .setNumber(number)
+//                .setNumber(number)
 
                         // If this notification relates to a past or upcoming event, you
                         // should set the relevant time information using the setWhen
@@ -158,7 +175,7 @@ public class EventLiveNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, int)}.
+     * {@link #notify(Context, boolean)}.
      */
     public static void cancel(final Context context) {
         final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

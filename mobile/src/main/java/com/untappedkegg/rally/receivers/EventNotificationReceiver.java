@@ -15,7 +15,7 @@ public class EventNotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         if (AppState.getSettings().getBoolean("setting_notifications", true))
-        EventLiveNotification.notify(AppState.getApplication(), 0);
+        EventLiveNotification.notify(AppState.getApplication(), false);
         // an Intent broadcast.
         // throw new UnsupportedOperationException("Not yet implemented");
     }

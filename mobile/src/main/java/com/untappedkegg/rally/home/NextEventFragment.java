@@ -7,7 +7,6 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
@@ -81,7 +81,7 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_next_event, container, false);
         counter = (TextView) view.findViewById(R.id.next_event_count_down);
-        counter.setVisibility(View.GONE);
+//        counter.setVisibility(View.GONE);
         name = (TextView) view.findViewById(R.id.next_event_name);
         picture = (ImageView) view.findViewById(R.id.next_event_img);
         background = (ImageView) view.findViewById(R.id.next_event_background);
@@ -91,9 +91,12 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        super.onResume();
 
+        // By doing this in onResume() we can update the UI
+        // when the user returns, this is especially important
+        // if there was a change in events since we were paused
         if (dataFetched) {
             finishRequery();
         } else if (fetchOnCreate) {
@@ -103,7 +106,6 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
         } else {
             finishRequery();
         }
-
     }
 
     private void fetchData() {
@@ -203,10 +205,14 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
                 picture.setVisibility(View.GONE);
                 if (AppState.isNullOrEmpty(counter.getText().toString())) {
                     counter.setVisibility(View.GONE);
+                    if (BuildConfig.DEBUG)
+                        e.printStackTrace();
                 }
 
                 e.printStackTrace();
             } catch (CursorIndexOutOfBoundsException e) {
+                if (BuildConfig.DEBUG)
+                    e.printStackTrace();
 
 
             } finally {

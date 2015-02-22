@@ -182,8 +182,9 @@ public final class DbSchedule extends BaseDbAccessor {
         } else {
             cursor = dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s ORDER BY %s DESC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
-        cursor.moveToFirst();
+
         try {
+            cursor.moveToFirst();
             return cursor.getString(cursor.getColumnIndexOrThrow(SCHED_START_DATE));
         } catch (Exception e) {
             if (BuildConfig.DEBUG)

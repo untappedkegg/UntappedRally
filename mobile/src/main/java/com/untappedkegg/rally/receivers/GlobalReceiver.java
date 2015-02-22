@@ -21,7 +21,7 @@ public class GlobalReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(getClass().getSimpleName(), "Handling broadcast intent: " + intent.getAction());
         BaseDbAccessor.open();
-        if (DbSchedule.fetch() != null) {
+        if (DbSchedule.isDataPresent()) {
             AppState.setNextNotification();
         }
         BaseDbAccessor.close();
