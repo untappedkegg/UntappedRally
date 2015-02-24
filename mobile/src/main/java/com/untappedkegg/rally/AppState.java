@@ -17,6 +17,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DbAdapter;
 import com.untappedkegg.rally.schedule.DbSchedule;
@@ -27,6 +29,8 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
 
+import io.fabric.sdk.android.Fabric;
+
 
 /**
  *
@@ -36,6 +40,10 @@ import java.util.Locale;
  *
  */
 public class AppState extends Application {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
+    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -236,6 +244,8 @@ public class AppState extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         // Initialize the default preferences. The third parameter indicates whether this should be done more than once
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 //        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);

@@ -76,6 +76,9 @@
             </intent-filter>
         </receiver>
 
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="362fcc11fa857aa77ea8d19eb321aee01fd57ed6" />
     </application>
 
 </manifest>
