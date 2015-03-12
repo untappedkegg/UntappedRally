@@ -2,13 +2,32 @@
 <resources>
 
     <string name="app_name">Untapped Rally</string>
-    <!-- WIDGETS -->
-    <string name="widget_next_event">Rally - Next Event</string>
+
+    <!-- _-_- GENERIC -_-_ -->
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="icon">icon</string>
+    <string name="go">Go</string>
+
+    <string name="just_a_moment">Just a Moment…</string>
+
+        <!-- Actions -->
+    <string name="action_refresh">Refresh</string>
+    <string name="action_share">Share</string>
+    <string name="action_website">Website</string>
+    <string name="action_add_to_cal">Add To Calendar</string>
+    <string name="event_website">Event Website</string>
 
 
+        <!-- Error -->
     <string name="no_apps_available">No apps support this action</string>
+    <string name="oops">Oops!</string>
+    <string name="no_network_connection_msg">You don\'t seem to have an Internet connection at the moment. We\'ll go ahead and load old data, if it exists</string>
+    <string name="generic_empty_list_text">No Data Found. \nPlease try again later.</string>
+    <string name="invalid_url">Oops, that does not seem to be a valid link</string>
+    <string name="no_calendar">No calendar found.</string>
+    <string name="calendar_error">This event cannot be added to the calendar</string>
 
     <!-- This array is used to populate the Nav Drawer-->
     <string-array name="nav_bar_modules">
@@ -34,55 +53,40 @@
         <item>About</item>
     </string-array>
 
-    <string name="oops">Oops!</string>
-    <string name="no_network_connection_msg">You don\'t seem to have an Internet connection at the moment. We\'ll go ahead and load old data, if it exists</string>
-    <string name="generic_empty_list_text">No Data Found. \nPlease try again later.</string>
-    <string name="invalid_url">Oops, that does not seem to be a valid link</string>
-
-    <!-- FeedBack -->
-    <string name="feedback">Send Feedback</string>
-    <string name="fb_preamble">App Version: %1$s \nAndroid SDK: %2$s \nAndroid Version: %3$s \nDevice: %4$s: %5$s  \nPlease leave the above lines for debugging purposes. Thank you!\n\n</string>
-
-    <!-- Settings -->
-    <string name="settings">Settings</string>
-    <string name="menu">Menu</string>
-    <string name="menu_refresh">Refresh</string>
-    <string name="menu_search">Search</string>
-    <string name="menu_share">Share</string>
-    <string name="latest_news">Latest News</string>
-    <string name="upcoming_events">Upcoming Events</string>
-    <string name="next_event">Next Rally</string>
-    <string name="no_calendar">No calendar found.</string>
-    <string name="calendar_error">This event cannot be added to the calendar</string>
-    <string name="add_to_cal">Add To Calendar</string>
-    <string name="website">Website</string>
-    <string name="event_website">Event Website</string>
-    <string name="icon">icon</string>
-    <string name="action_websearch">Web search</string>
-    <string name="app_not_available">Sorry, there\'s no web browser available</string>
-
     <!-- Selector Strings -->
     <string name="selector_next">Next</string>
     <string name="selector_prev">Previous</string>
-    <string name="go">Go</string>
-    <string name="just_a_moment">Just a Moment…</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
-    <string name="event_live_notification_title_template">Live: %1$s</string>
-    <string name="event_live_notification_send_text">%1$s is now live!</string>
-    <string name="event_live_notification_share_chooser_text">Share this event</string>
-    <string name="action_share">Share</string>
-    <string name="action_website">Website</string>
 
-    <!-- Strings for possible PreferenceActivity Back/Next buttons -->
-    <string name="back_button_label">Back</string>
-    <string name="next_button_label">Next</string>
 
-    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-    <string name="skip_button_label">Skip</string>
+    <!-- _-_-_- HOME -_-_-_ -->
+    <string name="latest_news">Latest News</string>
+    <string name="next_event">Next Rally</string>
 
-    <!-- ABOUT -->
-    <string name="about_main">This app is developed and published by UntappedKegg.\n</string>
+
+    <!-- _-_-_- STANDINGS -_-_-_ -->
+    <string-array name="championships_array">
+        <item>Driver - Overall</item>
+        <item>Driver - Super Production</item>
+        <item>Driver - 2-Wheel Drive</item>
+        <item>Driver - B-Spec</item>
+        <item>Co-Driver - Overall</item>
+        <item>Co-Driver - Super Production</item>
+        <item>Co-Driver - 2-Wheel Drive</item>
+        <item>Co-Driver - B-Spec</item>
+    </string-array>
+
+    <!-- _-_-_- NEWS -_-_-_ -->
+    <string name="news_read">Read</string>
+    <string name="news_unread">Unread</string>
+    <string name="news_mark_unread">Mark Unread?</string>
+
+    <string name="news_no_new">Nothing to see here.\nThere doesn\'t appear to be any recent news items\n\nPerhaps try adjusting the number of days to keep news items under Settings</string>
+
+
+    <!-- _-_-_- ABOUT -_-_-_ -->
+    <string name="about_main">This app is developed and published by UntappedKegg.\n\nI am a software developer, rally fan, and current computer science student.
+        I develop and maintain this app in my free time, for my personal use and in the hopes that others may find it useful as well. If you have any comments or
+        suggestions, please feel free to drop me a line using the \'Send Feedback\' option in the 3-dot menu above\n</string>
     <string name="about_disclaimer"><u><b>Disclaimer</b></u>:
         \nThis app is <u><b>not</b></u> affiliated with, maintained, authorized, endorsed, or sponsored by Rally America, Inc. in any way either expressed or implied.</string>
 
@@ -93,9 +97,77 @@
     <string name="changelog">Change Log</string>
     <string name="about_follow">Follow Me</string>
 
-    <string name="twitter_handle">\@UntappedKegg</string>
+        <!-- FeedBack -->
+    <string name="feedback">Send Feedback</string>
+    <string name="fb_preamble">App Version: %1$s \nAndroid SDK: %2$s \nAndroid Version: %3$s \nDevice: %4$s: %5$s  \nPlease leave the above lines for debugging purposes. Thank you!\n\n</string>
 
-    <!-- PREFERENCES -->
+    <!-- _-_-_- EVENTS -_-_-_ -->
+    <string name="events_round">Round: </string>
+    <string name="events_series">Series: </string>
+    <string name="events_flag">Icon</string>
+    <string name="events_start">Start Date:</string>
+    <string name="events_end">End Date:</string>
+    <string name="events_location">Location:</string>
+    <string name="events_stages">Stages</string>
+    <string name="events_photos">Photos</string>
+    <string name="events_results">Results</string>
+
+    <string name="empty_photos">Oops, there doesn\'t appear to be any photos right now.</string>
+
+        <!-- stages_row -->
+    <string name="event_stages_atc">First Car:</string>
+
+        <!-- Schedule -->
+    <string name="upcoming">Upcoming</string>
+    <string name="live">LIVE!</string>
+    <string name="now_live">NOW LIVE!</string>
+    <string name="complete">Complete</string>
+    <string name="cancelled">CANCELLED</string>
+
+    <string name="stages_unavailable">This event does not currently have any stage information.\n\nPlease check back closer to the event.</string>
+    <string name="stages_contacting">Retrieving Stage Information\nJust a Moment&#8230;</string>
+
+    <string name="stage_results_format">&lt;!DOCTYPE html&gt;\n&lt;html lang="en"&gt;\n&lt;head&gt;\n&lt;meta name="viewport" content="initial-scale=1.0"&gt;\n&lt;meta charset="utf-8"&gt;\n&lt;/head&gt;\n&lt;body text="#ffffff" text-align:center;"&gt;&lt;h3&gt;%s&lt;/h3&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string name="stage_results_loading">&lt;h3&gt;Fetching Results.&lt;/h3&gt;\n\nJust a Moment...</string>
+    <string name="stage_results_error">No Results Found</string>
+    <string name="stage_results_select">Select a stage to view results</string>
+
+        <!-- STAGE TIMES/RESULTS -->
+    <string name="stages_times">Times</string>
+    <string name="stages_results">Results</string>
+
+    <!-- _-_-_- PREFERENCES -_-_-_ -->
+
+    <string name="settings">Settings</string>
+        <!-- Headers -->
+    <string name="pref_header_schedule">Schedule</string>
+    <string name="pref_header_news">News</string>
+    <string name="pref_header_notifications">Notifications</string>
+
+        <!-- Schedule -->
+    <string name="settings_show_regional_events">Show Regional Events</string>
+    <string name="settings_use_experimental_sched">Use Expandable Schedule</string>
+
+        <!-- News -->
+    <string name="pref_news_title">Days to Keep News Items</string>
+    <string name="pref_news_dialog_title">Keep For</string>
+    <string-array name="pref_news_entries">
+        <item>15 days</item>
+        <item>30 days</item>
+        <item>45 days</item>
+        <item>60 days</item>
+        <item>90 days</item>
+    </string-array>
+
+    <string name="pref_news_default">30</string>
+    <string-array name="pref_news_values">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>90</item>
+    </string-array>
+
     <string name="pref_event_news">Event Specific News</string>
     <string name="pref_event_news_summary">Select the events you would like to see news for</string>
     <string name="pref_event_feed_dialog">Select Events</string>
@@ -121,12 +193,25 @@
         <item>stpr</item>
     </string-array>
 
-    <!--"oregon";
-    public static final String SOURCE_STPR = "stpr";
-    public static final String SOURCE_MTWA = "mtwa";
-    public static final String SOURCE_NEFT = "neft";
-    public static final String SOURCE_OFPR = "ofpr";
-    public static final String SOURCE_LSPR = "lspr";
-    public static final String SOURCE_SHOME = "smr";-->
+        <!-- Notifications -->
+    <string name="settings_show_notifications">Event Notifications</string>
+    <string name="pref_title_sound">Play Sound</string>
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="settings_notify_button">Test Notification</string>
+
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_default_ringtone">System Default</string>
+
+
+    <!-- _-_-_- WIDGETS -_-_-_ -->
+    <string name="widget_next_event">Rally - Next Event</string>
+
+    <string name="event_live_notification_title_template">Live: %1$s</string>
+    <string name="event_live_notification_send_text">%1$s is now live!</string>
+    <string name="event_live_notification_share_chooser_text">Share this event</string>
+
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

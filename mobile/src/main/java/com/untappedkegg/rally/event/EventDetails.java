@@ -252,7 +252,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                     if (!AppState.isNullOrEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE)))) {
                         newRow = inflater.inflate(R.layout.event_details_row, null);
 
-                        ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.website);
+                        ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.action_website);
                         newRow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

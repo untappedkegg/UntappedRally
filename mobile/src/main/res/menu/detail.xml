@@ -6,6 +6,6 @@
         android:orderInCategory="1"
         android:icon="@drawable/ic_action_event"
         app:showAsAction="ifRoom"
-        android:title="@string/add_to_cal"/>
+        android:title="@string/action_add_to_cal"/>
 
 </menu>

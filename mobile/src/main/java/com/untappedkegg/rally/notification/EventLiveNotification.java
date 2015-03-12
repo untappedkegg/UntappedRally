@@ -154,7 +154,7 @@ public class EventLiveNotification {
                         // content intent provides access to the same actions in
                         // another way.
                 .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US, "%s's %s", eventName, res.getString(R.string.website))), PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US, "%s's %s", eventName, res.getString(R.string.action_website))), PendingIntent.FLAG_UPDATE_CURRENT))
 
                         // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
