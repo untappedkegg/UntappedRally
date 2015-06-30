@@ -35,7 +35,7 @@
         <item>Events</item>
         <item>News</item>
         <item>Results</item>
-        <item>Videos</item>
+        <item>Tweets</item>
         <item>Spectating</item>
         <item>Worker Info</item>
     </string-array>
@@ -46,7 +46,7 @@
         <item>Events</item>
         <item>News</item>
         <item>Results</item>
-        <item>Videos</item>
+        <item>Tweets</item>
         <item>Spectating</item>
         <item>Worker Info</item>
         <item>Settings</item>
@@ -79,6 +79,7 @@
     <string name="news_read">Read</string>
     <string name="news_unread">Unread</string>
     <string name="news_mark_unread">Mark Unread?</string>
+    <string name="pub_date">Published: </string>
 
     <string name="news_no_new">Nothing to see here.\nThere doesn\'t appear to be any recent news items\n\nPerhaps try adjusting the number of days to keep news items under Settings</string>
 
@@ -213,5 +214,9 @@
 
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+
+
+    <string name="no_tweets">No Tweets</string>
+    <string name="loading_tweets">Loading Tweets...</string>
 
 </resources>

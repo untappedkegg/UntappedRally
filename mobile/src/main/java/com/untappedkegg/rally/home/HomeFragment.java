@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,7 +46,7 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
     public void onResume() {
         super.onResume();
         ActivityMain.setCurPosition( position);
-        ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
     }
 
     @Override

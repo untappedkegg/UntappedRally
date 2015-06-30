@@ -60,9 +60,9 @@ public class CheckboxListDialog extends DialogFragment {
 
     /* ----- NESTED INTERFACES ----- */
     public interface CheckboxListDialogCallbacks {
-        public void doPositiveClick(boolean[] checkedItems, String[] list);
+        void doPositiveClick(boolean[] checkedItems, String[] list);
 
-        public void doNegativeClick();
+        void doNegativeClick();
     }
 
     /* ----- NESTED CLASSES ----- */

@@ -54,6 +54,6 @@ public class GlobalReceiver extends BroadcastReceiver {
      * @author alexg
      */
     public interface IBroadcastReceiver {
-        public void onReceive(Context context, Intent intent);
+        void onReceive(Context context, Intent intent);
     }
 }

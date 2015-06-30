@@ -249,9 +249,9 @@ public final class CommonIntents {
         final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s (%s)\nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL, Build.DEVICE);
 
         // Google+
-        ArrayList<Person> recipients = new ArrayList<Person>();
+        List<Person> recipients = new ArrayList<>();
         recipients.add(PlusShare.createPerson("109961307643513437237", BuildConfig.DEV_NAME));
-        targetedShareIntents.add(new PlusShare.Builder(ctx).setType("text/plain").setRecipients(recipients).getIntent());
+        targetedShareIntents.add(new PlusShare.Builder(ctx).setType("text/plain").setRecipients(PlusShare.createPerson("109961307643513437237", BuildConfig.DEV_NAME), recipients).getIntent());
 
         // Email
         try {

@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -27,7 +27,7 @@ import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.ScheduleStub;
-import com.untappedkegg.rally.social.YouTubeFragment;
+import com.untappedkegg.rally.social.TwitterFragment;
 import com.untappedkegg.rally.util.CommonIntents;
 
 /**
@@ -57,7 +57,7 @@ import com.untappedkegg.rally.util.CommonIntents;
  * An action should be an operation performed on the current contents of the window,
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
-public class ActivityMain extends ActionBarActivity implements ScheduleItemClickReceiver, NavDrawerItemSelected {
+public class ActivityMain extends AppCompatActivity implements ScheduleItemClickReceiver, NavDrawerItemSelected {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
 
@@ -246,7 +246,8 @@ public class ActivityMain extends ActionBarActivity implements ScheduleItemClick
                 fragment = new StandingsFragment();
                 break;
             case 4:
-                fragment = new YouTubeFragment();
+//                fragment = new YouTubeFragment();
+                fragment = new TwitterFragment();
                 break;
             case 5: // Spectating
                 CommonIntents.openUrl(this, "http://www.rally-america.com/safety");

@@ -49,11 +49,6 @@ public abstract class BaseWebView extends BaseFragment {
         websettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
         websettings.setBuiltInZoomControls(true);
         websettings.setDisplayZoomControls(false);
-        //      websettings.setLoadWithOverviewMode(true);
-        //      websettings.setSupportZoom(true);
-        //        websettings.setUseWideViewPort(false);
-        //        mWebView.setInitialScale(100);
-        //        mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
         mWebView.setBackgroundColor(this.getResources().getColor(R.color.ActionBar_alt));
         mWebView.setInitialScale(this.getScale());

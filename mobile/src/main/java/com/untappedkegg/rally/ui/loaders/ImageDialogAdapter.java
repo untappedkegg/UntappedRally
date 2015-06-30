@@ -2,7 +2,6 @@ package com.untappedkegg.rally.ui.loaders;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +34,13 @@ public class ImageDialogAdapter extends PagerAdapter {
         ImageLoader.getInstance().displayImage(imgLinks[position], new ImageViewAware(imageView), null, null, null);
 
         view.setOnClickListener(onClick);
-        ((ViewPager) container).addView(view);
+        container.addView(view);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
@@ -51,6 +50,6 @@ public class ImageDialogAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (View) object;
+        return view == object;
     }
 }

@@ -53,17 +53,12 @@ public class WebViewFragment extends Fragment {
         WebSettings websettings = mWebView.getSettings();
         // causes slow rendering but is necessary for iRally
         websettings.setJavaScriptEnabled(true);
-        //	    		websettings.setLoadWithOverviewMode(true);
         websettings.setUseWideViewPort(true);
-        //	    		websettings.setDefaultZoom(websettings.getDefaultZoom());
         if (isRestarting) {
             websettings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
         } else {
-            //	    		websettings.setRenderPriority(RenderPriority.HIGH);
             isRestarting = true;
         }
-        //	    		websettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        //	            mWebView.setWebViewClient(new WebViewClient());
         mWebView.setWebChromeClient(new WebChromeClient());
 
         mWebView.loadUrl(url);

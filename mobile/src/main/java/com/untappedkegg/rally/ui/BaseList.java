@@ -8,7 +8,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +108,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
 
     /**
      * <p>Creates the fragment layout and gets the required views from it based on what is returned from {@link #getListLayout()}, {@link #getProgressBarId()},
-     * {@link BaseList#getButtonBarId()}, and {@link #getEmptyViewId()}.  Subclass should override those methods to change the values returned, or override this method with
+     * and {@link #getEmptyViewId()}.  Subclass should override those methods to change the values returned, or override this method with
      * a call to get the view returned from the super to get another view from the layout.</p>
      */
     @Override
@@ -167,8 +167,8 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             try {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-            } catch (Exception e) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+            } catch (Exception ignored) {
             }
         }
     }
@@ -287,7 +287,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
 
     /**
      * <p>Default implementation returns {@code R.layout.generic_list}. The subclass can override this method to change this value.
-     * If this value is changed, {@link #getButtonBarId()}, {@link #getProgressBarId()}, {@link #getListViewId()}, {@link #getEmptyViewId()}
+     * If this value is changed, {@link #getProgressBarId()}, {@link #getListViewId()}, {@link #getEmptyViewId()}
      * will also need to be changed.</p>
      *
      * @return the layout used for this list.
@@ -412,7 +412,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * @return the customized message to be displayed while performing the network operation
      */
     protected String getContactingEmptyText() {
-        return getResources().getString(R.string.just_a_moment);
+        return getString(R.string.just_a_moment);
     }
 
     /**
@@ -521,19 +521,6 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     }
 
     /**
-     * <p>Gets the visibility of the {@code progressBar}, if not null.</p>
-     *
-     * @return the visibility of the {@code progressBar} or -1 if it is null
-     */
-    //	private int getProgressBarVisibility() {
-    //		if(progressBar == null) {
-    //			return -1;
-    //		} else {
-    //			return progressBar.getVisibility();
-    //		}
-    //	}
-
-    /**
      * <p>Sets the visibility of {@code progressBar}, if not null.</p>
      *
      * @param visibility {@link View#GONE} or {@link View#VISIBLE}
@@ -547,7 +534,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     /**
      * <p>Checks to see if the {@link #requeryManager} is still running.</p>
      *
-     * @return true if the {@link requeryManager} is not null and is still running, false otherwise
+     * @return true if the {@link #requeryManager} is not null and is still running, false otherwise
      */
     protected boolean requeryManagerIsAlive() {
         return requeryManager != null && requeryManager.isAlive();
@@ -573,7 +560,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      *
      * @return true if the data could still change, false if not.
      */
-    protected abstract boolean shouldRequeryData();
+    protected abstract boolean shouldRequery();
 
 	/* ----- NESTED CLASSES ----- */
 
@@ -612,7 +599,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
                     }
                     hasSwappedCursor = false;
                     doUpdate();
-                } while (shouldRequeryData());
+                } while (shouldRequery());
             } catch (InterruptedException e) {
                 Log.d(LOG_TAG, "RequeryManager interrupted");
             }
@@ -640,7 +627,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
     }
 
     /**
-     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link requeryManager} finishes.</p>
+     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link #requeryManager} finishes.</p>
      */
     private class FinishTask extends TimerTask {
         /* ----- INHERITED METHODS ----- */

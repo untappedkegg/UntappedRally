@@ -42,7 +42,8 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-
+    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
+    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -146,8 +147,6 @@ public class AppState extends Application {
     public static final String FUNC_STAGE_TIMES = "/stages/stage/%d";
     public static final String FUNC_STAGE_RESULTS = "/results/standings/%d";
 
-    //SharedPreferences Fields
-    public static final String PREFERENCES_NAME = "SharedPreferences";
     //Carry over
     public static final float CAROUSEL_SCROLL_DURATION_SECS = (float) .75;
     public static final short CAROUSEL_DELAY_SECS = 5;
@@ -247,7 +246,6 @@ public class AppState extends Application {
         Fabric.with(this, new Twitter(authConfig));
         // Initialize the default preferences. The third parameter indicates whether this should be done more than once
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-//        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
 
         // Create global configuration and initialize ImageLoader with this configuration
         final DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -303,14 +301,16 @@ public class AppState extends Application {
 
         }
         final File[] files = instance.getCacheDir().listFiles();
-        if (files == null && extFiles == null) {
-            return false;
+
+        if (files != null) {
+            for (File file : files) {
+                file.delete();
+            }
         }
-        for (File file : files) {
-            file.delete();
-        }
-        for (File file : extFiles) {
-            file.delete();
+        if (extFiles != null) {
+            for (File file : extFiles) {
+                file.delete();
+            }
         }
         return true;
     }

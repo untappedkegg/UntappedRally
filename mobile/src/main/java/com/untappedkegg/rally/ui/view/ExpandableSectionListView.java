@@ -552,7 +552,7 @@ public class ExpandableSectionListView extends ExpandableListView {
     }
 
     public interface OnScrollFloatingGroupListener {
-        public void onScrollFloatingGroupListener(View floatingGroupView, int scrollY);
+        void onScrollFloatingGroupListener(View floatingGroupView, int scrollY);
     }
 
     /*----- NESTED CLASSES -----*/

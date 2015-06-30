@@ -6,7 +6,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -66,14 +66,14 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
     @Override
     public void onResume() {
         super.onResume();
-        final short position = getArguments().getShort(AppState.KEY_POSITION);
+        final short position = getArguments() == null ? 0 : getArguments().getShort(AppState.KEY_POSITION);
 
 
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
             try {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -244,7 +244,7 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
      * @return the customized message to be displayed while performing the network operation
      */
     protected String getContactingEmptyText() {
-        return getResources().getString(R.string.just_a_moment);
+        return getString(R.string.just_a_moment);
     }
 
     /**

@@ -127,7 +127,6 @@ public class ExpandableSectionListAdapter extends BaseExpandableListAdapter {
     }
 
     public boolean isGroupExpanded(int groupPosition) {
-        final Boolean expanded = mGroupExpandedMap.get(groupPosition);
-        return expanded != null ? expanded : false;
+        return  mGroupExpandedMap.get(groupPosition);
     }
 }

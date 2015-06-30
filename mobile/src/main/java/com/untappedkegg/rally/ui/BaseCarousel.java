@@ -508,7 +508,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     }
 
     /**
-     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link requeryManager} finishes.</p>
+     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link #requeryManager} finishes.</p>
      */
     private class FinishTask extends TimerTask {
         /* ----- INHERITED METHODS ----- */

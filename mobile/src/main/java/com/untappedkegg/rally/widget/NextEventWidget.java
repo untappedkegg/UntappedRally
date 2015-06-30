@@ -37,9 +37,9 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        this.ctx = context;
-        this.widgetManager = appWidgetManager;
-        this.widgetIds = appWidgetIds;
+        ctx = context;
+        widgetManager = appWidgetManager;
+        widgetIds = appWidgetIds;
         // There may be multiple widgets active, so update all of them
         final int N = appWidgetIds.length;
         for (int i = 0; i < N; i++) {

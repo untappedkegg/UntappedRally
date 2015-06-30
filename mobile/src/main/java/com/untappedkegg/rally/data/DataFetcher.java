@@ -110,7 +110,7 @@ public class DataFetcher {
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {
-        public void onDataFetchComplete(Throwable throwable, String parser);
+        void onDataFetchComplete(Throwable throwable, String parser);
     }
 
 	/* ----- NESTED CLASSES ----- */

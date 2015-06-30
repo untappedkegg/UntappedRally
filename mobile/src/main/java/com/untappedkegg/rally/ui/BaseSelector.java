@@ -142,8 +142,6 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
             man.popBackStack(man.getBackStackEntryAt(0).getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
-        //		NavSelector.NavUri navUri = NavSelector.NavUri.parse(dataFragment.getClass().getName(), args, query);
-        //		Log.d(LOG_TAG, String.format("Attaching %s for child fragment with tag %s.", dataFragment.getClass().getSimpleName(), navUri.toString()));
         FragmentTransaction transaction = man.beginTransaction();
         transaction.replace(getContainerId(), dataFragment, dataFragment.getClass().getName());
         //		transaction.addToBackStack(dataFragment.getClass().getName());

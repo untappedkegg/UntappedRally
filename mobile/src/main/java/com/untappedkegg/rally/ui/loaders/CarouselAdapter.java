@@ -3,7 +3,6 @@ package com.untappedkegg.rally.ui.loaders;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,7 +70,7 @@ public class CarouselAdapter extends PagerAdapter {
         } else {
             View v = inflater.inflate(emptyLayout, container, false);
             ((TextView) v.findViewById(R.id.carousel_page_empty)).setText(emptyText);
-            ((ViewPager) container).addView(v);
+            container.addView(v);
             return v;
         }
 
@@ -79,7 +78,7 @@ public class CarouselAdapter extends PagerAdapter {
             view.setOnClickListener(onClickListener);
         }
 
-        ((ViewPager) container).addView(view);
+        container.addView(view);
         return view;
     }
 
@@ -91,7 +90,7 @@ public class CarouselAdapter extends PagerAdapter {
      */
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
@@ -109,7 +108,7 @@ public class CarouselAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (View) object;
+        return view == object;
     }
 
     @Override

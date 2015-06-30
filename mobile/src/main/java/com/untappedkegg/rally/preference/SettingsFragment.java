@@ -8,7 +8,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -74,7 +74,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             try {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
             } catch (Exception e) {
             }
         }

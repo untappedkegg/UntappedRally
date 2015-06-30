@@ -6,7 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,7 +125,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
             ActivityMain.setCurPosition(position);
             final String[] modArray = getResources().getStringArray(R.array.action_bar_modules);
             try {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -198,8 +198,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     /**
      * <p>Adds buttons to the button bar, sets the cursor in the adapter, sets the text in the empty and header views. Subclass should override to perform any other actions
      * on the loader thread.</p>
-     * <p/>
-     * <p>Note that {@link #handleRequery()} is called when finishing.</p>
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {

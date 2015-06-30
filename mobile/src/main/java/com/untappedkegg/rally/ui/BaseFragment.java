@@ -48,10 +48,8 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BaseDbAccessor.open();
-
         dataFetched = (savedInstanceState != null) ? savedInstanceState.getBoolean("dataFetched") : dataFetched;
         fetchOnCreate = (savedInstanceState != null) ? savedInstanceState.getBoolean("fetchOnCreate") : fetchOnCreate;
-
     }
 
     /**

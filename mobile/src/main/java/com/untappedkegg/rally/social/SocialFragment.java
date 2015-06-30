@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 
 import com.untappedkegg.rally.ui.ViewPagerFragment;
 
-public final class Videos extends ViewPagerFragment {
+public final class SocialFragment extends ViewPagerFragment {
 
-    public Videos() {
+    public SocialFragment() {
     }
 
     @Override
@@ -16,16 +16,22 @@ public final class Videos extends ViewPagerFragment {
 
     @Override
     protected Fragment getItems(int position) {
-        return new YouTubeFragment();
+        switch (position) {
+            case 0:
+                return new TwitterFragment();
+            default:
+                return new YouTubeFragment();
+        }
     }
 
     @Override
     protected int getNumPages() {
-        return 1;
+        return 2;
     }
 
     @Override
     protected CharSequence getPageTitles(int position) {
+        if (position == 0) return "Twitter";
         return "YouTube";
     }
 

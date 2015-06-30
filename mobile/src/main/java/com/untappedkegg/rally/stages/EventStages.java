@@ -70,7 +70,7 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     }
 
     @Override
-    protected boolean shouldRequeryData() {
+    protected boolean shouldRequery() {
         return StagesFetcher.getInstance().isRunning();
     }
 
@@ -97,7 +97,7 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
         try {
             loadList();
         } catch (Exception e) { }
-        
+
         DbUpdated.open();
         DbUpdated.updated_insert(AppState.MOD_STAGES + linkPts[5] + linkPts[4]);
         DbUpdated.close();
@@ -109,8 +109,8 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     }
 
     public interface Callbacks {
-        public void selectStageDetail(String link, String stageNo);
-        public void updateStageResults(String stageNo);
+        void selectStageDetail(String link, String stageNo);
+        void updateStageResults(String stageNo);
     }
 
     /* (non-Javadoc)

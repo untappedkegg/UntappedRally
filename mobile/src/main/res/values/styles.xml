@@ -67,5 +67,10 @@
 
     </style>
 
+    <!-- Hack to make TweeList dark-->
+    <style name="tw__TweetLightStyle" parent="tw__TweetDarkStyle">
+        <item name="tw__container_bg_color">@color/ActionBar_alt</item>
+    </style>
+
 
 </resources>

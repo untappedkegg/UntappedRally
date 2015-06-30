@@ -34,7 +34,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     /* ----- VARIABLES ----- */
     private volatile boolean hasSwappedCursor = true;
     protected DetailsAdapter detailsAdapter;
-    //	protected LinearLayout buttonBar;
 
 	/* ----- CONSTRUCTORS ----- */
 
@@ -70,7 +69,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getDetailsLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
-        //		buttonBar = (LinearLayout) view.findViewById(getButtonBarId());
         return view;
     }
 
@@ -136,13 +134,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        //		if(buttonBar != null) {
-        //			removeButtonBar();
-        //			List<Button> buttonList = new ArrayList<Button>();
-        //			createButtons(cursor, buttonList);
-        //			addButtonsToButtonBar(buttonList);
-        //		}
-
         detailsAdapter.swapCursor(cursor);
         detailsAdapter.setEmptyText(getEmptyText());
         hasSwappedCursor = true;
@@ -329,78 +320,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     }
 
     /**
-     * <p>Should not be overridden.  To customize the buttons added to the button bar override {@link #createButtons(Cursor, List)}.</p>
-     *
-     * @param buttonList the list of buttons to be added to the button bar
-     */
-    //	@SuppressLint("NewApi")
-    //	protected void addButtonsToButtonBar(List<Button> buttonList) {
-    //		if(buttonList.size() > 0 && buttonBar.getVisibility() == View.GONE) {
-    //			buttonBar.setVisibility(View.VISIBLE);
-    //			int weightSum = (buttonList.size() >= 2) ? buttonList.size() : 3;
-    //			buttonBar.setWeightSum(weightSum);
-    //		}
-    //
-    //		for(Button button : buttonList) {
-    ////			Logger.iFormat(LOG_TAG, "Loading button %s in button bar.", button.getText().toString());
-    //
-    ////			if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-    ////			    button.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.menubutton));
-    ////			} else {
-    ////			    button.setBackground(getActivity().getResources().getDrawable(R.drawable.menubutton));
-    ////			}
-    //
-    ////			button.setTextAppearance(getActivity(), R.style.GoMizzouButton);
-    //			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
-    //			params.setMargins(10, 5, 10, 5);
-    //			button.setLayoutParams(params);
-    //			button.setGravity(Gravity.CENTER);
-    //			button.setSingleLine(true);
-    //			button.setEllipsize(TextUtils.TruncateAt.END);
-    //			buttonBar.addView(button);
-    //		}
-    //	}
-    //
-    //	/**
-    //	 * <p>Clears all buttons from the button bar.</p>
-    //	 */
-    //	protected void removeButtonBar() {
-    ////		Logger.i(LOG_TAG, "Removing all buttons.");
-    //		LinearLayout buttonBar = (LinearLayout) getActivity().findViewById(getButtonBarId());
-    //
-    //		if(buttonBar.getChildCount() > 0) {
-    //			buttonBar.removeAllViews();
-    //		}
-    //
-    //		if(buttonBar.getVisibility() == View.VISIBLE) {
-    //			buttonBar.setVisibility(View.GONE);
-    //		}
-    //	}
-    //
-    //	/**
-    //	 * <p>Does nothing by default, subclasses should override this method to create the buttons to be placed in the button bar.</p>
-    //	 *
-    //	 * @param cursor the {@code Cursor} populating the details
-    //	 * @param buttonList the {@code List} of buttons to be passed to {@link #addButtonsToButtonBar(List)}
-    //	 */
-    //	protected void createButtons(Cursor cursor, List<Button> buttonList) {
-    //		//	do nothing by default
-    //	}
-
-    /**
-     * <p>Gets the visibility of the {@code progressBar}, if not null.</p>
-     *
-     * @return the visibility of the {@code progressBar} or -1 if it is null
-     */
-    //	private int getProgressBarVisibility() {
-    //		if(progressBar == null) {
-    //			return -1;
-    //		} else {
-    //			return progressBar.getVisibility();
-    //		}
-    //	}
-
-    /**
      * <p>Hooks to subclass to pull a query of a database. Note that this method is only called on a worker thread. Also note that the database is already
      * open for you.</p>
      *
@@ -484,7 +403,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     }
 
     /**
-     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link requeryManager} finishes.</p>
+     * <p>A {@code TimerTask} used to call the UI methods needed to finish up after the {@link #requeryManager} finishes.</p>
      */
     private class FinishTask extends TimerTask {
         /* ----- INHERITED METHODS ----- */

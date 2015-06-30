@@ -19,8 +19,6 @@ public class ImageDialog extends DialogFragment {
     private String[] imgLinks;
     private int index;
     private ViewPager pager;
-    //	private ImageButton prevButton;
-    //	private ImageButton nextButton;
 
     /* ----- CONSTRUCTORS ----- */
     public ImageDialog() {

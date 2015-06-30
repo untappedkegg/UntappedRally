@@ -58,7 +58,7 @@ public final class ScheduleFragment extends SectionList implements DataFetcher.C
     }
 
     @Override
-    protected boolean shouldRequeryData() {
+    protected boolean shouldRequery() {
         return DataFetcher.getInstance().sched_isRunning();
     }
 

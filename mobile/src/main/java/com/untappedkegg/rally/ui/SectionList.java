@@ -23,11 +23,11 @@ public abstract class SectionList extends BaseList {
 
 	/* ----- LIFECYCLE METHODS ----- */
     //This is required to be restart friendly
-    //	@Override
-    //    public void onDestroyView() {
-    //        super.onDestroyView();
-    //        setListAdapter(null);
-    //    }
+    	@Override
+        public void onDestroyView() {
+            super.onDestroyView();
+            setListAdapter(null);
+        }
 
 	/* ----- INHERITED METHODS ----- */
     // BaseList

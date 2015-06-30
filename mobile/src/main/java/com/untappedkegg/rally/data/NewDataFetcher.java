@@ -362,12 +362,12 @@ public class NewDataFetcher {
          *
          * @return true if the fetcher is running, false otherwise
          */
-        public boolean isRunning();
+        boolean isRunning();
 
         /**
          * <p>Implementation should interrupt all running tasks within the fetcher.</p>
          */
-        public void interrupt();
+        void interrupt();
     }
 
     /**
@@ -382,6 +382,6 @@ public class NewDataFetcher {
          * @param throwable the thrown error
          * @param key       the key of the task that was completed
          */
-        public void onDataFetchComplete(Throwable throwable, String key);
+        void onDataFetchComplete(Throwable throwable, String key);
     }
 }

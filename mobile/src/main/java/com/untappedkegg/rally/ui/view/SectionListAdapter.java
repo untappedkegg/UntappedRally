@@ -125,10 +125,7 @@ public abstract class SectionListAdapter extends BaseAdapter implements OnItemCl
 
     @Override
     public boolean isEnabled(final int position) {
-        if (isSection(position)) {
-            return true;
-        }
-        return linkedAdapter.isEnabled(getLinkedPosition(position));
+        return isSection(position) || linkedAdapter.isEnabled(getLinkedPosition(position));
     }
 
     @Override

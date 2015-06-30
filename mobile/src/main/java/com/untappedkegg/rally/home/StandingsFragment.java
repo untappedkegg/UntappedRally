@@ -3,7 +3,7 @@ package com.untappedkegg.rally.home;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +72,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
 
         if (position != 0) {
             ActivityMain.setCurPosition( position);
-            ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
         }
 
         return view;

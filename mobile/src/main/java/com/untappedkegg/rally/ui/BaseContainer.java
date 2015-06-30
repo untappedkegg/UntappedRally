@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -25,9 +25,9 @@ import com.untappedkegg.rally.util.DialogManager;
  *
  * @author russellja
  */
-public abstract class BaseContainer extends ActionBarActivity implements DataFetcher.Callbacks, NewDataFetcher.Callbacks {
+public abstract class BaseContainer extends AppCompatActivity implements DataFetcher.Callbacks, NewDataFetcher.Callbacks {
     /* ----- CONSTANTS ----- */
-    protected final String LOG_TAG = BaseContainer.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(((Object) this).hashCode());
+    protected final String LOG_TAG = BaseContainer.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(this.hashCode());
 
 	/* ----- VARIABLES ----- */
     /**
@@ -177,51 +177,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
 
 	/* ----- CUSTOM METHODS ----- */
     /**
-     * <p>Performs the navigation for the activity.</p>
-     *
-     * <p>Calls NavSelector to determine the target.  Calls selectModule if the target is in another package, calls selectContent if the target is in the same package,
-     * sends browser intent if target is a link, or displays dialog if target is update.</p>
-     *
-     * @param uri identifier to be used by NavSelector to determine the target
-     * @param args any arguments needed to be sent to the target
-     */
-    //	protected void navigate(String uri, String args) {
-    //		NavSelector.NavUri nav = NavSelector.select(uri, args);
-    //
-    //		if(nav != null) {
-    //			if(nav.module.equals(AppState.KEY_UPDATE)) {
-    //				final Context context = this;
-    //				DialogManager.raiseTwoButtonDialog(this, "Update", nav.args,
-    //					new OnClickListener() {
-    //						@Override
-    //						public void onClick(DialogInterface dialog, int which) {
-    //							CommonIntents.openUrl(context, "https://play.google.com/store/apps/details?id=adn.GoMizzou&hl=en");
-    //						}
-    //					}, new OnClickListener() {
-    //						@Override
-    //						public void onClick(DialogInterface dialog, int which) { }
-    //					});
-    //			} else if(nav.module.equals(AppState.KEY_URL)) {
-    //				CommonIntents.openUrl(this, nav.args);
-    //			} else if(NavSelector.isSameModule(this.getClass().getName(), nav.module)) {
-    //				selectContent(nav.uri, nav.args, nav.query);
-    //			} else {
-    //				selectModule(nav.module, nav.uri, nav.args, nav.query);
-    //			}
-    //		}
-    //	}
-
-    /**
-     * <p>Works just like {@link #navigate(String, String)} except {@code args} is {@code null}.</p>
-     *
-     * @param uri identifier to be used by NavSelector to determine the target
-     * @see #navigate(String, String)
-     */
-    //	protected void navigate(String uri) {
-    //		navigate(uri, null);
-    //	}
-
-    /**
      * <p>Calls the activity for another module.</p>
      *
      * @param moduleUri  uniform resource identifier (class defined) for module activity
@@ -335,15 +290,7 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
      */
     public void attachFragment(Fragment fragment, boolean addToBackStack, String tag, int replaceId) {
         if (!stopped) {
-            FragmentManager man = getSupportFragmentManager();
-//            if (!addToBackStack) {
-//                int count = man.getBackStackEntryCount();
-//                if (count > 0) {
-//                    // emulate back button then move forward.
-//                    man.popBackStack(man.getBackStackEntryAt(count - 1).getName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//                    addToBackStack = true;
-//                }
-//            }
+            final FragmentManager man = getSupportFragmentManager();
 
             Log.d(LOG_TAG, String.format("Attaching %s for content fragment with tag %s.", ((Object) fragment).getClass().getSimpleName(), tag));
             FragmentTransaction transaction = man.beginTransaction();
@@ -374,25 +321,6 @@ public abstract class BaseContainer extends ActionBarActivity implements DataFet
     protected String getTitleText() {
         return null;
     }
-
-    /**
-     * <p>Returns the {@code destroyingViaConfigChange} for the BaseContainer associated with a fragment.</p>
-     *
-     * @param fragment the fragment used to determine the BaseContainer
-     * @return a boolean indicating whether the activity is being destroyed via a config change (usually a screen rotation).
-     */
-//    public static boolean isDestroyingViaConfigChange(Fragment fragment) {
-//        return ((BaseContainer) fragment.getActivity()).destroyingViaConfigChange;
-//    }
-
-    /**
-     * <p>Returns the {@code destroyingViaConfigChange}.</p>
-     *
-     * @return a boolean indicating whether the activity is being destroyed via a config change (usually a screen rotation).
-     */
-//    public boolean isDestroyingViaConfigChange() {
-//        return destroyingViaConfigChange;
-//    }
 
     /**
      * <p>Default implementation returns {@code R.layout.master}. The subclass can override this method

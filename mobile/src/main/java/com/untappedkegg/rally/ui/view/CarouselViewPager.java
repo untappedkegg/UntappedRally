@@ -50,15 +50,7 @@ public class CarouselViewPager extends ViewPager {
             mScroller.setAccessible(true);
             CarouselScroller scroller = new CarouselScroller(this.getContext());
             mScroller.set(this, scroller);
-        } catch (NoSuchFieldException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
-        } catch (IllegalArgumentException e) {
-            if (BuildConfig.DEBUG) {
-                e.printStackTrace();
-            }
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             if (BuildConfig.DEBUG) {
                 e.printStackTrace();
             }
@@ -71,6 +63,6 @@ public class CarouselViewPager extends ViewPager {
 
     /* ----- NESTED INTERFACES ----- */
     public interface Callbacks {
-        public boolean onCarouselInterceptTouchEvent();
+        boolean onCarouselInterceptTouchEvent();
     }
 }

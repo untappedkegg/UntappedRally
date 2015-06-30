@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +26,7 @@ import com.untappedkegg.rally.ui.view.BaseWebviewDialog;
 import com.untappedkegg.rally.util.CommonIntents;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass to display things about me and the app.
  *
  */
 public final class AboutFragment extends Fragment implements View.OnClickListener {
@@ -72,8 +72,8 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
         if (position != 0) {
             ActivityMain.setCurPosition(position);
             try {
-                ((ActionBarActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-            } catch (Exception e) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+            } catch (Exception ignored) {
             }
         }
         versionView.setText(getString(R.string.about_version, BuildConfig.VERSION_NAME));
@@ -119,19 +119,14 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
                     // com.twitter.android
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + BuildConfig.DEV_NAME)));
                 } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
                     CommonIntents.openUrl(activity, AppState.SOCIAL_TWITTER);
                 }
                 break;
             case R.id.about_g_plus_btn:
                 try {
                     // com.google.android.apps.plus
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(AppState.SOCIAL_G_PLUS));
-                    intent.setPackage("com.google.android.apps.plus");
-                    startActivity(intent);
+                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(AppState.SOCIAL_G_PLUS)).setPackage("com.google.android.apps.plus"));
                 } catch(ActivityNotFoundException e) {
-                    e.printStackTrace();
                     CommonIntents.openUrl(activity, AppState.SOCIAL_G_PLUS);
                 }
 

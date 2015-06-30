@@ -94,7 +94,7 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     }
 
     @Override
-    protected boolean shouldRequeryData() { return NewsFetcher.getInstance().isRunning(); }
+    protected boolean shouldRequery() { return NewsFetcher.getInstance().isRunning(); }
 
     @Override
     protected ViewBinder getViewBinder() {

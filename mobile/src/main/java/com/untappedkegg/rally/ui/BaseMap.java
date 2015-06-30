@@ -66,7 +66,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
     protected final SparseArray<Marker> reverseMarkerMap = new SparseArray<Marker>();
     protected Thread requeryManager;
 
-    protected ArrayList<LatLng> latLngList = new ArrayList<LatLng>();
+    protected ArrayList<LatLng> latLngList = new ArrayList<>();
 
 	/* ----- CONSTRUCTORS ----- */
 
@@ -498,7 +498,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
      *
      * @return true if the data could still change, false if not.
      */
-    protected abstract boolean shouldRequeryData();
+    protected abstract boolean shouldRequery();
 
     protected abstract String getCursorLatString();
 
@@ -515,7 +515,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
     /**
      * <p>
      * {@code Runnable} that regularly restarts the loader until
-     * {@link BaseMap#shouldRequeryData()} returns false. Note that
+     * {@link BaseMap#shouldRequery()} returns false. Note that
      * {@link BaseMap#finishedLoading()} is called when finishing.
      * </p>
      *
@@ -528,7 +528,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
             // Logger.i(LOG_TAG, "Starting RequeryManager.");
 
             try {
-                while (shouldRequeryData()) {
+                while (shouldRequery()) {
                     while (!hasSwappedCursor) {
                         // Logger.i(LOG_TAG, "RequeryManager waiting.");
                         Thread.sleep(AppState.REQUERY_WAIT);
