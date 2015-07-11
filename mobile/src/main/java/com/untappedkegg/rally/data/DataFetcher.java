@@ -141,8 +141,10 @@ public class DataFetcher {
                     }
 
                 } catch (Exception e) {
-                    Log.d(LOG_TAG, e.toString());
-                    Log.w(LOG_TAG, "Error retrieving from: " + AppState.EGG_CAL_XML);
+                    if (BuildConfig.DEBUG) {
+                        Log.w(LOG_TAG, "Error retrieving from: " + AppState.EGG_CAL_XML);
+                        Log.d(LOG_TAG, e.toString());
+                    }
                     return e;
                 } finally {
                     DbUpdated.close();
@@ -153,7 +155,7 @@ public class DataFetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Generic Parsing finished");
+            Log.d(LOG_TAG, "Schedule Parsing finished");
             callback.onDataFetchComplete(result, uri);
             if ( result == null ) {
                 AppState.setNextNotification();
@@ -222,7 +224,7 @@ public class DataFetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Generic Parsing finished");
+            Log.d(LOG_TAG, "Standings Parsing finished");
             callback.onDataFetchComplete(result, function);
         }
     }

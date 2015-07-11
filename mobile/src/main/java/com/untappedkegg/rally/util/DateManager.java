@@ -91,10 +91,10 @@ public class DateManager {
     public static int timeBetweenInDays(long prevDate) {
 
         long diff = System.currentTimeMillis() - prevDate;
-        diff /= DateUtils.DAY_IN_MILLIS;
+//        diff /= DateUtils.DAY_IN_MILLIS;
         //		int min = diff % 60;
         //		Log.d("DateManager Diff", "Difference in Days = " + diff);
-        return (int) diff;
+        return (int) (diff / DateUtils.DAY_IN_MILLIS);
     }
 
     // NOTE: not internationalized

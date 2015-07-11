@@ -19,6 +19,7 @@ import android.widget.Spinner;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
+import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DataFetcher;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.interfaces.Refreshable;
@@ -47,11 +48,14 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
         fileName = "";
     }
 
+    /*----- LIFECYCLE METHODS -----*/
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         position = getArguments().getShort(AppState.KEY_POSITION);
         modArray = getResources().getStringArray(R.array.action_bar_modules);
+        BaseDbAccessor.open();
     }
 
 
@@ -105,15 +109,21 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        BaseDbAccessor.close();
+    }
+
+    /*----- INHERITED METHODS -----*/
+
+    @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
         if (parser.equalsIgnoreCase(AppState.FUNC_RA_STAND)) {
 
             this.showPage();
 
             if (throwable == null) {
-                DbUpdated.open();
                 DbUpdated.updated_insert(AppState.MOD_STAND + fileName);
-                DbUpdated.close();
             }
         }
 
@@ -127,17 +137,17 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
 
 
     public void showPage() {
-        DbUpdated.open();
         if (CommonIntents.fileExists(getActivity(), fileName) && DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAND + fileName)) <= AppState.STAND_UPDATE_DELAY) {
 
+            // Call twice because once isn't enough apparently
             mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
-            mWebView.reload();
+            mWebView.loadData(CommonIntents.readFile(getActivity(), fileName), "text/html", "UTF-8");
+
             progressBar.setVisibility(View.GONE);
         } else {
             progressBar.setVisibility(View.VISIBLE);
             DataFetcher.getInstance().standings_start(this, getLink(), fileName);
         }
-        DbUpdated.close();
     }
 
     private String getLink() {
