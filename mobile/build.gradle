@@ -18,17 +18,17 @@ repositories {
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 2
-def versionPatch = 5
+def versionPatch = 7
 def versionBuild = 30 // bump for dogfood builds, public betas, etc.
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId 'com.untappedkegg.rally'
         minSdkVersion 15
-        targetSdkVersion 21
-        versionCode 6
+        targetSdkVersion 22
+        versionCode 7
         //versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"//.${versionBuild}"
 
@@ -57,8 +57,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.google.android.gms:play-services:7.8.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile 'com.diegocarloslima:fgelv:0.1.+@aar'
     compile('com.twitter.sdk.android:twitter:1.6.0@aar') {

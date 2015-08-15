@@ -41,7 +41,9 @@ import io.fabric.sdk.android.Fabric;
  */
 public class AppState extends Application {
 
-
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
+    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
