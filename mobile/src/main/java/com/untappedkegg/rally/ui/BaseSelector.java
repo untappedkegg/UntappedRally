@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,10 +131,10 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
         FragmentManager man = getChildFragmentManager();
         dataFragment = getDataFragment();
 
-        if (!AppState.isNullOrEmpty(args) || !AppState.isNullOrEmpty(query)) {
+        if (!TextUtils.isEmpty(args) || !TextUtils.isEmpty(query)) {
             Bundle bundle = new Bundle();
-            if (!AppState.isNullOrEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
-            if (!AppState.isNullOrEmpty(query)) bundle.putString(SearchManager.QUERY, query);
+            if (!TextUtils.isEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
+            if (!TextUtils.isEmpty(query)) bundle.putString(SearchManager.QUERY, query);
             dataFragment.setArguments(bundle);
         }
 

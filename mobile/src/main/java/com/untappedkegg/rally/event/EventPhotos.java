@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -91,7 +92,7 @@ public final class EventPhotos extends BaseGridView implements NewDataFetcher.Ca
                     String uri = c.getString(colIdx);
                     TextView tv = ((TextView) v);
                     tv.setLines(1);
-                    if (AppState.isNullOrEmpty(uri)) {tv.setVisibility(View.INVISIBLE);
+                    if (TextUtils.isEmpty(uri)) {tv.setVisibility(View.INVISIBLE);
                     } else {
                         tv.setText(uri);
                         tv.setVisibility(View.VISIBLE);

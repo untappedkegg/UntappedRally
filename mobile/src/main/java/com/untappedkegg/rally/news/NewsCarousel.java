@@ -3,6 +3,7 @@ package com.untappedkegg.rally.news;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -98,7 +99,7 @@ public final class NewsCarousel extends BaseCarousel implements NewDataFetcher.C
         final String link = ((TextView) v.findViewById(R.id.carousel_page_uri)).getText().toString();
         final String title = ((TextView) v.findViewById(R.id.carousel_page_title)).getText().toString();
 
-        if (!AppState.isNullOrEmpty(source) && !AppState.startsWithIgnoreCase(title, "Video")) {
+        if (!TextUtils.isEmpty(source) && !AppState.startsWithIgnoreCase(title, "Video")) {
 
             final String pubdate = ((TextView) v.findViewById(R.id.carousel_page_date)).getText().toString();
             final String descr = ((TextView) v.findViewById(R.id.carousel_page_params)).getText().toString();

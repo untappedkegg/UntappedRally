@@ -6,9 +6,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.ContextThemeWrapper;
 
-import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 
 public class DialogManager {
@@ -87,7 +87,7 @@ public class DialogManager {
     public static void raiseTwoButtonDialog(final Context c, String title, String body, DialogInterface.OnClickListener onOk, DialogInterface.OnClickListener onCancel) {
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
         builder.setTitle(title);
-        if (!AppState.isNullOrEmpty(body))
+        if (!TextUtils.isEmpty(body))
         builder.setMessage(body);
         builder.setPositiveButton("OK", onOk);
         builder.setNegativeButton("Cancel", onCancel);

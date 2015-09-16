@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -167,7 +168,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                 case R.id.events_image:
                     final ImageView imageView = (ImageView) v.findViewById(R.id.events_image);
 
-                    if (!AppState.isNullOrEmpty(uri)) {
+                    if (!TextUtils.isEmpty(uri)) {
                         imageView.setAdjustViewBounds(true);
 
                         if (uri.contains("100AW")) {
@@ -236,7 +237,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                     }
 
                     // Event Website
-                    if (!AppState.isNullOrEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)))) {
+                    if (!TextUtils.isEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)))) {
                         newRow = inflater.inflate(R.layout.event_details_row, null);
                         ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.event_website);
                         ((TextView) newRow.findViewById(R.id.event_details_list_uri)).setText(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)));
@@ -249,7 +250,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                         ((ViewGroup) v).addView(newRow);
                     }
 
-                    if (!AppState.isNullOrEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE)))) {
+                    if (!TextUtils.isEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE)))) {
                         newRow = inflater.inflate(R.layout.event_details_row, null);
 
                         ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.action_website);

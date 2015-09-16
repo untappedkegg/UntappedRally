@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -42,8 +43,6 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
-    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -199,16 +198,6 @@ public class AppState extends Application {
     // Other
 
     /**
-     * Tests {@code str} for a null or "".
-     *
-     * @param str the String to check, may be null
-     * @return <code>true</code> if the String is empty or null
-     */
-    public static boolean isNullOrEmpty(String str) {
-        return str == null || str.trim().isEmpty();
-    }
-
-    /**
      * Case insensitive check if a String starts with a specified prefix.
      * <p/>
      * <code>null</code>s are handled without exceptions. Two <code>null</code>
@@ -233,10 +222,7 @@ public class AppState extends Application {
         if (str == null || prefix == null) {
             return (str == null && prefix == null);
         }
-        if (prefix.length() > str.length()) {
-            return false;
-        }
-        return str.regionMatches(true, 0, prefix, 0, prefix.length());
+        return prefix.length() <= str.length() && str.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     @Override
@@ -297,7 +283,7 @@ public class AppState extends Application {
         File[] extFiles = null;
         try {
             extFiles = instance.getExternalCacheDir().listFiles();
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
 
         }
         final File[] files = instance.getCacheDir().listFiles();
@@ -337,7 +323,7 @@ public class AppState extends Application {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
-                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime();
+                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.DAY_IN_MILLIS * 6);
                 //The intent is declared in the manifest, if changed here it must also be changed there
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
                 alarm.set(AlarmManager.RTC, diff, pendingIntent);

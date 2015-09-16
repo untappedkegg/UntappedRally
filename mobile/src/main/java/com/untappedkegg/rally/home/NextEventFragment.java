@@ -7,6 +7,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,7 +203,7 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
                 }
             } catch (ParseException e) {
                 picture.setVisibility(View.GONE);
-                if (AppState.isNullOrEmpty(counter.getText().toString())) {
+                if (TextUtils.isEmpty(counter.getText().toString())) {
                     counter.setVisibility(View.GONE);
                     if (BuildConfig.DEBUG)
                         e.printStackTrace();

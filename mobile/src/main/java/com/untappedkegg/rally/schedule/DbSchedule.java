@@ -3,6 +3,7 @@ package com.untappedkegg.rally.schedule;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -231,7 +232,7 @@ public final class DbSchedule extends BaseDbAccessor {
 
     public static boolean hasDetails(String link) {
         final Cursor c = dbAdapter.selectf("SELECT %s FROM %s WHERE %s = '%s'", SCHED_DESCR, SCHED_TABLE, SCHED_EVT_SITE, link);
-        final boolean result = c.moveToFirst() && !AppState.isNullOrEmpty(c.getString(0));
+        final boolean result = c.moveToFirst() && !TextUtils.isEmpty(c.getString(0));
         c.close();
         return result;
 

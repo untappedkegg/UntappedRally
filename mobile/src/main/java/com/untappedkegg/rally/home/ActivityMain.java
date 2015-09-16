@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -161,8 +162,8 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
-            if (!mDrawerLayout.isDrawerOpen(Gravity.START)) {
-                mDrawerLayout.openDrawer(Gravity.START);
+            if (!mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
             } else {
                 mDrawerLayout.closeDrawers();
             }
@@ -175,7 +176,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-        final boolean drawerOpen = mDrawerLayout.isDrawerOpen(Gravity.START);
+        final boolean drawerOpen = mDrawerLayout.isDrawerOpen(Gravity.LEFT);
         try {
             menu.findItem(R.id.menu_refresh).setVisible(!drawerOpen);
             return true;
@@ -205,7 +206,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
             mDrawerLayout.closeDrawers();
         } else {
             super.onBackPressed();
@@ -289,7 +290,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
 
     @Override
     public void setTitle(CharSequence title) {
-        getSupportActionBar().setTitle(AppState.isNullOrEmpty(title.toString()) ? getResources().getString(R.string.app_name) : title);
+        getSupportActionBar().setTitle(TextUtils.isEmpty(title.toString()) ? getResources().getString(R.string.app_name) : title);
         super.setTitle(title);
     }
 

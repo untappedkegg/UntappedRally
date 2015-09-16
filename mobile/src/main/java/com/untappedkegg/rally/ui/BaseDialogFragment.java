@@ -3,6 +3,7 @@ package com.untappedkegg.rally.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
@@ -94,7 +94,7 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (!AppState.isNullOrEmpty(imgLink)) {
+        if (!TextUtils.isEmpty(imgLink)) {
             ImageLoader.getInstance().displayImage(imgLink, imageView);
             imageView.setOnClickListener(this);
         } else {

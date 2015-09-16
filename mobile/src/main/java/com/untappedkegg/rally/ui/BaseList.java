@@ -9,6 +9,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -385,7 +386,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
             return getString(R.string.no_network_connection_msg);
         } else if (requeryManagerIsAlive()) {
             return getContactingEmptyText();
-        } else if (!AppState.isNullOrEmpty(getCustomEmptyText())) {
+        } else if (!TextUtils.isEmpty(getCustomEmptyText())) {
             return getCustomEmptyText();
         } else {
             return getString(R.string.generic_empty_list_text);

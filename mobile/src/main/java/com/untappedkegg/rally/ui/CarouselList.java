@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -65,10 +66,10 @@ public abstract class CarouselList extends BaseList {
         BaseCarousel carousel = getCarouselFragment();
         FragmentManager man = getChildFragmentManager();
 
-        if (!AppState.isNullOrEmpty(args) || !AppState.isNullOrEmpty(query)) {
+        if (!TextUtils.isEmpty(args) || !TextUtils.isEmpty(query)) {
             Bundle bundle = new Bundle();
-            if (!AppState.isNullOrEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
-            if (!AppState.isNullOrEmpty(query)) bundle.putString(SearchManager.QUERY, query);
+            if (!TextUtils.isEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
+            if (!TextUtils.isEmpty(query)) bundle.putString(SearchManager.QUERY, query);
             carousel.setArguments(bundle);
         }
 

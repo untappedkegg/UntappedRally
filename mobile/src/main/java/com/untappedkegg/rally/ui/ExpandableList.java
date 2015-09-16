@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -351,7 +352,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
             return getString(R.string.no_network_connection_msg);
         } else if (requeryManagerIsAlive()) {
             return getContactingEmptyText();
-        } else if (!AppState.isNullOrEmpty(getCustomEmptyText())) {
+        } else if (!TextUtils.isEmpty(getCustomEmptyText())) {
             return getCustomEmptyText();
         } else {
             return getString(R.string.generic_empty_list_text);

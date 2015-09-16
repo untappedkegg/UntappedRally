@@ -3,6 +3,7 @@ package com.untappedkegg.rally.schedule;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleCursorTreeAdapter;
@@ -74,7 +75,7 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
 
         // Icon
         String uri = c.getString(holder.iconColumn).toLowerCase(Locale.US);
-        if (!AppState.isNullOrEmpty(uri)) {
+        if (!TextUtils.isEmpty(uri)) {
 //            holder.icon.setMaxWidth(125);
 //            holder.icon.setMaxHeight(125);
             holder.icon.setAdjustViewBounds(true);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,7 +54,7 @@ public final class NewsViewBinder implements ViewBinder {
 
             case R.id.list_date:
                 TextView tv = (TextView) view;
-                if (!AppState.isNullOrEmpty(uri)) {
+                if (!TextUtils.isEmpty(uri)) {
 
                     try {
                         tv.setText(DateUtils.getRelativeDateTimeString(ctx, DateManager.DATABASE.parse(uri).getTime(), DateUtils.MINUTE_IN_MILLIS, DateUtils.YEAR_IN_MILLIS, DateUtils.FORMAT_NO_YEAR));
@@ -68,7 +69,7 @@ public final class NewsViewBinder implements ViewBinder {
                 }
 
             case R.id.list_descr:
-                if (AppState.isNullOrEmpty(uri) || isHomeFragment) {
+                if (TextUtils.isEmpty(uri) || isHomeFragment) {
                     view.setVisibility(View.GONE);
                 }
                 return false;

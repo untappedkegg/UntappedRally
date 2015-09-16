@@ -2,6 +2,7 @@ package com.untappedkegg.rally.stages;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -116,7 +117,7 @@ public class StagesFetcher implements Fetcher {
                         length = distMatch.group(1);
                     }
 
-                    if (AppState.isNullOrEmpty(name)) {
+                    if (TextUtils.isEmpty(name)) {
                         header = android.text.Html.fromHtml(find).toString();
                     } else {
                         DbEvent.stagesInsert(event, name, number, time, length, year, header);

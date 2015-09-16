@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.untappedkegg.rally.AppState;
@@ -60,7 +61,7 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         Fragment fragment;
 
         // default fragment
-        if (AppState.isNullOrEmpty(uri)) {
+        if (TextUtils.isEmpty(uri)) {
             uri = EventDetails.class.getName();
         }
 
@@ -75,10 +76,10 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         }
 
         // Add args bundle to fragment
-        if (!AppState.isNullOrEmpty(args) || !AppState.isNullOrEmpty(query)) {
+        if (!TextUtils.isEmpty(args) || !TextUtils.isEmpty(query)) {
             Bundle bundle = new Bundle();
-            if (!AppState.isNullOrEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
-            if (!AppState.isNullOrEmpty(query)) bundle.putString(SearchManager.QUERY, query);
+            if (!TextUtils.isEmpty(args)) bundle.putString(AppState.KEY_ARGS, args);
+            if (!TextUtils.isEmpty(query)) bundle.putString(SearchManager.QUERY, query);
             bundle.putInt(AppState.KEY_ID, id);
             fragment.setArguments(bundle);
         }

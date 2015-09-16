@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -195,9 +196,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
 
             Intent intent = new Intent(this, c);
 
-            if (!AppState.isNullOrEmpty(contentUri)) intent.putExtra(AppState.KEY_URI, contentUri);
-            if (!AppState.isNullOrEmpty(args)) intent.putExtra(AppState.KEY_ARGS, args);
-            if (!AppState.isNullOrEmpty(query)) intent.putExtra(SearchManager.QUERY, query);
+            if (!TextUtils.isEmpty(contentUri)) intent.putExtra(AppState.KEY_URI, contentUri);
+            if (!TextUtils.isEmpty(args)) intent.putExtra(AppState.KEY_ARGS, args);
+            if (!TextUtils.isEmpty(query)) intent.putExtra(SearchManager.QUERY, query);
 
             Log.d(LOG_TAG, String.format("Selecting Module: module=%s uri=%s arguments=%s, query=%s", moduleUri, contentUri, args, query));
             startActivity(intent);
@@ -307,7 +308,7 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @throws NullPointerException if the activity is null or the view couldn't be found.
      */
     public void setTitle( String title) {
-        if (!AppState.isNullOrEmpty(title)) {
+        if (!TextUtils.isEmpty(title)) {
             getSupportActionBar().setTitle(title);
         }
     }

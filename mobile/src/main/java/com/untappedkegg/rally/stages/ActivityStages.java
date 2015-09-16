@@ -3,6 +3,7 @@ package com.untappedkegg.rally.stages;
 import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -32,7 +33,7 @@ public final class ActivityStages extends EventActivity implements EventStages.C
                 Bundle bundle = new Bundle();
                 bundle.putString(AppState.KEY_ARGS, link);
 
-                if (!AppState.isNullOrEmpty(query)) {
+                if (!TextUtils.isEmpty(query)) {
                     bundle.putString(SearchManager.QUERY, query);
                 } else {
                     bundle.putString(SearchManager.QUERY, "1");

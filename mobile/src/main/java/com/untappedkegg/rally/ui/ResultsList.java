@@ -1,8 +1,7 @@
 package com.untappedkegg.rally.ui;
 
+import android.text.TextUtils;
 import android.widget.TextView;
-
-import com.untappedkegg.rally.AppState;
 
 /**
  * <p>Base implementation of {@link BaseList} that is designed to display the results of a search.</p>
@@ -65,7 +64,7 @@ public abstract class ResultsList extends BaseList {
         StringBuilder title = new StringBuilder("Results");
 
         for (String field : fields) {
-            if (!AppState.isNullOrEmpty(field)) {
+            if (!TextUtils.isEmpty(field)) {
                 if (!title.toString().equals("Results")) {
                     title.append(", ");
                 } else {

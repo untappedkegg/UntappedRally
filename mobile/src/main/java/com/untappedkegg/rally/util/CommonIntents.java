@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.android.gms.plus.PlusShare;
@@ -34,10 +35,10 @@ public final class CommonIntents {
         final Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this (or PayPal apparently)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, emailAddress);
-        if (!AppState.isNullOrEmpty(subject)) {
+        if (!TextUtils.isEmpty(subject)) {
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }
-        if (!AppState.isNullOrEmpty(message)) {
+        if (!TextUtils.isEmpty(message)) {
             emailIntent.putExtra(Intent.EXTRA_TEXT, message);
         }
         ctx.startActivity(Intent.createChooser(emailIntent, "Send email..."));
@@ -93,7 +94,7 @@ public final class CommonIntents {
      * @param url The URL to open
      */
     public static void openUrl(final Context ctx, final String url) {
-        if (!AppState.isNullOrEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"))) {
+        if (!TextUtils.isEmpty(url) && (url.startsWith("http://") || url.startsWith("https://"))) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             ctx.startActivity(intent);
         } else {
@@ -155,7 +156,7 @@ public final class CommonIntents {
                         .putExtra(Events.TITLE, title).putExtra(Events.DESCRIPTION, description)
                         .putExtra(Events.EVENT_LOCATION, location)
                         .putExtra(Events.AVAILABILITY, Events.AVAILABILITY_BUSY);
-                if (!AppState.isNullOrEmpty(rrule)) {
+                if (!TextUtils.isEmpty(rrule)) {
                     intent.putExtra(Events.RRULE, rrule);
                 }
                 ctx.startActivity(intent);
@@ -230,7 +231,7 @@ public final class CommonIntents {
             for (ResolveInfo info : resInfo) {
                 if (info.activityInfo.packageName.toLowerCase().contains(type) || info.activityInfo.name.toLowerCase().contains(type) ) {
                     share.putExtra(Intent.EXTRA_SUBJECT,  subject);
-                    if (!AppState.isNullOrEmpty(text))
+                    if (!TextUtils.isEmpty(text))
                     share.putExtra(Intent.EXTRA_TEXT, text);
                     share.setPackage(info.activityInfo.packageName);
                     found = true;

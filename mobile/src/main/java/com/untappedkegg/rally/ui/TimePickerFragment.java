@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -42,7 +43,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         resId = getArguments().getInt("id");
         String startTime = getArguments().getString(AppState.KEY_ARGS);
 
-        if (!AppState.isNullOrEmpty(startTime)) {
+        if (!TextUtils.isEmpty(startTime)) {
             try {
                 c.setTime(DateManager.parse(startTime, DateManager.TIMEONLY));
             } catch (ParseException e) {

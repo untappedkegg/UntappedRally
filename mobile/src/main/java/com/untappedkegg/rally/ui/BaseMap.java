@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -316,13 +317,13 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
      */
     protected void drawMarker(LatLng location, int id, String title, String snippet, String colorString, BitmapDescriptor icon, Float heading) {
         MarkerOptions markerOptions = new MarkerOptions().position(location);
-        if (!AppState.isNullOrEmpty(title)) {
+        if (!TextUtils.isEmpty(title)) {
             markerOptions.title(title);
         }
-        if (!AppState.isNullOrEmpty(snippet)) {
+        if (!TextUtils.isEmpty(snippet)) {
             markerOptions.snippet(snippet);
         }
-        if (!AppState.isNullOrEmpty(colorString)) {
+        if (!TextUtils.isEmpty(colorString)) {
             float hsvArray[] = new float[3];
             Color.colorToHSV(Color.parseColor(colorString), hsvArray);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(hsvArray[0]));

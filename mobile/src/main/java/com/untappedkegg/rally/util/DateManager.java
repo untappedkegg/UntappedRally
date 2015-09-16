@@ -77,7 +77,7 @@ public class DateManager {
 //    }
 
     public static int timeBetweenInMinutes(long prevDate) {
-        //		if (AppState.isNullOrEmpty(String.valueOf(prevDate))) {
+        //		if (TextUtils.isEmpty(String.valueOf(prevDate))) {
         //			return AppState.RSS_UPDATE_DELAY +1;
         //		}
 

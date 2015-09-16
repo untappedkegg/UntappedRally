@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,7 +66,7 @@ public class ScheduleCursorAdaptor extends SimpleCursorAdapter {
 
         // Icon
         String uri = c.getString(holder.iconColumn).toLowerCase(Locale.US);
-        if (!AppState.isNullOrEmpty(uri)) {
+        if (!TextUtils.isEmpty(uri)) {
 //            holder.icon.setMaxWidth(125);
 //            holder.icon.setMaxHeight(125);
             holder.icon.setAdjustViewBounds(true);

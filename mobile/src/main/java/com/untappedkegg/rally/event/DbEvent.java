@@ -3,6 +3,7 @@ package com.untappedkegg.rally.event;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -160,7 +161,7 @@ public final class DbEvent extends BaseDbAccessor {
         if (c.moveToFirst()) {
             final String results = c.getString(0);
             c.close();
-            if (AppState.isNullOrEmpty(results)) {
+            if (TextUtils.isEmpty(results)) {
                 return AppState.getApplication().getResources().getString(R.string.stage_results_format, AppState.getApplication().getResources().getString(R.string.stage_results_error));
             } else {
                 return results;

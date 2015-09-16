@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -256,7 +257,8 @@ public final class DbAdapter {
     public int count(final String table, final String where) {
 
         String select = String.format("SELECT count(_id) FROM %s", table);
-        if (!AppState.isNullOrEmpty(where)) {
+//        if (!TextUtils.isEmpty(where)) {
+        if (!TextUtils.isEmpty(where)) {
             select += String.format(" WHERE %s", where);
         }
 

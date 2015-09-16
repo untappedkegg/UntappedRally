@@ -1,9 +1,9 @@
 package com.untappedkegg.rally.ui;
 
+import android.text.TextUtils;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.ui.loaders.SectionCursorListAdapter;
 import com.untappedkegg.rally.ui.view.SectionListAdapter;
@@ -74,7 +74,7 @@ public abstract class SectionList extends BaseList {
      * @return the layout id for the section header
      */
     private int getHeaderLayoutId() {
-        if (AppState.isNullOrEmpty(getSectionField())) {
+        if (TextUtils.isEmpty(getSectionField())) {
             return R.layout.empty_view;
         }
         return getSectionHeaderId();
