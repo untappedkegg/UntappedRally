@@ -83,6 +83,8 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
     @Override
     public void onDataFetchComplete(Throwable throwable, String key) {
         DbEvent.open();
+        // Call twice because once isn't enough apparently
+        mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
         mWebView.loadData(DbEvent.fetchStageResults(eventCode, year, curStage, isFinished), "text/html", "UTF-8");
         DbEvent.close();
         this.setProgressBarVisibility(View.GONE);

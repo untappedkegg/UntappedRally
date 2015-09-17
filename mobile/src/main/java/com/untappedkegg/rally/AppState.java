@@ -111,7 +111,8 @@ public class AppState extends Application {
 
     //Calendars
     public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
-    public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
+//    public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
+    public static final String EGG_DRAWABLE = "http://images.untappedkegg.com/drawable/";
 //    public static final String EGG_DRAWABLE = "http://untappedkegg.com/rally/drawable/";
 
     public static final String RA_STANDINGS = "http://rally-america.com/champ_standings2?Endo=%s&Class=%s&Champ=0&yr=%s";

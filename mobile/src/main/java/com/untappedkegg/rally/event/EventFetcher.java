@@ -1,6 +1,7 @@
 package com.untappedkegg.rally.event;
 
 import android.os.AsyncTask;
+import android.text.Html;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
@@ -155,7 +156,7 @@ public class EventFetcher implements Fetcher {
                             final String finds = matcher.group(0);
                             final String eventDetails = finds.substring(finds.indexOf("<p>"), finds.indexOf("</p>")).replace("<p>", "\n");
 
-                            DbSchedule.insert_schedule_description(link, eventDetails);
+                            DbSchedule.insert_schedule_description(link, Html.fromHtml(eventDetails).toString());
                         } catch (Exception e) {
                             if (BuildConfig.DEBUG)
                                 Log.w(LOG_TAG, e.toString());
