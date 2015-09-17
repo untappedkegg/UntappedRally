@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/about_learn_more"
-        android:padding="3dp">
+        android:padding="5dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
