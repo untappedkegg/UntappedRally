@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DbUpdated;
@@ -37,6 +39,15 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
             throw new ClassCastException(activity.toString()
                     + " must implement " + Callbacks.class.getSimpleName());
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setPage(linkPts[5] + " " + linkPts[4]);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /*----- INHERITED METHODS -----*/
@@ -80,13 +91,13 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
             if (progressBar.isShown()) {
                 Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
             } else {
-                final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
+                    final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
 
-                if (getActivity().findViewById(R.id.second_container) != null ) {
-                    callbacks.updateStageResults(stageId);
-                } else {
-                    callbacks.selectStageDetail(link, stageId);
-                }
+                    if (getActivity().findViewById(R.id.second_container) != null ) {
+                        callbacks.updateStageResults(stageId);
+                    } else {
+                        callbacks.selectStageDetail(link, stageId);
+                    }
                 }
             }
 
@@ -96,7 +107,7 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     public void onDataFetchComplete(Throwable throwable, String key) {
         try {
             loadList();
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         DbUpdated.open();
         DbUpdated.updated_insert(AppState.MOD_STAGES + linkPts[5] + linkPts[4]);

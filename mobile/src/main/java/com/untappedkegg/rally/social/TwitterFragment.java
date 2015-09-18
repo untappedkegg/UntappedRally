@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.tweetui.TwitterListTimeline;
 import com.untappedkegg.rally.AppState;
@@ -103,6 +105,11 @@ public class TwitterFragment extends ListFragment implements Refreshable {
         }
 //        refreshData();
         progressBar.setVisibility(View.GONE);
+
+
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
 //    @Override

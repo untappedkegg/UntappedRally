@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
@@ -29,6 +31,15 @@ public final class EventPhotos extends BaseGridView implements NewDataFetcher.Ca
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
         linkPts = link.split("/");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setPage(linkPts[5] + " " + linkPts[4]);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /*----- INHERITED METHODS -----*/

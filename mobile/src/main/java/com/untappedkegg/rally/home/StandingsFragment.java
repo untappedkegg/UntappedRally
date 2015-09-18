@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
@@ -106,6 +108,15 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
         progressBar = (ProgressBar) getActivity().findViewById(R.id.web_view_progress);
 
         this.showPage();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

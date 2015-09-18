@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DbUpdated;
@@ -66,6 +68,10 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
             this.refreshData();
             AppState.NEWS_REFRESH = false;
         }
+
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /* ----- INHERITED METHODS ----- */

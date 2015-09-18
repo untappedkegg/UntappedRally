@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
@@ -54,6 +56,10 @@ public final class StagesViewPager extends ViewPagerFragment implements AdapterV
         final String[] linkPts = link.split("/");
         isFinished = DbSchedule.isEventFinished(linkPts[5], Short.parseShort(linkPts[4]));
 
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName("Stage Results");
+        mTracker.setPage(linkPts[5] + " " + linkPts[4]);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

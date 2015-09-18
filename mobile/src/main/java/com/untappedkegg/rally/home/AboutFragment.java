@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
@@ -33,6 +35,7 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
 
     private TextView versionView;
     private ImageButton twitter, gPlus;
+    private Tracker mTracker = AppState.getDefaultTracker();
 
     public AboutFragment() {
         // Required empty public constructor
@@ -77,6 +80,9 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
             }
         }
         versionView.setText(getString(R.string.about_version, BuildConfig.VERSION_NAME));
+
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -99,9 +105,12 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
             case R.id.menu_about_changelog:
                 DialogFragment changelogFragment = BaseWebviewDialog.newInstance(AppState.CHANGELOG_URL, R.string.changelog);
                 this.getChildFragmentManager().beginTransaction().add(changelogFragment, changelogFragment.toString()).commit();
+
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("Change Log").build());
                 return true;
             case R.id.menu_about_feedback:
                 CommonIntents.sendFeedback(getActivity());
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("Feedback").build());
                 return true;
         }
 
@@ -118,6 +127,8 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
                 try {
                     // com.twitter.android
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + BuildConfig.DEV_NAME)));
+
+                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("Twitter").build());
                 } catch (ActivityNotFoundException e) {
                     CommonIntents.openUrl(activity, AppState.SOCIAL_TWITTER);
                 }
@@ -126,6 +137,8 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
                 try {
                     // com.google.android.apps.plus
                     startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(AppState.SOCIAL_G_PLUS)).setPackage("com.google.android.apps.plus"));
+
+                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("Google Plus").build());
                 } catch(ActivityNotFoundException e) {
                     CommonIntents.openUrl(activity, AppState.SOCIAL_G_PLUS);
                 }

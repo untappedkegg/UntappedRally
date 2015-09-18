@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -177,6 +179,8 @@ public class AppState extends Application {
 
     /* ----- VARIABLES ----- */
     private static Application instance;
+    // Analytics tracker
+    private static Tracker mTracker;
 
     /* ----- CONSTRUCTORS ----- */
     public AppState() {
@@ -254,6 +258,18 @@ public class AppState extends Application {
 
     }
 
+    /**
+     * Gets the default {@link Tracker} for this {@link Application}.
+     * @return tracker
+     */
+    synchronized public static Tracker getDefaultTracker() {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(instance);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            mTracker = analytics.newTracker(R.xml.global_tracker);
+        }
+        return mTracker;
+    }
     @Override
     public void onLowMemory() {
         ImageLoader.getInstance().clearMemoryCache();

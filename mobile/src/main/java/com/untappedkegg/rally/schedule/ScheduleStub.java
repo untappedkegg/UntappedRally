@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.interfaces.Refreshable;
@@ -30,6 +32,10 @@ public final class ScheduleStub extends Fragment implements Refreshable {
         // Pass the arguments on to the child
         fragment.setArguments(this.getArguments());
         this.getChildFragmentManager().beginTransaction().replace(R.id.schedule_stub_content, fragment).commit();
+
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(fragment.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

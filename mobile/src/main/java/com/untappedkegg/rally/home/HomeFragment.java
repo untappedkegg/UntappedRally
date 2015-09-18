@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
@@ -45,8 +47,11 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
     @Override
     public void onResume() {
         super.onResume();
-        ActivityMain.setCurPosition( position);
+        ActivityMain.setCurPosition(position);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

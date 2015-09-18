@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -42,6 +44,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
     private static String eventName;
     private Callbacks callback;
     private boolean isFinished = false;
+    private Tracker mTracker = AppState.getDefaultTracker();
     private final DisplayImageOptions eventOptions = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
@@ -89,6 +92,13 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
         this.callback = (Callbacks) getActivity();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setTitle(eventName);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
 
     /**
      * @see android.support.v4.app.Fragment#onCreateOptionsMenu(android.view.Menu, android.view.MenuInflater)
@@ -185,6 +195,8 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                         @Override
                         public void onClick(View v) {
                             CommonIntents.getDirections(getActivity(), ((TextView) v).getText().toString());
+
+                            mTracker.send(new HitBuilders.EventBuilder().setCategory("Map").setAction("Touch").setLabel(eventName).build());
                         }
                     });
                     ((TextView) v).setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -245,6 +257,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                             @Override
                             public void onClick(View v) {
                                 CommonIntents.openUrl(getActivity(), ((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
+                                mTracker.send(new HitBuilders.EventBuilder().setCategory("Event Website").setAction("Touch").setLabel(eventName).build());
                             }
                         });
                         ((ViewGroup) v).addView(newRow);
@@ -258,6 +271,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                             @Override
                             public void onClick(View v) {
                                 CommonIntents.openUrl(getActivity(), ((TextView) getActivity().findViewById(R.id.events_website)).getText().toString());
+                                mTracker.send(new HitBuilders.EventBuilder().setCategory("Website").setAction("Touch").setLabel(eventName).build());
                             }
                         });
 

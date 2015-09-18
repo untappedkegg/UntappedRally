@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
@@ -61,6 +63,7 @@ import com.untappedkegg.rally.util.CommonIntents;
 public class ActivityMain extends AppCompatActivity implements ScheduleItemClickReceiver, NavDrawerItemSelected {
     private DrawerLayout mDrawerLayout;
     private static short curPosition = 0;
+    protected Tracker mTracker;
 
     private static String[] mActionBarDrawer;
 
@@ -94,6 +97,8 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
         } else {
             curPosition = savedInstanceState.getShort("pos");
         }
+
+        mTracker = AppState.getDefaultTracker();
 
     }
 
@@ -252,9 +257,11 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
                 break;
             case 5: // Spectating
                 CommonIntents.openUrl(this, "http://www.rally-america.com/safety");
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Touch").setLabel("Safety").build());
                 return;
             case 6: // Worker Info
                 CommonIntents.openUrl(this, "http://www.rally-america.com/volunteer");
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Touch").setLabel("Volunteer").build());
                 return;
 //            case 7:
 //                CommonIntents.sendFeedback(this);

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.util.Log;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
 
@@ -92,6 +93,7 @@ public class NewDataFetcher {
                 }
             });
         }
+        GoogleAnalytics.getInstance(AppState.getApplication()).dispatchLocalHits();
 
         return connection;
     }
