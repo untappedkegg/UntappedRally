@@ -50,7 +50,7 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
         ActivityMain.setCurPosition(position);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("Home");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

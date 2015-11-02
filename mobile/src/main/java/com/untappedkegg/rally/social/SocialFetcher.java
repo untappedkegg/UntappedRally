@@ -81,7 +81,7 @@ public class SocialFetcher implements Fetcher {
                 if (NewDataFetcher.isInternetConnected() && (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_YOUTUBE)) > AppState.YT_UPDATE_DELAY || overrideCache)) {
                     DbSocial.delete(DbSocial.YOUTUBE_TABLE);
                     Log.w(LOG_TAG, "Retrieving from: " + link);
-                    final HttpURLConnection connection = NewDataFetcher.get(link, null);
+                    final HttpURLConnection connection = NewDataFetcher.get(link);
                     if (connection.getResponseCode() == 200) {
                         try {
                             //							Log.e(getClass().getCanonicalName(), NewDataFetcher.readStream(connection.getInputStream()));

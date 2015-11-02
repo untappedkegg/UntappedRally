@@ -45,7 +45,7 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     public void onResume() {
         super.onResume();
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("Stages");
         mTracker.setPage(linkPts[5] + " " + linkPts[4]);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }

@@ -11,7 +11,6 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.BuildConfig;
 
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +20,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -54,13 +51,12 @@ public class NewDataFetcher {
      * <p>Note that this works for both http and https connections.</p>
      *
      * @param link        the url to perform the get on
-     * @param credentials the username and password credentials to use
      * @return the open https connection
      * @throws IOException
      */
-    public static HttpURLConnection get(String link, UsernamePasswordCredentials credentials) throws IOException {
+    public static HttpURLConnection get(String link) throws IOException {
         //		startDns();
-        Log.d(LOG_TAG, String.format("Retrieving from %s with credentials %s.", link, credentials));
+        Log.d(LOG_TAG, String.format("Retrieving from %s", link));
 
         final URL url = new URL(link);
         HttpURLConnection connection = null;
@@ -84,15 +80,15 @@ public class NewDataFetcher {
             connection = (HttpURLConnection) url.openConnection();
         }
 
-        if (credentials != null) {
-            final String user = credentials.getUserName();
-            final String pass = credentials.getPassword();
-            Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, pass.toCharArray());
-                }
-            });
-        }
+//        if (credentials != null) {
+//            final String user = credentials.getUserName();
+//            final String pass = credentials.getPassword();
+//            Authenticator.setDefault(new Authenticator() {
+//                protected PasswordAuthentication getPasswordAuthentication() {
+//                    return new PasswordAuthentication(user, pass.toCharArray());
+//                }
+//            });
+//        }
         GoogleAnalytics.getInstance(AppState.getApplication()).dispatchLocalHits();
 
         return connection;
@@ -105,13 +101,12 @@ public class NewDataFetcher {
      *
      * @param link        the url to perform the get on
      * @param message     the message to be sent
-     * @param credentials the username and password credentials to use
      * @return the open https connection
      * @throws IOException
      */
-    public static HttpURLConnection post(String link, String message, UsernamePasswordCredentials credentials) throws IOException {
+    public static HttpURLConnection post(String link, String message) throws IOException {
         //		startDns();
-        Log.d(LOG_TAG, String.format("Retrieving from %s with credentials %s and post arguments %s.", link, credentials, message));
+        Log.d(LOG_TAG, String.format("Retrieving from %s with post arguments %s.", link, message));
 
         final URL url = new URL(link);
         HttpURLConnection connection = null;
@@ -135,15 +130,15 @@ public class NewDataFetcher {
             connection = (HttpURLConnection) url.openConnection();
         }
 
-        if (credentials != null) {
-            final String user = credentials.getUserName();
-            final String pass = credentials.getPassword();
-            Authenticator.setDefault(new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(user, pass.toCharArray());
-                }
-            });
-        }
+//        if (credentials != null) {
+//            final String user = credentials.getUserName();
+//            final String pass = credentials.getPassword();
+//            Authenticator.setDefault(new Authenticator() {
+//                protected PasswordAuthentication getPasswordAuthentication() {
+//                    return new PasswordAuthentication(user, pass.toCharArray());
+//                }
+//            });
+//        }
 
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

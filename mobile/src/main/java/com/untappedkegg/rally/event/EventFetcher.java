@@ -84,7 +84,7 @@ public class EventFetcher implements Fetcher {
 
                     Pattern pattern = Pattern.compile("<a href='/assets/(.*?)</a>", Pattern.CASE_INSENSITIVE);
 
-                    HttpURLConnection conn = NewDataFetcher.get(link, null);
+                    HttpURLConnection conn = NewDataFetcher.get(link);
 
                     if (conn.getResponseCode() == 200) {
                         DbEvent.delete_photos(event, year);
@@ -142,7 +142,7 @@ public class EventFetcher implements Fetcher {
 
                     Pattern pattern = Pattern.compile("<div class=\"event-details\">(.*?)</p>", Pattern.CASE_INSENSITIVE);
 
-                    HttpURLConnection conn = NewDataFetcher.get(link, null);
+                    HttpURLConnection conn = NewDataFetcher.get(link);
 
                     if (conn.getResponseCode() == 200) {
                         DbUpdated.updated_insert(link);

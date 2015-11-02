@@ -85,7 +85,7 @@ public class StagesFetcher implements Fetcher {
                 Pattern stageDist = Pattern.compile("<td>([0-9.]{1,5})</td>", Pattern.CASE_INSENSITIVE);
                 Pattern stageName = Pattern.compile("</td>.*?stage/[0-9]{1,2}\">(.*?)<a></td>", Pattern.CASE_INSENSITIVE);
 
-                Matcher matcher = pattern.matcher(NewDataFetcher.readStream(NewDataFetcher.get(link + "/stages", null).getInputStream()));
+                Matcher matcher = pattern.matcher(NewDataFetcher.readStream(NewDataFetcher.get(link + "/stages").getInputStream()));
 
                 String header = null;
                 while (matcher.find()) {
@@ -179,7 +179,7 @@ public class StagesFetcher implements Fetcher {
 
                     Pattern pattern = Pattern.compile("<table(.*?)</table>", Pattern.CASE_INSENSITIVE);
 
-                    final HttpURLConnection conn = NewDataFetcher.get(link, null);
+                    final HttpURLConnection conn = NewDataFetcher.get(link);
                     Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
                     if (matcher.find()) {
                         table += matcher.group(0) + "</body>" + "</html>";

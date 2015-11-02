@@ -82,7 +82,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
         }
 
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("Settings");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

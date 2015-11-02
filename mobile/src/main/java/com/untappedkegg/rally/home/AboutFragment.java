@@ -81,7 +81,7 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
         }
         versionView.setText(getString(R.string.about_version, BuildConfig.VERSION_NAME));
 
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("About");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

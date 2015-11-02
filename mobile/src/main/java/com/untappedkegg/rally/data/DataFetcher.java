@@ -132,7 +132,7 @@ public class DataFetcher {
             if (isOverride || DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_SCHED)) > AppState.CAL_UPDATE_DELAY) {
 
                 try {
-                    HttpURLConnection conn = NewDataFetcher.get(AppState.EGG_CAL_XML, null);
+                    HttpURLConnection conn = NewDataFetcher.get(AppState.EGG_CAL_XML);
                     if (conn.getResponseCode() == 200) {
                         SAXParserFactory.newInstance().newSAXParser().parse(conn.getInputStream(), new SAXSchedule());
                         DbUpdated.updated_insert(AppState.MOD_SCHED);
@@ -183,7 +183,7 @@ public class DataFetcher {
             try {
                 Pattern pattern = Pattern.compile("<table(.*?)</table>", Pattern.CASE_INSENSITIVE);
                 //					Matcher matcher = pattern.matcher(readStream(doGet(link)));
-                Matcher matcher = pattern.matcher(readStream(NewDataFetcher.get(link, null).getInputStream()));
+                Matcher matcher = pattern.matcher(readStream(NewDataFetcher.get(link).getInputStream()));
                 if (matcher.find()) {
                     //						if (function.equalsIgnoreCase(AppState.FUNC_RA_STAND)) {
                     //							table += "<h3 align=\"center\">Rally America Standings</h3>\n";

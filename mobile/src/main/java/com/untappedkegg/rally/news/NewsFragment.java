@@ -70,7 +70,7 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
         }
 
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("News");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

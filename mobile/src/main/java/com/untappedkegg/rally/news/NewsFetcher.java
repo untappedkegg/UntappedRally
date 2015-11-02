@@ -78,7 +78,7 @@ public class NewsFetcher implements NewDataFetcher.Fetcher {
             DbNews.open();
 
                 try {
-                    HttpURLConnection conn = NewDataFetcher.get(link, null);
+                    HttpURLConnection conn = NewDataFetcher.get(link);
                     if (conn.getResponseCode() == 200) {
                         SAXParserFactory.newInstance().newSAXParser().parse(conn.getInputStream(), new SAXNews(uri));
                     }

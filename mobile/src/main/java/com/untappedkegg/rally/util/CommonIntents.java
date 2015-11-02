@@ -257,16 +257,25 @@ public final class CommonIntents {
         // Email
         try {
             targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         try {
             targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         // Twitter
-        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
-        if(twitterIntent != null)
-            targetedShareIntents.add(twitterIntent);
+//        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
+//        if(twitterIntent != null)
+////            twitterIntent.set
+//            targetedShareIntents.add(twitterIntent);
+        try {
+            Intent twitterIntent = new Intent(Intent.ACTION_SEND);
+            twitterIntent.setClassName("com.twitter.android", "com.twitter.android.composer.ComposerActivity");
+            twitterIntent.setType("text/plain");
+            twitterIntent.putExtra(Intent.EXTRA_TEXT, "@UntappedKegg ");
+            twitterIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                targetedShareIntents.add(twitterIntent);
+        } catch (Exception ignored) {}
 
         // Market
         try {
@@ -285,11 +294,11 @@ public final class CommonIntents {
             if (marketIntent != null)
                 targetedShareIntents.add(marketIntent);
 
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
 
         if(!targetedShareIntents.isEmpty()) {
             Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[targetedShareIntents.size()]));
             ctx.startActivity(chooserIntent);
         } else Toast.makeText(ctx, R.string.no_apps_available, Toast.LENGTH_SHORT).show();
 

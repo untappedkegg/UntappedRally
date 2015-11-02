@@ -34,7 +34,7 @@ public final class ScheduleStub extends Fragment implements Refreshable {
         this.getChildFragmentManager().beginTransaction().replace(R.id.schedule_stub_content, fragment).commit();
 
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(fragment.getClass().getSimpleName());
+        mTracker.setScreenName("Schedule");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

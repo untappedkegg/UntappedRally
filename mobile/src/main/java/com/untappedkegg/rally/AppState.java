@@ -174,8 +174,8 @@ public class AppState extends Application {
     public static final Locale localeUser = Locale.getDefault();
 
     //time constants
-//    public static final String DAY_START = " 00:00";
-//    public static final String DAY_END = " 23:59";
+//    public static final String DAY_START = "00:00";
+//    public static final String DAY_END = "23:59";
 
     /* ----- VARIABLES ----- */
     private static Application instance;
@@ -340,7 +340,7 @@ public class AppState extends Application {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
-                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.DAY_IN_MILLIS * 8);
+                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * 8);
                 //The intent is declared in the manifest, if changed here it must also be changed there
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
                 alarm.set(AlarmManager.RTC, diff, pendingIntent);

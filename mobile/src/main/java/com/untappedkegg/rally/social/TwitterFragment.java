@@ -108,7 +108,7 @@ public class TwitterFragment extends ListFragment implements Refreshable {
 
 
         Tracker mTracker = AppState.getDefaultTracker();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("Twitter");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 

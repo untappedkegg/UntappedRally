@@ -95,7 +95,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
     @Override
     public void onResume() {
         super.onResume();
-        mTracker.setScreenName(this.getClass().getSimpleName());
+        mTracker.setScreenName("Event Details");
         mTracker.setTitle(eventName);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
