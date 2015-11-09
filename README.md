@@ -9,9 +9,12 @@ Untapped Rally is an Android app providing news, videos, schedules, and stage ti
 * Upcoming
     - User selectable notification time
 
+* 1.2.8
+    - Bug Fixes
+
 * 1.2.7
     - Bug Fixes
-    - Set notification time to 8am from midnight
+    - Moved notifications to 8am
     - Performance improvements
 
 * 1.2.5

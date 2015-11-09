@@ -68,7 +68,7 @@ public class SAXNews extends BaseSAX {
             try {
                 if (DateManager.timeBetweenInDays(DateManager.DATABASE.parse(pubDate).getTime()) < Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"))) {
                         // Filter out all Non Rally America stories form iRally
-                    if (!uri.equals(AppState.SOURCE_RALLY_AMERICA) && title.startsWith("RA")) {
+                    if (!uri.equals(AppState.SOURCE_RALLY_AMERICA) && (title.startsWith("RA") || title.startsWith("USA"))) {
                         DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
                     } else if (!uri.equals(AppState.SOURCE_IRALLY)) {
                         DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);

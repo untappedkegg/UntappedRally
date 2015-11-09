@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme" >
 
         <activity android:name=".home.ActivityMain"
+            android:theme="@style/AppTheme"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +35,7 @@
 
         <activity
             android:name=".event.EventActivity"
+            android:theme="@style/AppTheme"
             android:label="Event Details"
             android:parentActivityName=".home.ActivityMain" >
             <meta-data
@@ -43,6 +45,7 @@
 
         <activity
             android:name=".stages.ActivityStages"
+            android:theme="@style/AppTheme"
             android:label="Event Stages"
             android:parentActivityName=".home.ActivityMain" >
             <meta-data

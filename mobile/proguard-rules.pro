@@ -38,6 +38,7 @@
 #The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle. Note that the Dalvik VM also can't handle aggressive overloading (of static fields).
 #To understand or change this check http://proguard.sourceforge.net/index.html#/manual/optimizations.html
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,class/marking/final,code/removal/advanced,code/simplification/advanced,code/allocation/variable,method/inlining/*
+#-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,class/marking/final,code/allocation/variable,method/inlining/*
 
 #To repackage classes on a single package
 #-repackageclasses ''
@@ -126,6 +127,20 @@
 #   void myCallbackMethod(java.lang.String);
 #}
 
-#Facebook
-#-keep class com.facebook.** { *; }
-#-keepattributes Signature
+-dontwarn android.security.**
+#Twitter
+-dontwarn  com.digits.sdk.android.*ActionBarActivity
+
+# retrofit specific
+-dontwarn com.squareup.okhttp.**
+-dontwarn com.google.appengine.api.urlfetch.**
+-dontwarn rx.**
+-dontwarn retrofit.**
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-keep class retrofit.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit.http.* <methods>;
+}

@@ -245,7 +245,7 @@ public final class CommonIntents {
     }
 
     public static void sendFeedback(final Context ctx) {
-        List<Intent> targetedShareIntents = new ArrayList<Intent>();
+        List<Intent> targetedShareIntents = new ArrayList<>();
 
         final String emailMsg = String.format("App Version: %s\nAndroid: %s : %s\nDevice: %s (%s)\nPlease leave the above lines for debugging purposes. Thank you!\n\n", BuildConfig.VERSION_NAME, Build.VERSION.SDK_INT, Build.VERSION.RELEASE, /*Build.FINGERPRINT,*/ Build.MODEL, Build.DEVICE);
 
@@ -274,7 +274,7 @@ public final class CommonIntents {
             twitterIntent.setType("text/plain");
             twitterIntent.putExtra(Intent.EXTRA_TEXT, "@UntappedKegg ");
             twitterIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                targetedShareIntents.add(twitterIntent);
+            targetedShareIntents.add(twitterIntent);
         } catch (Exception ignored) {}
 
         // Market
