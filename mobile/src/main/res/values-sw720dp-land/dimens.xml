@@ -8,5 +8,6 @@
 
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">32dp</dimen>
+    <dimen name="grid_margin_top">-50dp</dimen>
 
 </resources>

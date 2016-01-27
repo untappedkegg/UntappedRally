@@ -35,7 +35,7 @@
             android:layout_toRightOf="@id/footer_settings_img"
             android:layout_centerVertical="true"
             android:text="@string/settings"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -63,7 +63,7 @@
             android:layout_toRightOf="@id/footer_about_img"
             android:layout_centerVertical="true"
             android:text="@string/about"
-            android:textSize="14sp" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 

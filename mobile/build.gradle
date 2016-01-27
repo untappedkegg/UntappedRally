@@ -62,9 +62,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-plus:8.3.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.diegocarloslima:fgelv:0.1.+@aar'
-    compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
+    compile('com.twitter.sdk.android:twitter:1.12.0@aar') {
         transitive = true;
     }
 }
