@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -160,6 +161,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
         return eventName;
     }
 
+    /*----- NESTED CLASSES -----*/
     @SuppressLint("NewApi")
     public class NewEventViewBinder implements ViewBinder {
 
@@ -210,6 +212,18 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                 case R.id.events_start_human:
                 case R.id.events_end_human:
                     TextView tv = (TextView) v;
+
+                    // Remove End Date if single day event
+                    String startDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE));
+                    String endDate = c.getString(c.getColumnIndex(DbSchedule.SCHED_END_DATE));
+
+                    if(startDate.equals(endDate)) {
+                        Log.e(startDate, endDate);
+                        TextView startText = (TextView) ((View)(v.getParent().getParent())).findViewById(R.id.event_start_label);
+                        startText.setText(R.string.events_date);
+                        ((View)(v.getParent().getParent())).findViewById(R.id.end_date_container).setVisibility(View.GONE);
+                    }
+
                     try {
                         tv.setText(DateManager.parseFromDb(uri, DateManager.DATEONLY_HUMAN_READABLE));
                     } catch (ParseException e) {

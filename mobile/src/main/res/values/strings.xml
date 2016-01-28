@@ -108,6 +108,7 @@
     <string name="events_flag">Icon</string>
     <string name="events_start">Start Date:</string>
     <string name="events_end">End Date:</string>
+    <string name="events_date">Date:</string>
     <string name="events_location">Location:</string>
     <string name="events_stages">Stages</string>
     <string name="events_photos">Photos</string>

@@ -90,7 +90,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal" >
 
-                <TextView
+                <TextView android:id="@+id/event_start_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="5dp"/>
             </LinearLayout>
 
-            <LinearLayout
+            <LinearLayout android:id="@+id/end_date_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
