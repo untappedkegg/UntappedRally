@@ -266,7 +266,9 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                     if (!TextUtils.isEmpty(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)))) {
                         newRow = inflater.inflate(R.layout.event_details_row, null);
                         ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.event_website);
-                        ((TextView) newRow.findViewById(R.id.event_details_list_uri)).setText(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)));
+                        TextView uriText = ((TextView) newRow.findViewById(R.id.event_details_list_uri));
+                        uriText.setText(c.getString(c.getColumnIndex(DbSchedule.SCHED_EVT_SITE)));
+                        uriText.setVisibility(View.VISIBLE);
                         newRow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -281,6 +283,9 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                         newRow = inflater.inflate(R.layout.event_details_row, null);
 
                         ((TextView) newRow.findViewById(R.id.event_details_list_title)).setText(R.string.action_website);
+                        TextView uriText = ((TextView) newRow.findViewById(R.id.event_details_list_uri));
+                        uriText.setText(c.getString(c.getColumnIndex(DbSchedule.SCHED_SITE)));
+                        uriText.setVisibility(View.VISIBLE);
                         newRow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
