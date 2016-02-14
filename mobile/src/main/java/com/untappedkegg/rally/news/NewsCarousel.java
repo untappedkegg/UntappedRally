@@ -154,7 +154,11 @@ public final class NewsCarousel extends BaseCarousel implements NewDataFetcher.C
         @Override
         public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
             if (view.getId() == R.id.carousel_page_image) {
-                ImageLoader.getInstance().displayImage(cursor.getString(columnIndex), (ImageView) view);
+                String uri = cursor.getString(columnIndex);
+                if (TextUtils.isEmpty(uri)) {
+                    uri = AppState.EGG_DRAWABLE + cursor.getString(cursor.getColumnIndex(DbNews.SOURCE)).toLowerCase()  + "_large";
+                }
+                ImageLoader.getInstance().displayImage(uri, (ImageView) view);
                 view.setVisibility(View.VISIBLE);
                 return true;
             }

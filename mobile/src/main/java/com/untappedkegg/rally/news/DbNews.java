@@ -113,7 +113,7 @@ public final class DbNews extends BaseDbAccessor {
                 whereIn += ", '" + feed + "'";
             }
         }
-        return dbAdapter.selectf("SELECT * FROM %s WHERE %s != '' AND %s in (%s) ORDER BY %s DESC LIMIT 5", NEWS_TABLE, IMAGE_LINK, SOURCE, whereIn, PUBDATE);
+        return dbAdapter.selectf("SELECT * FROM %s WHERE %s in (%s) ORDER BY %s DESC LIMIT 5", NEWS_TABLE, SOURCE, whereIn, PUBDATE);
     }
 
     public static Cursor fetchItemById(final String id) {
