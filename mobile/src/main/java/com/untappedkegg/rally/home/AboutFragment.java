@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -34,7 +35,7 @@ import com.untappedkegg.rally.util.CommonIntents;
 public final class AboutFragment extends Fragment implements View.OnClickListener {
 
     private TextView versionView;
-    private ImageButton twitter, gPlus;
+    private ImageButton twitter, gPlus, youTube;
     private Tracker mTracker = AppState.getDefaultTracker();
 
     public AboutFragment() {
@@ -55,6 +56,7 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
         versionView = (TextView) view.findViewById(R.id.about_version);
         twitter = (ImageButton) view.findViewById(R.id.about_twitter_btn);
         gPlus = (ImageButton) view.findViewById(R.id.about_g_plus_btn);
+        youTube = (ImageButton) view.findViewById(R.id.about_youtube_btn);
 
         return view;
     }
@@ -65,6 +67,7 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
 
         twitter.setOnClickListener(this);
         gPlus.setOnClickListener(this);
+        youTube.setOnClickListener(this);
     }
 
     @Override
@@ -142,7 +145,14 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
                 } catch(ActivityNotFoundException e) {
                     CommonIntents.openUrl(activity, AppState.SOCIAL_G_PLUS);
                 }
-
+                break;
+            case R.id.about_youtube_btn:
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/" + BuildConfig.DEV_NAME)));
+                    mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("YouTube").build());
+                } catch (Exception ignored) {
+                    Toast.makeText(getActivity(), R.string.no_apps_available, Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }
