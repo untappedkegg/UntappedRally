@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.event.EventActivity;
 import com.untappedkegg.rally.schedule.DbSchedule;
@@ -25,7 +26,7 @@ public final class ActivityStages extends EventActivity implements EventStages.C
     // BaseContainer
     @SuppressWarnings("unchecked")
     @Override
-    public void selectContent(String uri, String args, String query, int id, boolean addToBackStack) {
+    public void selectContent(final String uri, final String args, final String query, final int id, final boolean addToBackStack) {
             Fragment fragment = new EventStages();
 
             final String link = DbSchedule.fetchEventRA_link(curId);
@@ -53,7 +54,9 @@ public final class ActivityStages extends EventActivity implements EventStages.C
                     resultsFragment.setArguments(resultsBundle);
                     attachFragment(resultsFragment, false, ((Object) resultsFragment).getClass().getCanonicalName(), R.id.second_container);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    if(BuildConfig.DEBUG) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -73,7 +76,7 @@ public final class ActivityStages extends EventActivity implements EventStages.C
     public void updateStageResults(final String stageNo) {
         try {
             ((StagesViewPager) getSupportFragmentManager().findFragmentById(R.id.second_container)).updateChildArgs(stageNo);
-        } catch (Exception e ) {
+        } catch (Exception ignored ) {
             // Not found
         }
     }

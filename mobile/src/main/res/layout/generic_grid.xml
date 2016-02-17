@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-
+    android:layout_height="wrap_content">
 
     <FrameLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
-         <GridView
-             android:id="@android:id/list"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginLeft="5dp"
-             android:layout_marginRight="5dp"
-             android:columnWidth="@dimen/grid_col_width"
-             android:gravity="center"
-             android:numColumns="auto_fit"
-             android:verticalSpacing="5dp"
-             android:drawSelectorOnTop="true"
-             android:stretchMode="columnWidth" >
-         </GridView>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-         <TextView android:id = "@android:id/empty"
-                   android:layout_width = "match_parent"
-                   android:layout_height = "wrap_content"
-                   android:gravity="center"
-                   android:paddingTop="30dp"
-                   android:paddingBottom="30dp"
-                   android:paddingLeft="10dp"
-                   android:paddingRight="10dp" />
+        <GridView android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:columnWidth="@dimen/grid_col_width"
+            android:drawSelectorOnTop="true"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" />
 
-     </FrameLayout>
+        <TextView android:id="@android:id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="30dp" />
 
-    <ProgressBar
-        android:id="@+id/generic_grid_progress"
+    </FrameLayout>
+
+    <ProgressBar android:id="@+id/generic_grid_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
-        android:layout_margin="10dp" />
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent" />
 
 </RelativeLayout>

@@ -25,7 +25,7 @@ public class DateManager {
     static final Locale locale = AppState.localeUser;
 
 
-    public static final DateFormat bestOfRally = new SimpleDateFormat("EEE, dd.MM.yyyy HH:mm:ss", Locale.US);
+//    public static final DateFormat bestOfRally = new SimpleDateFormat("EEE, dd.MM.yyyy HH:mm:ss", Locale.US);
 
     // ISO8601 - used inside the local database, because it is lexically sortable.
     public static final DateFormat DATABASE = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -43,7 +43,7 @@ public class DateManager {
 
     public static final DateFormat RSS_DATE = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", locale);
     public static final DateFormat RSS_DATE_OFFSET = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss ZZZZZ", locale);
-    public static final DateFormat RSS_DATE_TIMEZONE = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz", locale);
+//    public static final DateFormat RSS_DATE_TIMEZONE = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz", locale);
     public static final DateFormat RSS_DATE_RA = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", locale);
 
 

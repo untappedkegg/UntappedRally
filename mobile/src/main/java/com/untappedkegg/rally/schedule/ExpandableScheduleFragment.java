@@ -7,6 +7,8 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.DataFetcher;
@@ -30,6 +32,14 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " + ScheduleItemClickReceiver.class.getSimpleName());
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Tracker mTracker = AppState.getDefaultTracker();
+        mTracker.setScreenName("Schedule");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     /* ----- INHERITED METHODS ----- */

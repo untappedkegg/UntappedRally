@@ -4,26 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--   <LinearLayout
-           android:layout_width="fill_parent"
-           android:layout_height="0dp"
-           android:layout_weight=".20"
-           android:minHeight="95dp"
-           android:orientation="vertical">
-           <TextView android:id="@+id/home_upcoming_text"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:padding="3dp"
-               android:textSize="16sp"
-               android:text="@string/upcoming_events"
-               android:background="@color/section_header"
-               android:textColor="@color/section_text" />
-           <FrameLayout android:id="@+id/home_top"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content">
-           </FrameLayout>
-       </LinearLayout>-->
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -31,20 +11,18 @@
         android:minHeight="95dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/home_next_event_text"
+        <TextView android:id="@+id/home_next_event_text"
+            style="@style/TitleStrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"
-            android:text="@string/next_event"
-            style="@style/TitleStrip" />
+            android:text="@string/next_event" />
 
-        <FrameLayout
-            android:id="@+id/home_middle"
+        <FrameLayout android:id="@+id/home_middle"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,20 +32,18 @@
         android:minHeight="50dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/home_news_text"
+        <TextView android:id="@+id/home_news_text"
+            style="@style/TitleStrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="3dp"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"
-            android:text="@string/latest_news"
-            style="@style/TitleStrip" />
+            android:text="@string/latest_news" />
 
-        <FrameLayout
-            android:id="@+id/home_bottom"
+        <FrameLayout android:id="@+id/home_bottom"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

@@ -29,7 +29,7 @@ import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
 import com.untappedkegg.rally.news.NewsFragment;
 import com.untappedkegg.rally.preference.SettingsFragment;
-import com.untappedkegg.rally.schedule.ScheduleStub;
+import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
 import com.untappedkegg.rally.social.TwitterFragment;
 import com.untappedkegg.rally.util.CommonIntents;
 
@@ -185,7 +185,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
         try {
             menu.findItem(R.id.menu_refresh).setVisible(!drawerOpen);
             return true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             return super.onPrepareOptionsMenu(menu);
         }
 
@@ -243,7 +243,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
                 fragment = new HomeFragment();
                 break;
             case 1:
-                fragment = new ScheduleStub();
+                fragment = new ExpandableScheduleFragment();
                 break;
             case 2:
                 fragment = new NewsFragment();
@@ -302,7 +302,7 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
     }
 
     // CALLBACKS
-    // ScheduleFragment.Callbacks
+    // ExpandableScheduleFragment.Callbacks
     @Override
     public void showEventDetail( String eventName, int id) {
         Intent intent = new Intent(AppState.getApplication(), EventActivity.class);

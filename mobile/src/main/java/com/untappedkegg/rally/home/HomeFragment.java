@@ -89,11 +89,11 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
     public void refreshData() {
         try {
             ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NextEventFragment.class.getCanonicalName())).refreshData();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException ignored) {}
 
         try {
             ((Refreshable) this.getChildFragmentManager().findFragmentByTag(NewsCarousel.class.getCanonicalName())).refreshData();
-        } catch(NullPointerException e) {}
+        } catch(NullPointerException ignored) {}
     }
 
 

@@ -20,8 +20,8 @@ import java.text.ParseException;
 public final class NewsViewBinder implements ViewBinder {
 
     /* ----- VARIABLES ----- */
-    private boolean isHomeFragment;
-    final private Context ctx;
+    private final boolean isHomeFragment;
+    private final Context ctx;
 
     /* ----- CONSTRUCTORS ----- */
     public NewsViewBinder(Context ctx, boolean isHomeFragment) {
@@ -37,20 +37,20 @@ public final class NewsViewBinder implements ViewBinder {
             case R.id.list_icon:
 
                 final ImageView imageView = (ImageView) view;
-                    imageView.setAdjustViewBounds(true);
+                imageView.setAdjustViewBounds(true);
 
                 if (uri.equalsIgnoreCase(AppState.SOURCE_RALLY_AMERICA)) {
                     imageView.setImageResource(R.drawable.ra_large);
                     return true;
                 }
 
-                    if (uri.contains("100aw")) {
-                        uri = "ra" + uri;
-                    }
+                if (uri.contains("100aw")) {
+                    uri = "ra" + uri;
+                }
 
-                    ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri.toLowerCase() + "_large", imageView);
+                ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri.toLowerCase() + "_large", imageView);
 
-                    return true;
+                return true;
 
             case R.id.list_date:
                 TextView tv = (TextView) view;

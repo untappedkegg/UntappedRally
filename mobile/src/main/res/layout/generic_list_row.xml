@@ -2,43 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="5dp"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_marginLeft="1dp"
-    	android:layout_marginTop="5dp"
-    	android:orientation="horizontal" >
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
-   		<ImageView android:id="@+id/list_icon"
-     	  	android:layout_width="wrap_content"
-     	  	android:layout_height="wrap_content"
+        <ImageView android:id="@+id/list_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/icon"
             android:maxWidth="75dp"
-     	  	android:scaleType="fitCenter"
-     	  	android:layout_gravity="center"
-     	  	android:contentDescription="@string/icon" />
-   	 	<TextView android:id="@+id/list_title"
-    	    android:layout_width="0dp"
-    	    android:layout_height="wrap_content"
-    	    android:layout_weight="1"
-    	    android:layout_gravity="center_vertical"
-    	    android:textSize="18sp"
-    	    android:padding="3dp"
-    	    android:textColor="@color/title_color"  />
-    	<TextView android:id="@+id/list_id"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="wrap_content"
-    	    android:visibility="gone" />
-    	<TextView android:id="@+id/list_uri"
-     	   android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:visibility="gone" />
-    	<TextView android:id="@+id/list_link"
-     	   android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:visibility="gone" />
+            android:scaleType="fitCenter" />
+
+        <TextView android:id="@+id/list_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:textColor="@color/title_color"
+            android:textSize="18sp" />
+
+        <TextView android:id="@+id/list_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView android:id="@+id/list_uri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView android:id="@+id/list_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
     <RelativeLayout
@@ -46,24 +50,23 @@
         android:layout_height="wrap_content">
 
         <TextView android:id="@+id/read_status"
-           android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:textColor="@color/red"
-     	   android:layout_alignParentLeft="true"
-     	   android:layout_marginRight="3dp"
-		   android:layout_marginLeft="3dp"
-     	   android:visibility="visible" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/red"
+            android:visibility="visible" />
 
 
         <TextView android:id="@+id/list_date"
-     	   android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:textColor="@color/light_green"
-     	   android:layout_alignParentRight="true"
-     	   android:layout_marginRight="3dp"
-    	   android:layout_marginLeft="3dp"
-     	   android:visibility="visible" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:textColor="@color/light_green"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -73,19 +76,19 @@
         android:orientation="horizontal">
 
         <TextView android:id="@+id/list_descr"
-     	   android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:layout_marginRight="3dp"
-    	   android:layout_marginLeft="3dp"
-     	   android:maxLines="4"
-     	   android:ellipsize="end"
-     	   android:visibility="visible"
-     	   android:textColor="@color/gray"  />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textColor="@color/gray"
+            android:visibility="visible" />
     </LinearLayout>
-    <TextView android:id="@+id/list_date2"
-     	   android:layout_width="wrap_content"
-     	   android:layout_height="wrap_content"
-     	   android:visibility="gone" />
 
+    <TextView android:id="@+id/list_date2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </LinearLayout>

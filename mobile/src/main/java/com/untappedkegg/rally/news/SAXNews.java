@@ -15,11 +15,9 @@ public class SAXNews extends BaseSAX {
 
     private final String uri;
 
-    public SAXNews(String uri) {
+    public SAXNews(final String uri) {
         this.uri = uri;
-
     }
-
 
     @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {

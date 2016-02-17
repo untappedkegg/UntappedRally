@@ -27,10 +27,6 @@ public class EventFetcher implements Fetcher {
 
     private final List<AsyncTask<Void, Integer, Throwable>> tasks = new ArrayList<AsyncTask<Void, Integer, Throwable>>();
 
-    /* ----- CONSTRUCTORS ----- */
-//    private EventFetcher(Context ctx) {
-//        EventFetcher.ctx = ctx;
-//    }
 
     public static EventFetcher getInstance() {
         return instance;
@@ -39,12 +35,10 @@ public class EventFetcher implements Fetcher {
     /* ----- INHERITED METHODS ----- */
     public void start(Callbacks callback, String link, String year) {
         tasks.add(NewDataFetcher.execute(new PhotoParser(callback, link, year)));
-
     }
 
     public void startDetails(Callbacks callback, String link) {
         tasks.add(NewDataFetcher.execute(new DetailsParser(callback, link)));
-
     }
 
     @Override
@@ -80,8 +74,6 @@ public class EventFetcher implements Fetcher {
             if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(link)) > AppState.STAND_UPDATE_DELAY) {
                 try {
 
-
-
                     Pattern pattern = Pattern.compile("<a href='/assets/(.*?)</a>", Pattern.CASE_INSENSITIVE);
 
                     HttpURLConnection conn = NewDataFetcher.get(link);
@@ -91,21 +83,18 @@ public class EventFetcher implements Fetcher {
                         DbUpdated.updated_insert(link);
                         Matcher matcher = pattern.matcher(NewDataFetcher.readStream(conn.getInputStream()));
 
-
                         while (matcher.find()) {
-                            //							Log.w(""+matcher.groupCount(), matcher.group(0).replaceAll("'", "\""));
-                            //							String find = matcher.group(0);
-                            //							find.replaceAll("'", "\"");
                             final String[] finds = matcher.group(0).replaceAll("'", "\"").split("\"");
-//                            							Log.e(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)) );
                             DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), event, year);
                         }
                     }
 
                     conn.disconnect();
                 } catch (Exception e) {
-                    Log.d(LOG_TAG, e.toString());
-                    e.printStackTrace();
+                    if(BuildConfig.DEBUG) {
+                        Log.d(LOG_TAG, e.toString());
+                        e.printStackTrace();
+                    }
                     return e;
                 } finally {
                     DbUpdated.close();
@@ -116,7 +105,9 @@ public class EventFetcher implements Fetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Photo Parsing finished");
+            if(BuildConfig.DEBUG) {
+                Log.d(LOG_TAG, "Photo Parsing finished");
+            }
             callback.onDataFetchComplete(result, function);
         }
     }
@@ -166,7 +157,7 @@ public class EventFetcher implements Fetcher {
                     conn.disconnect();
                 } catch (Exception e) {
                     if (BuildConfig.DEBUG)
-                    e.printStackTrace();
+                        e.printStackTrace();
                     return e;
                 } finally {
                     DbUpdated.close();
@@ -178,7 +169,9 @@ public class EventFetcher implements Fetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Details Parsing finished");
+            if(BuildConfig.DEBUG) {
+                Log.d(LOG_TAG, "Details Parsing finished");
+            }
             callback.onDataFetchComplete(result, function);
         }
     }

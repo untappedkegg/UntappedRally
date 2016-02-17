@@ -12,12 +12,13 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.util.DateManager;
 
+import java.util.Date;
+
 public final class DbSchedule extends BaseDbAccessor {
 
     public DbSchedule() {
         // Required Empty Constructor
     }
-
 
     public static final String SCHED_TABLE = "schedule_table";
     public static final String SCHED_ID = "_id";
@@ -98,8 +99,9 @@ public final class DbSchedule extends BaseDbAccessor {
 
     public static Cursor fetchUpcoming() {
 
-        final String today = DateManager.format(DateManager.now(), DateManager.ISO8601_DATEONLY);
-        final String year = DateManager.format(DateManager.now(), DateManager.YEAR);
+        final Date now = DateManager.now();
+        final String today = DateManager.format(now, DateManager.ISO8601_DATEONLY);
+        final String year = DateManager.format(now, DateManager.YEAR);
 
         if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
             return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
@@ -133,7 +135,7 @@ public final class DbSchedule extends BaseDbAccessor {
             try {
                 c.moveToFirst();
                 return DateManager.todayIsBefore(c.getString(0));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
                 return false;
             } finally {
                 c.close();

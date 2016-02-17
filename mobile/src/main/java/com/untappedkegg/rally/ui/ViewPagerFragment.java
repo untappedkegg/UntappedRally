@@ -93,8 +93,8 @@ public abstract class ViewPagerFragment extends Fragment {
                         ((BaseList) dataFragment).updateArgs(args, query);
                     } else if (dataFragment instanceof BaseFragment) {
                         ((BaseFragment) dataFragment).updateArgs(args, query);
-                    } else if (dataFragment instanceof BaseMap) {
-                        ((BaseMap) dataFragment).updateArgs(args, query);
+//                    } else if (dataFragment instanceof BaseMap) {
+//                        ((BaseMap) dataFragment).updateArgs(args, query);
                     }
                 }
             } catch (Exception e) {
@@ -114,14 +114,14 @@ public abstract class ViewPagerFragment extends Fragment {
      * Return a BaseFragment (defined as a static class in the home
      * package) with the page number as its lone argument.
      */
-    protected abstract Fragment getItems(int position);
+    protected abstract Fragment getItems(final int position);
 
     /**
      * @return The total number of pages, which this {@link FragmentPagerAdapter} will hold
      */
     protected abstract int getNumPages();
 
-    protected abstract CharSequence getPageTitles(int position);
+    protected abstract CharSequence getPageTitles(final int position);
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

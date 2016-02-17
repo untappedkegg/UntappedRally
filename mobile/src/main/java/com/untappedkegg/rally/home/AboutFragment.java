@@ -108,7 +108,6 @@ public final class AboutFragment extends Fragment implements View.OnClickListene
             case R.id.menu_about_changelog:
                 DialogFragment changelogFragment = BaseWebviewDialog.newInstance(AppState.CHANGELOG_URL, R.string.changelog);
                 this.getChildFragmentManager().beginTransaction().add(changelogFragment, changelogFragment.toString()).commit();
-
                 mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("View").setLabel("Change Log").build());
                 return true;
             case R.id.menu_about_feedback:

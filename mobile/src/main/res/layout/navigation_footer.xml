@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="10dp" >
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -13,27 +14,27 @@
     <RelativeLayout android:id="@+id/navigation_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
         android:layout_marginTop="1dp"
-        android:paddingTop="5dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingBottom="1dp"
         android:paddingLeft="5dp"
-        android:paddingBottom="1dp" >
+        android:paddingTop="5dp">
 
         <ImageView android:id="@+id/footer_settings_img"
-            android:src="@drawable/ic_action_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="4dp"
-            android:paddingLeft="15dp"
             android:contentDescription="@string/settings"
+            android:paddingLeft="15dp"
+            android:paddingRight="4dp"
             android:scaleX=".8"
-            android:scaleY=".8" />
+            android:scaleY=".8"
+            android:src="@drawable/ic_action_settings" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/footer_settings_img"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/footer_settings_img"
             android:text="@string/settings"
             android:textSize="15sp" />
 
@@ -43,25 +44,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:paddingTop="1dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="5dp"
-        android:paddingBottom="5dp" >
+        android:paddingTop="1dp">
 
         <ImageView android:id="@+id/footer_about_img"
-            android:src="@drawable/ic_action_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="4dp"
-            android:paddingLeft="15dp"
             android:contentDescription="@string/about"
+            android:paddingLeft="15dp"
+            android:paddingRight="4dp"
             android:scaleX=".8"
-            android:scaleY=".8" />
+            android:scaleY=".8"
+            android:src="@drawable/ic_action_about" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/footer_about_img"
             android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/footer_about_img"
             android:text="@string/about"
             android:textSize="15sp" />
 

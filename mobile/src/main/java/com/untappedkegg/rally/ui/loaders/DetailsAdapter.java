@@ -29,7 +29,7 @@ public class DetailsAdapter extends SimpleCursorAdapter {
     private View.OnClickListener emptyListener;
 
     /* ----- CONSTRUCTORS ----- */
-    public DetailsAdapter(Context context, Cursor cursor, String[] from, int[] to, int container, int layout) {
+    public DetailsAdapter(final Context context, Cursor cursor, final String[] from, final int[] to, final int container, final int layout) {
         super(context, layout, cursor, from, to, 0);
         this.context = context;
         this.cursor = cursor;
@@ -98,14 +98,14 @@ public class DetailsAdapter extends SimpleCursorAdapter {
      */
     private void adapt() {
         if (getCount() > 0) {
-            int length = from.length <= to.length ? from.length : to.length;
+            final int length = from.length <= to.length ? from.length : to.length;
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(layout, container, false);
 
             for (int idx = 0; idx < length; idx++) {
                 if (cursor.moveToFirst()) {
                     View v = view.findViewById(to[idx]);
-                    int columnIndex = cursor.getColumnIndex(from[idx]);
+                    final int columnIndex = cursor.getColumnIndex(from[idx]);
 
                     if (binder == null || !binder.setViewValue(v, cursor, columnIndex)) {
                         ((TextView) v).setText(cursor.getString(columnIndex));

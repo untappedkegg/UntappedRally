@@ -2,12 +2,6 @@
 <resources>
     <integer name="ga_sessionTimeout">300</integer>
     <bool name="ga_autoActivityTracking">true</bool>
-<!--    <screenName name="com.google.android.gms.analytics.samples.mobileplayground.ScreenviewFragment">
-        AnalyticsSampleApp ScreenView
-    </screenName>
-    <screenName name="com.untappedkegg.rally.home.StandingsFragment">
-        AnalyticsSampleApp EcommerceView
-    </screenName>-->
-    <!--  The following value should be replaced with correct property id. -->
+
     <string name="ga_trackingId">UA-60101196-1</string>
 </resources>

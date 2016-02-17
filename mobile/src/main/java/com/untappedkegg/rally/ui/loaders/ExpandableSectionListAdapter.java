@@ -45,7 +45,6 @@ public class ExpandableSectionListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getGroup(int groupPosition) {
         return mWrappedAdapter.getGroup(groupPosition);
-
     }
 
     @Override

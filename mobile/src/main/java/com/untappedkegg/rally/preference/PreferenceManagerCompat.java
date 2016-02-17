@@ -115,8 +115,7 @@ public class PreferenceManagerCompat {
      * @param queryIntent The intent to match activities.
      * @param rootPreferences Optional existing hierarchy to merge the new
      *            hierarchies into.
-     * @return The root hierarchy (if one was not provided, the new hierarchy's
-     *         root).
+     * @return The root hierarchy (if one was not provided, the new hierarchy's root).
      */
     static PreferenceScreen inflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen) {
         try {

@@ -1,42 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-    <LinearLayout android:id="@+id/generic_details_buttonbar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:background="@color/section_header"
-        android:orientation="horizontal"
-        android:visibility="gone">
-    </LinearLayout>
-
-    <ScrollView android:layout_width="match_parent"
-		android:layout_height="match_parent"
-        android:layout_above="@id/generic_details_buttonbar">
+        android:layout_height="match_parent">
 
         <FrameLayout android:id="@+id/generic_details_container"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-	</ScrollView>
+    </ScrollView>
 
-	<TextView android:id="@+id/generic_details_empty"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:visibility="gone" />
-		<!-- android:background="@color/ActionBar" -->
-
+    <TextView android:id="@+id/generic_details_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <ProgressBar android:id="@+id/generic_details_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/generic_details_buttonbar"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:padding="10dp" />
 
 </RelativeLayout>

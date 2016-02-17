@@ -6,15 +6,15 @@
     tools:context="com.untappedkegg.rally.stages.StagesViewPager">
 
     <Spinner android:id="@+id/stages_results_spinner"
+        style="@style/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="3dp"
         android:gravity="center_horizontal"
         android:minWidth="100dp"
-        android:padding="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="2dp"
-        style="@style/spinner" />
+        android:padding="3dp" />
 
-    <include layout="@layout/viewpager"/>
+    <include layout="@layout/viewpager" />
 
 </LinearLayout>

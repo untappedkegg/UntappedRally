@@ -23,9 +23,9 @@ import java.util.Map.Entry;
 public abstract class SectionListAdapter extends BaseAdapter implements OnItemClickListener {
     /* CONSTANTS */
     private final ListAdapter linkedAdapter;
-    private final Map<Integer, String> sectionPositions = new LinkedHashMap<Integer, String>();
-    private final Map<Integer, Integer> itemPositions = new LinkedHashMap<Integer, Integer>();
-    private final Map<View, String> currentViewSections = new HashMap<View, String>();
+    private final Map<Integer, String> sectionPositions = new LinkedHashMap<>();
+    private final Map<Integer, Integer> itemPositions = new LinkedHashMap<>();
+    private final Map<View, String> currentViewSections = new HashMap<>();
     private final int headerLayoutId;
     private final LayoutInflater inflater;
 
@@ -87,7 +87,7 @@ public abstract class SectionListAdapter extends BaseAdapter implements OnItemCl
         if (isSection(position)) return sectionPositions.get(position).hashCode();
         try {
             return linkedAdapter.getItemId(getLinkedPosition(position));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
             return 0;
         }
     }
@@ -191,8 +191,7 @@ public abstract class SectionListAdapter extends BaseAdapter implements OnItemCl
      * divider
      */
     public synchronized String getSectionName(final int position) {
-        if (isSection(position)) return sectionPositions.get(position);
-        return null;
+        return isSection(position) ? sectionPositions.get(position) : null;
     }
 
     /**

@@ -6,5 +6,4 @@
     <!-- Preference fragment padding, sides -->
     <dimen name="preference_fragment_padding_side">16dp</dimen>
 
-
 </resources>

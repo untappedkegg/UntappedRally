@@ -16,7 +16,6 @@ public class SAXSchedule extends BaseSAX {
     private String startDate = "";
     private String endDate = "";
     private String year;
-    private String[] datesArray;
     private String from;
     private String to;
     private String eventSite = "";

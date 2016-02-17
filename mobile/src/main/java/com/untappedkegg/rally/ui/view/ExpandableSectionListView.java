@@ -21,6 +21,7 @@ import android.widget.AbsListView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.ui.loaders.ExpandableSectionListAdapter;
 
@@ -484,12 +485,10 @@ public class ExpandableSectionListView extends ExpandableListView {
 
     private void positionSelectorOnFloatingGroup() {
         if (mShouldPositionSelector && mFloatingGroupView != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                final int floatingGroupFlatPosition = getFlatListPosition(getPackedPositionForGroup(mFloatingGroupPosition));
-                ReflectionUtils.invokeMethod(AbsListView.class, "positionSelector", new Class<?>[]{int.class, View.class}, ExpandableSectionListView.this, floatingGroupFlatPosition, mFloatingGroupView);
-            } else {
-                ReflectionUtils.invokeMethod(AbsListView.class, "positionSelector", new Class<?>[]{View.class}, ExpandableSectionListView.this, mFloatingGroupView);
-            }
+
+            final int floatingGroupFlatPosition = getFlatListPosition(getPackedPositionForGroup(mFloatingGroupPosition));
+            ReflectionUtils.invokeMethod(AbsListView.class, "positionSelector", new Class<?>[]{int.class, View.class}, ExpandableSectionListView.this, floatingGroupFlatPosition, mFloatingGroupView);
+
             invalidate();
         }
         mShouldPositionSelector = false;
@@ -540,11 +539,7 @@ public class ExpandableSectionListView extends ExpandableListView {
             final int indicatorLeft = (Integer) ReflectionUtils.getFieldValue(ExpandableListView.class, "mIndicatorLeft", ExpandableSectionListView.this);
             final int indicatorRight = (Integer) ReflectionUtils.getFieldValue(ExpandableListView.class, "mIndicatorRight", ExpandableSectionListView.this);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                mIndicatorRect.set(indicatorLeft + getPaddingLeft(), mFloatingGroupView.getTop(), indicatorRight + getPaddingLeft(), mFloatingGroupView.getBottom());
-            } else {
-                mIndicatorRect.set(indicatorLeft, mFloatingGroupView.getTop(), indicatorRight, mFloatingGroupView.getBottom());
-            }
+            mIndicatorRect.set(indicatorLeft + getPaddingLeft(), mFloatingGroupView.getTop(), indicatorRight + getPaddingLeft(), mFloatingGroupView.getBottom());
 
             groupIndicator.setBounds(mIndicatorRect);
             groupIndicator.draw(canvas);
@@ -566,7 +561,9 @@ public class ExpandableSectionListView extends ExpandableListView {
                 field.setAccessible(true);
                 return field.get(instance);
             } catch (Exception e) {
-                Log.w(TAG, Log.getStackTraceString(e));
+                if(BuildConfig.DEBUG) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
             }
             return null;
         }
@@ -577,7 +574,9 @@ public class ExpandableSectionListView extends ExpandableListView {
                 field.setAccessible(true);
                 field.set(instance, value);
             } catch (Exception e) {
-                Log.w(TAG, Log.getStackTraceString(e));
+                if(BuildConfig.DEBUG) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
             }
         }
 
@@ -587,7 +586,9 @@ public class ExpandableSectionListView extends ExpandableListView {
                 method.setAccessible(true);
                 return method.invoke(instance, arguments);
             } catch (Exception e) {
-                Log.w(TAG, Log.getStackTraceString(e));
+                if(BuildConfig.DEBUG) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
             }
             return null;
         }

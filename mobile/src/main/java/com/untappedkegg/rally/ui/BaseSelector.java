@@ -87,8 +87,8 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
                 ((BaseList) dataFragment).updateArgs(args, query);
             } else if (dataFragment instanceof BaseFragment) {
                 ((BaseFragment) dataFragment).updateArgs(args, query);
-            } else if (dataFragment instanceof BaseMap) {
-                ((BaseMap) dataFragment).updateArgs(args, query);
+//            } else if (dataFragment instanceof BaseMap) {
+//                ((BaseMap) dataFragment).updateArgs(args, query);
             }
         }
         loadSelector();
@@ -159,8 +159,8 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
             ((BaseList) dataFragment).loadList();
         } else if (BaseDetails.class.isAssignableFrom(dataFragment.getClass())) {
             ((BaseDetails) dataFragment).loadData();
-        } else if (BaseMap.class.isAssignableFrom(dataFragment.getClass())) {
-            ((BaseMap) dataFragment).loadMapPlots();
+//        } else if (BaseMap.class.isAssignableFrom(dataFragment.getClass())) {
+//            ((BaseMap) dataFragment).loadMapPlots();
         }
         loadSelector();
     }

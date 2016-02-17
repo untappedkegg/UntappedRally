@@ -2,7 +2,6 @@ package com.untappedkegg.rally.ui;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -84,7 +83,8 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
         setTitle(getTitleText());
 
         if (restarting) {
-            Log.d(LOG_TAG, String.format("Recieved restart: uri=%s args=%s query=%s", curUri, curArgs, curQuery));
+            if(BuildConfig.DEBUG)
+                Log.d(LOG_TAG, String.format("Recieved restart: uri=%s args=%s query=%s", curUri, curArgs, curQuery));
         } else {
             selectContent(curUri, curArgs, curQuery, curId, false);
         }
@@ -144,7 +144,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
         // Prevent whatever feed from having to reload everytime there is a configuration change
         outState.putBoolean(AppState.KEY_RESTARTING, true);
         super.onSaveInstanceState(outState);
-        Log.d(LOG_TAG, "Preparing for container restart");
+        if(BuildConfig.DEBUG) {
+            Log.d(LOG_TAG, "Preparing for container restart");
+        }
     }
 
     /**
@@ -164,10 +166,8 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      */
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
-        if (throwable != null) {
-            if (BuildConfig.DEBUG) {
-                DialogManager.raiseUIError(this, throwable, false);
-            }
+        if (BuildConfig.DEBUG && throwable != null) {
+            DialogManager.raiseUIError(this, throwable, false);
         }
 
         if (progressDialog != null) {
@@ -185,28 +185,28 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @param args       any arguments to be sent to the content fragment
      * @param query      any arguments to be sent to the content fragment as a search query
      */
-    public void selectModule(String moduleUri, String contentUri, String args, String query) {
-        try {
-            if (fetcher != null) {
-                fetcher.interrupt();
-            }
-
-
-            Class<?> c = Class.forName(moduleUri);
-
-            Intent intent = new Intent(this, c);
-
-            if (!TextUtils.isEmpty(contentUri)) intent.putExtra(AppState.KEY_URI, contentUri);
-            if (!TextUtils.isEmpty(args)) intent.putExtra(AppState.KEY_ARGS, args);
-            if (!TextUtils.isEmpty(query)) intent.putExtra(SearchManager.QUERY, query);
-
-            Log.d(LOG_TAG, String.format("Selecting Module: module=%s uri=%s arguments=%s, query=%s", moduleUri, contentUri, args, query));
-            startActivity(intent);
-        } catch (ClassNotFoundException e) {
-            Log.d(LOG_TAG, "", e);
-            DialogManager.raiseUIError(this, e, false);
-        }
-    }
+//    public void selectModule(String moduleUri, String contentUri, String args, String query) {
+//        try {
+//            if (fetcher != null) {
+//                fetcher.interrupt();
+//            }
+//
+//
+//            Class<?> c = Class.forName(moduleUri);
+//
+//            Intent intent = new Intent(this, c);
+//
+//            if (!TextUtils.isEmpty(contentUri)) intent.putExtra(AppState.KEY_URI, contentUri);
+//            if (!TextUtils.isEmpty(args)) intent.putExtra(AppState.KEY_ARGS, args);
+//            if (!TextUtils.isEmpty(query)) intent.putExtra(SearchManager.QUERY, query);
+//
+//            Log.d(LOG_TAG, String.format("Selecting Module: module=%s uri=%s arguments=%s, query=%s", moduleUri, contentUri, args, query));
+//            startActivity(intent);
+//        } catch (ClassNotFoundException e) {
+//            Log.d(LOG_TAG, "", e);
+//            DialogManager.raiseUIError(this, e, false);
+//        }
+//    }
 
     /**
      * <p>Works just like {@link #selectModule(String, String, String, String)} except {@code contentUri}, {@code args}, and {@code query} are {@code null}.</p>
@@ -214,9 +214,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @param moduleUri uniform resource identifier (class defined) for module activity
      * @see #selectModule(String, String, String, String)
      */
-    public void selectModule(String moduleUri) {
-        selectModule(moduleUri, null, null, null);
-    }
+//    public void selectModule(String moduleUri) {
+//        selectModule(moduleUri, null, null, null);
+//    }
 
     /**
      * <p>Works just like {@link #selectModule(String, String, String, String)} except {@code args}, and {@code query} are {@code null}.</p>
@@ -225,9 +225,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @param contentUri uniform resource identifier (class defined) for content fragment, null or empty for the default
      * @see #selectModule(String, String, String, String)
      */
-    public void selectModule(String moduleUri, String contentUri) {
-        selectModule(moduleUri, contentUri, null, null);
-    }
+//    public void selectModule(String moduleUri, String contentUri) {
+//        selectModule(moduleUri, contentUri, null, null);
+//    }
 
     /**
      * <p>Works just like {@link #selectModule(String, String, String, String)} except {@code query} is {@code null}.</p>
@@ -237,9 +237,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @param args       any arguments to be sent to the content fragment
      * @see #selectModule(String, String, String, String)
      */
-    public void selectModule(String moduleUri, String contentUri, String args) {
-        selectModule(moduleUri, contentUri, args, null);
-    }
+//    public void selectModule(String moduleUri, String contentUri, String args) {
+//        selectModule(moduleUri, contentUri, args, null);
+//    }
 
     /**
      * <p>Sets the content fragment of this container.</p>
@@ -265,9 +265,9 @@ public abstract class BaseContainer extends AppCompatActivity implements DataFet
      * @param query     any extra data meant to be used as a search query.
      * @see #selectContent(String, String, String, int, boolean)
      */
-    public void selectContent(String uri, String args, String query) {
-        selectContent(uri, args, query, 0, true);
-    }
+//    public void selectContent(String uri, String args, String query) {
+//        selectContent(uri, args, query, 0, true);
+//    }
 
     /**
      * <p>Works just like {@code selectContent(String, String, String, boolean)} except {@code query} is {@code null} and {@code addToBackStack}

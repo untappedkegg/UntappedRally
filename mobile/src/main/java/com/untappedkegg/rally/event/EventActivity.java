@@ -108,8 +108,6 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         startActivity(intent);
     }
 
-
-
     @Override
     public void selectResults(String link) {
         this.selectContent(EventStages.class.getName(), link);

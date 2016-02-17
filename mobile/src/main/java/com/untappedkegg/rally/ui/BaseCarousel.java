@@ -7,7 +7,6 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +76,6 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //		Analytics.trackScreen(getActivity(), getClass().getName());
         dataFetched = (savedInstanceState != null) ? savedInstanceState.getBoolean("dataFetched") : dataFetched;
         autoRotate = (savedInstanceState != null) ? savedInstanceState.getBoolean("autoRotate") : autoRotate;
     }
@@ -402,11 +400,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
      * @return the visibility of the {@code progressBar} or -1 if it is null
      */
     private int getProgressBarVisibility() {
-        if (progressBar == null) {
-            return -1;
-        } else {
-            return progressBar.getVisibility();
-        }
+        return progressBar == null ? -1 : progressBar.getVisibility();
     }
 
     protected int getPageMarginDP() {
@@ -447,14 +441,18 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
             try {
                 do {
                     while (!hasSwappedCursor) {
-                        Log.d(LOG_TAG, "RequeryManager waiting.");
+//                        if(BuildConfig.DEBUG) {
+//                            Log.d(LOG_TAG, "RequeryManager waiting.");
+//                        }
                         Thread.sleep(AppState.REQUERY_WAIT);
                     }
                     hasSwappedCursor = false;
                     doUpdate();
                 } while (shouldRequery());
             } catch (InterruptedException e) {
-                Log.v(LOG_TAG, "RequeryManager interrupted");
+//                if(BuildConfig.DEBUG) {
+//                    Log.v(LOG_TAG, "RequeryManager interrupted");
+//                }
             }
 
             doFinish();

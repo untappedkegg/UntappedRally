@@ -44,7 +44,7 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
      *
      * @return A new instance of fragment BlankFragment.
      */
-    public static BaseDialogFragment newInstance(String title, String description, String pubDate, String webLink, String imgLink, boolean linkify) {
+    public static BaseDialogFragment newInstance(final String title, final String description, final String pubDate, final String webLink, final String imgLink, final boolean linkify) {
         BaseDialogFragment fragment = new BaseDialogFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TITLE, title);

@@ -516,8 +516,8 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
     /**
      * <p>
      * {@code Runnable} that regularly restarts the loader until
-     * {@link BaseMap#shouldRequery()} returns false. Note that
-     * {@link BaseMap#finishedLoading()} is called when finishing.
+//     * {@link BaseMap#shouldRequery()} returns false. Note that
+//     * {@link BaseMap#finishedLoading()} is called when finishing.
      * </p>
      *
      * @author russellja

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.untappedkegg.rally" >
+    package="com.untappedkegg.rally">
 
     <!-- To get data -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,11 +21,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
-        <activity android:name=".home.ActivityMain"
-            android:theme="@style/AppTheme"
-            android:launchMode="singleTop">
+        <activity
+            android:name=".home.ActivityMain"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,9 +36,9 @@
 
         <activity
             android:name=".event.EventActivity"
-            android:theme="@style/AppTheme"
             android:label="Event Details"
-            android:parentActivityName=".home.ActivityMain" >
+            android:parentActivityName=".home.ActivityMain"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.ActivityMain" />
@@ -45,9 +46,9 @@
 
         <activity
             android:name=".stages.ActivityStages"
-            android:theme="@style/AppTheme"
             android:label="Event Stages"
-            android:parentActivityName=".home.ActivityMain" >
+            android:parentActivityName=".home.ActivityMain"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".home.ActivityMain" />
@@ -55,7 +56,7 @@
 
         <receiver
             android:name=".widget.NextEventWidget"
-            android:label="@string/widget_next_event" >
+            android:label="@string/widget_next_event">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -67,7 +68,7 @@
         <receiver
             android:name=".receivers.EventNotificationReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER" />
             </intent-filter>
@@ -75,7 +76,7 @@
         <receiver
             android:name=".receivers.GlobalReceiver"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -83,15 +84,17 @@
         </receiver>
 
         <!-- Analytics for non GPS devices-->
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <meta-data
             android:name="com.crashlytics.ApiKey"

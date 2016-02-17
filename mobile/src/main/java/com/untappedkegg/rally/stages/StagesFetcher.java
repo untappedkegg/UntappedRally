@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Callbacks;
@@ -53,7 +54,6 @@ public class StagesFetcher implements Fetcher {
     @Override
     public void interrupt() {
         NewDataFetcher.listInterrupt(tasks);
-
     }
 
 
@@ -72,7 +72,6 @@ public class StagesFetcher implements Fetcher {
 
         @Override
         protected Throwable doInBackground(Void... arg0) {
-
 
             try {
                 DbEvent.open();
@@ -123,26 +122,25 @@ public class StagesFetcher implements Fetcher {
                         DbEvent.stagesInsert(event, name, number, time, length, year, header);
                     }
 
-                    //							find.replaceAll("'", "\"");
-                    //							final String[] finds = matcher.group(0).replaceAll("'", "\"").split("\"");
-                    //							Log.e(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)) );
-                    //							DbEvent.photosInsert(finds[5], finds[1].replaceAll("/assets/", String.format("%s/assets/", AppState.RA_BASE_URL)), link.substring(link.lastIndexOf("/")+1));
                 }
 
             } catch (Exception e) {
-                Log.d(LOG_TAG, e.toString());
-                e.printStackTrace();
+                if(BuildConfig.DEBUG) {
+                    Log.d(LOG_TAG, e.toString());
+                    e.printStackTrace();
+                }
                 return e;
             } finally {
                 DbEvent.close();
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Stages Parsing finished");
+            if(BuildConfig.DEBUG) {
+                Log.d(LOG_TAG, "Stages Parsing finished");
+            }
             callback.onDataFetchComplete(result, function);
         }
     }
@@ -170,7 +168,6 @@ public class StagesFetcher implements Fetcher {
         @Override
         protected Throwable doInBackground(Void... arg0) {
 
-
             String table = String.format("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta name=\"viewport\" content=\"initial-scale=1.0\">\n<meta charset=\"utf-8\">\n%s</head>\n<body text=\"#ffffff\" text-align:center;\">", AppState.RALLY_AMERICA_CSS);
             try {
                 DbEvent.open();
@@ -184,7 +181,6 @@ public class StagesFetcher implements Fetcher {
                     if (matcher.find()) {
                         table += matcher.group(0) + "</body>" + "</html>";
                         DbEvent.stageResultsInsert(eventCode, year, curStage, table.replaceAll("<a href=\"/driver_lookup", String.format("<a href=\"%s/driver_lookup", AppState.RA_BASE_URL)), isResults);
-
                     }
 
                     if (conn.getResponseCode() == 200) {
@@ -194,8 +190,10 @@ public class StagesFetcher implements Fetcher {
 
                 }
             } catch (Exception e) {
-                Log.d(LOG_TAG, e.toString());
-                e.printStackTrace();
+                if(BuildConfig.DEBUG) {
+                    Log.d(LOG_TAG, e.toString());
+                    e.printStackTrace();
+                }
                 return e;
             } finally {
                 DbEvent.close();
@@ -206,7 +204,9 @@ public class StagesFetcher implements Fetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "Stages Parsing finished");
+            if(BuildConfig.DEBUG) {
+                Log.d(LOG_TAG, "Stages Parsing finished");
+            }
             callback.onDataFetchComplete(result, function);
         }
     }

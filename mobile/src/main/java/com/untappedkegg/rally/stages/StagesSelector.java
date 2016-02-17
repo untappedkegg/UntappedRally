@@ -65,17 +65,14 @@ public final class StagesSelector extends BaseSelector {
             curStage++;
             this.updateArgs(args, String.valueOf(curStage));
         }
-
     }
 
     @Override
     protected void onPreviousButtonClick() {
         if (curStage > 1) {
             curStage--;
-
             this.updateArgs(args, String.valueOf(curStage));
         }
-
     }
 
     @Override
@@ -86,8 +83,9 @@ public final class StagesSelector extends BaseSelector {
     @Override
     protected void disableButtons() {
         query = String.valueOf(curStage);
-        final ImageButton prevBtn = (ImageButton) getActivity().findViewById(getPreviousButtonId());
-        final ImageButton nextBtn = (ImageButton) getActivity().findViewById(getNextButtonId());
+        final Activity activity = getActivity();
+        final ImageButton prevBtn = (ImageButton) activity.findViewById(getPreviousButtonId());
+        final ImageButton nextBtn = (ImageButton) activity.findViewById(getNextButtonId());
         if (curStage <= 1) {
             prevBtn.setEnabled(false);
         } else if (curStage == maxStage) {

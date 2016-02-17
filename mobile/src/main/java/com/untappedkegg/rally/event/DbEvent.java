@@ -49,8 +49,8 @@ public final class DbEvent extends BaseDbAccessor {
         // Indexes
         db.execSQL(String.format(CREATE_INDEX, PHOTO_EVENT, PHOTO_TABLE, PHOTO_EVENT));
         db.execSQL(String.format(CREATE_INDEX, STAGES_EVENT, STAGES_TABLE, STAGES_EVENT));
-        db.execSQL(String.format(CREATE_TWO_INDICIES, STAGES_YEAR, STAGES_TABLE, STAGES_EVENT, STAGES_YEAR));
-        db.execSQL(String.format(CREATE_TWO_INDICIES, STAGES_NUMBER, STAGES_TABLE, STAGES_EVENT, STAGES_NUMBER));
+        db.execSQL(String.format(CREATE_TWO_INDICES, STAGES_YEAR, STAGES_TABLE, STAGES_EVENT, STAGES_YEAR));
+        db.execSQL(String.format(CREATE_TWO_INDICES, STAGES_NUMBER, STAGES_TABLE, STAGES_EVENT, STAGES_NUMBER));
 
     }
 

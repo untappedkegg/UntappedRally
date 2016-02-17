@@ -45,6 +45,8 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
+    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -90,7 +92,7 @@ public class AppState extends Application {
 
     // Event Specific News
     public static final HashMap<String, String> NEWS_MAP = new HashMap<String, String>() {{
-       put (SOURCE_100AW, RSS_100AW);
+       put( SOURCE_100AW, RSS_100AW);
        put(SOURCE_OREGON, RSS_OREGON);
        put( SOURCE_STPR, RSS_STPR );
        put( SOURCE_MTWA, RSS_MTWA);
@@ -143,7 +145,7 @@ public class AppState extends Application {
     public static final String MOD_STAND = "com.untappedkegg.rally.Standings";
     public static final String MOD_YOUTUBE = "com.untappedkegg.rally.YouTube";
     public static final String MOD_STAGES = "com.untappedkegg.rally.Stages";
-    public static final String MOD_PICS = "com.untappedkegg.rally.Photos";
+//    public static final String MOD_PICS = "com.untappedkegg.rally.Photos";
 
     public static final String FUNC_RA_STAND = "ra-standing";
     public static final String FUNC_STAGE_TIMES = "/stages/stage/%d";

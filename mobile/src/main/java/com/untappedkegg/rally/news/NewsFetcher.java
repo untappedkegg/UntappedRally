@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.data.NewDataFetcher.Callbacks;
 
@@ -37,7 +38,6 @@ public class NewsFetcher implements NewDataFetcher.Fetcher {
 
     @Override
     public void interrupt() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -84,7 +84,9 @@ public class NewsFetcher implements NewDataFetcher.Fetcher {
                     }
                     conn.disconnect();
                 } catch (Exception e) {
-                    Log.d(LOG_TAG, e.toString());
+                    if (BuildConfig.DEBUG) {
+                        Log.d(LOG_TAG, e.toString());
+                    }
                     return e;
                 } finally {
                     DbNews.close();
@@ -95,7 +97,9 @@ public class NewsFetcher implements NewDataFetcher.Fetcher {
 
         @Override
         protected void onPostExecute(Throwable result) {
-            Log.d(LOG_TAG, "News Parsing finished for: " + uri);
+            if (BuildConfig.DEBUG) {
+                Log.d(LOG_TAG, "News Parsing finished for: " + uri);
+            }
             callback.onDataFetchComplete(result, AppState.MOD_NEWS);
         }
     }

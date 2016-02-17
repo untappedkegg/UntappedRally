@@ -77,7 +77,7 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
             ActivityMain.setCurPosition(position);
             try {
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
 

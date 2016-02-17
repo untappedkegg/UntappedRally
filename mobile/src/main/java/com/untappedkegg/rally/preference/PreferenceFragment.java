@@ -59,12 +59,12 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
+        switch (msg.what) {
 
-                case MSG_BIND_PREFERENCES:
-                    bindPreferences();
-                    break;
-            }
+            case MSG_BIND_PREFERENCES:
+                bindPreferences();
+                break;
+        }
         }
     };
 
@@ -170,6 +170,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
 
     /**
      * Returns the {@link PreferenceManager} used by this fragment.
+     *
      * @return The {@link PreferenceManager}.
      */
     public PreferenceManager getPreferenceManager() {
@@ -194,7 +195,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
      * Gets the root of the preference hierarchy that this fragment is showing.
      *
      * @return The {@link PreferenceScreen} that is the root of the preference
-     *         hierarchy.
+     * hierarchy.
      */
     public PreferenceScreen getPreferenceScreen() {
         return PreferenceManagerCompat.getPreferenceScreen(mPreferenceManager);
@@ -227,8 +228,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     /**
      * {@inheritDoc}
      */
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-                                         Preference preference) {
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         //if (preference.getFragment() != null &&
         return getActivity() instanceof OnPreferenceStartFragmentCallback && ((OnPreferenceStartFragmentCallback) getActivity()).onPreferenceStartFragment(this, preference);
     }
@@ -284,7 +284,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
                     "Content has view with id attribute 'android.R.id.list' "
                             + "that is not a ListView class");
         }
-        mList = (ListView)rawListView;
+        mList = (ListView) rawListView;
         if (mList == null) {
             throw new RuntimeException(
                     "Your content must have a ListView whose id attribute is " +
@@ -327,10 +327,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
                 int index = listPreference.findIndexOfValue(stringValue);
 
                 // Set the summary to reflect the new value.
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
+                preference.setSummary( index >= 0 ? listPreference.getEntries()[index] : null);
 
             } else if (preference instanceof RingtonePreference) {
                 // For ringtone preferences, look up the correct display value

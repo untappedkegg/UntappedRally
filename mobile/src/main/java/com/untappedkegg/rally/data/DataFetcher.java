@@ -190,9 +190,6 @@ public class DataFetcher {
                     table += matcher.group(0).replaceAll("<a href=\"/champ_standings", String.format("<a href=\"%s/champ_standings", AppState.RA_BASE_URL));
                     //to remove the 'Detail' hyperlink uncomment this line
                     //							table += matcher.group(0).replaceAll("<td><a href=\"/champ_standings.*?</a></td>", "").replaceAll("<td>Detail</td>", "");
-                    //						} else {
-                    //							table += "<h3 align=\"center\">WRC Standings</h3>\n";
-                    //							table +=  matcher.group(0).replaceAll("href=\"/en/wrc/drivers.*?\"", "");
                     //						}
                 }
                 table += "</body>" + "</html>";

@@ -357,6 +357,5 @@ public final class DbAdapter {
             onCreate(db);
         }
 
-
     }
 }

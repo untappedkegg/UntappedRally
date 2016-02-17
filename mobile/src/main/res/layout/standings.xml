@@ -2,32 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout android:id="@+id/spinner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground">
 
-	        <Spinner android:id="@+id/standings_championship_spinner"
-	            android:layout_height="wrap_content"
-	            android:layout_width="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:entries="@array/championships_array"
-	            style="@style/spinner"/>
-
-
-	        <Spinner android:id="@+id/standings_year_spinner"
-	            android:layout_height="wrap_content"
-	            android:layout_width="wrap_content"
-	            android:layout_alignParentRight="true"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-	            style="@style/spinner"/>
+        <Spinner android:id="@+id/standings_championship_spinner"
+            style="@style/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:entries="@array/championships_array" />
+        
+        <Spinner android:id="@+id/standings_year_spinner"
+            style="@style/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp" />
 
     </RelativeLayout>
 
-    <include layout="@layout/generic_webview"/>
-
+    <include layout="@layout/generic_webview" />
 
 </LinearLayout>

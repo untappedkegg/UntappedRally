@@ -33,7 +33,7 @@ public class BaseWebviewDialog extends DialogFragment {
      *
      * @return A new instance of fragment BaseWebviewDialog.
      */
-    public static BaseWebviewDialog newInstance(String link, int title) {
+    public static BaseWebviewDialog newInstance(final String link, final int title) {
         BaseWebviewDialog fragment = new BaseWebviewDialog();
         Bundle args = new Bundle();
         args.putString(AppState.KEY_URL, link);

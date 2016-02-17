@@ -7,7 +7,6 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +25,16 @@ import java.util.TimerTask;
 /**
  * <p>Base implementation for a BaseFragment that uses CursorLoaders with automatic, periodic requerying.</p>
  *
- * @author russellja
  */
 public abstract class BaseDetails extends BaseFragment implements LoaderCallbacks<Cursor> {
     /* ----- CONSTANTS ----- */
-    protected final String LOG_TAG = BaseDetails.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(hashCode());
+//    protected final String LOG_TAG = BaseDetails.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(hashCode());
 
     /* ----- VARIABLES ----- */
     private volatile boolean hasSwappedCursor = true;
     protected DetailsAdapter detailsAdapter;
 
 	/* ----- CONSTRUCTORS ----- */
-
     /**
      * Required constructor.
      */
@@ -48,7 +45,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     }
 
 	/* ----- LIFECYCLE METHODS ----- */
-
     /**
      * <p>Sets {@code dataFetched} to false, {@code fetchOnCreate} and {@code hasSwappedCursor} to true. Subclass should override to change these values.</p>
      */
@@ -60,10 +56,8 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
         hasSwappedCursor = true;
     }
 
-
     /**
-     * <p>Creates the fragment layout and gets the required views from it based on what is returned from {@link #getDetailsLayout()}, {@link #getProgressBarId()}, and
-     * {@link #getButtonBarId()}.  Subclass should override those methods to change the values returned, or override this method with a call to get the view returned
+     * <p>Creates the fragment layout and gets the required views from it based on what is returned from {@link #getDetailsLayout()} and {@link #getProgressBarId()}.  Subclass should override those methods to change the values returned, or override this method with a call to get the view returned
      * from the super to get another view from the layout.</p>
      */
     @Override
@@ -82,7 +76,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //		Logger.i(LOG_TAG, "Loading DetailsAdapter.");
         detailsAdapter = createAdapter();
         detailsAdapter.setViewBinder(getViewBinder());
         detailsAdapter.setEmptyLayout(getEmptyViewLayout(), getEmptyViewId());
@@ -113,8 +106,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
 
 
 	/* ----- INHERITED METHODS ----- */
-    //	LoaderCallbacks
-
     /**
      * <p>Creates the {@code SimpleCursorLoader} based on the cursor returned by {@link #loadCursor()}.</p>
      */
@@ -170,7 +161,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
             getLoaderManager().restartLoader(getLoaderId(), null, this);
         }
 
-        Log.d(LOG_TAG, "Loading RequeryManager.");
+//        Log.d(LOG_TAG, "Loading RequeryManager.");
         requeryManager = new Thread(new DetailsRequery(), DetailsRequery.class.getSimpleName());
         requeryManager.start();
     }
@@ -206,7 +197,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
 
     /**
      * <p>Default implementation returns {@code R.layout.generic_details}. The subclass can override this method to change this value.
-     * If this value is changed, {@link #getButtonBarId()}, {@link #getProgressBarId()}, {@link #getDetailsContainerId()} will also need to be changed.</p>
+     * If this value is changed, {@link #getProgressBarId()}, {@link #getDetailsContainerId()} will also need to be changed.</p>
      *
      * @return the layout used for this page
      */
@@ -301,15 +292,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
         return null;
     }
 
-    /**
-     * <p>Default implementation returns {@code R.id.generic_details_buttonbar}.  The subclass can override this method to change this value
-     * if {@link #getDetailsLayout()} is overridden.  The id returned is used to set {@code buttonBar}.</p>
-     *
-     * @return the id for the button bar in the layout.
-     */
-    protected int getButtonBarId() {
-        return R.id.generic_details_buttonbar;
-    }
 
     /**
      * <p>Default implementation returns null. The subclass can override this method to change this value.</p>
@@ -334,13 +316,6 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      * @return a new instance of {@code DetailsAdapter}
      */
     protected abstract DetailsAdapter createAdapter();
-
-    /**
-     * <p>Hooks to subclass to check if the list should continue requerying the database for new information, usually from a webservice.</p>
-     *
-     * @return true if the data could still change, false if not.
-     */
-    //	protected abstract boolean shouldRequery();
 
 	/* ----- NESTED CLASSES ----- */
 
@@ -371,16 +346,16 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
             try {
                 do {
                     while (!hasSwappedCursor) {
-                        Log.d(LOG_TAG, "RequeryManager waiting.");
+//                        Log.d(LOG_TAG, "RequeryManager waiting.");
                         Thread.sleep(requeryWait);
                     }
                     hasSwappedCursor = false;
                     doUpdate();
                 } while (shouldRequery());
             } catch (InterruptedException e) {
-                Log.d(LOG_TAG, "RequeryManager interrupted");
+//                Log.d(LOG_TAG, "RequeryManager interrupted");
             }
-            Log.d(LOG_TAG, "Finished RequeryManager.");
+//            Log.d(LOG_TAG, "Finished RequeryManager.");
 
             doFinish();
         }

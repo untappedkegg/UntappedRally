@@ -29,7 +29,7 @@ public class CarouselAdapter extends PagerAdapter {
     private View.OnClickListener onClickListener;
 
     /* ----- CONSTRUCTORS ----- */
-    public CarouselAdapter(Context context, Cursor cursor, String[] from, int[] to, int layout, View.OnClickListener onClickListener) {
+    public CarouselAdapter(Context context, Cursor cursor, final String[] from, final int[] to, final int layout, View.OnClickListener onClickListener) {
         this.context = context;
         this.cursor = cursor;
         this.from = from;

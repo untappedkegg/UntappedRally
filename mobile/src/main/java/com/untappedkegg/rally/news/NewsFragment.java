@@ -57,7 +57,6 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         getListView().setOnItemLongClickListener(this);
     }
 
@@ -189,25 +188,6 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
         }
         return false;
     }
-
-    /*----- NESTED CLASSES -----*/
-    //	private class NewsUpdateTimerTask extends TimerTask {
-
-		/* ----- INHERITED METHODS ----- */
-    //		@Override
-    //		public void run() {
-    ////			if(getActivity() == null) {
-    ////				return;
-    ////			}
-    ////
-    ////			getActivity().runOnUiThread(new Runnable() {
-    ////				@Override
-    ////				public void run() {
-    //					refreshData();
-    ////				}
-    ////			});
-    //		}
-    //	}
 
 
 }

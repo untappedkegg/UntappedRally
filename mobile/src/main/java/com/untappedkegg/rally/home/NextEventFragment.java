@@ -148,7 +148,6 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
                 ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri, picture, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
-
                     }
 
                     @Override
@@ -161,12 +160,10 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-
                     }
 
                     @Override
                     public void onLoadingCancelled(String imageUri, View view) {
-
                     }
                 });
 
@@ -205,11 +202,10 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
                 picture.setVisibility(View.GONE);
                 if (TextUtils.isEmpty(counter.getText().toString())) {
                     counter.setVisibility(View.GONE);
-                    if (BuildConfig.DEBUG)
-                        e.printStackTrace();
                 }
+                if (BuildConfig.DEBUG)
+                    e.printStackTrace();
 
-                e.printStackTrace();
             } catch (CursorIndexOutOfBoundsException e) {
                 if (BuildConfig.DEBUG)
                     e.printStackTrace();

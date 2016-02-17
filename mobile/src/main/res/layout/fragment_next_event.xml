@@ -1,58 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".NextEventFragment">
+    android:layout_height="match_parent" >
 
     <!--Background image-->
     <ImageView android:id="@+id/next_event_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
 
     <!--Foreground image - event image-->
-    <ImageView android:id="@+id/next_event_img"
+    <ImageView  android:id="@+id/next_event_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="150dp"
-        android:maxHeight="150dp"
-        android:layout_alignParentLeft="true"
         android:layout_alignBottom="@+id/next_event_count_down"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
         android:layout_marginBottom="25dp"
+        android:layout_marginLeft="10dp"
+        android:maxHeight="150dp"
+        android:maxWidth="150dp"
         android:padding="15dp"
-        android:scaleType="fitStart"/>
+        android:scaleType="fitStart" />
 
     <TextView android:id="@+id/next_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:padding="3dp"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="5dp"
-        android:textSize="18sp"
         android:background="@color/translucent_dim_gray_more"
+        android:padding="3dp"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView android:id="@+id/next_event_count_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:padding="3dp"
         android:layout_marginBottom="10dp"
-        android:textSize="18sp"
         android:background="@color/cyan"
-        android:textColor="@color/white"/>
+        android:padding="3dp"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <ProgressBar android:id="@+id/next_event_progress"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:background="@android:color/transparent"
-        style="?android:attr/progressBarStyleLarge"
-        android:visibility="visible"
-        android:layout_centerInParent="true"/>
+        android:visibility="visible" />
 
 </RelativeLayout>

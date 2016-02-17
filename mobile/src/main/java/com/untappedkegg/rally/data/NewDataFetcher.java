@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -67,11 +65,7 @@ public class NewDataFetcher {
                 context.init(null, null, new java.security.SecureRandom());
                 connection = (HttpsURLConnection) url.openConnection();
                 ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
-            } catch (NoSuchAlgorithmException e) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace();
-                }
-            } catch (KeyManagementException e) {
+            } catch (Exception e) {
                 if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
@@ -79,16 +73,6 @@ public class NewDataFetcher {
         } else {
             connection = (HttpURLConnection) url.openConnection();
         }
-
-//        if (credentials != null) {
-//            final String user = credentials.getUserName();
-//            final String pass = credentials.getPassword();
-//            Authenticator.setDefault(new Authenticator() {
-//                protected PasswordAuthentication getPasswordAuthentication() {
-//                    return new PasswordAuthentication(user, pass.toCharArray());
-//                }
-//            });
-//        }
         GoogleAnalytics.getInstance(AppState.getApplication()).dispatchLocalHits();
 
         return connection;
@@ -105,7 +89,6 @@ public class NewDataFetcher {
      * @throws IOException
      */
     public static HttpURLConnection post(String link, String message) throws IOException {
-        //		startDns();
         Log.d(LOG_TAG, String.format("Retrieving from %s with post arguments %s.", link, message));
 
         final URL url = new URL(link);
@@ -117,11 +100,7 @@ public class NewDataFetcher {
                 context.init(null, null, new java.security.SecureRandom());
                 connection = (HttpsURLConnection) url.openConnection();
                 ((HttpsURLConnection) connection).setSSLSocketFactory(context.getSocketFactory());
-            } catch (NoSuchAlgorithmException e) {
-                if (BuildConfig.DEBUG) {
-                    e.printStackTrace();
-                }
-            } catch (KeyManagementException e) {
+            } catch (Exception e) {
                 if (BuildConfig.DEBUG) {
                     e.printStackTrace();
                 }
@@ -129,16 +108,6 @@ public class NewDataFetcher {
         } else {
             connection = (HttpURLConnection) url.openConnection();
         }
-
-//        if (credentials != null) {
-//            final String user = credentials.getUserName();
-//            final String pass = credentials.getPassword();
-//            Authenticator.setDefault(new Authenticator() {
-//                protected PasswordAuthentication getPasswordAuthentication() {
-//                    return new PasswordAuthentication(user, pass.toCharArray());
-//                }
-//            });
-//        }
 
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

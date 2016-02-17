@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.home.ActivityMain;
@@ -77,7 +78,8 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(modArray[position]);
 
             } catch (NullPointerException e) {
-                e.printStackTrace();
+                if(BuildConfig.DEBUG)
+                    e.printStackTrace();
             }
         }
     }

@@ -35,7 +35,6 @@ public final class StagesViewPager extends ViewPagerFragment implements AdapterV
     public StagesViewPager() {
         // Set to true so that the Spinner updates both child Fragments
         updateAllChildren = true;
-
     }
 
     /*----- LIFECYCLE METHODS -----*/
@@ -88,11 +87,6 @@ public final class StagesViewPager extends ViewPagerFragment implements AdapterV
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         BaseDbAccessor.close();
@@ -106,7 +100,7 @@ public final class StagesViewPager extends ViewPagerFragment implements AdapterV
     }
 
     @Override
-    protected Fragment getItems(int position) {
+    protected Fragment getItems(final int position) {
         Bundle bundle = new Bundle();
         bundle.putString(AppState.KEY_ARGS, link);
         bundle.putString(SearchManager.QUERY, query);
@@ -129,7 +123,7 @@ public final class StagesViewPager extends ViewPagerFragment implements AdapterV
     }
 
     @Override
-    protected CharSequence getPageTitles(int position) {
+    protected CharSequence getPageTitles(final int position) {
         switch(position) {
             case 0:
                 return getString(R.string.stages_times);

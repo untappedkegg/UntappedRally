@@ -2,7 +2,6 @@ package com.untappedkegg.rally.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -16,7 +15,7 @@ import com.untappedkegg.rally.data.BaseDbAccessor;
  */
 public abstract class BaseFragment extends Fragment {
     /* ----- CONSTANTS ----- */
-    protected final String LOG_TAG = BaseFragment.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(hashCode());
+//    protected final String LOG_TAG = BaseFragment.class.getSimpleName() + "(" + ((Object) this).getClass().getSimpleName() + ")@" + Integer.toHexString(hashCode());
 
     /* ----- VARIABLES ----- */
     protected boolean dataFetched = false;
@@ -159,18 +158,18 @@ public abstract class BaseFragment extends Fragment {
         /* ----- INHERITED METHODS ----- */
         @Override
         public void run() {
-            Log.d(LOG_TAG, "Starting RequeryManager.");
+//            Log.d(LOG_TAG, "Starting RequeryManager.");
 
             try {
                 do {
-                    Log.d(LOG_TAG, "RequeryManager waiting.");
+//                    Log.d(LOG_TAG, "RequeryManager waiting.");
                     Thread.sleep(requeryWait);
                     doUpdate();
                 } while (shouldRequery());
             } catch (InterruptedException e) {
-                Log.d(LOG_TAG, "RequeryManager interrupted");
+//                Log.d(LOG_TAG, "RequeryManager interrupted");
             }
-            Log.d(LOG_TAG, "Finished RequeryManager.");
+//            Log.d(LOG_TAG, "Finished RequeryManager.");
 
             doFinish();
         }

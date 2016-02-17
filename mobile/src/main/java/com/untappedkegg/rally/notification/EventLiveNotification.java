@@ -64,7 +64,7 @@ public class EventLiveNotification {
         }
 
         // Determine whether to actually display the notification or not
-        if(!override && AppState.getSettings().getString("last_notification_date", "0").equals(DateManager.now(DateManager.ISO8601_DATEONLY))) {
+        if (!override && AppState.getSettings().getString("last_notification_date", "0").equals(DateManager.now(DateManager.ISO8601_DATEONLY))) {
             // normal notification
             // has been shown
             Log.e("Notification", "exiting");
@@ -73,8 +73,6 @@ public class EventLiveNotification {
         } else {
             AppState.getSettings().edit().putString("last_notification_date", c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE))).apply();
         }
-
-
 
         final String eventName = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));
 
@@ -104,59 +102,59 @@ public class EventLiveNotification {
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.
                 .setDefaults(Notification.DEFAULT_LIGHTS)
-                        // Set required fields, including the small icon, the
-                        // notification title, and text.
+                // Set required fields, including the small icon, the
+                // notification title, and text.
                 .setSmallIcon(R.drawable.small_flag)
                 .setContentTitle(title)
-                        //                .setContentText(text)
+                //                .setContentText(text)
 
-                        // All fields below this line are optional.
+                // All fields below this line are optional.
 
-                        // Use a default priority (recognized on devices running Android
-                        // 4.1 or later)
+                // Use a default priority (recognized on devices running Android
+                // 4.1 or later)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-                        // Provide a large icon, shown with the notification in the
-                        // notification drawer on devices running Android 3.0 or later.
+                // Provide a large icon, shown with the notification in the
+                // notification drawer on devices running Android 3.0 or later.
                 .setLargeIcon(picture == null ? BitmapFactory.decodeResource(AppState.getApplication().getResources(), R.drawable.ic_launcher) : picture)
 
-                        // Set ticker text (preview) information for this notification.
+                // Set ticker text (preview) information for this notification.
                 .setTicker(title)
 
-                        // Show a number. This is useful when stacking notifications of
-                        // a single type.
+                // Show a number. This is useful when stacking notifications of
+                // a single type.
 //                .setNumber(number)
 
-                        // If this notification relates to a past or upcoming event, you
-                        // should set the relevant time information using the setWhen
-                        // method below. If this call is omitted, the notification's
-                        // timestamp will by set to the time at which it was shown.
-                        // TODO: Call setWhen if this notification relates to a past or
-                        // upcoming event. The sole argument to this method should be
-                        // the notification timestamp in milliseconds.
-                        //.setWhen(...)
+                // If this notification relates to a past or upcoming event, you
+                // should set the relevant time information using the setWhen
+                // method below. If this call is omitted, the notification's
+                // timestamp will by set to the time at which it was shown.
+                // TODO: Call setWhen if this notification relates to a past or
+                // upcoming event. The sole argument to this method should be
+                // the notification timestamp in milliseconds.
+                //.setWhen(...)
 
 
-                        //                .setWhen(diff)
-                        // Set the pending intent to be initiated when the user touches
-                        // the notification.
+//                .setWhen(diff)
+                // Set the pending intent to be initiated when the user touches
+                // the notification.
                 .setContentIntent(PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
                 .setContentText(fromTo)
-                        // Show expanded text content on devices running Android 4.1 or
-                        // later.
+                // Show expanded text content on devices running Android 4.1 or
+                // later.
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(eventName + "\n" + fromTo)
-                .setBigContentTitle(title)
+                                .setBigContentTitle(title)
                         /*.setSummaryText(eventName + "\n" + fromTo)*/)
 
-                        // Example additional actions for this notification. These will
-                        // only show on devices running Android 4.1 or later, so you
-                        // should ensure that the activity in this notification's
-                        // content intent provides access to the same actions in
-                        // another way.
+                // Example additional actions for this notification. These will
+                // only show on devices running Android 4.1 or later, so you
+                // should ensure that the activity in this notification's
+                // content intent provides access to the same actions in
+                // another way.
                 .addAction(R.drawable.ic_action_share, res.getString(R.string.action_share), PendingIntent.getActivity(context, 0, Intent.createChooser(new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, res.getString(R.string.event_live_notification_send_text, eventName)), res.getString(R.string.event_live_notification_share_chooser_text)), PendingIntent.FLAG_UPDATE_CURRENT))
                 .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US, "%s's %s", eventName, res.getString(R.string.action_website))), PendingIntent.FLAG_UPDATE_CURRENT))
 
-                        // Automatically dismiss the notification when it is touched.
+                // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);
         if (AppState.getSettings().getBoolean("setting_notifications_vibrate", true)) {
             builder = builder.setDefaults(Notification.DEFAULT_VIBRATE);

@@ -159,7 +159,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
 //        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         if (intent != null) {
-            views.setOnClickPendingIntent(R.id.widget_next_event_frame, PendingIntent.getActivity(context, PendingIntent.FLAG_UPDATE_CURRENT, intent, Intent.FLAG_ACTIVITY_NEW_TASK));
+            views.setOnClickPendingIntent(R.id.widget_next_event_frame, PendingIntent.getActivity(context, PendingIntent.FLAG_UPDATE_CURRENT, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         }
 
         // Instruct the widget manager to update the widget

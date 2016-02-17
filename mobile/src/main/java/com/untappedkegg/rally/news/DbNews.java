@@ -22,7 +22,6 @@ public final class DbNews extends BaseDbAccessor {
 
     public static final String NEWS_TABLE = "news";
 
-
     public static final String TITLE = "title";
     public static final String LINK = "link";
     public static final String DESCR = "descr";

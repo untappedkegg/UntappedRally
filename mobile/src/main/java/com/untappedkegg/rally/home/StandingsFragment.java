@@ -113,7 +113,6 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
     @Override
     public void onResume() {
         super.onResume();
-
         Tracker mTracker = AppState.getDefaultTracker();
         mTracker.setScreenName("Standings");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());

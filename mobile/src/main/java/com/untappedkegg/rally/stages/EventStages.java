@@ -55,17 +55,13 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     @Override
     public void fetchData() {
         DbUpdated.open();
-        if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAGES + linkPts[5] + linkPts[4])) <= AppState.STAND_UPDATE_DELAY) {
-            loadList();
-        } else {
-            loadList();
-
+        if (DateManager.timeBetweenInDays(DbUpdated.lastUpdated_by_Source(AppState.MOD_STAGES + linkPts[5] + linkPts[4])) > AppState.STAND_UPDATE_DELAY) {
             StagesFetcher.getInstance().startAll(this, link, linkPts[4]);
             progressBar.setVisibility(View.VISIBLE);
-
         }
-        DbUpdated.close();
+        loadList();
 
+        DbUpdated.close();
     }
 
     @Override
