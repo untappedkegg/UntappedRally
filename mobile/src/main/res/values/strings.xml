@@ -12,7 +12,7 @@
 
     <string name="just_a_moment">Just a Moment…</string>
 
-        <!-- Actions -->
+    <!-- Actions -->
     <string name="action_refresh">Refresh</string>
     <string name="action_share">Share</string>
     <string name="action_website">Website</string>
@@ -20,7 +20,7 @@
     <string name="event_website">Event Website</string>
 
 
-        <!-- Error -->
+    <!-- Error -->
     <string name="no_apps_available">No apps support this action</string>
     <string name="oops">Oops!</string>
     <string name="no_network_connection_msg">You don\'t seem to have an Internet connection at the moment. We\'ll go ahead and load old data, if it exists</string>
@@ -98,7 +98,7 @@
     <string name="changelog">Change Log</string>
     <string name="about_follow">Follow Me</string>
 
-        <!-- FeedBack -->
+    <!-- FeedBack -->
     <string name="feedback">Send Feedback</string>
     <string name="fb_preamble">App Version: %1$s \nAndroid SDK: %2$s \nAndroid Version: %3$s \nDevice: %4$s: %5$s  \nPlease leave the above lines for debugging purposes. Thank you!\n\n</string>
 
@@ -116,10 +116,10 @@
 
     <string name="empty_photos">Oops, there doesn\'t appear to be any photos right now.</string>
 
-        <!-- stages_row -->
+    <!-- stages_row -->
     <string name="event_stages_atc">First Car:</string>
 
-        <!-- Schedule -->
+    <!-- Schedule -->
     <string name="upcoming">Upcoming</string>
     <string name="live">LIVE!</string>
     <string name="now_live">NOW LIVE!</string>
@@ -134,23 +134,23 @@
     <string name="stage_results_error">No Results Found</string>
     <string name="stage_results_select">Select a stage to view results</string>
 
-        <!-- STAGE TIMES/RESULTS -->
+    <!-- STAGE TIMES/RESULTS -->
     <string name="stages_times">Times</string>
     <string name="stages_results">Results</string>
 
     <!-- _-_-_- PREFERENCES -_-_-_ -->
 
     <string name="settings">Settings</string>
-        <!-- Headers -->
+    <!-- Headers -->
     <string name="pref_header_schedule">Schedule</string>
     <string name="pref_header_news">News</string>
     <string name="pref_header_notifications">Notifications</string>
 
-        <!-- Schedule -->
+    <!-- Schedule -->
     <string name="settings_show_regional_events">Show Regional Events</string>
     <string name="settings_use_experimental_sched">Use Expandable Schedule</string>
 
-        <!-- News -->
+    <!-- News -->
     <string name="pref_news_title">Days to Keep News Items</string>
     <string name="pref_news_dialog_title">Keep For</string>
     <string-array name="pref_news_entries">
@@ -195,8 +195,12 @@
         <item>stpr</item>
     </string-array>
 
-        <!-- Notifications -->
+    <!-- Notifications -->
     <string name="settings_show_notifications">Event Notifications</string>
+
+    <string name="setting_stage_notifications">Stage Start Notifications</string>
+    <string name="setting_stage_notifs_summary">Notify me at the scheduled start of each stage</string>
+
     <string name="pref_title_sound">Play Sound</string>
     <string name="pref_title_vibrate">Vibrate</string>
 
@@ -219,5 +223,17 @@
 
     <string name="no_tweets">No Tweets</string>
     <string name="loading_tweets">Loading Tweets...</string>
+
+    <string name="stage_start_notification_title_template">Stage start: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="stage_start_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
 
 </resources>

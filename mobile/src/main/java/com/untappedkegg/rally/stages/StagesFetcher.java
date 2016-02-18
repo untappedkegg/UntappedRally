@@ -141,7 +141,8 @@ public class StagesFetcher implements Fetcher {
             if(BuildConfig.DEBUG) {
                 Log.d(LOG_TAG, "Stages Parsing finished");
             }
-            callback.onDataFetchComplete(result, function);
+            if(callback != null)
+                callback.onDataFetchComplete(result, function);
         }
     }
 
@@ -207,7 +208,9 @@ public class StagesFetcher implements Fetcher {
             if(BuildConfig.DEBUG) {
                 Log.d(LOG_TAG, "Stages Parsing finished");
             }
-            callback.onDataFetchComplete(result, function);
+
+            if(callback != null)
+                callback.onDataFetchComplete(result, function);
         }
     }
 

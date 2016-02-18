@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -252,7 +251,6 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
                 fragment = new StandingsFragment();
                 break;
             case 4:
-//                fragment = new YouTubeFragment();
                 fragment = new TwitterFragment();
                 break;
             case 5: // Spectating
@@ -263,18 +261,12 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
                 CommonIntents.openUrl(this, "http://www.rally-america.com/volunteer");
                 mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Touch").setLabel("Volunteer").build());
                 return;
-//            case 7:
-//                CommonIntents.sendFeedback(this);
-//                return;
             case 7: // Settings
                 fragment = new SettingsFragment();
                 break;
             case 8: // About
                 fragment = new AboutFragment();
                 break;
-            case 10: // Exit
-                this.finish();
-                return;
             default:
 
                 break;
@@ -283,8 +275,8 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
         if (fragment != null) {
             if (curPosition != position) {
                 fragment.setArguments(icicle);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, fragment)
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_frame, fragment)
                         .addToBackStack(((Object) fragment).getClass().getSimpleName())
                         .commit();
                 curPosition = (short)position;

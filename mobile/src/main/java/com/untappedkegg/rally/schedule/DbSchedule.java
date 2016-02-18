@@ -13,6 +13,7 @@ import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.util.DateManager;
 
 import java.util.Date;
+import java.util.Locale;
 
 public final class DbSchedule extends BaseDbAccessor {
 
@@ -176,19 +177,19 @@ public final class DbSchedule extends BaseDbAccessor {
         return false;
     }
 
-    public static String fetchNextEventStart() {
+    public static String fetchNextEventStart(String column) {
         final String today = DateManager.now(DateManager.ISO8601_DATEONLY);
 
         Cursor cursor;
         if ( AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true) ) {
-            cursor = dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s ORDER BY %s DESC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, SCHED_START_DATE);
+            cursor = dbAdapter.selectf("SELECT %s FROM %s WHERE '%s' <= %s ORDER BY %s DESC, %s ASC LIMIT 3", column, SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, SCHED_START_DATE);
         } else {
-            cursor = dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s ORDER BY %s DESC, %s ASC LIMIT 3", SCHED_TABLE, today, SCHED_END_DATE, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
+            cursor = dbAdapter.selectf("SELECT %s FROM %s WHERE '%s' <= %s AND %s ORDER BY %s DESC, %s ASC LIMIT 3", column, SCHED_TABLE, today, SCHED_END_DATE, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
 
         try {
             cursor.moveToFirst();
-            return cursor.getString(cursor.getColumnIndexOrThrow(SCHED_START_DATE));
+            return cursor.getString(0);
         } catch (Exception e) {
             if (BuildConfig.DEBUG)
             Log.e("DbSchedule", "Error getting time");
@@ -229,7 +230,7 @@ public final class DbSchedule extends BaseDbAccessor {
     }
 
     public static boolean isDataPresent() {
-        return dbAdapter.count(SCHED_TABLE) > 0;
+        return dbAdapter.count(SCHED_TABLE, String.format(Locale.US, "%s = %s", SCHED_YEAR_ACTUAL, DateManager.now(DateManager.YEAR))) > 0;
     }
 
     public static boolean hasDetails(String link) {

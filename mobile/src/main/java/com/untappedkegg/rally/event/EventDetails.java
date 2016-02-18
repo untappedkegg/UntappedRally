@@ -50,7 +50,8 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
             .showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
-            .cacheInMemory(true).cacheOnDisk(true)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
             .bitmapConfig(Bitmap.Config.ARGB_8888)
             .displayer(new FadeInBitmapDisplayer(750, true, true, false))
@@ -187,8 +188,8 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                             uri = "ra" + uri;
                         }
 
-                        uri = uri + "_large";
-                        ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri.toLowerCase(Locale.US), imageView, eventOptions);
+                        uri = AppState.EGG_DRAWABLE + uri.toLowerCase(Locale.US) + "_large";
+                        ImageLoader.getInstance().displayImage(uri, imageView, eventOptions);
                         imageView.setVisibility(View.VISIBLE);
                     }
                     return true;

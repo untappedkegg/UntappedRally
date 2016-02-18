@@ -27,7 +27,12 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
     private final DisplayImageOptions scheduleOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_launcher_large) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_launcher_large) // resource or drawable
             .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
-            .cacheInMemory(true).cacheOnDisk(true).imageScaleType(ImageScaleType.EXACTLY_STRETCHED).bitmapConfig(Bitmap.Config.RGB_565).displayer(new FadeInBitmapDisplayer(750, true, true, false)).build();
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .displayer(new FadeInBitmapDisplayer(750, true, true, false))
+            .build();
 
 
     public ScheduleTreeCursorAdapter(Context context, Cursor cursor, int groupLayout, String[] groupFrom, int[] groupTo, int childLayout, String[] childFrom, int[] childTo) {
@@ -83,7 +88,6 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             if (uri.contains("100aw")) {
                 uri = "ra" + uri;
             }
-
             ImageLoader.getInstance().displayImage(AppState.EGG_DRAWABLE + uri + "_large", holder.icon, scheduleOptions);
         }
 

@@ -11,6 +11,9 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.data.DbAdapter;
 import com.untappedkegg.rally.schedule.DbSchedule;
+import com.untappedkegg.rally.util.DateManager;
+
+import java.util.Locale;
 
 public final class DbEvent extends BaseDbAccessor {
 
@@ -169,6 +172,11 @@ public final class DbEvent extends BaseDbAccessor {
         }
         c.close();
         return AppState.getApplication().getResources().getString(R.string.stage_results_format, AppState.getApplication().getResources().getString(R.string.stage_results_error));
+    }
+
+
+    public static boolean isStageDataPresent(String event) {
+        return dbAdapter.count(STAGES_TABLE, String.format(Locale.US, "%s = %s AND %s = '%s'", STAGES_YEAR, DateManager.now(DateManager.YEAR), STAGES_EVENT, event)) > 0;
     }
 
 }

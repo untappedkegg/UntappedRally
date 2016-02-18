@@ -13,7 +13,7 @@ import com.untappedkegg.rally.schedule.DbSchedule;
 /**
  * Provides a unified location to catch system-wide intents.
  *
- * @author alexg
+ * @author UntappedKegg
  */
 public class GlobalReceiver extends BroadcastReceiver {
 

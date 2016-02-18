@@ -243,15 +243,17 @@ public class AppState extends Application {
                 .showImageOnLoading(R.drawable.image_placeholder) // resource or drawable
                 .showImageForEmptyUri(R.drawable.image_placeholder) // resource or drawable
                 .showImageOnFail(R.drawable.ic_launcher_large) // resource or drawable
-                .cacheInMemory(true).cacheOnDisk(true)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .displayer(new FadeInBitmapDisplayer(750, true, true, false))
+                .displayer(new FadeInBitmapDisplayer(750, true, false, false))
                 .build();
         final ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
                 .defaultDisplayImageOptions(defaultOptions)
                 .threadPoolSize(4)
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .tasksProcessingOrder(QueueProcessingType.FIFO)
+                .writeDebugLogs()
                 .build();
 
         ImageLoader.getInstance().init(config);
@@ -340,7 +342,7 @@ public class AppState extends Application {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
-                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * 8);
+                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * 8);
                 //The intent is declared in the manifest, if changed here it must also be changed there
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
                 alarm.set(AlarmManager.RTC, diff, pendingIntent);

@@ -48,6 +48,13 @@
             android:key="setting_notifications"
             android:title="@string/settings_show_notifications" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="setting_notifications"
+            android:key="stage_notifications"
+            android:title="@string/setting_stage_notifications"
+            android:summary="@string/setting_stage_notifs_summary"/>
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:dependency="setting_notifications"

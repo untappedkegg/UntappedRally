@@ -14,7 +14,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 2
@@ -36,7 +35,6 @@ android {
     buildTypes {
 
 
-
         release {
             minifyEnabled true
             shrinkResources true
@@ -51,20 +49,20 @@ android {
     }
 
 
-
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
+//    wearApp project(':wear')
     // if updated, check menu button still works
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile('com.twitter.sdk.android:twitter:1.12.1@aar') {
+        transitive = true;
+    }
+    compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-plus:8.3.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.diegocarloslima:fgelv:0.1.+@aar'
-    compile('com.twitter.sdk.android:twitter:1.12.1@aar') {
-        transitive = true;
-    }
+    compile 'com.android.support:support-v4:22.2.1'
 }
