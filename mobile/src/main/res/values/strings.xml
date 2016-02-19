@@ -144,7 +144,7 @@
     <!-- Headers -->
     <string name="pref_header_schedule">Schedule</string>
     <string name="pref_header_news">News</string>
-    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_header_notifications">Event Notifications</string>
 
     <!-- Schedule -->
     <string name="settings_show_regional_events">Show Regional Events</string>
@@ -235,5 +235,6 @@
         viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
         tortor.
     </string>
+    <string name="cancel">Cancel</string>
 
 </resources>

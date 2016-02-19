@@ -37,6 +37,34 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="Stages" >
+
+        <CheckBoxPreference
+            android:title="Use Local Times"
+            android:summary="Convert event times to my timezone"/>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:dependency="setting_notifications"
+            android:key="setting_stage_notifications"
+            android:title="@string/setting_stage_notifications"
+            android:summary="@string/setting_stage_notifs_summary"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="setting_stage_notifications"
+            android:key="setting_stage_notifications_sound"
+            android:title="@string/pref_title_sound" />
+
+        <!-- NOTE: This preference will be enabled only when the switch above is activated. -->
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="setting_stage_notifications"
+            android:key="setting_stage_notifications_vibrate"
+            android:title="@string/pref_title_vibrate" />
+    </PreferenceCategory>
+
 
     <PreferenceCategory
         android:icon="@android:drawable/ic_popup_reminder"
@@ -48,12 +76,11 @@
             android:key="setting_notifications"
             android:title="@string/settings_show_notifications" />
 
-        <SwitchPreference
-            android:defaultValue="false"
+        <com.untappedkegg.rally.preference.TimePreference
+            android:title="Notification Time"
             android:dependency="setting_notifications"
-            android:key="stage_notifications"
-            android:title="@string/setting_stage_notifications"
-            android:summary="@string/setting_stage_notifs_summary"/>
+            android:key="setting_notif_time"
+            android:defaultValue="50400000"/>
 
         <CheckBoxPreference
             android:defaultValue="true"

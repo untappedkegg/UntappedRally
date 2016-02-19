@@ -146,7 +146,7 @@ public class StageStartNotification {
      * Cancels any notifications of this type previously shown using
      * {@link #notify(Context, String, int)}.
      */
-    @TargetApi(Build.VERSION_CODES.ECLAIR)
+//    @TargetApi(Build.VERSION_CODES.ECLAIR)
     public static void cancel(final Context context) {
         final NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);

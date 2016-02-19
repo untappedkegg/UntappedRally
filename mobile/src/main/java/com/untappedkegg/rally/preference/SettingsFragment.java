@@ -9,8 +9,11 @@ import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -40,10 +43,16 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button notifyButton = new Button(getActivity());
+        LinearLayout layout = new LinearLayout(view.getContext());
+        layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        layout.setPadding(0, 50, 0, 50);
+        layout.setGravity(Gravity.CENTER_HORIZONTAL);
+        Button notifyButton = new Button(view.getContext());
+        notifyButton.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
         notifyButton.setText(R.string.settings_notify_button);
         notifyButton.setOnClickListener(this);
-        getListView().addFooterView(notifyButton);
+        layout.addView(notifyButton);
+        getListView().addFooterView(layout);
 
     }
 
@@ -102,8 +111,11 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.equals("setting_notifications")) {
+        if (key.equals("setting_notifications") || key.equals("setting_notif_time")) {
             AppState.setNextNotification();
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTimeInMillis(AppState.getSettings().getLong("setting_notif_time", 50400000));
+//            Log.e("Notification time", "" + DateManager.format(cal.getTime(), DateManager.TIMEONLY ));
         } else if (key.equals("pref_news_cutoff") || key.equals("event_feeds")) {
             AppState.NEWS_REFRESH = true;
         }
@@ -113,8 +125,6 @@ public class SettingsFragment extends PreferenceFragment implements OnSharedPref
 
     @Override
     public void onClick(View v) {
-//        final AlarmManager alarm = (AlarmManager) AppState.getApplication().getSystemService(Context.ALARM_SERVICE);
-
         //The intent is declared in the manifest, if changed here it must also be changed there
         EventLiveNotification.notify(AppState.getApplication(), true);
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(AppState.getApplication(), 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);

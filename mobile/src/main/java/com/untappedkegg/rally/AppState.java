@@ -29,6 +29,7 @@ import com.untappedkegg.rally.util.DateManager;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -45,7 +46,6 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
     public static final String KEY_SCROLL_Y = "com.untappedkegg.rally.SCROLL_Y";
@@ -342,8 +342,17 @@ public class AppState extends Application {
             final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
             BaseDbAccessor.open();
             try {
-                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * 8);
+//                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * 8);
+//
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(getSettings().getLong("setting_notif_time", 50400000));
+                final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * cal.get(Calendar.HOUR_OF_DAY)) + (DateUtils.MINUTE_IN_MILLIS * cal.get(Calendar.MINUTE));
                 //The intent is declared in the manifest, if changed here it must also be changed there
+//                Calendar newCal = Calendar.getInstance();
+//                newCal.setTimeInMillis(diff);
+//                Log.e("Event start is ", DateManager.format(DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY), DateManager.FULL_HUMAN_READABLE));
+//                Log.e("Alarm is scheduled for", DateManager.format(newCal.getTime(), DateManager.FULL_HUMAN_READABLE));
+//                Log.e("Notification time", "" + DateManager.format(cal.getTime(), DateManager.TIMEONLY ));
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, new Intent("com.untappedkegg.rally.notification.NEXT_EVENT_RECEIVER"), PendingIntent.FLAG_UPDATE_CURRENT);
                 alarm.set(AlarmManager.RTC, diff, pendingIntent);
             } catch (ParseException e) {

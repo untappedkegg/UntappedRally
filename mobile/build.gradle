@@ -21,12 +21,12 @@ def versionPatch = 9
 def versionBuild = 30 // bump for dogfood builds, public betas, etc.
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId 'com.untappedkegg.rally'
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 9
         //versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"//.${versionBuild}"
@@ -58,11 +58,12 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.12.1@aar') {
         transitive = true;
     }
-    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile 'com.android.support:preference-v14:23.1.1'
     compile 'com.google.android.gms:play-services-analytics:8.3.0'
     compile 'com.google.android.gms:play-services-maps:8.3.0'
     compile 'com.google.android.gms:play-services-plus:8.3.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.diegocarloslima:fgelv:0.1.+@aar'
-    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:support-v4:23.1.1'
 }
