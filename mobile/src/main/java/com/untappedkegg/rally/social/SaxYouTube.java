@@ -5,6 +5,8 @@ import com.untappedkegg.rally.data.BaseSAX;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import java.util.Locale;
+
 public class SaxYouTube extends BaseSAX {
     // tag names
     static final String TAG_THUMBNAIL = "thumbnail";
@@ -29,17 +31,23 @@ public class SaxYouTube extends BaseSAX {
 
     @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
+        localName = localName.toLowerCase(Locale.US);
+
         super.startElement(namespaceURI, localName, qName, atts);
 
-        if (localName.equalsIgnoreCase(TAG_THUMBNAIL)) {
-            String possibleThumbnail = atts.getValue(ATT_URL);
-            if (possibleThumbnail.endsWith(THUMBNAIL_SUFFIX)) {
-                thumbnail = possibleThumbnail;
-            }
-        } else if (localName.equalsIgnoreCase(TAG_YT_LINK)) {
-            ytLink = atts.getValue(ATT_URL);
-        } else if (localName.equalsIgnoreCase(TAG_YT_DIRECT_LINK)) {
-            dirLink = atts.getValue(ATT_URL);
+        switch (localName) {
+            case TAG_THUMBNAIL:
+                String possibleThumbnail = atts.getValue(ATT_URL);
+                if (possibleThumbnail.endsWith(THUMBNAIL_SUFFIX)) {
+                    thumbnail = possibleThumbnail;
+                }
+                break;
+            case TAG_YT_LINK:
+                ytLink = atts.getValue(ATT_URL);
+                break;
+            case TAG_YT_DIRECT_LINK:
+                dirLink = atts.getValue(ATT_URL);
+                break;
         }
     }
 
@@ -47,13 +55,14 @@ public class SaxYouTube extends BaseSAX {
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         super.endElement(namespaceURI, localName, qName);
 
-        if (localName.equalsIgnoreCase("title")) {
-            title = buffer;
-        } else if (localName.equalsIgnoreCase("thumbnail_medium")) {
-            thumbnail = buffer;
-        } else if (localName.equalsIgnoreCase(TAG_YOUTUBE_ROOT)) {
-            DbSocial.insertVideo(title, ytLink, dirLink, thumbnail);
+        switch (localName) {
+            case "thumbnail_medium":
+                thumbnail = buffer;
+                break;
+            case TAG_YOUTUBE_ROOT:
+                DbSocial.insertVideo(title, ytLink, dirLink, thumbnail);
 
+                break;
         }
     }
 }

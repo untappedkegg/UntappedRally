@@ -118,14 +118,16 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_add_to_cal) {
-            final String startDate = ((TextView) getActivity().findViewById(R.id.events_start)).getText().toString();
-            final String endDate = ((TextView) getActivity().findViewById(R.id.events_end)).getText().toString();
-            final String location = ((TextView) getActivity().findViewById(R.id.events_location)).getText().toString();
-
             try {
+                final String startDate = ((TextView) getActivity().findViewById(R.id.events_start)).getText().toString();
+                final String endDate = ((TextView) getActivity().findViewById(R.id.events_end)).getText().toString();
+                final String location = ((TextView) getActivity().findViewById(R.id.events_location)).getText().toString();
+
+
                 CommonIntents.addRallyToCalendar(getActivity(), eventName, DateManager.ISO8601_DATEONLY.parse(startDate), DateManager.add(Calendar.DAY_OF_MONTH, DateManager.ISO8601_DATEONLY.parse(endDate), 1), location);
+                mTracker.send(new HitBuilders.EventBuilder().setCategory("Action").setAction("Add To Calendar").setLabel(eventName).build());
                 return true;
-            } catch (ParseException e) {
+            } catch (Exception e) {
                 Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.calendar_error), Toast.LENGTH_LONG).show();
             }
         }

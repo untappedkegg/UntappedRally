@@ -36,6 +36,7 @@ public class TimePreference extends DialogPreference {
         super(ctxt, attrs, defStyle);
 
         setPositiveButtonText(R.string.dgts__okay);
+//        setPositiveButtonText(R.string.ok);
         setNegativeButtonText(R.string.cancel);
         calendar = new GregorianCalendar();
     }

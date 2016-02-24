@@ -16,6 +16,10 @@ import com.untappedkegg.rally.news.DbNews;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.social.DbSocial;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public final class DbAdapter {
     /* ----- CONSTANTS ----- */
     /**
@@ -294,6 +298,42 @@ public final class DbAdapter {
         } finally {
             c.close();
         }
+    }
+
+    public static final JSONArray serializeCursor(Cursor c) throws JSONException {
+        if(c == null || c.getCount() == 0) {
+            return null;
+        }
+        c.moveToFirst();
+        JSONArray result = new JSONArray();
+        final int colCount = c.getColumnCount();
+        final int count = c.getCount();
+        for (int i = 0; i < count; i++) {
+            JSONObject row = new JSONObject();
+            c.move(i);
+            for (int j = 0; j < colCount; j++) {
+                switch (c.getType(j)) {
+                    case Cursor.FIELD_TYPE_INTEGER:
+                        row.put(c.getColumnName(j), c.getInt(j));
+                        break;
+                    case Cursor.FIELD_TYPE_FLOAT:
+                        row.put(c.getColumnName(j), c.getFloat(j));
+                        break;
+                    case Cursor.FIELD_TYPE_STRING:
+                        row.put(c.getColumnName(j), c.getString(j));
+                        break;
+                    case Cursor.FIELD_TYPE_NULL:
+                        row.put(c.getColumnName(j), null);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            result.put(row);
+
+        }
+
+        return result;
     }
 
     /* ----- NESTED CLASSES ----- */

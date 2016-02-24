@@ -31,7 +31,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * <p>Number of milliseconds that the {@code requeryManager} should sleep between updates.  Default is {@link AppState#REQUERY_WAIT}.</p>
      */
-    protected final int requeryWait = AppState.REQUERY_WAIT;
+//    protected final int requeryWait = AppState.REQUERY_WAIT;
 
     /* ----- CONSTRUCTORS ----- */
     public BaseFragment() {
@@ -163,7 +163,7 @@ public abstract class BaseFragment extends Fragment {
             try {
                 do {
 //                    Log.d(LOG_TAG, "RequeryManager waiting.");
-                    Thread.sleep(requeryWait);
+                    Thread.sleep(AppState.REQUERY_WAIT / 4);
                     doUpdate();
                 } while (shouldRequery());
             } catch (InterruptedException e) {

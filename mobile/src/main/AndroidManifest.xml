@@ -98,10 +98,6 @@
             android:name="com.crashlytics.ApiKey"
             android:value="362fcc11fa857aa77ea8d19eb321aee01fd57ed6" />
 
-        <receiver
-            android:name=".receivers.StageStartNotificationReceiver"
-            android:enabled="true"
-            android:exported="false"></receiver>
     </application>
 
 </manifest>

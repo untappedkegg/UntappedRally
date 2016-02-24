@@ -8,6 +8,7 @@ import com.untappedkegg.rally.util.DateManager;
 import org.xml.sax.SAXException;
 
 import java.text.ParseException;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,24 +22,29 @@ public class SAXNews extends BaseSAX {
 
     @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        localName = localName.toLowerCase(Locale.US);
+
         super.endElement(namespaceURI, localName, qName);
 
-        if (localName.equalsIgnoreCase("pubdate") || localName.equalsIgnoreCase("date")) {
+        if (localName.equals("pubdate") || localName.equals("date")) {
             try {
                 /**
                  * Handle the news individually as necessary based on
                  * the format of the pubDate
                  */
-                if (uri.equals(AppState.SOURCE_IRALLY) ) {
-                    pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
-                    shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
-                } else if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
-                    pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_RA.parse(buffer));
-                    shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_RA.parse(buffer));
-                } else {
-
-                    pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE.parse(buffer));
-                    shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE.parse(buffer));
+                switch (uri) {
+                    case AppState.SOURCE_IRALLY:
+                        pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
+                        shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
+                        break;
+                    case AppState.SOURCE_RALLY_AMERICA:
+                        pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_RA.parse(buffer));
+                        shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_RA.parse(buffer));
+                        break;
+                    default:
+                        pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE.parse(buffer));
+                        shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE.parse(buffer));
+                        break;
                 }
             } catch (ParseException e) {
                 pubDate = buffer;
@@ -50,7 +56,7 @@ public class SAXNews extends BaseSAX {
             /**
              * pull the imgLink from the raw buffer for Rally America
              */
-        } else if (localName.equalsIgnoreCase("description") && uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
+        } else if (localName.equals("description") && uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
 
             Pattern pattern = Pattern.compile("src=\"(.*?)\"", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(buffer);
@@ -58,7 +64,7 @@ public class SAXNews extends BaseSAX {
                 imgLink = AppState.RA_BASE_URL + matcher.group(1);
             }
 
-        } else if (localName.equalsIgnoreCase("item")) {
+        } else if (localName.equals("item")) {
             if (uri.equals(AppState.SOURCE_RALLY_AMERICA)) {
                 description = description.replace("{summary}", "").trim();
             }

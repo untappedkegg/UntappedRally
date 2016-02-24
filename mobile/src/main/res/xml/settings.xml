@@ -37,6 +37,7 @@
 
     </PreferenceCategory>
 
+<!--
     <PreferenceCategory
         android:title="Stages" >
 
@@ -57,13 +58,14 @@
             android:key="setting_stage_notifications_sound"
             android:title="@string/pref_title_sound" />
 
-        <!-- NOTE: This preference will be enabled only when the switch above is activated. -->
+        &lt;!&ndash; NOTE: This preference will be enabled only when the switch above is activated. &ndash;&gt;
         <CheckBoxPreference
             android:defaultValue="true"
             android:dependency="setting_stage_notifications"
             android:key="setting_stage_notifications_vibrate"
             android:title="@string/pref_title_vibrate" />
     </PreferenceCategory>
+-->
 
 
     <PreferenceCategory

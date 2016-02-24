@@ -124,10 +124,17 @@ public final class DbSchedule extends BaseDbAccessor {
         final String today = DateManager.format(DateManager.now(), DateManager.ISO8601_DATEONLY);
         final String year = DateManager.format(DateManager.now(), DateManager.YEAR);
 
+//        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
+//            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
+//        } else {
+//            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
+//        }
         if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
-            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
+            return dbAdapter.selectf("SELECT %s, %s, %s, %s, %s, %s, %s, %s FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 2",
+                    SCHED_ID, SCHED_TITLE, SCHED_START_DATE, SCHED_FROM_TO, SCHED_SHORT_CODE, SCHED_END_DATE, SCHED_SITE, SCHED_IMG, SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
         } else {
-            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
+            return dbAdapter.selectf("SELECT %s, %s, %s, %s, %s, %s, %s, %s FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2",
+                    SCHED_ID, SCHED_TITLE, SCHED_START_DATE, SCHED_FROM_TO, SCHED_SHORT_CODE, SCHED_END_DATE, SCHED_SITE, SCHED_IMG, SCHED_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
         }
     }
     public static boolean isEventStarted(int eventId) {

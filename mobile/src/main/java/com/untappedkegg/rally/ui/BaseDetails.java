@@ -347,7 +347,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
                 do {
                     while (!hasSwappedCursor) {
 //                        Log.d(LOG_TAG, "RequeryManager waiting.");
-                        Thread.sleep(requeryWait);
+                        Thread.sleep(AppState.REQUERY_WAIT);
                     }
                     hasSwappedCursor = false;
                     doUpdate();

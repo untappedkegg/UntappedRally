@@ -77,6 +77,11 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
     }
 
     @Override
+    protected SimpleCursorAdapter.ViewBinder getViewBinder() {
+        return super.getViewBinder();
+    }
+
+    @Override
     protected boolean shouldRequery() {
         return StagesFetcher.getInstance().isRunning();
     }

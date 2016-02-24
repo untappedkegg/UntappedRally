@@ -179,4 +179,17 @@ public final class DbEvent extends BaseDbAccessor {
         return dbAdapter.count(STAGES_TABLE, String.format(Locale.US, "%s = %s AND %s = '%s'", STAGES_YEAR, DateManager.now(DateManager.YEAR), STAGES_EVENT, event)) > 0;
     }
 
+//    public static Cursor getNextStage() {
+//        final String today = DateManager.format(DateManager.now(), DateManager.DATABASE);
+//        final String year = DateManager.format(DateManager.now(), DateManager.YEAR);
+//
+////        Calendar.getInstance().getTimeZone()
+////        final String query = String.format(Locale.US, "SELECT ", );
+//        if (AppState.getSettings().getBoolean(AppState.getApplication().getString(R.string.settings_show_regional_events), true)) {
+//            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s ORDER BY %s ASC, %s ASC LIMIT 2", STAGES_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, SCHED_YEAR, SCHED_START_DATE);
+//        } else {
+//            return dbAdapter.selectf("SELECT * FROM %s WHERE '%s' <= %s AND %s >= %s AND %s ORDER BY %s ASC, %s ASC LIMIT 2", STAGES_TABLE, today, SCHED_END_DATE, SCHED_YEAR, year, NATIONAL, SCHED_YEAR, SCHED_START_DATE);
+//        }
+//    }
+
 }

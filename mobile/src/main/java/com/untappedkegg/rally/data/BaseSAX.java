@@ -2,6 +2,8 @@ package com.untappedkegg.rally.data;
 
 import android.util.Log;
 
+import com.untappedkegg.rally.BuildConfig;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -10,7 +12,6 @@ public class BaseSAX extends DefaultHandler {
     /* VARIABLES */
     protected String buffer;
     protected int id;
-    protected String name;
     protected String title;
     protected String status;
     protected String link;
@@ -20,18 +21,21 @@ public class BaseSAX extends DefaultHandler {
     protected String author;
     protected String imgLink;
 
-    protected String series;
 
 
     /* INHERITED METHODS */
     @Override
     public void startDocument() {
-        Log.i(getClass().getSimpleName(), "Started parsing data.");
+        if(BuildConfig.DEBUG) {
+            Log.i(getClass().getSimpleName(), "Started parsing data.");
+        }
     }
 
     @Override
     public void endDocument() {
-        Log.i(getClass().getSimpleName(), "Finished parsing data.");
+        if(BuildConfig.DEBUG) {
+            Log.i(getClass().getSimpleName(), "Finished parsing data.");
+        }
     }
 
     @Override
@@ -43,24 +47,30 @@ public class BaseSAX extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         buffer = buffer.trim();
 
-        if (localName.equalsIgnoreCase("id")) {
-            try {
-                id = Integer.parseInt(buffer);
-            } catch (NumberFormatException f) {
-                //Not much we can do
-            }
-        } else if (localName.equalsIgnoreCase("title")) {
-            title = android.text.Html.fromHtml(buffer).toString();
-        } else if (localName.equalsIgnoreCase("name")) {
-            name = buffer;
-        } else if (localName.equalsIgnoreCase("link") || localName.equalsIgnoreCase("feedburner:origLink")) {
-            link = buffer;
-        } else if (localName.equalsIgnoreCase("image") || localName.equalsIgnoreCase("img")) {
-            imgLink = buffer;
-        } else if (localName.equalsIgnoreCase("series")) {
-            series = buffer;
-        } else if (localName.equalsIgnoreCase("description")) {
-            description = android.text.Html.fromHtml(buffer.replaceAll("<img.+?>", "")).toString();
+        // localName should be lower case
+        switch (localName) {
+            case "id":
+                try {
+                    id = Integer.parseInt(buffer);
+                } catch (NumberFormatException f) {
+                    //Not much we can do
+                }
+                break;
+            case "title":
+                title = android.text.Html.fromHtml(buffer).toString();
+                break;
+            case "link":
+            case "feedburner:origlink":
+                link = buffer;
+                break;
+            case "image":
+            case "img":
+                imgLink = buffer;
+                break;
+            case "description":
+            case "desc":
+                description = android.text.Html.fromHtml(buffer.replaceAll("<img.+?>", "")).toString();
+                break;
         }
     }
 

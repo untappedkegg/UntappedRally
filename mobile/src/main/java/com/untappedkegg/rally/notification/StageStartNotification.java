@@ -78,7 +78,7 @@ public class StageStartNotification {
 
         final String ticker = exampleString;
         final String title = res.getString(
-                R.string.stage_start_notification_title_template, exampleString);
+                R.string.stage_start_notification_title, exampleString);
         final String text = res.getString(
                 R.string.stage_start_notification_placeholder_text_template, exampleString);
 

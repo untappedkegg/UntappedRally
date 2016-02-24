@@ -1,7 +1,6 @@
 package com.untappedkegg.rally.notification;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,11 +12,13 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.untappedkegg.rally.AppState;
+import com.untappedkegg.rally.BuildConfig;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.BaseDbAccessor;
 import com.untappedkegg.rally.event.EventActivity;
@@ -67,7 +68,9 @@ public class EventLiveNotification {
         if (!override && AppState.getSettings().getString("last_notification_date", "0").equals(DateManager.now(DateManager.ISO8601_DATEONLY))) {
             // normal notification
             // has been shown
-            Log.e("Notification", "exiting");
+            if(BuildConfig.DEBUG) {
+                Log.w("Notification", "exiting");
+            }
             c.close();
             return;
         } else {
@@ -96,6 +99,12 @@ public class EventLiveNotification {
         intent.putExtra(AppState.KEY_SHOULD_RECREATE, true);
 
         final String title = res.getString(R.string.event_live_notification_title_template, eventName);
+
+        // Set wearable portion
+        NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender()
+                        .setHintHideIcon(true)
+                        .setBackground(picture);
+
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
@@ -155,9 +164,12 @@ public class EventLiveNotification {
                 .addAction(R.drawable.ic_action_web_site, res.getString(R.string.action_website), PendingIntent.getActivity(context, 1, Intent.createChooser(new Intent(Intent.ACTION_VIEW, Uri.parse(website)), String.format(Locale.US, "%s's %s", eventName, res.getString(R.string.action_website))), PendingIntent.FLAG_UPDATE_CURRENT))
 
                 // Automatically dismiss the notification when it is touched.
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+
+                // Add wearable to regular notification
+                .extend(wearableExtender);
         if (AppState.getSettings().getBoolean("setting_notifications_vibrate", true)) {
-            builder = builder.setDefaults(Notification.DEFAULT_VIBRATE);
+            builder = builder.setDefaults(NotificationCompat.DEFAULT_VIBRATE);
         }
         if (AppState.getSettings().getBoolean("setting_notifications_sound", true)) {
             builder = builder.setSound(RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION));
@@ -167,7 +179,8 @@ public class EventLiveNotification {
     }
 
     private static void notify(final Context context, final Notification notification) {
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(NOTIFICATION_TAG, 0, notification);
     }
 
@@ -176,7 +189,8 @@ public class EventLiveNotification {
      * {@link #notify(Context, boolean)}.
      */
     public static void cancel(final Context context) {
-        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//        final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(NOTIFICATION_TAG, 0);
     }
 }

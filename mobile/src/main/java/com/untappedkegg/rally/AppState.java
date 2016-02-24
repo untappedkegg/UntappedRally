@@ -46,6 +46,7 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
     public static final String KEY_SCROLL_Y = "com.untappedkegg.rally.SCROLL_Y";
@@ -106,13 +107,13 @@ public class AppState extends Application {
     public static final String RSS_STPR = "http://www.stpr.org/feed/";
     public static final String RSS_MTWA = "http://climbtotheclouds.com/feed/";
     public static final String RSS_NEFR = "http://www.newenglandforestrally.com/feed/";
-    //Ojibwe
     public static final String RSS_OFPR = "http://ojibweforestrally.com/feed";
     public static final String RSS_LSPR = "http://www.lsprorally.com/feed/";
     public static final String RSS_SHOWME = "http://showmerally.100aw.org/?feed=rss2";
 
     //Calendars
     public static final String EGG_CAL_XML = "http://untappedkegg.com/rally/db/xml/";
+    public static final String EGG_CAL_JSON = "http://untappedkegg.com/rally/db/json/";
 //    public static final String EGG_DRAWABLE = "https://web.missouri.edu/~kpetg6/rally/drawable/";
     public static final String EGG_DRAWABLE = "http://images.untappedkegg.com/drawable/";
 //    public static final String EGG_DRAWABLE = "http://untappedkegg.com/rally/drawable/";
@@ -253,7 +254,7 @@ public class AppState extends Application {
                 .defaultDisplayImageOptions(defaultOptions)
                 .threadPoolSize(4)
                 .tasksProcessingOrder(QueueProcessingType.FIFO)
-                .writeDebugLogs()
+//                .writeDebugLogs()
                 .build();
 
         ImageLoader.getInstance().init(config);
@@ -268,8 +269,10 @@ public class AppState extends Application {
         if (mTracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(instance);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            analytics.setDryRun(BuildConfig.DEBUG);
             mTracker = analytics.newTracker(R.xml.global_tracker);
         }
+        mTracker.setUseSecure(true);
         return mTracker;
     }
     @Override
@@ -360,5 +363,30 @@ public class AppState extends Application {
             } finally {
                 BaseDbAccessor.close();
             }
+    }
+
+    public static void setNextStageNotification() {
+        final AlarmManager alarm = (AlarmManager) instance.getSystemService(Context.ALARM_SERVICE);
+        BaseDbAccessor.open();
+        try {
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(getSettings().getLong("setting_notif_time", 50400000));
+            final long diff = DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY).getTime() + (DateUtils.HOUR_IN_MILLIS * cal.get(Calendar.HOUR_OF_DAY)) + (DateUtils.MINUTE_IN_MILLIS * cal.get(Calendar.MINUTE));
+            //The intent is declared in the manifest, if changed here it must also be changed there
+//                Calendar newCal = Calendar.getInstance();
+//                newCal.setTimeInMillis(diff);
+//                Log.e("Event start is ", DateManager.format(DateManager.parse(DbSchedule.fetchNextEventStart(DbSchedule.SCHED_START_DATE), DateManager.ISO8601_DATEONLY), DateManager.FULL_HUMAN_READABLE));
+//                Log.e("Alarm is scheduled for", DateManager.format(newCal.getTime(), DateManager.FULL_HUMAN_READABLE));
+//                Log.e("Notification time", "" + DateManager.format(cal.getTime(), DateManager.TIMEONLY ));
+            Intent stageIntent = new Intent("com.untappedkegg.rally.notification.STAGE_START");
+//            stageIntent.putExtra();
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(instance, 0, stageIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarm.set(AlarmManager.RTC, diff, pendingIntent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDbAccessor.close();
+        }
     }
 }

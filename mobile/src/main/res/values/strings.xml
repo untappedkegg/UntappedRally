@@ -144,7 +144,7 @@
     <!-- Headers -->
     <string name="pref_header_schedule">Schedule</string>
     <string name="pref_header_news">News</string>
-    <string name="pref_header_notifications">Event Notifications</string>
+    <string name="pref_header_notifications">Notifications</string>
 
     <!-- Schedule -->
     <string name="settings_show_regional_events">Show Regional Events</string>
@@ -224,7 +224,7 @@
     <string name="no_tweets">No Tweets</string>
     <string name="loading_tweets">Loading Tweets...</string>
 
-    <string name="stage_start_notification_title_template">Stage start: %1$s</string>
+    <string name="stage_start_notification_title">Scheduled start: %1$s</string>
 
     <!-- TODO: remove this placeholder text -->
     <string name="stage_start_notification_placeholder_text_template">You said %1$s and lorem ipsum
@@ -236,5 +236,6 @@
         tortor.
     </string>
     <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 
 </resources>
