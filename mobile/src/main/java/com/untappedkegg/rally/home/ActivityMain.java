@@ -26,7 +26,7 @@ import com.untappedkegg.rally.event.EventDetails;
 import com.untappedkegg.rally.interfaces.NavDrawerItemSelected;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.interfaces.ScheduleItemClickReceiver;
-import com.untappedkegg.rally.news.NewsFragment;
+import com.untappedkegg.rally.news.ExpandableNewsFragment;
 import com.untappedkegg.rally.preference.SettingsFragment;
 import com.untappedkegg.rally.schedule.ExpandableScheduleFragment;
 import com.untappedkegg.rally.social.TwitterFragment;
@@ -245,7 +245,8 @@ public class ActivityMain extends AppCompatActivity implements ScheduleItemClick
                 fragment = new ExpandableScheduleFragment();
                 break;
             case 2:
-                fragment = new NewsFragment();
+//                fragment = new NewsFragment();
+                fragment = new ExpandableNewsFragment();
                 break;
             case 3:
                 fragment = new StandingsFragment();

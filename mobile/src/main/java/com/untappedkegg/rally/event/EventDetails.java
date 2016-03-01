@@ -321,10 +321,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
 
     public interface Callbacks {
         void selectPhotos(String link);
-
         void selectStages(String link);
-
-        void selectResults(String link);
     }
 
 }

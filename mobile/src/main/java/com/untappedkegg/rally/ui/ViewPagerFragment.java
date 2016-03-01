@@ -89,9 +89,9 @@ public abstract class ViewPagerFragment extends Fragment {
         for (Fragment dataFragment : fragments) {
             try {
                 if (dataFragment != null) {
-                    if (dataFragment instanceof BaseList) {
+                    /*if (dataFragment instanceof BaseList) {
                         ((BaseList) dataFragment).updateArgs(args, query);
-                    } else if (dataFragment instanceof BaseFragment) {
+                    } else*/ if (dataFragment instanceof BaseFragment) {
                         ((BaseFragment) dataFragment).updateArgs(args, query);
 //                    } else if (dataFragment instanceof BaseMap) {
 //                        ((BaseMap) dataFragment).updateArgs(args, query);

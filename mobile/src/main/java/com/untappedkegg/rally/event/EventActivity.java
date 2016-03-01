@@ -13,7 +13,6 @@ import com.untappedkegg.rally.AppState;
 import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.schedule.DbSchedule;
 import com.untappedkegg.rally.stages.ActivityStages;
-import com.untappedkegg.rally.stages.EventStages;
 import com.untappedkegg.rally.ui.BaseContainer;
 import com.untappedkegg.rally.util.DialogManager;
 
@@ -106,11 +105,6 @@ public class EventActivity extends BaseContainer implements EventDetails.Callbac
         intent.putExtra(AppState.KEY_SHOULD_RECREATE, shouldRecreate);
 
         startActivity(intent);
-    }
-
-    @Override
-    public void selectResults(String link) {
-        this.selectContent(EventStages.class.getName(), link);
     }
 
     @Override

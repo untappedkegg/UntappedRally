@@ -14,7 +14,7 @@ import com.untappedkegg.rally.schedule.DbSchedule;
 /**
  * Created by UntappedKegg on 1/21/15.
  */
-public final class ActivityStages extends EventActivity implements EventStages.Callbacks, EventStagesCollapsible.Callbacks {
+public final class ActivityStages extends EventActivity implements /*EventStages.Callbacks,*/ ExpandableStagesFragment.Callbacks {
 
     /*----- INHERITED METHODS -----*/
     @Override
@@ -28,7 +28,7 @@ public final class ActivityStages extends EventActivity implements EventStages.C
     @Override
     public void selectContent(final String uri, final String args, final String query, final int id, final boolean addToBackStack) {
 //            Fragment fragment = new EventStages();
-            Fragment fragment = new EventStagesCollapsible();
+            Fragment fragment = new ExpandableStagesFragment();
 
             final String link = DbSchedule.fetchEventRA_link(curId);
 

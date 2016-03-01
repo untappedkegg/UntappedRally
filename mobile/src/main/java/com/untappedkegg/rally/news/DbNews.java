@@ -119,5 +119,19 @@ public final class DbNews extends BaseDbAccessor {
         return dbAdapter.selectf("SELECT * FROM %s WHERE %s = %s", NEWS_TABLE, ID, id);
     }
 
+    public static Cursor getChildren(String shortDate) {
+        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
+        if (feeds != null) {
+            for (String feed : feeds) {
+                whereIn += ", '" + feed + "'";
+            }
+        }
+        return dbAdapter.select(String.format("SELECT * FROM %s WHERE %s IN (%s) AND %s = '%s' ORDER BY %s DESC", NEWS_TABLE, SOURCE, whereIn, SHORTDATE, shortDate, PUBDATE));
+    }
+
+    public static Cursor fetchHeaders() {
+        return dbAdapter.selectf("SELECT DISTINCT %s, _id FROM %s GROUP BY %s ORDER BY %s DESC", SHORTDATE, NEWS_TABLE, SHORTDATE, PUBDATE);
+    }
 }
 

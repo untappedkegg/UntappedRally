@@ -3,11 +3,11 @@ package com.untappedkegg.rally.news;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -17,13 +17,13 @@ import com.untappedkegg.rally.util.DateManager;
 
 import java.text.ParseException;
 
-public final class NewsViewBinder implements ViewBinder {
+public final class NewsTreeViewBinder implements SimpleCursorTreeAdapter.ViewBinder {
 
     /* ----- VARIABLES ----- */
     private final Context ctx;
 
     /* ----- CONSTRUCTORS ----- */
-    public NewsViewBinder(Context ctx) {
+    public NewsTreeViewBinder(Context ctx) {
         this.ctx = ctx;
     }
 

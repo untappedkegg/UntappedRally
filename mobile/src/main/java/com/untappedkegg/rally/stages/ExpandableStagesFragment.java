@@ -19,7 +19,7 @@ import com.untappedkegg.rally.ui.ExpandableList;
 import com.untappedkegg.rally.util.DateManager;
 
 
-public final class EventStagesCollapsible extends ExpandableList implements NewDataFetcher.Callbacks {
+public final class ExpandableStagesFragment extends ExpandableList implements NewDataFetcher.Callbacks {
 
     /*----- VARIABLES -----*/
     private String link;

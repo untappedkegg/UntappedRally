@@ -4,12 +4,11 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
+import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -20,7 +19,7 @@ import com.untappedkegg.rally.data.DbUpdated;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.interfaces.Refreshable;
 import com.untappedkegg.rally.ui.BaseDialogFragment;
-import com.untappedkegg.rally.ui.SectionList;
+import com.untappedkegg.rally.ui.ExpandableList;
 import com.untappedkegg.rally.util.CommonIntents;
 import com.untappedkegg.rally.util.DateManager;
 import com.untappedkegg.rally.util.DialogManager;
@@ -30,12 +29,12 @@ import com.untappedkegg.rally.util.DialogManager;
  *
  * @author UntappedKegg
  */
-public final class NewsFragment extends SectionList implements NewDataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
+public final class ExpandableNewsFragment extends ExpandableList implements NewDataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getListView().setOnItemLongClickListener(this);
+        listView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -45,7 +44,6 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
             this.refreshData();
             AppState.NEWS_REFRESH = false;
         }
-        loadList();
 
         Tracker mTracker = AppState.getDefaultTracker();
         mTracker.setScreenName("News");
@@ -54,35 +52,33 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
 
     /* ----- INHERITED METHODS ----- */
     @Override
-    protected String getSectionField() {
-        return DbNews.SHORTDATE;
-    }
-
-    @Override
     protected Cursor loadCursor() {
-        return DbNews.fetchAllNews();
+        return DbNews.fetchHeaders();
     }
 
     @Override
-    protected SimpleCursorAdapter createCursorAdapter() {
-        String[] from = new String[]{DbNews.TITLE, DbNews.DESCR, DbNews.PUBDATE, DbNews.LINK, DbNews.SOURCE, DbNews.IMAGE_LINK, DbNews.ID, DbNews.STATUS, DbNews.PUBDATE};
-        int[] to = new int[]{R.id.list_title, R.id.list_descr, R.id.list_date, R.id.list_link, R.id.list_icon, R.id.list_uri, R.id.list_id, R.id.read_status, R.id.list_date2};
-        return new SimpleCursorAdapter(getActivity(), R.layout.generic_list_row, null, from, to, 0);
+    protected SimpleCursorTreeAdapter createCursorAdapter() {
+        final String[] groupFrom = new String[]{DbNews.SHORTDATE};
+        final int[] groupTo = new int[]{R.id.generic_section_list_header_textview};
+        final String[] from = new String[]{DbNews.TITLE, DbNews.DESCR, DbNews.PUBDATE, DbNews.LINK, DbNews.SOURCE, DbNews.IMAGE_LINK, DbNews.ID, DbNews.STATUS, DbNews.PUBDATE};
+        final int[] to = new int[]{R.id.list_title, R.id.list_descr, R.id.list_date, R.id.list_link, R.id.list_icon, R.id.list_uri, R.id.list_id, R.id.read_status, R.id.list_date2};
+        return new NewsTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.generic_list_row, from, to);
+//        return null;
     }
 
     @Override
     protected boolean shouldRequery() { return NewsFetcher.getInstance().isRunning(); }
 
     @Override
-    protected ViewBinder getViewBinder() {
-        return new NewsViewBinder(getActivity());
+    protected SimpleCursorTreeAdapter.ViewBinder getViewBinder() {
+        return new NewsTreeViewBinder(getActivity());
     }
 
     @Override
     public void onDataFetchComplete(Throwable throwable, String parser) {
         if (parser.equals(AppState.MOD_NEWS)) {
             if (!this.isDetached() && this.isVisible()) {
-                loadList();
+                loadData();
             }
             DbUpdated.open();
             DbUpdated.updated_insert(AppState.MOD_NEWS);
@@ -93,10 +89,9 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     @Override
     public void fetchData() {
         DbUpdated.open();
-        if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) <= AppState.RSS_UPDATE_DELAY) {
-            loadList();
-        } else {
-            loadList();
+        loadData();
+        if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) > AppState.RSS_UPDATE_DELAY) {
+
             NewsFetcher.getInstance().news_start(this);
                 progressBar.setVisibility(View.VISIBLE);
         }
@@ -107,35 +102,6 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     public void refreshData() {
         NewsFetcher.getInstance().news_start(this);
         progressBar.setVisibility(View.VISIBLE);
-    }
-
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        if (!adapter.isSection(position)) {
-            final String source = ((TextView) v.findViewById(R.id.list_uri)).getText().toString();
-            final String link = ((TextView) v.findViewById(R.id.list_link)).getText().toString();
-            final String title = ((TextView) v.findViewById(R.id.list_title)).getText().toString();
-
-            final String descr = ((TextView) v.findViewById(R.id.list_descr)).getText().toString();
-            if (!descr.endsWith("...") && !descr.endsWith(Html.fromHtml("&#8594;").toString()) && !AppState.startsWithIgnoreCase(title, "Video")) {
-                // Call new fragment to display the Title, Image, and full Description for Michelin/Rally_America item
-
-                final String pubdate = ((TextView) v.findViewById(R.id.list_date2)).getText().toString();
-                final Fragment dialog = BaseDialogFragment.newInstance(title, descr, pubdate, link, source, true);
-
-                this.getChildFragmentManager().beginTransaction().add(dialog, dialog.toString()).commit();
-
-            } else {
-                CommonIntents.openUrl(getActivity(), link);
-            }
-            if (!((TextView) v.findViewById(R.id.read_status)).getText().toString().equals(getString(R.string.news_read))) {
-                DbNews.open();
-                DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.list_id)).getText().toString(), true);
-                DbNews.close();
-                loadList();
-            }
-        }
     }
 
     @Override
@@ -153,7 +119,7 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     DbNews.updateReadStatusById(dbId, false);
-                    loadList();
+                    adapter.notifyDataSetChanged();
                 }
             }, null);
             return true;
@@ -162,4 +128,31 @@ public final class NewsFragment extends SectionList implements NewDataFetcher.Ca
     }
 
 
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        final String source = ((TextView) v.findViewById(R.id.list_uri)).getText().toString();
+            final String link = ((TextView) v.findViewById(R.id.list_link)).getText().toString();
+            final String title = ((TextView) v.findViewById(R.id.list_title)).getText().toString();
+
+            final String descr = ((TextView) v.findViewById(R.id.list_descr)).getText().toString();
+            if (!descr.endsWith("...") && !descr.endsWith(Html.fromHtml("&#8594;").toString()) && !AppState.startsWithIgnoreCase(title, "Video")) {
+                // Call new fragment to display the Title, Image, and full Description for Rally_America item
+
+                final String pubdate = ((TextView) v.findViewById(R.id.list_date2)).getText().toString();
+                final Fragment dialog = BaseDialogFragment.newInstance(title, descr, pubdate, link, source, true);
+
+                this.getChildFragmentManager().beginTransaction().add(dialog, dialog.toString()).commit();
+
+            } else {
+                CommonIntents.openUrl(getActivity(), link);
+            }
+            if (!((TextView) v.findViewById(R.id.read_status)).getText().toString().equals(getString(R.string.news_read))) {
+                DbNews.open();
+                DbNews.updateReadStatusById(((TextView) v.findViewById(R.id.list_id)).getText().toString(), true);
+                DbNews.close();
+                loadData();
+                adapter.notifyDataSetChanged();
+            }
+        return true;
+    }
 }
