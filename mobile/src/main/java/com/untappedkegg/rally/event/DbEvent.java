@@ -121,6 +121,16 @@ public final class DbEvent extends BaseDbAccessor {
                 STAGES_ID, STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_ATC, STAGES_LENGTH, STAGES_LENGTH, STAGES_NUMBER, STAGES_HEADER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_NUMBER);
     }
 
+    public static Cursor stagesHeaderSelect(final String eventCode, final String year) {
+        return dbAdapter.selectf("SELECT DISTINCT %s, %s, %s, %s FROM %s WHERE %s = '%s' AND %s = '%s' GROUP BY %s",
+                STAGES_HEADER, STAGES_YEAR, STAGES_EVENT, STAGES_ID, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_HEADER);
+    }
+
+    public static Cursor getChildren(String forHeader, String eventCode, String year) {
+        return dbAdapter.selectf("SELECT %s, %s || '. ' || %s AS %s, %s, %s || ' mi.' AS %s, %s FROM %s WHERE %s = '%s' AND %s = %s AND %s = '%s' ORDER BY %s",
+                STAGES_ID, STAGES_NUMBER, STAGES_NAME, STAGES_NAME, STAGES_ATC, STAGES_LENGTH, STAGES_LENGTH, STAGES_NUMBER, STAGES_TABLE, STAGES_EVENT, eventCode, STAGES_YEAR, year, STAGES_HEADER, forHeader, STAGES_NUMBER);
+    }
+
     public static void delete_stages(final String eventCode, final String year) {
         final String where = String.format("%s = '%s' AND %s = %s", STAGES_EVENT, eventCode, STAGES_YEAR, year);
         dbAdapter.delete(STAGES_TABLE, where);

@@ -163,7 +163,7 @@ public abstract class BaseFragment extends Fragment {
             try {
                 do {
 //                    Log.d(LOG_TAG, "RequeryManager waiting.");
-                    Thread.sleep(AppState.REQUERY_WAIT / 4);
+                    Thread.sleep(AppState.REQUERY_WAIT / 2);
                     doUpdate();
                 } while (shouldRequery());
             } catch (InterruptedException e) {

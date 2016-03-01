@@ -81,7 +81,6 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
             if (!this.isDetached() && this.isVisible()) {
                 loadData();
             }
-            finishedLoading();
         }
     }
 

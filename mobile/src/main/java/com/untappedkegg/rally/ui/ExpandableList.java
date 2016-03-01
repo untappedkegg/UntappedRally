@@ -197,22 +197,21 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
     }
 
     /**
-     * <p>Adds buttons to the button bar, sets the cursor in the adapter, sets the text in the empty and header views. Subclass should override to perform any other actions
+     * <p>Sets the cursor in the adapter, sets the text in the empty and header views. Subclass should override to perform any other actions
      * on the loader thread.</p>
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        //        adapter.setChildrenCursor(1, cursor);
-//        Log.w(LOG_TAG, String.format("%s: %s %s %s %s", "OnLoadFinished", loader.isAbandoned(), loader.isReset(), loader.isStarted(), loader.dataToString(cursor)));
-        adapter.setGroupCursor(cursor);
+       adapter.setGroupCursor(cursor);
 
-        if(!listView.isDirty() && !isFromRestore)
+        if(!listView.isDirty())
         try {
-            final int i = adapter.getGroupCount();
+            final int i = cursor.getCount();
             for (int j = 0; j < i; j++) {
                 listView.expandGroup(j);
             }
-            adapter.notifyDataSetChanged();
+            setScroll();
+//            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -416,7 +415,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
 
     }
 
-               /* ----- NESTED CLASSES ----- */
+    /* ----- NESTED CLASSES ----- */
 
     /**
      * <p>Generic {@code View.OnClickListener} for the empty view.</p>
