@@ -65,7 +65,8 @@ public class EventLiveNotification {
         }
 
         // Determine whether to actually display the notification or not
-        if (!override && AppState.getSettings().getString("last_notification_date", "0").equals(DateManager.now(DateManager.ISO8601_DATEONLY))) {
+        final String currentDate = DateManager.now(DateManager.ISO8601_DATEONLY);
+        if (!override && AppState.getSettings().getString("last_notification_date", "0").equals(currentDate)) {
             // normal notification
             // has been shown
             if(BuildConfig.DEBUG) {
@@ -74,7 +75,7 @@ public class EventLiveNotification {
             c.close();
             return;
         } else {
-            AppState.getSettings().edit().putString("last_notification_date", c.getString(c.getColumnIndex(DbSchedule.SCHED_START_DATE))).apply();
+            AppState.getSettings().edit().putString("last_notification_date", currentDate).apply();
         }
 
         final String eventName = c.getString(c.getColumnIndex(DbSchedule.SCHED_TITLE));

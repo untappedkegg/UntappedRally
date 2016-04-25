@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
         <com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView
             android:id="@android:id/list"
@@ -15,11 +17,12 @@
         <TextView android:id="@android:id/empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingBottom="30dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="30dp" />
-    </FrameLayout>
+    </LinearLayout>
 
 
     <ProgressBar android:id="@+id/generic_expandable_section_list_progress"
@@ -27,8 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:background="@android:color/transparent"
-        android:visibility="gone" />
+        android:layout_margin="10dp" />
 
 </RelativeLayout>

@@ -79,11 +79,6 @@ public final class ExpandableStagesFragment extends ExpandableList implements Ne
         return new StagesTreeCursorAdapter(getActivity(), null, R.layout.generic_section_list_header, groupFrom, groupTo, R.layout.stages_row, from, to);
     }
 
-//    @Override
-//    protected SimpleCursorAdapter.ViewBinder getViewBinder() {
-//        return super.getViewBinder();
-//    }
-
     @Override
     protected boolean shouldRequery() {
         return StagesFetcher.getInstance().isRunning();
@@ -105,12 +100,12 @@ public final class ExpandableStagesFragment extends ExpandableList implements Ne
         if (progressBar.isShown()) {
             Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
         } else {
-            final String stageId = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
+            final String stageNum = ((TextView) v.findViewById(R.id.stages_id)).getText().toString();
 
             if (getActivity().findViewById(R.id.second_container) != null ) {
-                callbacks.updateStageResults(stageId);
+                callbacks.updateStageResults(stageNum);
             } else {
-                callbacks.selectStageDetail(link, stageId);
+                callbacks.selectStageDetail(link, stageNum);
             }
         }
         return true;

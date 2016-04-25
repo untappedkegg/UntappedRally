@@ -38,7 +38,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      * Behavior flag, used to determine if the cursor has been swapped in the adapter.
      */
     private volatile boolean hasSwappedCursor;
-    protected ProgressBar progressBar;
     protected View listHeaderView;
     protected int scrollIndex;
     protected int scrollTop;
@@ -218,7 +217,6 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
         isFromRestore = false;
         hasSwappedCursor = true;
         setEmptyText();
-        progressBar.setVisibility(View.GONE);
     }
 
     /**
@@ -229,7 +227,12 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
         adapter.setGroupCursor(null);
     }
 
-               /*----- CUSTOM METHODS -----*/
+    @Override
+    protected void updateRequery() {
+        getLoaderManager().restartLoader(getLoaderId(), null, ExpandableList.this);
+    }
+
+    /*----- CUSTOM METHODS -----*/
 
     /**
      * <p>Default implementation returns {@code R.layout.generic_list}. The subclass can override this method to change this value.
@@ -387,7 +390,13 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      * @return the {@code View.OnClickListener} for the {@code emptyView}
      */
     protected View.OnClickListener getEmptyOnClick() {
-        return null;
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setProgressBarVisibility(View.VISIBLE);
+                fetchData();
+            }
+        };
     }
 
     /**

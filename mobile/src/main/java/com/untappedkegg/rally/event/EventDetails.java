@@ -244,7 +244,11 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                     newRow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            callback.selectStages(((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
+                            if(shouldRequery()) {
+                                Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
+                            } else {
+                                callback.selectStages(((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
+                            }
                         }
                     });
                     ((ViewGroup) v).addView(newRow);
@@ -256,7 +260,11 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
                         newRow.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                callback.selectPhotos(((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
+                                if(shouldRequery()) {
+                                    Toast.makeText(getActivity(), R.string.just_a_moment, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    callback.selectPhotos(((TextView) getActivity().findViewById(R.id.events_evt_website)).getText().toString());
+                                }
                             }
                         });
                         ((ViewGroup) v).addView(newRow);

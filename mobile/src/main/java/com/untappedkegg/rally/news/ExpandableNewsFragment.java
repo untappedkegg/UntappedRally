@@ -91,7 +91,6 @@ public final class ExpandableNewsFragment extends ExpandableList implements NewD
         DbUpdated.open();
         loadData();
         if (DateManager.timeBetweenInMinutes(DbUpdated.lastUpdated_by_Source(AppState.MOD_NEWS)) > AppState.RSS_UPDATE_DELAY) {
-
             NewsFetcher.getInstance().news_start(this);
                 progressBar.setVisibility(View.VISIBLE);
         }

@@ -38,7 +38,7 @@ public class StagesTreeCursorAdapter extends SimpleCursorTreeAdapter {
             holder.distance = (TextView) v.findViewById(R.id.stages_distance);
 
             holder.nameColumn = c.getColumnIndexOrThrow(DbEvent.STAGES_NAME);
-            holder.idColumn = c.getColumnIndexOrThrow(DbEvent.STAGES_ID);
+            holder.numColumn = c.getColumnIndexOrThrow(DbEvent.STAGES_NUMBER);
             holder.atcColumn = c.getColumnIndexOrThrow(DbEvent.STAGES_ATC);
             holder.distanceColumn = c.getColumnIndexOrThrow(DbEvent.STAGES_LENGTH);
 
@@ -47,7 +47,7 @@ public class StagesTreeCursorAdapter extends SimpleCursorTreeAdapter {
 
 
         // ID
-        holder.id.setText(c.getString(holder.idColumn));
+        holder.id.setText(c.getString(holder.numColumn));
         // Title
         holder.name.setText(c.getString(holder.nameColumn));
         // ATC
@@ -60,6 +60,6 @@ public class StagesTreeCursorAdapter extends SimpleCursorTreeAdapter {
 
     static class StagesViewHolder {
         TextView name, id, atcText, distance;
-        int nameColumn, idColumn, atcColumn, distanceColumn;
+        int nameColumn, numColumn, atcColumn, distanceColumn;
     }
 }
