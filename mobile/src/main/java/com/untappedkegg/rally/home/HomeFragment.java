@@ -64,10 +64,12 @@ public final class HomeFragment extends Fragment implements OnClickListener, Ref
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final FragmentTransaction transaction = getChildFragmentManager().beginTransaction() ;
+        if(savedInstanceState == null) {
+            final FragmentTransaction transaction = getChildFragmentManager().beginTransaction() ;
             transaction.replace(R.id.home_middle, new NextEventFragment(), NextEventFragment.class.getCanonicalName());
             transaction.replace(R.id.home_bottom, new NewsCarousel(), NewsCarousel.class.getCanonicalName());
             transaction.commit();
+        }
 
         getActivity().findViewById(R.id.home_news_text).setOnClickListener(this);
         getActivity().findViewById(R.id.home_next_event_text).setOnClickListener(this);

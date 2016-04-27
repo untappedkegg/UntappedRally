@@ -124,7 +124,7 @@ public final class NewsCarousel extends BaseCarousel implements NewDataFetcher.C
                 this.loadPages();
             }
             DbUpdated.open();
-            DbUpdated.updated_insert(AppState.MOD_NEWS);
+            DbUpdated.updated_insert(parser);
             DbUpdated.close();
         }
 

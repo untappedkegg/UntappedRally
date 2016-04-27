@@ -37,6 +37,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
      * Behavior flag, used to determine if the data has been fetched.
      */
     protected boolean dataFetched = false;
+    protected boolean hasPaused = false;
     protected CarouselAdapter adapter;
     protected CarouselViewPager pager;
     //	protected ViewPagerDots pagerDots;
@@ -78,6 +79,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
         super.onCreate(savedInstanceState);
         dataFetched = (savedInstanceState != null) ? savedInstanceState.getBoolean("dataFetched") : dataFetched;
         autoRotate = (savedInstanceState != null) ? savedInstanceState.getBoolean("autoRotate") : autoRotate;
+        hasPaused = (savedInstanceState != null) ? savedInstanceState.getBoolean("hasPaused") : hasPaused;
     }
 
     /**
@@ -129,6 +131,19 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     public void onPause() {
         super.onPause();
         pauseCarousel();
+        hasPaused = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(hasPaused) {
+            if (dataFetched) {
+                loadPages();
+            }
+            resumeCarousel();
+            hasPaused = false;
+        }
     }
 
     /**
@@ -154,6 +169,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean("dataFetched", dataFetched);
         outState.putBoolean("autoRotate", autoRotate);
+        outState.putBoolean("hasPaused", hasPaused);
         super.onSaveInstanceState(outState);
     }
 

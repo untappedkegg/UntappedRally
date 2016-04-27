@@ -108,6 +108,14 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(timer != null) {
+            timer.cancel();
+        }
+    }
+
     private void fetchData() {
         DataFetcher.getInstance().sched_start(this, false);
     }
