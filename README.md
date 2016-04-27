@@ -2,7 +2,7 @@
 Untapped Rally is an Android app providing news, videos, schedules, and stage times/results for the Rally America series
 
 ## Downloads
- * [![Demo app](https://developer.android.com/images/brand/en_generic_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.untappedkegg.rally)
+ * [![Demo app]<img src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="45px" />](https://play.google.com/store/apps/details?id=com.untappedkegg.rally)
 [![Demo app](https://images-na.ssl-images-amazon.com/images/G/01/AmazonMobileApps/amazon-apps-store-us-black.png)](http://www.amazon.com/gp/mas/dl/android?p=com.untappedkegg.rally&ref=mas_pm_Untapped_Rally)
 
 ## Change Log
