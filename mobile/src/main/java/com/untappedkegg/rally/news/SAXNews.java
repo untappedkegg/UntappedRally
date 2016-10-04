@@ -33,10 +33,10 @@ public class SAXNews extends BaseSAX {
                  * the format of the pubDate
                  */
                 switch (uri) {
-                    case AppState.SOURCE_IRALLY:
-                        pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
-                        shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
-                        break;
+//                    case AppState.SOURCE_IRALLY:
+//                        pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_OFFSET.parse(buffer));
+//                        shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_OFFSET.parse(buffer));
+//                        break;
                     case AppState.SOURCE_RALLY_AMERICA:
                         pubDate = DateManager.formatForDatabase(DateManager.RSS_DATE_RA.parse(buffer));
                         shortDate = DateManager.DAYONLY_HUMAN_READABLE.format(DateManager.RSS_DATE_RA.parse(buffer));
@@ -71,14 +71,14 @@ public class SAXNews extends BaseSAX {
 
             try {
                 if (DateManager.timeBetweenInDays(DateManager.DATABASE.parse(pubDate).getTime()) < Integer.parseInt(AppState.getSettings().getString("pref_news_cutoff", "30"))) {
-                        // Filter out all Non Rally America stories form iRally
-                    if (!uri.equals(AppState.SOURCE_RALLY_AMERICA) && (title.startsWith("RA") || title.startsWith("USA"))) {
+//                        // Filter out all Non Rally America stories form iRally
+//                    if (!uri.equals(AppState.SOURCE_RALLY_AMERICA) && (title.startsWith("RA") || title.startsWith("USA"))) {
+//                        DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
+//                    } else if (!uri.equals(AppState.SOURCE_IRALLY)) {
                         DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
-                    } else if (!uri.equals(AppState.SOURCE_IRALLY)) {
-                        DbNews.news_insert(title, link, description.trim(), pubDate, shortDate, uri, imgLink);
-                    } else {
-                        return;
-                    }
+//                    } else {
+//                        return;
+//                    }
                 }
             } catch (ParseException e) {
                 if(BuildConfig.DEBUG)

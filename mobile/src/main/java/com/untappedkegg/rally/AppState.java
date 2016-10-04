@@ -86,7 +86,7 @@ public class AppState extends Application {
 
 
     // News Links
-    public static final String RSS_IRALLY = "http://www.irallylive.com/rss/irally_news.xml";
+//    public static final String RSS_IRALLY = "http://www.irallylive.com/rss/irally_news.xml";
     public static final String RSS_RALLY_MERICA = "http://rally-america.com/news/rss";
 
     // Event Specific News
@@ -126,7 +126,7 @@ public class AppState extends Application {
 
 
     // Sources
-    public static final String SOURCE_IRALLY = "iRally";
+//    public static final String SOURCE_IRALLY = "iRally";
     public static final String SOURCE_RALLY_AMERICA = "RA";
     public static final String SOURCE_100AW = "100aw";
     public static final String SOURCE_OREGON = "oregon";

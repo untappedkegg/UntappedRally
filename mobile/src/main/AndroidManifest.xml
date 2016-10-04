@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.untappedkegg.rally">
 
+    <uses-feature android:name="android.hardware.touchscreen"
+        android:required="false" />
+
     <!-- To get data -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- To check for network connections, adn determine the type -->
+    <!-- To check for network connections, and determine the type -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- To save images on external memory -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

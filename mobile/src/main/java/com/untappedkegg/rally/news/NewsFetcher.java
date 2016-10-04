@@ -47,7 +47,7 @@ public class NewsFetcher implements NewDataFetcher.Fetcher {
             DbNews.deleteOldItems();
 
             tasks.add(NewDataFetcher.execute(new NewsParser(callback, AppState.SOURCE_RALLY_AMERICA, AppState.RSS_RALLY_MERICA)));
-            tasks.add(NewDataFetcher.execute(new NewsParser(callback, AppState.SOURCE_IRALLY, AppState.RSS_IRALLY)));
+//            tasks.add(NewDataFetcher.execute(new NewsParser(callback, AppState.SOURCE_IRALLY, AppState.RSS_IRALLY)));
 
             //Fetch news for each user selected event
             final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
