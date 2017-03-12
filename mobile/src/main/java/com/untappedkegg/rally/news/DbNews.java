@@ -13,7 +13,6 @@ import com.untappedkegg.rally.util.DateManager;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.Set;
 
 
@@ -81,7 +80,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchAllNews() {
-        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        String whereIn = AppState.SOURCE_RALLY_AMERICA;
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {
@@ -105,7 +104,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchCarouselCurrentEvents() {
-        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        String whereIn = AppState.SOURCE_RALLY_AMERICA;
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {
@@ -120,7 +119,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor getChildren(String shortDate) {
-        String whereIn = String.format(Locale.US, "'%s', '%s'", AppState.SOURCE_RALLY_AMERICA, AppState.SOURCE_IRALLY);
+        String whereIn = AppState.SOURCE_RALLY_AMERICA;
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {

@@ -55,15 +55,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 //    wearApp project(':wear')
     // if updated, check menu button still works
-    compile('com.twitter.sdk.android:twitter:2.3.1@aar') {
+    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
         transitive = true;
     }
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
 //    compile 'com.android.support:preference-v14:23.1.1'
-    compile 'com.google.android.gms:play-services-analytics:10.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
-    compile 'com.google.android.gms:play-services-plus:10.0.1'
+    compile 'com.google.android.gms:play-services-analytics:10.2.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
+    compile 'com.google.android.gms:play-services-plus:10.2.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.diegocarloslima:fgelv:0.1.+@aar'
-    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:support-v4:25.2.0'
 }

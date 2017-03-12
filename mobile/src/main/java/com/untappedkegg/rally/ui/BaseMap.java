@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -31,14 +32,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * <p> WILL NEED RE-WRITE FOR NEW SUPPORT LIBRARY</p>
  * <p>
  * Base implementation for a {@link SupportMapFragment} that uses CursorLoaders
  * with automatic, periodic requerying to place markers on the map.
  * </p>
  *
- * @author russellja
  */
-public abstract class BaseMap extends SupportMapFragment implements LoaderCallbacks<Cursor>, GoogleMap.OnInfoWindowClickListener {
+
+public abstract class BaseMap extends SupportMapFragment implements LoaderCallbacks<Cursor>, GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback {
     /* ----- CONSTANTS ----- */
     // private final String LOG_TAG = BaseMap.class.getSimpleName() + "(" +
     // getClass().getSimpleName() + ")@" + Integer.toHexString(hashCode());
@@ -130,12 +132,9 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        map = getMap();
+        getMapAsync(this);
         clearMarkers();
-        if (map != null) {
-            map.setMyLocationEnabled(true);
-            map.setOnInfoWindowClickListener(this);
-        }
+
 
         if (dataFetched) {
             loadMapPlots();
@@ -174,6 +173,15 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
     }
 
 	/* ----- INHERITED METHODS ----- */
+	//MapFragment
+    @Override
+    public void onMapReady(GoogleMap gMap) {
+        this.map = gMap;
+        if (map != null) {
+//            map.setMyLocationEnabled(true);
+            map.setOnInfoWindowClickListener(this);
+        }
+    }
     // Fragment
 
     /**
