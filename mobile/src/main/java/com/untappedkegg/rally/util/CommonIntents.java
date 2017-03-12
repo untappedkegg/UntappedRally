@@ -12,6 +12,7 @@ import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.plus.PlusShare;
@@ -27,6 +28,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.untappedkegg.rally.AppState.getApplication;
 
 public final class CommonIntents {
 
@@ -225,7 +228,7 @@ public final class CommonIntents {
         share.setType("text/plain");
 
         // gets the list of intents that can be loaded.
-        List<ResolveInfo> resInfo = AppState.getApplication().getPackageManager().queryIntentActivities(share, 0);
+        List<ResolveInfo> resInfo = getApplication().getPackageManager().queryIntentActivities(share, 0);
         System.out.println("resinfo: " + resInfo);
         if (!resInfo.isEmpty()){
             for (ResolveInfo info : resInfo) {
@@ -256,18 +259,13 @@ public final class CommonIntents {
 
         // Email
         try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("email", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception ignored) { }
-
-        try {
-            targetedShareIntents.add(CommonIntents.getShareIntent("gmail", "Feedback: " + ctx.getString(R.string.app_name), emailMsg).putExtra(Intent.EXTRA_EMAIL, new String[] {"UntappedKegg@gmail.com"}));
-        } catch (Exception ignored) { }
+            targetedShareIntents.addAll(getEmailIntent("UntappedKegg@gmail.com", "Feedback: " + ctx.getString(R.string.app_name), emailMsg));
+        } catch (Exception ignored) {
+            if(BuildConfig.DEBUG)
+                ignored.printStackTrace();
+        }
 
         // Twitter
-//        Intent twitterIntent = CommonIntents.getShareIntent("twitter", "Untapped Rally", "@UntappedKegg ");
-//        if(twitterIntent != null)
-////            twitterIntent.set
-//            targetedShareIntents.add(twitterIntent);
         try {
             Intent twitterIntent = new Intent(Intent.ACTION_SEND);
             twitterIntent.setClassName("com.twitter.android", "com.twitter.android.composer.ComposerActivity");
@@ -297,11 +295,39 @@ public final class CommonIntents {
         } catch (Exception ignored) { }
 
         if(!targetedShareIntents.isEmpty()) {
-            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback via:");
+            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Send Feedback Via:");
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[targetedShareIntents.size()]));
             ctx.startActivity(chooserIntent);
         } else Toast.makeText(ctx, R.string.no_apps_available, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public static ArrayList<Intent> getEmailIntent(final String sendTo, final String subject, final String text)
+    {
+        boolean found = false;
+        Intent share = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", sendTo, null));
+        ArrayList<Intent> retList = new ArrayList<>();
+        // gets the list of intents that can be loaded.
+        List<ResolveInfo> resInfo = getApplication().getPackageManager().queryIntentActivities(share, 0);
+        Log.w("ResInfo", "resinfo: " + resInfo);
+        if (!resInfo.isEmpty()){
+            for (ResolveInfo currentInfo : resInfo) {
+                String packageName = currentInfo.activityInfo.packageName;
+                if (!packageName.toLowerCase().startsWith("com.paypal")) {
+                    Intent targetIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", sendTo, null)).putExtra(Intent.EXTRA_SUBJECT, subject);
+                    if (!TextUtils.isEmpty(text)) {
+                        targetIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    }
+//                    Log.e("found", "package: " + packageName);
+                    targetIntent.setPackage(packageName);
+                    retList.add(targetIntent);
+                    found = true;
+                }
+            }
+            if (found)
+                return retList;
+        }
+        return null;
     }
 
 }

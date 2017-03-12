@@ -80,7 +80,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchAllNews() {
-        String whereIn = AppState.SOURCE_RALLY_AMERICA;
+        String whereIn = "'" + AppState.SOURCE_RALLY_AMERICA + "'";
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {
@@ -104,7 +104,7 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor fetchCarouselCurrentEvents() {
-        String whereIn = AppState.SOURCE_RALLY_AMERICA;
+        String whereIn = "'" + AppState.SOURCE_RALLY_AMERICA + "'";
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {
@@ -119,13 +119,14 @@ public final class DbNews extends BaseDbAccessor {
     }
 
     public static Cursor getChildren(String shortDate) {
-        String whereIn = AppState.SOURCE_RALLY_AMERICA;
+        String whereIn = "'" + AppState.SOURCE_RALLY_AMERICA + "'";
         final Set<String> feeds = AppState.getSettings().getStringSet("event_feeds", null);
         if (feeds != null) {
             for (String feed : feeds) {
                 whereIn += ", '" + feed + "'";
             }
         }
+
         return dbAdapter.select(String.format("SELECT * FROM %s WHERE %s IN (%s) AND %s = '%s' ORDER BY %s DESC", NEWS_TABLE, SOURCE, whereIn, SHORTDATE, shortDate, PUBDATE));
     }
 
