@@ -237,5 +237,8 @@
     </string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="youtube">YouTube</string>
+    <string name="gplus">Google+</string>
+    <string name="twitter">Twitter</string>
 
 </resources>
