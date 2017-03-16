@@ -77,7 +77,7 @@ public class AppState extends Application {
 
     // Concurrency
     public static boolean NEWS_REFRESH = false;
-    public static final short REQUERY_WAIT = 500;
+    public static final short REQUERY_WAIT = 1000;
     public static final short STAGE_RESULT_DELAY = 60;
     public static final short STAND_UPDATE_DELAY = 1;
     public static final short YT_UPDATE_DELAY = 1;

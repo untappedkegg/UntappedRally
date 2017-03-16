@@ -1,6 +1,6 @@
 package com.untappedkegg.rally.stages;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -28,7 +28,7 @@ public final class ExpandableStagesFragment extends ExpandableList implements Ne
 
     /*----- LIFECYCLE METHODS -----*/
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
         linkPts = link.split("/");
@@ -131,6 +131,5 @@ public final class ExpandableStagesFragment extends ExpandableList implements Ne
     protected String getContactingEmptyText() {
         return getResources().getString(R.string.stages_contacting);
     }
-
 
 }
