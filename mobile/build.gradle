@@ -22,7 +22,7 @@ def versionBuild = 30 // bump for dogfood builds, public betas, etc.
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId 'com.untappedkegg.rally'
         minSdkVersion 15
@@ -58,12 +58,12 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
         transitive = true;
     }
-    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
 //    compile 'com.android.support:preference-v14:23.1.1'
-    compile 'com.google.android.gms:play-services-analytics:10.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-plus:10.2.0'
+    compile 'com.google.android.gms:play-services-analytics:10.2.6'
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
+    compile 'com.google.android.gms:play-services-plus:10.2.6'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.diegocarloslima:fgelv:0.1.+@aar'
-    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.diegocarloslima:fgelv:0.1.2'
+    compile 'com.android.support:support-v4:25.3.1'
 }
