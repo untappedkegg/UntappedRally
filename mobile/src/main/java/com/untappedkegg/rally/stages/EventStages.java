@@ -1,6 +1,6 @@
 package com.untappedkegg.rally.stages;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
@@ -28,7 +28,7 @@ public final class EventStages extends SectionList implements NewDataFetcher.Cal
 
     /*----- LIFECYCLE METHODS -----*/
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
         linkPts = link.split("/");

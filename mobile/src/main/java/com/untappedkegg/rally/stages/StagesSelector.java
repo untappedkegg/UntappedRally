@@ -2,6 +2,7 @@ package com.untappedkegg.rally.stages;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ImageButton;
@@ -25,7 +26,7 @@ public final class StagesSelector extends BaseSelector {
      * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         query = getArguments().getString(SearchManager.QUERY);
         curStage = Short.parseShort(query);

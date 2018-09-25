@@ -1,6 +1,7 @@
 package com.untappedkegg.rally.ui;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -68,7 +69,7 @@ public abstract class BaseFragment extends Fragment {
      * <p>Saves the behavioral flags to the saved instance state bundle.  Override this to save more variables.</p>
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putBoolean("dataFetched", dataFetched);
         outState.putBoolean("fetchOnCreate", fetchOnCreate);
         super.onSaveInstanceState(outState);

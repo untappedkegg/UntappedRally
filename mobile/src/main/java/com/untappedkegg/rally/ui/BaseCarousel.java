@@ -1,6 +1,6 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -62,7 +62,7 @@ public abstract class BaseCarousel extends BaseFragment implements LoaderCallbac
      * <p>Sets {@code dataFetched} to false and {@code hasSwappedCursor} to true.</p>
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         dataFetched = false;
         hasSwappedCursor = true;

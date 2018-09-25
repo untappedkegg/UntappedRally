@@ -48,12 +48,13 @@ public class DbUpdated extends BaseDbAccessor {
             return time;
         } else {
             c.close();
-            if (source.equals(AppState.MOD_NEWS)) {
-                return DateManager.add(Calendar.MINUTE, DateManager.now(), -(AppState.RSS_UPDATE_DELAY + 1)).getTime();
-            } else if (source.equals(AppState.MOD_SCHED)) {
-                return DateManager.add(Calendar.DATE, DateManager.now(), -(AppState.CAL_UPDATE_DELAY + 1)).getTime();
-            } else {
-                return 0;
+            switch (source) {
+                case AppState.MOD_NEWS:
+                    return DateManager.add(Calendar.MINUTE, DateManager.now(), -(AppState.RSS_UPDATE_DELAY + 1)).getTime();
+                case AppState.MOD_SCHED:
+                    return DateManager.add(Calendar.DATE, DateManager.now(), -(AppState.CAL_UPDATE_DELAY + 1)).getTime();
+                default:
+                    return 0;
             }
         }
     }

@@ -1,8 +1,8 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +29,7 @@ public abstract class BaseWebView extends BaseFragment {
      * @see android.support.v4.app.Fragment#onAttach(android.app.Activity)
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
     }
@@ -38,7 +38,7 @@ public abstract class BaseWebView extends BaseFragment {
      * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.generic_webview, null);
 

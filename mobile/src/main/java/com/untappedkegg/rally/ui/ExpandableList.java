@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -64,7 +65,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      * or override this method with a call to get the view returned from the super to get another view from the layout.</p>
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getListLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
         listView = (FloatingGroupExpandableListView) view.findViewById(android.R.id.list);
@@ -200,7 +201,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      * on the loader thread.</p>
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
        adapter.setGroupCursor(cursor);
 
         if(!listView.isDirty())
@@ -223,7 +224,7 @@ public abstract class ExpandableList extends BaseFragment implements LoaderCallb
      * <p>Removes the cursor from the adapter to clear the list view.</p>
      */
     @Override
-    public void onLoaderReset(Loader<Cursor> arg0) {
+    public void onLoaderReset(@NonNull Loader<Cursor> arg0) {
         adapter.setGroupCursor(null);
     }
 

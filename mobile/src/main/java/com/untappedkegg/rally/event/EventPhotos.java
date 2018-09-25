@@ -1,6 +1,6 @@
 package com.untappedkegg.rally.event;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -27,7 +27,7 @@ public final class EventPhotos extends BaseGridView implements NewDataFetcher.Ca
 
     /*----- LIFECYCLE METHODS -----*/
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         link = getArguments().getString(AppState.KEY_ARGS);
         linkPts = link.split("/");

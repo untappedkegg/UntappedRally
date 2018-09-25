@@ -17,17 +17,17 @@ repositories {
 // Manifest version information!
 def versionMajor = 1
 def versionMinor = 2
-def versionPatch = 11
+def versionPatch = 12
 def versionBuild = 30 // bump for dogfood builds, public betas, etc.
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "28.0.2"
     defaultConfig {
         applicationId 'com.untappedkegg.rally'
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 11
+        targetSdkVersion 27
+        versionCode 12
         //versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"//.${versionBuild}"
 
@@ -52,18 +52,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 //    wearApp project(':wear')
     // if updated, check menu button still works
-    compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
-        transitive = true;
+    implementation('com.twitter.sdk.android:twitter:2.3.2@aar') {
+        transitive = true
     }
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 //    compile 'com.android.support:preference-v14:23.1.1'
-    compile 'com.google.android.gms:play-services-analytics:10.2.6'
-    compile 'com.google.android.gms:play-services-maps:10.2.6'
-    compile 'com.google.android.gms:play-services-plus:10.2.6'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    compile 'com.diegocarloslima:fgelv:0.1.2'
-    compile 'com.android.support:support-v4:25.3.1'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.3'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.google.android.gms:play-services-plus:15.0.1'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.diegocarloslima:fgelv:0.1.2'
+    implementation 'com.android.support:support-v4:27.1.1'
 }

@@ -46,6 +46,8 @@ import io.fabric.sdk.android.Fabric;
 public class AppState extends Application {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "h04SuD4OGJfUuhgbAnNJFbZBu";
+    private static final String TWITTER_SECRET = "RusxEFTIl6lMN2uc5M2YuAIxWaS2mW49g27mWU3hjNmeR6LFye";
 
     // Generic Keys
     public static final String KEY_SCROLL_X = "com.untappedkegg.rally.SCROLL_X";
@@ -71,9 +73,10 @@ public class AppState extends Application {
     public static final String APP_LINK_AMAZON_ASIN = "amzn://apps/android?asin=B00RT90NAW";
 
     // About
-    public static final String CHANGELOG_URL = "http://untappedkegg.com/android/rally/changelog.txt";
+    public static final String CHANGELOG_URL = "http://untappedkegg.com/android/rally/changelog.html";
     public static final String SOCIAL_TWITTER = "https://twitter.com/untappedkegg";
     public static final String SOCIAL_G_PLUS = "https://google.com/+Untappedkegg/posts";
+    public static final String PRIVACY_POLICY = "http://untappedkegg.com/android/rally/privacy.html";
 
     // Concurrency
     public static boolean NEWS_REFRESH = false;

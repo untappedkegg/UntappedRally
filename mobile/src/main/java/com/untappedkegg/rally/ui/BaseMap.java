@@ -3,6 +3,7 @@ package com.untappedkegg.rally.ui;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
@@ -232,7 +233,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
      * </p>
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         int count = cursor.getCount();
         double latitude;
         double longitude;
@@ -277,7 +278,7 @@ public abstract class BaseMap extends SupportMapFragment implements LoaderCallba
      * </p>
      */
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         // Does nothing by default
     }
 

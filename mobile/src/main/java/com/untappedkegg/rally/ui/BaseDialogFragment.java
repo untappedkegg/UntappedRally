@@ -2,6 +2,7 @@ package com.untappedkegg.rally.ui;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.text.util.Linkify;
@@ -81,7 +82,7 @@ public class BaseDialogFragment extends DialogFragment implements View.OnClickLi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_detail, null);
         pubDateText = (TextView) view.findViewById(R.id.news_pub_date);
         mDescription = (TextView) view.findViewById(R.id.news_details_descr);

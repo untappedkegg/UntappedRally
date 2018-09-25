@@ -1,8 +1,9 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -78,7 +79,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Sets {@code dataFetched} to false, {@code fetchOnCreate} and {@code hasSwappedCursor} to true. Subclass should override to change these values.</p>
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         dataFetched = false;
         fetchOnCreate = true;
@@ -215,7 +216,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Saves the scroll position and the behavioral flags to the saved instance state bundle.  Override this to save more variables.</p>
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt("scrollIndex", scrollIndex);
         outState.putInt("scrollTop", scrollTop);
         outState.putBoolean("dataFetched", dataFetched);
@@ -245,7 +246,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Note that {@link #handleRequery()} is called when finishing.</p>
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
 
         adapter.swapCursor(cursor);
         hasSwappedCursor = true;
@@ -259,7 +260,7 @@ public abstract class BaseList extends ListFragment implements LoaderCallbacks<C
      * <p>Removes the cursor from the adapter to clear the list view.</p>
      */
     @Override
-    public void onLoaderReset(Loader<Cursor> arg0) {
+    public void onLoaderReset(@NonNull Loader<Cursor> arg0) {
         adapter.swapCursor(null);
     }
 

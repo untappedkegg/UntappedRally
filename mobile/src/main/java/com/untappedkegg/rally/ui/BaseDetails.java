@@ -1,8 +1,9 @@
 package com.untappedkegg.rally.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -49,7 +50,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      * <p>Sets {@code dataFetched} to false, {@code fetchOnCreate} and {@code hasSwappedCursor} to true. Subclass should override to change these values.</p>
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         dataFetched = false;
         fetchOnCreate = true;
@@ -61,7 +62,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      * from the super to get another view from the layout.</p>
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getDetailsLayout(), container, false);
         progressBar = (ProgressBar) view.findViewById(getProgressBarId());
         return view;
@@ -125,7 +126,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      * <p>Note that {@link #handleRequery()} is called when finishing.</p>
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         detailsAdapter.swapCursor(cursor);
         detailsAdapter.setEmptyText(getEmptyText());
         hasSwappedCursor = true;
@@ -136,7 +137,7 @@ public abstract class BaseDetails extends BaseFragment implements LoaderCallback
      * <p>Removes the cursor from the adapter to clear the details view.</p>
      */
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         detailsAdapter.swapCursor(null);
     }
 

@@ -240,5 +240,6 @@
     <string name="youtube">YouTube</string>
     <string name="gplus">Google+</string>
     <string name="twitter">Twitter</string>
+    <string name="about_privacy">Privacy Policy</string>
 
 </resources>

@@ -1,7 +1,7 @@
 package com.untappedkegg.rally.stages;
 
-import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +10,8 @@ import com.untappedkegg.rally.R;
 import com.untappedkegg.rally.data.NewDataFetcher;
 import com.untappedkegg.rally.event.DbEvent;
 import com.untappedkegg.rally.ui.BaseWebView;
+
+import java.util.Locale;
 
 public class StagesResults extends BaseWebView implements NewDataFetcher.Callbacks {
 
@@ -27,7 +29,7 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
      * @see com.untappedkegg.rally.ui.BaseWebView#onAttach(android.app.Activity)
      */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         curStage = Short.parseShort(getArguments().getString(SearchManager.QUERY));
         final String[] linkPts = link.split("/");
@@ -105,9 +107,9 @@ public class StagesResults extends BaseWebView implements NewDataFetcher.Callbac
 
     private String getFullLink() {
         if (!isFinished) {
-            return link + String.format(AppState.FUNC_STAGE_TIMES, curStage);
+            return link + String.format(Locale.US, AppState.FUNC_STAGE_TIMES, curStage);
         } else {
-            return link + String.format(AppState.FUNC_STAGE_RESULTS, curStage);
+            return link + String.format(Locale.US, AppState.FUNC_STAGE_RESULTS, curStage);
         }
     }
 

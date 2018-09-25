@@ -1,7 +1,8 @@
 package com.untappedkegg.rally.home;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -53,7 +54,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
     /*----- LIFECYCLE METHODS -----*/
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         position = getArguments().getShort(AppState.KEY_POSITION);
         modArray = getResources().getStringArray(R.array.action_bar_modules);
@@ -62,7 +63,7 @@ public final class StandingsFragment extends Fragment implements DataFetcher.Cal
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         LinearLayout view = (LinearLayout) inflater.inflate(R.layout.standings, null);

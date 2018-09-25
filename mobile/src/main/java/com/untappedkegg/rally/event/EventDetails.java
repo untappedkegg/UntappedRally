@@ -1,7 +1,6 @@
 package com.untappedkegg.rally.event;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.database.Cursor;
@@ -59,7 +58,7 @@ public final class EventDetails extends BaseDetails implements NewDataFetcher.Ca
 
     /*----- LIFECYCLE METHODS -----*/
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             callback = (Callbacks) activity;

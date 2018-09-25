@@ -2,6 +2,7 @@ package com.untappedkegg.rally.ui;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -105,7 +106,7 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
      * to perform any other actions on the loader thread.</p>
      */
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor c) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor c) {
         adapter.swapCursor(c);
         //		hasSwappedCursor = true;
         setEmptyText();
@@ -117,7 +118,7 @@ public abstract class BaseLoaderFragment extends BaseFragment implements LoaderC
      * <p>Removes the cursor from the adapter to clear the list view.</p>
      */
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         adapter.swapCursor(null);
     }
 

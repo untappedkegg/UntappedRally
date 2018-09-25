@@ -40,6 +40,8 @@ public class EventLiveNotification {
      */
     private static final String NOTIFICATION_TAG = "EventLive";
 
+    private static final String CHANNEL_ID = "untapped_event_live_notif";
+
     /**
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.
@@ -107,7 +109,7 @@ public class EventLiveNotification {
                         .setBackground(picture);
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
 
                 // Set appropriate defaults for the notification light, sound,
                 // and vibration.

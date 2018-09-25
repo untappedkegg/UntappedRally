@@ -54,7 +54,7 @@ public class ScheduleTreeCursorAdapter extends SimpleCursorTreeAdapter {
             holder = new ScheduleViewHolder();
             holder.icon = (ImageView) v.findViewById(R.id.sched_icon);
             holder.title = (TextView) v.findViewById(R.id.sched_title);
-            holder.id = (TextView) v.findViewById(R.id.sched_title);
+            holder.id = (TextView) v.findViewById(R.id.sched_id);
 
             holder.date = (TextView) v.findViewById(R.id.sched_date);
             holder.date = (TextView) v.findViewById(R.id.sched_date);

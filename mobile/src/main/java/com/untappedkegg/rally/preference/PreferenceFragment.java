@@ -29,6 +29,7 @@ import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -97,7 +98,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     }
 
     @Override
-    public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
+    public View onCreateView(@NonNull LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
         return paramLayoutInflater.inflate(R.layout.preference_list_fragment, paramViewGroup, false);
     }
 
@@ -150,7 +151,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
@@ -285,11 +286,6 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
                             + "that is not a ListView class");
         }
         mList = (ListView) rawListView;
-        if (mList == null) {
-            throw new RuntimeException(
-                    "Your content must have a ListView whose id attribute is " +
-                            "'android.R.id.list'");
-        }
         mList.setOnKeyListener(mListOnKeyListener);
         mHandler.post(mRequestFocus);
     }

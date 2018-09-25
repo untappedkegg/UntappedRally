@@ -1,6 +1,6 @@
 package com.untappedkegg.rally.schedule;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -25,7 +25,7 @@ public final class ExpandableScheduleFragment extends ExpandableList implements 
 
     /* ----- LIFECYCLE METHODS ----- */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             callback = (ScheduleItemClickReceiver) activity;

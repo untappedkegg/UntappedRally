@@ -42,8 +42,8 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
         widgetIds = appWidgetIds;
         // There may be multiple widgets active, so update all of them
         final int N = appWidgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(context, appWidgetManager, appWidgetIds[i]);
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
@@ -148,7 +148,7 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
 
             } catch (ParseException e) {
                 e.printStackTrace();
-            } catch (CursorIndexOutOfBoundsException e) {
+            } catch (CursorIndexOutOfBoundsException ignored) {
 
             } finally {
                 c.close();
@@ -175,8 +175,8 @@ public class NextEventWidget extends AppWidgetProvider implements DataFetcher.Ca
     public void onDataFetchComplete(Throwable throwable, String parser) {
         // There may be multiple widgets active, so update all of them
         final int N = widgetIds.length;
-        for (int i = 0; i < N; i++) {
-            updateAppWidget(ctx, widgetManager, widgetIds[i]);
+        for (int widgetId : widgetIds) {
+            updateAppWidget(ctx, widgetManager, widgetId);
         }
     }
 }

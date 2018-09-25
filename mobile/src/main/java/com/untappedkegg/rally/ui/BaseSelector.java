@@ -3,6 +3,7 @@ package com.untappedkegg.rally.ui;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -53,7 +54,7 @@ public abstract class BaseSelector extends BaseFragment implements View.OnClickL
      * or override this method with a call to get the view returned from the super to get a view from the layout.</p>
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), container, false);
         getViews(view);
         return view;

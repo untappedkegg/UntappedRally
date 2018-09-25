@@ -1,7 +1,7 @@
 package com.untappedkegg.rally.home;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.Bitmap;
@@ -62,7 +62,7 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
 
     /* ----- LIFECYCLE METHODS ----- */
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             callback = (ScheduleItemClickReceiver) activity;
@@ -186,13 +186,14 @@ public final class NextEventFragment extends BaseFragment implements View.OnClic
                     timer = new CountDownTimer(eventTime - System.currentTimeMillis(), 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
-                            String time = "";
+                            StringBuilder time = new StringBuilder();
                             String[] relative = DateManager.formatAsRelativeTime(millisUntilFinished);
 
                             for (short i = 0; i < 3; i++) {
-                                time += relative[i] + " ";
+                                time.append(relative[i])
+                                        .append(" ");
                             }
-                            counter.setText(time);
+                            counter.setText(time.toString());
                         }
 
                         @Override

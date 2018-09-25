@@ -3,6 +3,7 @@ package com.untappedkegg.rally.news;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
@@ -32,7 +33,7 @@ import com.untappedkegg.rally.util.DialogManager;
 public final class ExpandableNewsFragment extends ExpandableList implements NewDataFetcher.Callbacks, Refreshable, AdapterView.OnItemLongClickListener {
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView.setOnItemLongClickListener(this);
     }
